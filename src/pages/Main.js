@@ -20,6 +20,7 @@ const Main = (props) => {
     openModal();
   }, [0]);
 
+const Main = (props) => {
   return (
     <>
       {show_modal && <OnBoarding setShowModal={setShowModal} />}
