@@ -1,10 +1,12 @@
 import React from "react";
 import styled from "styled-components";
+import Header from "../components/Header";
 import Container from "../elements/Container";
 
-const OnBoarding = () => {
+const OnBoarding = ({ setShowModal }) => {
   return (
-    <div>
+    <Background>
+      {/* <Header /> */}
       <Container>
         <BoxDiv>
           <Flex>
@@ -20,17 +22,41 @@ const OnBoarding = () => {
               </FlexCount>
             </div>
           </div>
+          <BoldFont>새벽에 어울리는 나레이션</BoldFont>
+          <FlexTag>
+            <TagBox>깔끔한</TagBox>
+            <TagBox>깔끔한</TagBox>
+            <TagBox>깔끔한</TagBox>
+          </FlexTag>
+          <PlayBar></PlayBar>
         </BoxDiv>
         <Btn>나도 목소리 올리기</Btn>
-        <Btn>다른 목소리 듣기</Btn>
+        <Btn
+          onClick={() => {
+            setShowModal(false);
+            document.body.style.overflow = "unset";
+          }}
+        >
+          다른 목소리 듣기
+        </Btn>
       </Container>
-    </div>
+    </Background>
   );
 };
 
+const Background = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgb(255, 251, 251);
+  z-index: 9999;
+`;
+
 const BoxDiv = styled.div`
   width: 100%;
-  height: 55vh;
+  height: 540px;
   background-color: #b6b6b6;
   border-radius: 12px;
   margin-bottom: 45px;
@@ -40,6 +66,15 @@ const BoxDiv = styled.div`
 const Flex = styled.div`
   display: flex;
   align-items: center;
+  vertical-align: center;
+`;
+
+const FlexTag = styled.div`
+  display: flex;
+  align-items: center;
+  vertical-align: center;
+  justify-content: space-between;
+  padding: 0px 70px;
 `;
 
 const FlexCount = styled.div`
@@ -68,6 +103,32 @@ const BigCircle = styled.div`
   border-radius: 200px;
   background-color: #ddd;
   margin: 30px auto 20px auto;
+`;
+
+const BoldFont = styled.div`
+  font-size: 18px;
+  color: #fff;
+  font-weight: 500;
+  text-align: center;
+`;
+
+const TagBox = styled.button`
+  width: 55px;
+  height: 30px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  font-size: 13px;
+  text-align: center;
+  align-items: center;
+  margin: 15px 10px 0px 0px;
+  border: none;
+`;
+
+const PlayBar = styled.div`
+  width: 100%;
+  height: 30px;
+  background-color: #f5db6a;
+  margin-top: 30px;
 `;
 
 const Btn = styled.button`

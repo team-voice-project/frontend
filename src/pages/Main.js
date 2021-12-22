@@ -1,12 +1,28 @@
 import React from "react";
 import KakaoLoginBtn from "../components/login/KakaoLoginBtn";
 import styled from "styled-components";
-import Container from "../elements/Container";
-import Text from "../elements/Text";
+import { Container, Text } from "../elements/index";
+import OnBoarding from "../components/Onboarding";
 
 const Main = (props) => {
+  const [show_modal, setShowModal] = React.useState(false);
+
+  const openModal = () => {
+    setShowModal(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  React.useEffect(() => {
+    openModal();
+  }, [0]);
+
   return (
     <>
+      {show_modal && <OnBoarding setShowModal={setShowModal} />}
       <Container>
         <UploadBtn>나의 목소리 올리기</UploadBtn>
         <DivText>
@@ -24,10 +40,50 @@ const Main = (props) => {
               <Circle>{/* <Triangle /> */}</Circle>
               <Title>깔끔한 목소리</Title>
               <Name>김명자</Name>
-              <Flex>
+              <Count>
                 <div style={{ fontSize: "12px", marginRight: "4px" }}>132</div>
                 <div style={{ fontSize: "12px", marginRight: "4px" }}>20</div>
-              </Flex>
+              </Count>
+            </div>
+
+            <div>
+              <Circle>{/* <Triangle /> */}</Circle>
+              <Title>깔끔한 목소리</Title>
+              <Name>김명자</Name>
+              <Count>
+                <div style={{ fontSize: "12px", marginRight: "4px" }}>132</div>
+                <div style={{ fontSize: "12px", marginRight: "4px" }}>20</div>
+              </Count>
+            </div>
+
+            <div>
+              <Circle>{/* <Triangle /> */}</Circle>
+              <Title>깔끔한 목소리</Title>
+              <Name>김명자</Name>
+              <Count>
+                <div style={{ fontSize: "12px", marginRight: "4px" }}>132</div>
+                <div style={{ fontSize: "12px", marginRight: "4px" }}>20</div>
+              </Count>
+            </div>
+
+            <div>
+              <Circle>{/* <Triangle /> */}</Circle>
+              <Title>깔끔한 목소리</Title>
+              <Name>김명자</Name>
+              <Count>
+                <div style={{ fontSize: "12px", marginRight: "4px" }}>132</div>
+                <div style={{ fontSize: "12px", marginRight: "4px" }}>20</div>
+              </Count>
+            </div>
+
+            <div>
+              <Circle>{/* <Triangle /> */}</Circle>
+              <Title>깔끔한 목소리</Title>
+              <Name>김명자</Name>
+              <Count>
+                <div style={{ fontSize: "12px", marginRight: "4px" }}>132</div>
+                <div style={{ fontSize: "12px", marginRight: "4px" }}>20</div>
+              </Count>
             </div>
           </Flex>
         </div>
@@ -57,16 +113,17 @@ const Main = (props) => {
 const UploadBtn = styled.button`
   width: 100%;
   background-color: #ddd;
-  height: 10vh;
+  height: 7vh;
   color: #fff;
   font-size: 18px;
+  font-weight: 700;
   border: none;
-  border-radius: 15px;
+  border-radius: 10px;
 `;
 
 const DivText = styled.div`
-  font-size: 13px;
-  padding: 20px 0px 30px 0px;
+  font-size: 14px;
+  padding: 20px 0px 10px 0px;
   text-align: center;
 `;
 
@@ -74,6 +131,7 @@ const DivBoldText = styled.div`
   font-size: 20px;
   font-weight: 700;
   display: flex;
+  align-items: center;
   justify-content: space-between;
 `;
 
@@ -81,6 +139,10 @@ const Flex = styled.div`
   display: flex;
   align-items: center;
   vertical-align: center;
+  overflow-x: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Circle = styled.div`

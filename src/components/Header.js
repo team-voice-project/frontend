@@ -5,16 +5,21 @@ import Container from "../elements/Container";
 const Header = () => {
   return (
     <>
-      <Container>
-        <div>
-          <ImgDiv>
-            <img></img>
-          </ImgDiv>
-        </div>
-      </Container>
+      <Wrap>
+        <ImgDiv>
+          <img></img>
+        </ImgDiv>
+      </Wrap>
     </>
   );
 };
+
+const Wrap = styled.div`
+  padding: 20px 20px 0px 20px;
+  max-width: 425px;
+  width: 100%;
+  margin: auto;
+`;
 
 const ImgDiv = styled.div`
   background-color: #dfdfdf;
