@@ -12,16 +12,10 @@ const Container = (props) => {
   return <ContainerBox {...styles}>{children}</ContainerBox>;
 };
 
-Container.defaultProps = {
-  padding: false,
-  _className: "",
-};
-
 const ContainerBox = styled.div`
-  padding: 20px;
+  padding: ${({ padding }) => (padding ? padding : "0 20px")};
   max-width: 425px;
   width: 100%;
-  height: 100%;
   margin: 0 auto;
 `;
 
