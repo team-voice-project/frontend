@@ -19,8 +19,6 @@ const Main = (props) => {
   React.useEffect(() => {
     openModal();
   }, [0]);
-
-const Main = (props) => {
   return (
     <>
       {show_modal && <OnBoarding setShowModal={setShowModal} />}
@@ -177,4 +175,5 @@ const Count = styled.div`
   justify-content: space-between;
   padding-right: 20px;
 `;
+
 export default Main;
