@@ -8,14 +8,15 @@ import InCategory from "../pages/InCategory";
 import Login from "../pages/Login";
 import CategoryModal from "../components/CategoryModal";
 import PortfolioPage from "../pages/PortfolioPage";
+import MyPage from "../pages/MyPage";
 
 function App() {
   return (
     <>
       <GlobalStyles />
-      <Header />
-      <Route path="/" component={InCategory} />
+      <Route exact path="/" component={InCategory} />
       <Route exact path="/portfolio" component={PortfolioPage} />
+      <Route exact path="/mypage" component={MyPage} />
     </>
   );
 }
