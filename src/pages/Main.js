@@ -20,15 +20,20 @@ const Main = (props) => {
   React.useEffect(() => {
     openModal();
   }, [0]);
-
   return (
     <>
-      {/* {show_modal && <OnBoarding setShowModal={setShowModal} />} */}
+      {show_modal && <OnBoarding setShowModal={setShowModal} />}
       <Container>
         <SearchBar>
           <FlexSearchBar>
             <Logo></Logo>
-            <Temdiv>검</Temdiv>
+            <Temdiv
+              onClick={() => {
+                history.push("/search");
+              }}
+            >
+              검
+            </Temdiv>
             <Temdiv>마</Temdiv>
             <Temdiv
               onClick={() => {
@@ -39,68 +44,7 @@ const Main = (props) => {
         </SearchBar>
 
         <UploadBtn>나의 목소리 올리기</UploadBtn>
-        <DivText>
-          <text>나의 목소리를 올려서 사람들에게 들려주세요!</text>
-        </DivText>
-        <div style={{ marginBottom: "40 px" }}>
-          <DivBoldText>
-            <Text>최근에 올라온 목소리</Text>
-            <div
-              style={{ width: "28px", height: "28px", backgroundColor: "#ddd" }}
-            ></div>
-          </DivBoldText>
-          <Flex>
-            <div>
-              <Circle>{/* <Triangle /> */}</Circle>
-              <Title>깔끔한 목소리</Title>
-              <Name>김명자</Name>
-              <Count>
-                <div style={{ fontSize: "12px", marginRight: "4px" }}>132</div>
-                <div style={{ fontSize: "12px", marginRight: "4px" }}>20</div>
-              </Count>
-            </div>
-
-            <div>
-              <Circle>{/* <Triangle /> */}</Circle>
-              <Title>깔끔한 목소리</Title>
-              <Name>김명자</Name>
-              <Count>
-                <div style={{ fontSize: "12px", marginRight: "4px" }}>132</div>
-                <div style={{ fontSize: "12px", marginRight: "4px" }}>20</div>
-              </Count>
-            </div>
-
-            <div>
-              <Circle>{/* <Triangle /> */}</Circle>
-              <Title>깔끔한 목소리</Title>
-              <Name>김명자</Name>
-              <Count>
-                <div style={{ fontSize: "12px", marginRight: "4px" }}>132</div>
-                <div style={{ fontSize: "12px", marginRight: "4px" }}>20</div>
-              </Count>
-            </div>
-
-            <div>
-              <Circle>{/* <Triangle /> */}</Circle>
-              <Title>깔끔한 목소리</Title>
-              <Name>김명자</Name>
-              <Count>
-                <div style={{ fontSize: "12px", marginRight: "4px" }}>132</div>
-                <div style={{ fontSize: "12px", marginRight: "4px" }}>20</div>
-              </Count>
-            </div>
-
-            <div>
-              <Circle>{/* <Triangle /> */}</Circle>
-              <Title>깔끔한 목소리</Title>
-              <Name>김명자</Name>
-              <Count>
-                <div style={{ fontSize: "12px", marginRight: "4px" }}>132</div>
-                <div style={{ fontSize: "12px", marginRight: "4px" }}>20</div>
-              </Count>
-            </div>
-          </Flex>
-        </div>
+        <DivText>나의 목소리를 올려서 사람들에게 들려주세요!</DivText>
 
         <DivBoldText>
           <Text>최근에 올라온 목소리</Text>
@@ -109,7 +53,23 @@ const Main = (props) => {
           ></div>
         </DivBoldText>
         <Flex>
-          <div>
+          <MarginDiv>
+            <Circle>{/* <Triangle /> */}</Circle>
+            <Title>깔끔한 목소리</Title>
+            <Name>김명자</Name>
+            <Count>
+              <Flex>
+                <IconDiv></IconDiv>
+                <LikeComment>132</LikeComment>
+              </Flex>
+              <Flex>
+                <IconDiv></IconDiv>
+                <LikeComment>20</LikeComment>
+              </Flex>
+            </Count>
+          </MarginDiv>
+
+          <MarginDiv>
             <Circle>{/* <Triangle /> */}</Circle>
             <Title>깔끔한 목소리</Title>
             <Name>김명자</Name>
@@ -117,7 +77,41 @@ const Main = (props) => {
               <div style={{ fontSize: "12px", marginRight: "4px" }}>132</div>
               <div style={{ fontSize: "12px", marginRight: "4px" }}>20</div>
             </Count>
-          </div>
+          </MarginDiv>
+
+          <MarginDiv>
+            <Circle>{/* <Triangle /> */}</Circle>
+            <Title>깔끔한 목소리</Title>
+            <Name>김명자</Name>
+            <Count>
+              <div style={{ fontSize: "12px", marginRight: "4px" }}>132</div>
+              <div style={{ fontSize: "12px", marginRight: "4px" }}>20</div>
+            </Count>
+          </MarginDiv>
+        </Flex>
+
+        <DivBoldText>
+          <Text>최근에 올라온 목소리</Text>
+          <div
+            style={{ width: "28px", height: "28px", backgroundColor: "#ddd" }}
+          ></div>
+        </DivBoldText>
+        <Flex>
+          <MarginDiv>
+            <Circle>{/* <Triangle /> */}</Circle>
+            <Title>깔끔한 목소리</Title>
+            <Name>김명자</Name>
+            <Count>
+              <Flex>
+                <IconDiv></IconDiv>
+                <LikeComment>132</LikeComment>
+              </Flex>
+              <Flex>
+                <IconDiv></IconDiv>
+                <LikeComment>20</LikeComment>
+              </Flex>
+            </Count>
+          </MarginDiv>
         </Flex>
       </Container>
     </>
@@ -150,7 +144,7 @@ const Temdiv = styled.div`
 
 const UploadBtn = styled.button`
   width: 100%;
-  background-color: #ddd;
+  background-color: #636363;
   height: 7vh;
   color: #fff;
   font-size: 18px;
@@ -161,7 +155,7 @@ const UploadBtn = styled.button`
 
 const DivText = styled.div`
   font-size: 14px;
-  padding: 20px 0px 10px 0px;
+  padding: 15px 0px 10px 0px;
   text-align: center;
 `;
 
@@ -183,13 +177,17 @@ const Flex = styled.div`
   }
 `;
 
+const MarginDiv = styled.div`
+  margin-bottom: 24px;
+`;
+
 const Circle = styled.div`
-  width: 120px;
-  height: 120px;
+  width: 135px;
+  height: 135px;
   background-color: #ddd;
-  border: 3px solid #f2f7b1;
+  border: 5px solid #e6cf00;
   border-radius: 120px;
-  margin: 20px 10px 15px 0px;
+  margin: 0px 12px 8px 0px;
 `;
 
 // const Triangle = styled.div`
@@ -203,15 +201,30 @@ const Circle = styled.div`
 
 const Title = styled.div`
   font-size: 14px;
+  margin: 2px 0px;
 `;
 
 const Name = styled.div`
   font-size: 12px;
+  margin-bottom: 5px;
 `;
 
 const Count = styled.div`
   display: flex;
   justify-content: space-between;
-  padding-right: 20px;
+  padding-right: 60px;
 `;
+
+const IconDiv = styled.div`
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+  background-color: #ddd;
+`;
+
+const LikeComment = styled.div`
+  font-size: 12px;
+  margin-right: 4px;
+`;
+
 export default Main;

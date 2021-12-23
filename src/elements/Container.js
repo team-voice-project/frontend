@@ -13,7 +13,7 @@ const Container = (props) => {
 };
 
 const ContainerBox = styled.div`
-  padding: 20px;
+  padding: ${({ padding }) => (padding ? padding : "0 20px")};
   max-width: 425px;
   width: 100%;
   margin: 0 auto;

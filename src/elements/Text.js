@@ -14,13 +14,13 @@ const Text = (props) => {
 
 Text.defaultProps = {
   margin: false,
-  fontSize: false,
+  fontSize: "false",
 };
 
 const TitleText = styled.div`
-  margin: 18px 0px;
-  font-size: 24px;
-  font-weight: 700;
+  margin: 13px 0px;
+  font-size: 23px;
+  font-weight: 900;
 `;
 
 export default Text;
