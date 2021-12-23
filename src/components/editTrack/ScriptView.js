@@ -94,7 +94,7 @@ const ViewWrap = styled.div`
     }
 
     .script-text {
-      font-size: 15px;
+      font-size: 16px;
       overflow-y: auto;
       height: calc(60vh - 62px);
     }

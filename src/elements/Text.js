@@ -14,7 +14,7 @@ const Text = (props) => {
 
 Text.defaultProps = {
   margin: false,
-  fontSize: false,
+  fontSize: "false",
 };
 
 const TitleText = styled.div`

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 
 import { Container } from "../../elements";
@@ -9,6 +9,12 @@ import ScriptView from "../../components/editTrack/ScriptView";
 const EditRecord = () => {
   const handleClickNextBtn = () => {};
   const scriptRef = useRef(null);
+  const [voice_file, setVoiceFile] = useState({ file: null, type: null });
+
+  useEffect(() => {
+    console.log("현재 보이스 파일: ", voice_file);
+  }, [voice_file]);
+
   return (
     <EditWrap>
       <Container padding={"0"}>
@@ -22,21 +28,21 @@ const EditRecord = () => {
 
       <Container padding={"0px"}>
         <div className={"progress-bar"}>
-          <div className={"progress-bar-content"}></div>
+          <div className={"progress-bar-content"} />
         </div>
       </Container>
 
       <Container padding={"20px"}>
         <div className={"edit-body"}>
           <strong className={"title"}>목소리 올리기</strong>
-
           <ScriptMemo ref={scriptRef} />
         </div>
       </Container>
 
+      {/* widget usage -> add active class*/}
       <div className={"recording-widget active"}>
         <ScriptView />
-        <Recorder />
+        <Recorder setVoiceFile={setVoiceFile} />
       </div>
     </EditWrap>
   );
