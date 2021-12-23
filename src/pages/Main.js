@@ -20,6 +20,7 @@ const Main = (props) => {
   React.useEffect(() => {
     openModal();
   }, [0]);
+
   return (
     <>
       {show_modal && <OnBoarding setShowModal={setShowModal} />}

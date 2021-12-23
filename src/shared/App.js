@@ -11,19 +11,22 @@ import EditRecord from "../pages/editTrack/EditRecord";
 import Login from "../pages/Login";
 import CategoryModal from "../components/CategoryModal";
 import PortfolioPage from "../pages/PortfolioPage";
+
 import Category from "../pages/Category";
 import Search from "../pages/Search";
+import MyPage from "../pages/MyPage";
+
 
 function App() {
   return (
     <>
       <GlobalStyles />
-      <ConnectedRouter history={history}>
-        <Route path="/" exact component={Main} />
-        <Route path="/login" exact component={Login} />
-        <Route path="/category" exact component={InCategory} />
-        <Route path="/search" exact component={Search} />
-      </ConnectedRouter>
+      <Route path="/" component={InCategory} exact />
+      <Route path="/" component={Main} exact />
+      <Route path="/edit/base" component={EditBase} exact />
+      <Route path="/edit/record" component={EditRecord} exact />
+      <Route exact path="/portfolio" component={PortfolioPage} />
+      <Route exact path="/mypage" component={MyPage} />
     </>
   );
 }

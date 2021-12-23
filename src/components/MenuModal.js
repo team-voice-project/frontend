@@ -5,8 +5,9 @@ import { TiDeleteOutline } from "react-icons/ti";
 import { FcLike } from "react-icons/fc";
 import { AiOutlineComment } from "react-icons/ai";
 import TestMusic from "./Testplay.mp3";
-import AudioPlayer from "react-h5-audio-player";
 import ReactAudioPlayer from "react-audio-player";
+import CommentList from "./CommentList";
+import CommentWrite from "./CommentWrite";
 
 const MenuModal = (props) => {
   const { open, close } = props;
@@ -61,12 +62,33 @@ const MenuModal = (props) => {
               </div>
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <ReactAudioPlayer
-                  autoPlay
+                  // autoPlay
                   src={TestMusic}
                   controls
                   style={{ height: "20px", width: "100%" }}
                 />
               </div>
+              <div
+                style={{
+                  margin: "10px 0px",
+                  height: "410px",
+                  overflowY: "scroll",
+                }}
+              >
+                <CommentList />
+                <CommentList />
+                <CommentList />
+                <CommentList />
+                <CommentList />
+                <CommentList />
+                <CommentList />
+                <CommentList />
+                <CommentList />
+                <CommentList />
+                <CommentList />
+                <CommentList />
+              </div>
+              <CommentWrite />
             </Container>
           </Section>
         ) : null}
@@ -120,7 +142,9 @@ const Section = styled.div`
   left: 0;
   bottom: 0;
   background-color: rgba(10, 10, 10, 0.86);
+  backdrop-filter: blur(4px);
 `;
+
 const Name = styled.p`
   font-size: 18px;
   color: white;
