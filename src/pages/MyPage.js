@@ -5,7 +5,7 @@ import Track from "../components/Track";
 import MenuModal from "../components/MenuModal";
 import MusicPlayer from "../components/MusicPlayer";
 
-const PortfolioPage = (props) => {
+const MyPage = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
   const openModal = () => {
     setModalOpen(true);
@@ -21,7 +21,10 @@ const PortfolioPage = (props) => {
       <Profile>
         <ImageCircle src={props.user_image} />
         <div>
-          <Name>김용성</Name>
+          <div style={{ display: "flex" }}>
+            <Name>김용성</Name>
+            <BackBtn>🥕</BackBtn>
+          </div>
           <Link href="http://www.naver.com" target="_blank">
             sacoraa@naver.com
           </Link>
@@ -33,6 +36,7 @@ const PortfolioPage = (props) => {
           </div>
         </div>
       </Profile>
+      <UpBtn>나의 목소리 올리기 </UpBtn>
       <div style={{ textAlign: "center", margin: "60px 0px 0px 20px" }}>
         <TrackBtn>트랙 리스트</TrackBtn>
         <TrackBtn>좋아요 목록</TrackBtn>
@@ -57,13 +61,14 @@ const PortfolioPage = (props) => {
   );
 };
 
-PortfolioPage.defaultProps = {
+MyPage.defaultProps = {
   user_image:
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgXaZTRs1NC8dvfYkOxERlkyi-nEMnP15bag&usqp=CAU",
 };
 
 const Profile = styled.div`
   display: flex;
+
   align-items: center;
   @media screen and (max-width: 380px) {
     flex-direction: column;
@@ -93,6 +98,18 @@ const BackBtn = styled.button`
   margin-bottom: 20px;
 `;
 
+const UpBtn = styled.button`
+  width: 100%;
+  height: 50px;
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: 900;
+  border-radius: 10px;
+  border: none;
+  background: #4142f4;
+  color: white;
+`;
+
 const TrackBtn = styled.button`
   width: 96px;
   height: 28px;
@@ -103,6 +120,7 @@ const TrackBtn = styled.button`
 const Name = styled.h1`
   font-size: 18px;
   margin-bottom: 10px;
+  margin-right: 5px;
 `;
 
 const Link = styled.a`
@@ -115,4 +133,4 @@ const Text = styled.p`
   font-size: 13px;
 `;
 
-export default PortfolioPage;
+export default MyPage;
