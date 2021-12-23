@@ -7,6 +7,7 @@ import Category from "../pages/Category";
 import InCategory from "../pages/InCategory";
 import Login from "../pages/Login";
 import CategoryModal from "../components/CategoryModal";
+import PortfolioPage from "../pages/PortfolioPage";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <GlobalStyles />
       <Header />
       <Route path="/" component={InCategory} />
+      <Route exact path="/portfolio" component={PortfolioPage} />
     </>
   );
 }
