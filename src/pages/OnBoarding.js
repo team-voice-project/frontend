@@ -6,7 +6,7 @@ import Container from "../elements/Container";
 const OnBoarding = ({ setShowModal }) => {
   return (
     <Background>
-      <Header />
+      {/* <Header /> */}
       <Container>
         <BoxDiv>
           <Flex>
@@ -17,34 +17,23 @@ const OnBoarding = ({ setShowModal }) => {
             <BigCircle></BigCircle>
             <div>
               <FlexCount>
-                <div style={{ margin: "auto", display: "flex" }}>
-                  <CountBox>
-                    <IconDiv></IconDiv>
-                    <CountText>132</CountText>
-                  </CountBox>
-                  <CountBox>
-                    <IconDiv></IconDiv>
-                    <CountText>28</CountText>
-                  </CountBox>
-                </div>
+                <div>132</div>
+                <div>132</div>
               </FlexCount>
             </div>
           </div>
           <BoldFont>새벽에 어울리는 나레이션</BoldFont>
-
           <FlexTag>
             <TagBox>깔끔한</TagBox>
             <TagBox>깔끔한</TagBox>
             <TagBox>깔끔한</TagBox>
           </FlexTag>
-
           <PlayBar></PlayBar>
         </BoxDiv>
         <Btn>나도 목소리 올리기</Btn>
         <Btn
           onClick={() => {
             setShowModal(false);
-            document.body.style.overflow = "unset";
           }}
         >
           다른 목소리 듣기
@@ -66,11 +55,11 @@ const Background = styled.div`
 
 const BoxDiv = styled.div`
   width: 100%;
-  height: 560px;
+  height: 540px;
   background-color: #b6b6b6;
   border-radius: 12px;
   margin-bottom: 45px;
-  padding: 23px;
+  padding: 20px;
 `;
 
 const Flex = styled.div`
@@ -79,68 +68,52 @@ const Flex = styled.div`
   vertical-align: center;
 `;
 
-const CountBox = styled.div`
+const FlexTag = styled.div`
   display: flex;
   align-items: center;
   vertical-align: center;
-  margin-right: 15px;
-`;
-
-const FlexTag = styled.div`
-  width: 100%;
-  margin: auto;
-  text-align: center;
+  justify-content: space-between;
+  padding: 0px 70px;
 `;
 
 const FlexCount = styled.div`
   display: flex;
   align-items: center;
-  vertical-align: center;
+  justify-content: space-between;
+  padding: 0px 110px;
   margin-bottom: 20px;
 `;
 
 const SmallCircle = styled.div`
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   border-radius: 40px;
   background-color: #616161;
 `;
 
 const Name = styled.div`
-  font-size: 16px;
+  font-size: 15px;
   margin-left: 12px;
 `;
 
 const BigCircle = styled.div`
-  width: 230px;
-  height: 230px;
+  width: 200px;
+  height: 200px;
   border-radius: 200px;
   background-color: #ddd;
-  margin: 25px auto 20px auto;
-`;
-
-const IconDiv = styled.div`
-  width: 20px;
-  height: 20px;
-  background-color: #ddd;
-  margin-right: 8px;
-`;
-
-const CountText = styled.div`
-  font-size: 18px;
-  color: #fff;
+  margin: 30px auto 20px auto;
 `;
 
 const BoldFont = styled.div`
-  font-size: 20px;
+  font-size: 18px;
   color: #fff;
-  font-weight: 550;
+  font-weight: 500;
   text-align: center;
 `;
 
 const TagBox = styled.button`
-  width: 60px;
-  height: 32px;
+  width: 55px;
+  height: 30px;
   background-color: #ffffff;
   border-radius: 20px;
   font-size: 13px;
@@ -148,7 +121,6 @@ const TagBox = styled.button`
   align-items: center;
   margin: 15px 10px 0px 0px;
   border: none;
-  display: inline-block;
 `;
 
 const PlayBar = styled.div`
@@ -160,7 +132,7 @@ const PlayBar = styled.div`
 
 const Btn = styled.button`
   width: 100%;
-  height: 7vh;
+  height: 8vh;
   border: none;
   border-radius: 10px;
   background-color: #777777;

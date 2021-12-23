@@ -1,0 +1,20 @@
+{
+  "RESULT": [
+    {
+      "trackId": "AAA",
+      "tag": "발랄한, 중저음, 중성",
+      "trackUrl": "",
+      "likeCnt": "20",
+      "commentCnt": "15",
+      "createdAt": "2021-12-23"
+    },
+    {
+      "trackId": "BBB",
+      "tag": "태그1,태그2,",
+      "trackUrl": "",
+      "likeCnt": "15",
+      "commentCnt": "30",
+      "createdAt": "2021-12-23"
+    }
+  ]
+}

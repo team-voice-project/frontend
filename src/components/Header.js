@@ -14,7 +14,7 @@ const Header = () => {
 };
 
 const Wrap = styled.div`
-  padding: 20px 20px 0px 20px;
+  padding: 20px;
   max-width: 425px;
   width: 100%;
   margin: auto;

@@ -1,4 +1,7 @@
+import React from "react";
 import { Route } from "react-router-dom";
+import { history } from "../redux/configStore";
+import { ConnectedRouter } from "connected-react-router";
 
 import GlobalStyles from "./GlobalStyles";
 import Main from "../pages/Main";
@@ -8,13 +11,16 @@ import EditRecord from "../pages/editTrack/EditRecord";
 import Login from "../pages/Login";
 import CategoryModal from "../components/CategoryModal";
 import PortfolioPage from "../pages/PortfolioPage";
+
+import Category from "../pages/Category";
+import Search from "../pages/Search";
 import MyPage from "../pages/MyPage";
+
 
 function App() {
   return (
     <>
       <GlobalStyles />
-
       <Route path="/" component={InCategory} exact />
       <Route path="/" component={Main} exact />
       <Route path="/edit/base" component={EditBase} exact />
