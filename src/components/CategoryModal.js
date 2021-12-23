@@ -37,9 +37,9 @@ const Modal = styled.div`
   width: 100%;
   margin: auto;
   height: 480px;
-  background-color: #dddddd;
+  background-color: #fff;
   border-radius: 12px;
-  padding: 40px 20px;
+  padding: 40px;
 `;
 
 export default CategoryModal;

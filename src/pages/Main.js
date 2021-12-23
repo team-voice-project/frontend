@@ -1,8 +1,9 @@
 import React from "react";
-import KakaoLoginBtn from "../components/login/KakaoLoginBtn";
 import styled from "styled-components";
+import { history } from "../redux/configStore";
 import { Container, Text } from "../elements/index";
 import OnBoarding from "../components/Onboarding";
+import Header from "../components/Header";
 
 const Main = (props) => {
   const [show_modal, setShowModal] = React.useState(false);
@@ -20,11 +21,23 @@ const Main = (props) => {
     openModal();
   }, [0]);
 
-const Main = (props) => {
   return (
     <>
-      {show_modal && <OnBoarding setShowModal={setShowModal} />}
+      {/* {show_modal && <OnBoarding setShowModal={setShowModal} />} */}
       <Container>
+        <SearchBar>
+          <FlexSearchBar>
+            <Logo></Logo>
+            <Temdiv>검</Temdiv>
+            <Temdiv>마</Temdiv>
+            <Temdiv
+              onClick={() => {
+                history.push("/category");
+              }}
+            ></Temdiv>
+          </FlexSearchBar>
+        </SearchBar>
+
         <UploadBtn>나의 목소리 올리기</UploadBtn>
         <DivText>
           <text>나의 목소리를 올려서 사람들에게 들려주세요!</text>
@@ -110,6 +123,30 @@ const Main = (props) => {
     </>
   );
 };
+
+const SearchBar = styled.div`
+  width: 100%;
+  height: 8vh;
+`;
+
+const FlexSearchBar = styled.div`
+  display: flex;
+  align-items: center;
+  vertical-align: center;
+  justify-content: space-between;
+`;
+
+const Logo = styled.div`
+  width: 65px;
+  height: 25px;
+  background-color: #ddd;
+`;
+
+const Temdiv = styled.div`
+  width: 28px;
+  height: 28px;
+  background-color: #ddd;
+`;
 
 const UploadBtn = styled.button`
   width: 100%;

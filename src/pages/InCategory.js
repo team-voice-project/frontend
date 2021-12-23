@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import CategoryModal from "../components/CategoryModal";
+import Header from "../components/Header";
 import { Container, Text } from "../elements/index";
 
 const InCategory = () => {
@@ -11,69 +12,65 @@ const InCategory = () => {
     document.body.style.overflow = "hidden";
   };
 
-  const closeModal = () => {
-    setShowModal(false);
-  };
-
   return (
     <>
+      <Header />
       {show_modal && <CategoryModal setShowModal={setShowModal} />}
       <Container>
         <Flex style={{ justifyContent: "space-between" }}>
           <Text>카테고리> 나레이션</Text>
           <Tag onClick={openModal}></Tag>
         </Flex>
-        <Flex>
-          <div>
-            <Circle>{/* <Triangle /> */}</Circle>
-            <Title>깔끔한 목소리</Title>
-            <Name>김명자</Name>
-            <Count>
-              <div style={{ fontSize: "12px", marginRight: "4px" }}>132</div>
-              <div style={{ fontSize: "12px", marginRight: "4px" }}>20</div>
-            </Count>
-          </div>
 
-          <div>
-            <Circle>{/* <Triangle /> */}</Circle>
-            <Title>깔끔한 목소리</Title>
-            <Name>김명자</Name>
-            <Count>
-              <div style={{ fontSize: "12px", marginRight: "4px" }}>132</div>
-              <div style={{ fontSize: "12px", marginRight: "4px" }}>20</div>
-            </Count>
-          </div>
+        <VoiceBox>
+          <Circle>{/* <Triangle /> */}</Circle>
+          <Title>깔끔한 목소리</Title>
+          <Name>김명자</Name>
+          <Count>
+            <div style={{ fontSize: "12px", marginRight: "4px" }}>132</div>
+            <div style={{ fontSize: "12px", marginRight: "4px" }}>20</div>
+          </Count>
+        </VoiceBox>
 
-          <div>
-            <Circle>{/* <Triangle /> */}</Circle>
-            <Title>깔끔한 목소리</Title>
-            <Name>김명자</Name>
-            <Count>
-              <div style={{ fontSize: "12px", marginRight: "4px" }}>132</div>
-              <div style={{ fontSize: "12px", marginRight: "4px" }}>20</div>
-            </Count>
-          </div>
+        <VoiceBox>
+          <Circle>{/* <Triangle /> */}</Circle>
+          <Title>깔끔한 목소리</Title>
+          <Name>김명자</Name>
+          <Count>
+            <div style={{ fontSize: "12px", marginRight: "4px" }}>132</div>
+            <div style={{ fontSize: "12px", marginRight: "4px" }}>20</div>
+          </Count>
+        </VoiceBox>
 
-          <div>
-            <Circle>{/* <Triangle /> */}</Circle>
-            <Title>깔끔한 목소리</Title>
-            <Name>김명자</Name>
-            <Count>
-              <div style={{ fontSize: "12px", marginRight: "4px" }}>132</div>
-              <div style={{ fontSize: "12px", marginRight: "4px" }}>20</div>
-            </Count>
-          </div>
+        <VoiceBox>
+          <Circle>{/* <Triangle /> */}</Circle>
+          <Title>깔끔한 목소리</Title>
+          <Name>김명자</Name>
+          <Count>
+            <div style={{ fontSize: "12px", marginRight: "4px" }}>132</div>
+            <div style={{ fontSize: "12px", marginRight: "4px" }}>20</div>
+          </Count>
+        </VoiceBox>
 
-          <div>
-            <Circle>{/* <Triangle /> */}</Circle>
-            <Title>깔끔한 목소리</Title>
-            <Name>김명자</Name>
-            <Count>
-              <div style={{ fontSize: "12px", marginRight: "4px" }}>132</div>
-              <div style={{ fontSize: "12px", marginRight: "4px" }}>20</div>
-            </Count>
-          </div>
-        </Flex>
+        <VoiceBox>
+          <Circle>{/* <Triangle /> */}</Circle>
+          <Title>깔끔한 목소리</Title>
+          <Name>김명자</Name>
+          <Count>
+            <div style={{ fontSize: "12px", marginRight: "4px" }}>132</div>
+            <div style={{ fontSize: "12px", marginRight: "4px" }}>20</div>
+          </Count>
+        </VoiceBox>
+
+        <VoiceBox>
+          <Circle>{/* <Triangle /> */}</Circle>
+          <Title>깔끔한 목소리</Title>
+          <Name>김명자</Name>
+          <Count>
+            <div style={{ fontSize: "12px", marginRight: "4px" }}>132</div>
+            <div style={{ fontSize: "12px", marginRight: "4px" }}>20</div>
+          </Count>
+        </VoiceBox>
       </Container>
     </>
   );
@@ -83,7 +80,10 @@ const Flex = styled.div`
   display: flex;
   align-items: center;
   vertical-align: center;
-  }
+`;
+
+const VoiceBox = styled.div`
+  float: left;
 `;
 
 const Tag = styled.div`
@@ -93,8 +93,8 @@ const Tag = styled.div`
 `;
 
 const Circle = styled.div`
-  width: 100px;
-  height: 100px;
+  width: 118px;
+  height: 118px;
   background-color: #ddd;
   border: 3px solid #f2f7b1;
   border-radius: 120px;
