@@ -348,7 +348,7 @@ const RecorderWrap = styled.div`
     font-size: 14px;
     height: 42px;
     border-radius: 22px;
-    background: #4142f4;
+    background: var(--point-color);
     max-width: 320px;
     width: 100%;
     z-index: -1;
@@ -404,7 +404,7 @@ const RecorderWrap = styled.div`
       }
 
       &.pause {
-        border: 2px solid #9422fc;
+        border: 2px solid var(--point-color);
         padding: 4px;
         display: flex;
         align-items: center;

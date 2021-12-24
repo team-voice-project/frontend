@@ -1,6 +1,10 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
+  :root {
+    --point-color: #F1134E;
+  }
+  
   * {
     margin: 0;
     padding: 0;
