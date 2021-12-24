@@ -10,12 +10,18 @@ const EditProfile = (props) => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
+          marginTop: "20px",
         }}
       >
         <div style={{ display: "flex", alignItems: "center" }}>
           <BackBtn>뒤</BackBtn>
           <h1
-            style={{ fontSize: "28px", marginLeft: "10px", fontWeight: "900" }}
+            style={{
+              fontSize: "28px",
+              marginLeft: "10px",
+              fontWeight: "900",
+              color: "white",
+            }}
           >
             프로필 설정
           </h1>
@@ -24,19 +30,19 @@ const EditProfile = (props) => {
       </div>
       <div style={{ textAlign: "center", marginBottom: "20px" }}>
         <ImageCircle src={props.user_image} />
-        <button>프로필 사진 바꾸기</button>
+        <ImgChangeBtn>프로필 사진 바꾸기</ImgChangeBtn>
       </div>
-      <hr />
+      <Line />
       <DescriptDiv>
         <Title>닉네임</Title>
         <Input type="text" placeholder="조은영"></Input>
       </DescriptDiv>
-      <hr />
+      <Line />
       <DescriptDiv>
         <Title>연락처</Title>
         <Input type="text" placeholder="sacoraa@naver.com"></Input>
       </DescriptDiv>
-      <hr />
+      <Line />
       <div style={{ display: "flex", marginTop: "20px" }}>
         <Title>자기소개</Title>
         <InputLast
@@ -65,6 +71,17 @@ const ImageCircle = styled.div`
   background-repeat: no-repeat;
 `;
 
+const Line = styled.hr`
+  background: #2c2b2b;
+  height: 4px;
+  border: none;
+`;
+const ImgChangeBtn = styled.button`
+  background: none;
+  color: #f1134e;
+  border: none;
+`;
+
 const DescriptDiv = styled.div`
   display: flex;
   margin: 10px 0 10px 0;
@@ -80,17 +97,22 @@ const Title = styled.h1`
   width: 30%;
   font-size: 20px;
   padding: 0 0px 0 0;
+  color: white;
 `;
 
 const Input = styled.input`
   width: 100%;
   height: 56px;
   border: none;
+  color: white;
+  background: none;
 `;
 
 const InputLast = styled.textarea`
   width: 100%;
   height: 400px;
   border: none;
+  background: none;
+  color: white;
 `;
 export default EditProfile;

@@ -8,27 +8,35 @@ import MusicPlayer from "../components/MusicPlayer";
 const MyPage = (props) => {
   return (
     <Container>
-      <BackBtn>🥕</BackBtn>
-      <Profile>
-        <ImageCircle src={props.user_image} />
-        <div>
-          <div style={{ display: "flex" }}>
-            <Name>김용성</Name>
-            <BackBtn>🥕</BackBtn>
+      <div
+        style={{
+          background: "white",
+          padding: "50px 10px 10px 10px",
+          height: "300px",
+        }}
+      >
+        <Profile>
+          <ImageCircle src={props.user_image} />
+          <div>
+            <div style={{ display: "flex" }}>
+              <Name>김용성</Name>
+              <BackBtn>🥕</BackBtn>
+            </div>
+            <Link href="http://www.naver.com" target="_blank">
+              sacoraa@naver.com
+            </Link>
+            <div style={{ width: "200px", wordBreak: "break-word" }}>
+              <Text>
+                안녕하세요. 저는 중후한 목소리를 가진 사람입니다. 자기소개란
+                입니다.
+              </Text>
+            </div>
           </div>
-          <Link href="http://www.naver.com" target="_blank">
-            sacoraa@naver.com
-          </Link>
-          <div style={{ width: "200px", wordBreak: "break-word" }}>
-            <Text>
-              안녕하세요. 저는 중후한 목소리를 가진 사람입니다. 자기소개란
-              입니다.
-            </Text>
-          </div>
-        </div>
-      </Profile>
-      <UpBtn>나의 목소리 올리기 </UpBtn>
-      <div style={{ textAlign: "center", margin: "60px 0px 0px 20px" }}>
+        </Profile>
+        <UpBtn>나의 목소리 올리기 </UpBtn>
+      </div>
+
+      <div style={{ textAlign: "center", margin: "20px 0px 0px 20px" }}>
         <TrackBtn>트랙 리스트</TrackBtn>
         <TrackBtn>좋아요 목록</TrackBtn>
       </div>
@@ -57,8 +65,8 @@ MyPage.defaultProps = {
 
 const Profile = styled.div`
   display: flex;
-
   align-items: center;
+
   @media screen and (max-width: 380px) {
     flex-direction: column;
   }
@@ -95,15 +103,17 @@ const UpBtn = styled.button`
   font-weight: 900;
   border-radius: 10px;
   border: none;
-  background: #4142f4;
+  background: #f1134e;
   color: white;
 `;
 
 const TrackBtn = styled.button`
   width: 96px;
   height: 28px;
-  margin-right: 30px;
-  border-radius: 10px;
+  margin-right: 25px;
+  border-radius: 20px;
+  border: none;
+  font-weight: 900;
 `;
 
 const Name = styled.h1`

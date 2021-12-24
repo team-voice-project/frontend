@@ -16,7 +16,7 @@ const CommentWrite = (props) => {
     <List>
       <CommentInput
         type="text"
-        placeholder="  댓글 내용을 입력해주세요 :)"
+        placeholder="댓글 내용을 입력해주세요 :)"
         onChange={onChange}
       />
       <button
@@ -44,6 +44,7 @@ const List = styled.div`
 `;
 
 const CommentInput = styled.input`
+  padding: 0 0 0 5px;
   height: 35px;
   background: none;
   width: 100%;
