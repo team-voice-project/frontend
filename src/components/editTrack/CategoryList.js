@@ -25,7 +25,7 @@ const CategoryList = ({
 
   return (
     <CategoryWarp>
-      <ul>
+      <div className={"category-list"}>
         {cate_list.map((cate_name, idx) => {
           const isSelected = checkSelectedCate(cate_name);
           return (
@@ -35,12 +35,12 @@ const CategoryList = ({
               className={`cate-item ${isSelected ? "on" : ""}`}
               onClick={() => handleClickCateItem(cate_name)}
             >
-              {cate_name}
               <span className={"cate-img"}></span>
+              <span className={"cate-name"}>{cate_name}</span>
             </button>
           );
         })}
-      </ul>
+      </div>
 
       <div className={"btn-position"}>
         <Container padding={"0"}>
@@ -52,7 +52,7 @@ const CategoryList = ({
               setModalState(null);
             }}
           >
-            카테고리 선택
+            카테고리 선택하기
           </button>
         </Container>
       </div>
@@ -63,31 +63,60 @@ const CategoryList = ({
 export default CategoryList;
 
 const CategoryWarp = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  overflow-y: auto;
-  overflow-x: hidden;
   height: 100%;
-  padding-bottom: 50px;
 
-  ul {
+  .category-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
     width: 100%;
+    padding-bottom: 50px;
   }
 
   .cate-item {
-    position: relative;
-    width: calc(33.33% - 10px);
-    padding-bottom: 24.5%;
-    margin: 5px;
+    width: calc(33.33% - 20px);
+    margin: 10px;
+    margin-bottom: 20px;
+    background: none;
+    border: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     &.on {
-      border: 1px solid coral;
+      .cate-img {
+        position: relative;
+
+        &::after {
+          content: "";
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          border: 5px solid var(--point-color);
+          border-radius: 10px;
+        }
+      }
     }
 
     .cate-img {
-      position: absolute;
+      position: relative;
+      padding-bottom: 100%;
       width: 100%;
       height: 100%;
+      background-color: #858585;
+      margin-bottom: 10px;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .cate-name {
+      color: #fff;
     }
   }
 
@@ -95,11 +124,19 @@ const CategoryWarp = styled.div`
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 100%;
+    right: 0;
 
     button {
+      width: calc(100% - 40px);
+      margin: 20px;
       padding: 10px;
-      width: 100%;
+      border: 0;
+      color: #fff;
+      height: 56px;
+      font-weight: bold;
+      font-size: 17px;
+      border-radius: 6px;
+      background-color: var(--point-color);
     }
   }
 `;

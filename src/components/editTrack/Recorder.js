@@ -1,9 +1,10 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
+import moment from "moment";
 
 import { Container } from "../../elements";
 import StopWatch from "./StopWatch";
-import moment from "moment";
+import pushAudio from "../../shared/audio/push.mp3";
 
 const Recorder = ({
   setVoiceFile,
@@ -198,12 +199,7 @@ const Recorder = ({
   return (
     <RecorderWrap>
       <div className={"hidden-system-audio"}>
-        <audio
-          preload="auto"
-          controls
-          src="https://cdn.mewpot.com/Tiny%20Button%20Push-wH6BJBzVTMP1u1SBEkRRK1As.mp3?token=st=1640320970~exp=1640331770~acl=/*~hmac=26c4200d6fcb63ad64d5bae4910a47844835f9f4859b00c0cd597c01efbff99d&response-content-disposition=attachment&filename=MP_Tiny%20Button%20Push.mp3"
-          ref={systemAudioRef}
-        >
+        <audio preload="auto" controls src={pushAudio} ref={systemAudioRef}>
           <code>audio</code> element.
         </audio>
       </div>
@@ -352,7 +348,7 @@ const RecorderWrap = styled.div`
     font-size: 14px;
     height: 42px;
     border-radius: 22px;
-    background: #4142f4;
+    background: var(--point-color);
     max-width: 320px;
     width: 100%;
     z-index: -1;
@@ -408,7 +404,7 @@ const RecorderWrap = styled.div`
       }
 
       &.pause {
-        border: 2px solid #9422fc;
+        border: 2px solid var(--point-color);
         padding: 4px;
         display: flex;
         align-items: center;

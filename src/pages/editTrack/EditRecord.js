@@ -61,6 +61,7 @@ export default EditRecord;
 
 const EditWrap = styled.section`
   height: 70vh;
+  background-color: #2c2b2b;
 
   .edit-header {
     display: flex;
@@ -76,7 +77,7 @@ const EditWrap = styled.section`
     .progress-bar-content {
       width: 70%;
       height: inherit;
-      background-color: #ffdc62;
+      background-color: var(--point-color);
     }
   }
 

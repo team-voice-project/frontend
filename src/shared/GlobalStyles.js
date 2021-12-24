@@ -1,6 +1,10 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
+  :root {
+    --point-color: #F1134E;
+  }
+  
   * {
     margin: 0;
     padding: 0;
@@ -14,6 +18,7 @@ const GlobalStyles = createGlobalStyle`
   body {
     overflow-x: hidden;
     background: #000000;
+    color: #fff;
   }
 
   ol, ul, li {
