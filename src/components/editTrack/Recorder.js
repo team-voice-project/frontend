@@ -3,8 +3,14 @@ import styled from "styled-components";
 
 import { Container } from "../../elements";
 import StopWatch from "./StopWatch";
+import moment from "moment";
 
-const Recorder = ({ setVoiceFile }) => {
+const Recorder = ({
+  setVoiceFile,
+  setScriptActive,
+  setScriptText,
+  scriptRef,
+}) => {
   const initial_controls = {
     record: true,
     pause: false,
@@ -20,6 +26,8 @@ const Recorder = ({ setVoiceFile }) => {
   const [upload_state_bubble, setUploadStateBubble] = useState(false);
   const playerRef = useRef(null);
   const uploaderRef = useRef(null);
+  const systemAudioRef = useRef(null);
+  const playBtnRef = useRef(null);
 
   if (!navigator.mediaDevices) {
     return;
@@ -27,7 +35,6 @@ const Recorder = ({ setVoiceFile }) => {
 
   const getVoiceBlobUrl = () => {
     const voice_blob = new Blob(chunks, { type: "audio/ogg codecs=opus" });
-    console.log("보이스 파일 객체: ", voice_blob);
     // 실제 서버로 넘길 보이스 파일 데이터 객체
     setVoiceFile({
       file: voice_blob,
@@ -37,38 +44,48 @@ const Recorder = ({ setVoiceFile }) => {
   };
 
   const handleClickOnRecord = () => {
-    const device = navigator.mediaDevices.getUserMedia({ audio: true });
-    device
-      .then((stream) => {
-        const voiceRecorder = new MediaRecorder(stream);
+    // 녹음 시 버튼 효과음 재생
+    systemAudioRef.current.play();
 
-        // 사용자 동의 후 작동
-        setControls({
-          record: false,
-          pause: true,
-          play: false,
+    // 사용자 동의 후 작동
+    setControls({
+      record: false,
+      pause: true,
+      play: false,
+    });
+
+    // 스크립트 스크린 활성화
+    setScriptActive(true);
+    setScriptText(scriptRef.current.value);
+
+    // 녹음 시 버튼 효과음이 들어가는것을 방지하기 위해 효과음 runtime 만큼 딜레이 후 녹음 진행
+    setTimeout(() => {
+      const device = navigator.mediaDevices.getUserMedia({ audio: true });
+      device
+        .then((stream) => {
+          const voiceRecorder = new MediaRecorder(stream);
+
+          // 스톱워치 시작 & 녹음 객체 저장
+          setStopWatchMode("start");
+          setRecorder(voiceRecorder);
+          setHasAudio(true);
+
+          // 목소리 데이터 저장
+          voiceRecorder.ondataavailable = (e) => {
+            chunks.push(e.data);
+
+            if (voiceRecorder.state === "inactive") {
+              playerRef.current.src = getVoiceBlobUrl();
+            }
+          };
+
+          // 녹음 시작
+          voiceRecorder.start();
+        })
+        .catch((err) => {
+          console.log("보이스 레코더를 실행 할 수 없습니다." + err);
         });
-
-        // 스톱워치 시작 & 녹음 객체 저장
-        setStopWatchMode("start");
-        setRecorder(voiceRecorder);
-        setHasAudio(true);
-
-        // 목소리 데이터 저장
-        voiceRecorder.ondataavailable = (e) => {
-          chunks.push(e.data);
-
-          if (voiceRecorder.state === "inactive") {
-            playerRef.current.src = getVoiceBlobUrl();
-          }
-        };
-
-        // 녹음 시작
-        voiceRecorder.start();
-      })
-      .catch((err) => {
-        console.log("보이스 레코더를 실행 할 수 없습니다." + err);
-      });
+    }, 240);
   };
 
   const handleClickOffRecord = () => {
@@ -79,14 +96,17 @@ const Recorder = ({ setVoiceFile }) => {
     });
 
     setStopWatchMode("stop");
+    setScriptActive(false);
+
     // 녹음기 정지
-    if (recorder.state === "recording") {
+    if (recorder?.state === "recording") {
       recorder.stop();
     } else {
       playerRef.current.pause();
     }
 
-    if (has_audio) {
+    const has_upload = uploaderRef.current?.files[0];
+    if (has_audio || has_upload) {
       setTimeout(() => {
         setUploadStateBubble({ state: true, text: "녹음이 완료되었습니다." });
       }, 500);
@@ -98,11 +118,10 @@ const Recorder = ({ setVoiceFile }) => {
   };
 
   const handleClickPlayRecord = () => {
-    console.log("재생 버튼 클릭됨");
-    if (!recorder) {
-      console.log("먼저 녹음해주세요.");
-      return;
-    }
+    // if (!recorder) {
+    //   console.log("먼저 녹음해주세요.");
+    //   return;
+    // }
 
     setControls({
       record: false,
@@ -119,6 +138,7 @@ const Recorder = ({ setVoiceFile }) => {
 
   const handleClickResetRecord = () => {
     setStopWatchMode("reset");
+    setScriptActive(false);
     setChunks([]);
     setControls({
       record: true,
@@ -137,12 +157,37 @@ const Recorder = ({ setVoiceFile }) => {
   };
 
   const handleUploadAudioFile = (e) => {
-    console.log(e.target.files[0]);
+    setUploadStateBubble({ state: false });
+    setStopWatchMode("reset");
+    setScriptActive(false);
+
+    setControls({
+      record: false,
+      pause: false,
+      play: true,
+    });
+
+    const reader = new FileReader();
+    const file = e.target.files[0];
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      playerRef.current.src = reader.result;
+    };
+
+    playerRef.current.onloadedmetadata = function () {
+      let runtime = Math.floor(playerRef.current.duration * 1000);
+      const timer_str = moment(runtime).format("mm:ss:SS");
+      setRuntimeMemory(timer_str);
+    };
+
     setVoiceFile({
       file: e.target.files[0],
       type: "upload",
     });
-    setUploadStateBubble({ state: true, text: "파일이 첨부되었습니다." });
+
+    setTimeout(() => {
+      setUploadStateBubble({ state: true, text: "파일이 첨부되었습니다." });
+    }, 500);
   };
 
   const repeat_visible =
@@ -152,8 +197,24 @@ const Recorder = ({ setVoiceFile }) => {
 
   return (
     <RecorderWrap>
+      <div className={"hidden-system-audio"}>
+        <audio
+          preload="auto"
+          controls
+          src="https://cdn.mewpot.com/Tiny%20Button%20Push-wH6BJBzVTMP1u1SBEkRRK1As.mp3?token=st=1640320970~exp=1640331770~acl=/*~hmac=26c4200d6fcb63ad64d5bae4910a47844835f9f4859b00c0cd597c01efbff99d&response-content-disposition=attachment&filename=MP_Tiny%20Button%20Push.mp3"
+          ref={systemAudioRef}
+        >
+          <code>audio</code> element.
+        </audio>
+      </div>
       <Container _className={"recorder-container"}>
-        <audio className={"audio-el"} controls src="" ref={playerRef}>
+        <audio
+          className={"audio-el"}
+          controls
+          src=""
+          ref={playerRef}
+          preload="metadata"
+        >
           <code>audio</code> element.
         </audio>
 
@@ -208,7 +269,7 @@ const Recorder = ({ setVoiceFile }) => {
             )}
 
             {controls.play && (
-              <div className="item-box">
+              <div className="item-box" ref={playBtnRef}>
                 <button
                   type="button"
                   className={"btn play"}
@@ -227,7 +288,7 @@ const Recorder = ({ setVoiceFile }) => {
                 ref={uploaderRef}
               />
             </label>
-            <span className={"btn-text"}>파일 업로드</span>
+            <span className={"btn-text"}>파일 첨부</span>
           </div>
         </div>
 
@@ -240,6 +301,7 @@ const Recorder = ({ setVoiceFile }) => {
           setControls={setControls}
           playerRef={playerRef}
           has_audio={has_audio}
+          has_upload={uploaderRef.current?.files[0]}
         />
       </Container>
     </RecorderWrap>
@@ -251,6 +313,10 @@ export default Recorder;
 const RecorderWrap = styled.div`
   height: 40vh;
   padding: 40px;
+
+  .hidden-system-audio {
+    display: none;
+  }
 
   .slideUp {
     animation-name: slideUp;
@@ -275,7 +341,7 @@ const RecorderWrap = styled.div`
 
   .file-save-state {
     position: absolute;
-    top: -52px;
+    top: -102px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -321,6 +387,11 @@ const RecorderWrap = styled.div`
       display: flex;
       align-items: center;
       flex-direction: column;
+
+      &.disabeld {
+        pointer-events: none;
+        opacity: 0.4;
+      }
     }
 
     .btn {

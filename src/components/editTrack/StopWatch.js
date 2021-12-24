@@ -10,6 +10,7 @@ const StopWatch = ({
   setControls,
   playerRef,
   has_audio,
+  has_upload,
 }) => {
   const diff = -80; // audio file duration 길이와 스톱워치 타임 오차
   const timeRef = useRef(diff);
@@ -17,11 +18,11 @@ const StopWatch = ({
   const [time, setTime] = useState("00:00:00");
   const [display_time, setDisplayTime] = useState("00:00:00");
   const [is_continue, setContinue] = useState(false);
+  // console.log("진행중", timeRef.current);
 
   const handleStart = () => {
-    console.log("시작 시 파일을 갖고있니?", has_audio);
-    // 현재 오디오 파일이 있다면 일시정지 후 이어듣기 가능 상태를 true
-    if (has_audio) {
+    // 현재 오디오 파일 또는 업로드된 파일이 있다면 일시정지 후 이어듣기 가능 상태를 true
+    if (has_audio || has_upload) {
       setContinue(true);
     } else {
       setContinue(false);
@@ -41,7 +42,6 @@ const StopWatch = ({
   };
 
   const handlePause = () => {
-    console.log("정지 시 파일을 갖고있니?", has_audio);
     clearInterval(intervalRef.current);
 
     // 녹음 런타임 시간은 비어있을때만 저장한다.
@@ -71,7 +71,6 @@ const StopWatch = ({
     } else if (mode === "stop") {
       handlePause();
     } else if (mode === "play") {
-      console.log("재생 시 메모리타임: ", runtime_memory);
       handleStart();
     } else {
       handleReset();
@@ -91,7 +90,6 @@ const StopWatch = ({
       });
 
       // 오디오 태그 플레이 타임 초기화
-      console.log("오디오 총 길이값: ", playerRef.current.duration);
       playerRef.current.currentTime = 0;
       playerRef.current.pause();
 

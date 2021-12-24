@@ -10,7 +10,7 @@ const ScriptMemo = forwardRef((props, ref) => {
         onKeyUp={autoHeightArea}
         onKeyDown={autoHeightArea}
         ref={ref}
-      ></textarea>
+      />
     </MemoWrap>
   );
 });
@@ -18,11 +18,16 @@ const ScriptMemo = forwardRef((props, ref) => {
 export default ScriptMemo;
 
 const MemoWrap = styled.div`
+  height: 100%;
+
   textarea {
     border: 0;
     width: 100%;
+    height: calc(100% - 24px);
+    max-height: calc(100% - 24px);
     padding: 10px;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     margin: 0 -10px;
   }
 `;

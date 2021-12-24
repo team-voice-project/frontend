@@ -10,7 +10,10 @@ const EditRecord = () => {
   const handleClickNextBtn = () => {};
   const scriptRef = useRef(null);
   const [voice_file, setVoiceFile] = useState({ file: null, type: null });
+  const [script_active, setScriptActive] = useState(false);
+  const [script_text, setScriptText] = useState("");
 
+  // 파일 확인용 임시 로그
   useEffect(() => {
     console.log("현재 보이스 파일: ", voice_file);
   }, [voice_file]);
@@ -32,7 +35,7 @@ const EditRecord = () => {
         </div>
       </Container>
 
-      <Container padding={"20px"}>
+      <Container padding={"20px"} _className={"stretch-height"}>
         <div className={"edit-body"}>
           <strong className={"title"}>목소리 올리기</strong>
           <ScriptMemo ref={scriptRef} />
@@ -40,9 +43,15 @@ const EditRecord = () => {
       </Container>
 
       {/* widget usage -> add active class*/}
-      <div className={"recording-widget active"}>
-        <ScriptView />
-        <Recorder setVoiceFile={setVoiceFile} />
+      <div className={`recording-widget ${script_active && "active"}`}>
+        {script_active && <ScriptView script_text={script_text} />}
+
+        <Recorder
+          setVoiceFile={setVoiceFile}
+          setScriptActive={setScriptActive}
+          setScriptText={setScriptText}
+          scriptRef={scriptRef}
+        />
       </div>
     </EditWrap>
   );
@@ -51,6 +60,8 @@ const EditRecord = () => {
 export default EditRecord;
 
 const EditWrap = styled.section`
+  height: 70vh;
+
   .edit-header {
     display: flex;
     justify-content: space-between;
@@ -69,7 +80,13 @@ const EditWrap = styled.section`
     }
   }
 
+  .stretch-height {
+    height: calc(100% - 40px);
+  }
+
   .edit-body {
+    height: 100%;
+
     .title {
       display: block;
       margin-bottom: 20px;
