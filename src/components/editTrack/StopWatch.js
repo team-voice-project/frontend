@@ -9,14 +9,25 @@ const StopWatch = ({
   setRuntimeMemory,
   setControls,
   playerRef,
+  has_audio,
+  has_upload,
 }) => {
-  const diff = -95; // audio file duration 길이와 스톱워치 타임 오차
+  const diff = -80; // audio file duration 길이와 스톱워치 타임 오차
   const timeRef = useRef(diff);
   const intervalRef = useRef(null);
   const [time, setTime] = useState("00:00:00");
   const [display_time, setDisplayTime] = useState("00:00:00");
+  const [is_continue, setContinue] = useState(false);
+  // console.log("진행중", timeRef.current);
 
   const handleStart = () => {
+    // 현재 오디오 파일 또는 업로드된 파일이 있다면 일시정지 후 이어듣기 가능 상태를 true
+    if (has_audio || has_upload) {
+      setContinue(true);
+    } else {
+      setContinue(false);
+    }
+
     setDisplayTime("00:00:00");
 
     intervalRef.current = setInterval(() => {
@@ -38,14 +49,19 @@ const StopWatch = ({
       setRuntimeMemory(time);
     }
 
-    timeRef.current = 0;
-    setTime("00:00:00");
+    // 녹음시에는 스톱워치 초기화
+    if (!is_continue) {
+      timeRef.current = 0;
+      setTime("00:00:00");
+    }
   };
 
   const handleReset = () => {
     clearInterval(intervalRef.current);
     timeRef.current = 0;
     setRuntimeMemory(null);
+    setTime("00:00:00");
+    setDisplayTime("00:00:00");
   };
 
   useEffect(() => {
@@ -55,8 +71,9 @@ const StopWatch = ({
     } else if (mode === "stop") {
       handlePause();
     } else if (mode === "play") {
-      console.log("재생 시 메모리타임: ", runtime_memory);
       handleStart();
+    } else {
+      handleReset();
     }
   }, [mode]);
 
@@ -73,7 +90,6 @@ const StopWatch = ({
       });
 
       // 오디오 태그 플레이 타임 초기화
-      console.log("오디오 총 길이값: ", playerRef.current.duration);
       playerRef.current.currentTime = 0;
       playerRef.current.pause();
 

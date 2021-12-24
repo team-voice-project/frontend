@@ -27,7 +27,8 @@ function App() {
       <Route path="/login" component={Login} exact />
       <Route path="/edit/base" component={EditBase} exact />
       <Route path="/edit/record" component={EditRecord} exact />
-      <Route exact path="/portfolio" component={PortfolioPage} />
+      <Route path="/" component={InCategory} exact />
+      <Route path="/portfolio" component={PortfolioPage} exact />
       <Route exact path="/mypage" component={MyPage} />
       <Route exact path="/edit/profile" component={EditProfile} />
     </>
