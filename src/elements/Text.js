@@ -18,7 +18,7 @@ Text.defaultProps = {
 };
 
 const TitleText = styled.div`
-  margin: 13px 0px;
+  margin: 18px 0px;
   font-size: 23px;
   font-weight: 900;
 `;
