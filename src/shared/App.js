@@ -15,6 +15,7 @@ import PortfolioPage from "../pages/PortfolioPage";
 import Category from "../pages/Category";
 import Search from "../pages/Search";
 import MyPage from "../pages/MyPage";
+import EditProfile from "../pages/EditProfile";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
       <Route path="/edit/record" component={EditRecord} exact />
       <Route exact path="/portfolio" component={PortfolioPage} />
       <Route exact path="/mypage" component={MyPage} />
+      <Route exact path="/edit/profile" component={EditProfile} />
     </>
   );
 }

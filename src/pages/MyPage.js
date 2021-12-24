@@ -2,21 +2,12 @@ import React, { useState } from "react";
 import Container from "../elements/Container";
 import styled from "styled-components";
 import Track from "../components/Track";
-import MenuModal from "../components/MenuModal";
+
 import MusicPlayer from "../components/MusicPlayer";
 
 const MyPage = (props) => {
-  const [modalOpen, setModalOpen] = useState(false);
-  const openModal = () => {
-    setModalOpen(true);
-  };
-  const closeModal = () => {
-    setModalOpen(false);
-  };
-
   return (
     <Container>
-      <MenuModal open={modalOpen} close={closeModal} header={"123"} />
       <BackBtn>🥕</BackBtn>
       <Profile>
         <ImageCircle src={props.user_image} />
@@ -44,10 +35,8 @@ const MyPage = (props) => {
       <div
         style={{
           display: "flex",
-          justifyContent: "space-between",
           flexWrap: "wrap",
         }}
-        onClick={openModal}
       >
         <Track />
         <Track />
