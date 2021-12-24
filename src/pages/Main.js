@@ -176,4 +176,5 @@ const Count = styled.div`
   justify-content: space-between;
   padding-right: 20px;
 `;
+
 export default Main;
