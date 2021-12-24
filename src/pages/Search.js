@@ -42,9 +42,15 @@ const Icon = styled.div`
 const Multiline = styled.input`
   border: none;
   background: none;
-  border-bottom: solid 1.5px #a496c7;
+  border-bottom: solid 3px #ddd;
   padding: 12px 4px;
   width: 100%;
+
+  :focus {
+    border: none;
+    background: none;
+    border-bottom: solid 3px #fa007d;
+  }
 `;
 
 const Temp = styled.div`

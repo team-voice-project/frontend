@@ -6,7 +6,7 @@ import Container from "../elements/Container";
 const OnBoarding = ({ setShowModal }) => {
   return (
     <Background>
-      {/* <Header /> */}
+      <Header />
       <Container>
         <BoxDiv>
           <Flex>
@@ -88,7 +88,6 @@ const SmallCircle = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 40px;
-  background-color: #616161;
 `;
 
 const Name = styled.div`
@@ -102,6 +101,10 @@ const BigCircle = styled.div`
   border-radius: 200px;
   background-color: #ddd;
   margin: 30px auto 20px auto;
+  background: url("${(props) => props.src}");
+  background-size: 100%;
+  background-position: center;
+  background-repeat: cover;
 `;
 
 const BoldFont = styled.div`
@@ -141,5 +144,10 @@ const Btn = styled.button`
   font-size: 20px;
   font-weight: 700;
 `;
+
+OnBoarding.defaultProps = {
+  user_image:
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgXaZTRs1NC8dvfYkOxERlkyi-nEMnP15bag&usqp=CAU",
+};
 
 export default OnBoarding;

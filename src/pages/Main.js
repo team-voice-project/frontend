@@ -11,20 +11,16 @@ const Main = (props) => {
 
   const openModal = () => {
     setShowModal(true);
-    document.body.style.overflow = "hidden";
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
+    // document.body.style.overflow = "hidden";
   };
 
   React.useEffect(() => {
     openModal();
-  }, [0]);
+  }, []);
 
   return (
     <>
-      {/* {show_modal && <OnBoarding setShowModal={setShowModal} />} */}
+      {show_modal && <OnBoarding setShowModal={setShowModal} />}
       <WrapDiv>
         <Wrap>
           <SearchBar>
@@ -155,62 +151,6 @@ const Flex = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
-`;
-
-const MarginDiv = styled.div`
-  margin-bottom: 24px;
-  margin-top: 20px;
-  padding-left: 20px;
-`;
-
-const Circle = styled.div`
-  width: 120px;
-  height: 120px;
-  background-color: #ddd;
-  border: 5px solid #e6cf00;
-  border-radius: 120px;
-  margin: 0px 12px 16px 0px;
-`;
-
-const TextWrap = styled.div`
-  padding: 25px;
-`;
-
-// const Triangle = styled.div`
-//   width: 0px;
-//   height: 0px;
-//   border-bottom: calc(18px * 1.732) solid #fff;
-//   border-left: 18px solid transparent;
-//   border-right: 18px solid transparent;
-//   transform: rotate(90deg);
-// `;
-
-const Title = styled.div`
-  font-size: 14px;
-  margin: 2px 0px;
-`;
-
-const Name = styled.div`
-  font-size: 12px;
-  margin-bottom: 5px;
-`;
-
-const Count = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding-right: 60px;
-`;
-
-const IconDiv = styled.div`
-  width: 15px;
-  height: 15px;
-  margin-right: 5px;
-  background-color: #ddd;
-`;
-
-const LikeComment = styled.div`
-  font-size: 12px;
-  margin-right: 4px;
 `;
 
 export default Main;

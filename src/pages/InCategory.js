@@ -9,7 +9,7 @@ const InCategory = () => {
 
   const openModal = () => {
     setShowModal(true);
-    document.body.style.overflow = "hidden";
+    // document.body.style.overflow = "hidden";
   };
 
   return (
@@ -19,7 +19,7 @@ const InCategory = () => {
       <Wrap>
         <Div></Div>
         <Flex style={{ justifyContent: "space-between" }}>
-          <Text>카테고리> 나레이션</Text>
+          <Text>카테고리 나레이션</Text>
           <IconTag onClick={openModal}></IconTag>
         </Flex>
         <TagGrid>
@@ -153,7 +153,7 @@ const TagGrid = styled.div`
   margin: 10px 8px 60px 15px;
 `;
 
-const Tag = styled.button`
+const Tag = styled.div`
   max-width: 100px;
   height: 34px;
   padding: 0px 12px;

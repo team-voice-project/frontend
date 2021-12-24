@@ -21,7 +21,7 @@ function App() {
   return (
     <>
       <GlobalStyles />
-      <Route path="/category" component={InCategory} exact />
+      <Route path="/category" component={Category} exact />
       <Route path="/search" component={Search} exact />
       <Route path="/" component={Main} exact />
       <Route path="/login" component={Login} exact />
