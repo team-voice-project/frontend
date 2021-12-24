@@ -217,6 +217,7 @@ const Recorder = ({
         >
           <code>audio</code> element.
         </audio>
+
         {
           <div
             className={`file-save-state ${
@@ -233,6 +234,7 @@ const Recorder = ({
             </button>
           </div>
         }
+
         <div className={"main-controls"}>
           <div className={`side-item repeat ${!repeat_visible && "disabled"}`}>
             <button
@@ -289,6 +291,7 @@ const Recorder = ({
             <span className={"btn-text"}>파일 첨부</span>
           </div>
         </div>
+
         <StopWatch
           _className={"stopwatch"}
           mode={stopwatch_mode}
@@ -300,7 +303,6 @@ const Recorder = ({
           has_audio={has_audio}
           has_upload={uploaderRef.current?.files[0]}
         />
-        테스트
       </Container>
     </RecorderWrap>
   );
