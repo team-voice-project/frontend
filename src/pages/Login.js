@@ -19,7 +19,7 @@ const Login = () => {
         </SearchBar>
 
         <LoginText>3초 로그인 후,</LoginText>
-        <LoginText>다시 만나요 :)</LoginText>
+        <LoginText>다시 만나요 OAO</LoginText>
 
         <div>
           <LoginButton
@@ -88,6 +88,9 @@ const LoginButton = styled.button`
   border-radius: 10px;
   position: relative;
   top: 40vh;
+  background-image: url("/assets/NButton.png");
+  background-repeat: no-repeat;
+  background-size: contain;
 `;
 
 export default Login;

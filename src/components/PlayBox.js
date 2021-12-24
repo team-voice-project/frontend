@@ -42,6 +42,9 @@ const MarginDiv = styled.div`
   margin-bottom: 24px;
   margin-top: 20px;
   padding-left: 20px;
+  @media screen and (max-width: 360px) {
+    padding-left: 20px;
+  }
 `;
 
 const Circle = styled.div`
@@ -51,6 +54,15 @@ const Circle = styled.div`
   border: 5px solid #e6cf00;
   border-radius: 120px;
   margin: 0px 12px 16px 0px;
+  background-image: url("/assets/kimkong.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  @media screen and (max-width: 360px) {
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    margin: 0px 0px 12px 0px;
+  }
 `;
 
 const PlayButton = styled.button`
@@ -62,6 +74,18 @@ const PlayButton = styled.button`
   position: relative;
   left: 85px;
   top: 80px;
+  background-image: url("/assets/playButton.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  @media screen and (max-width: 360px) {
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    margin: 0px 0px 16px 0px;
+    position: relative;
+    left: 70px;
+    top: 65px;
+  }
 `;
 
 const Title = styled.div`
@@ -78,6 +102,9 @@ const Count = styled.div`
   display: flex;
   justify-content: space-between;
   padding-right: 60px;
+  @media screen and (max-width: 360px) {
+    padding-right: 30px;
+  }
 `;
 
 const IconDiv = styled.div`

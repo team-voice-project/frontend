@@ -44,7 +44,7 @@ const OnBoarding = ({ setShowModal }) => {
         <Btn
           onClick={() => {
             setShowModal(false);
-            document.body.style.overflow = "unset";
+            // document.body.style.overflow = "unset";
           }}
         >
           다른 목소리 듣기

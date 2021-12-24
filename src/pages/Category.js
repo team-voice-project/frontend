@@ -80,6 +80,9 @@ const Rectangle = styled.div`
   height: 112px;
   background-color: #ddd;
   border-radius: 10px;
+  background-image: url("/assets/kimkong.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
 
 const CategoryName = styled.div`
