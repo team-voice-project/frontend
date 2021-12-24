@@ -13,6 +13,7 @@ const GlobalStyles = createGlobalStyle`
 
   body {
     overflow-x: hidden;
+    background: #000000;
   }
 
   ol, ul, li {
@@ -32,7 +33,7 @@ const GlobalStyles = createGlobalStyle`
     resize: none;
     outline: none;
   }
-  
+ 
   @media screen and (min-width: 768px) {
     ::-webkit-scrollbar-track {
       -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
@@ -50,7 +51,6 @@ const GlobalStyles = createGlobalStyle`
       background-color: #aaa;
     }
   }
-
 
 `;
 
