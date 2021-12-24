@@ -16,13 +16,14 @@ import Category from "../pages/Category";
 import Search from "../pages/Search";
 import MyPage from "../pages/MyPage";
 
-
 function App() {
   return (
     <>
       <GlobalStyles />
-      <Route path="/" component={InCategory} exact />
+      <Route path="/category" component={InCategory} exact />
+      <Route path="/search" component={Search} exact />
       <Route path="/" component={Main} exact />
+      <Route path="/login" component={Login} exact />
       <Route path="/edit/base" component={EditBase} exact />
       <Route path="/edit/record" component={EditRecord} exact />
       <Route exact path="/portfolio" component={PortfolioPage} />

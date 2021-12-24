@@ -23,7 +23,18 @@ const InCategory = () => {
           <IconTag onClick={openModal}></IconTag>
         </Flex>
         <TagGrid>
-          <Tag>여성적인</Tag>
+          <Tag>
+            여성적인
+            <ButtonX>x</ButtonX>
+          </Tag>
+          <Tag>
+            여성적인
+            <ButtonX>x</ButtonX>
+          </Tag>
+          <Tag>
+            여성적인
+            <ButtonX>x</ButtonX>
+          </Tag>
         </TagGrid>
         <VoiveBoxGrid>
           <VoiceBox>
@@ -104,6 +115,7 @@ const InCategory = () => {
 const Wrap = styled.div`
   width: 100%;
   max-width: 425px;
+  margin: auto;
   padding: 10px;
 `;
 
@@ -138,7 +150,7 @@ const IconTag = styled.div`
 `;
 
 const TagGrid = styled.div`
-  margin: 10px 8px 40px 15px;
+  margin: 10px 8px 60px 15px;
 `;
 
 const Tag = styled.button`
@@ -154,6 +166,15 @@ const Tag = styled.button`
   align-items: center;
   margin: 0px 12px 30px 0px;
   float: left;
+`;
+
+const ButtonX = styled.button`
+  border: none;
+  width: 10px;
+  height: 8px;
+  background-color: #acaaaa;
+  color: #fff;
+  margin-left: 8px;
 `;
 
 const Circle = styled.div`

@@ -10,21 +10,48 @@ const Search = () => {
     <div>
       <Header />
       <Container>
-        <Text>검색</Text>
-        <div>
-          <input placeholder="제목, 이름 등 검색어 입력하기"></input>
+        <Flex>
+          <Icon></Icon>
+          <Text>검색</Text>
+        </Flex>
+        <Flex>
+          <Multiline
+            placeholder="검색어를 입력해주세요."
+            type="text"
+          ></Multiline>
           <Temp></Temp>
-        </div>
-        <Temp></Temp>
+        </Flex>
       </Container>
     </div>
   );
 };
 
-const Temp = styled.div`
-  width: 28px;
-  height: 28px;
+const Flex = styled.div`
+  display: flex;
+  align-items: center;
+  vertical-align: center;
+`;
+
+const Icon = styled.div`
+  width: 18px;
+  height: 32px;
   background-color: #ddd;
+  margin-right: 12px;
+`;
+
+const Multiline = styled.input`
+  border: none;
+  background: none;
+  border-bottom: solid 1.5px #a496c7;
+  padding: 12px 4px;
+  width: 100%;
+`;
+
+const Temp = styled.div`
+  width: 30px;
+  height: 30px;
+  background-color: #ddd;
+  margin-left: 8px;
 `;
 
 export default Search;

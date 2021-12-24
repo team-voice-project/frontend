@@ -4,6 +4,7 @@ import { history } from "../redux/configStore";
 import { Container, Text } from "../elements/index";
 import OnBoarding from "../components/Onboarding";
 import Header from "../components/Header";
+import PlayBox from "../components/PlayBox";
 
 const Main = (props) => {
   const [show_modal, setShowModal] = React.useState(false);
@@ -23,105 +24,76 @@ const Main = (props) => {
 
   return (
     <>
-      {show_modal && <OnBoarding setShowModal={setShowModal} />}
-      <Container>
-        <SearchBar>
-          <FlexSearchBar>
-            <Logo></Logo>
-            <Temdiv
-              onClick={() => {
-                history.push("/search");
-              }}
-            >
-              검
-            </Temdiv>
-            <Temdiv>마</Temdiv>
-            <Temdiv
-              onClick={() => {
-                history.push("/category");
-              }}
-            ></Temdiv>
-          </FlexSearchBar>
-        </SearchBar>
+      {/* {show_modal && <OnBoarding setShowModal={setShowModal} />} */}
+      <WrapDiv>
+        <Wrap>
+          <SearchBar>
+            <FlexSearchBar>
+              <Logo></Logo>
+              <FlexIcon>
+                <Temdiv
+                  onClick={() => {
+                    history.push("/search");
+                  }}
+                >
+                  검
+                </Temdiv>
+                <Temdiv>마</Temdiv>
+                <Temdiv
+                  onClick={() => {
+                    history.push("/category");
+                  }}
+                ></Temdiv>
+              </FlexIcon>
+            </FlexSearchBar>
+          </SearchBar>
+          <UploadBtn>나도 목소리 올리기</UploadBtn>
+          <DivText>나의 목소리를 올려서 사람들에게 들려주세요!</DivText>
+        </Wrap>
 
-        <UploadBtn>나의 목소리 올리기</UploadBtn>
-        <DivText>나의 목소리를 올려서 사람들에게 들려주세요!</DivText>
+        <Wrap>
+          <DivBoldText>
+            <Text>최근에 올라온 목소리</Text>
+            <div
+              style={{ width: "28px", height: "28px", backgroundColor: "#ddd" }}
+            ></div>
+          </DivBoldText>
+        </Wrap>
 
-        <DivBoldText>
-          <Text>최근에 올라온 목소리</Text>
-          <div
-            style={{ width: "28px", height: "28px", backgroundColor: "#ddd" }}
-          ></div>
-        </DivBoldText>
         <Flex>
-          <MarginDiv>
-            <Circle>{/* <Triangle /> */}</Circle>
-            <Title>깔끔한 목소리</Title>
-            <Name>김명자</Name>
-            <Count>
-              <Flex>
-                <IconDiv></IconDiv>
-                <LikeComment>132</LikeComment>
-              </Flex>
-              <Flex>
-                <IconDiv></IconDiv>
-                <LikeComment>20</LikeComment>
-              </Flex>
-            </Count>
-          </MarginDiv>
-
-          <MarginDiv>
-            <Circle>{/* <Triangle /> */}</Circle>
-            <Title>깔끔한 목소리</Title>
-            <Name>김명자</Name>
-            <Count>
-              <div style={{ fontSize: "12px", marginRight: "4px" }}>132</div>
-              <div style={{ fontSize: "12px", marginRight: "4px" }}>20</div>
-            </Count>
-          </MarginDiv>
-
-          <MarginDiv>
-            <Circle>{/* <Triangle /> */}</Circle>
-            <Title>깔끔한 목소리</Title>
-            <Name>김명자</Name>
-            <Count>
-              <div style={{ fontSize: "12px", marginRight: "4px" }}>132</div>
-              <div style={{ fontSize: "12px", marginRight: "4px" }}>20</div>
-            </Count>
-          </MarginDiv>
+          <PlayBox />
+          <PlayBox />
+          <PlayBox />
         </Flex>
 
-        <DivBoldText>
-          <Text>최근에 올라온 목소리</Text>
-          <div
-            style={{ width: "28px", height: "28px", backgroundColor: "#ddd" }}
-          ></div>
-        </DivBoldText>
-        <Flex>
-          <MarginDiv>
-            <Circle>{/* <Triangle /> */}</Circle>
-            <Title>깔끔한 목소리</Title>
-            <Name>김명자</Name>
-            <Count>
-              <Flex>
-                <IconDiv></IconDiv>
-                <LikeComment>132</LikeComment>
-              </Flex>
-              <Flex>
-                <IconDiv></IconDiv>
-                <LikeComment>20</LikeComment>
-              </Flex>
-            </Count>
-          </MarginDiv>
-        </Flex>
-      </Container>
+        <Wrap>
+          <DivBoldText>
+            <Text>인기있는 나레이션</Text>
+            <div
+              style={{ width: "28px", height: "28px", backgroundColor: "#ddd" }}
+            ></div>
+          </DivBoldText>
+        </Wrap>
+      </WrapDiv>
     </>
   );
 };
 
+const WrapDiv = styled.div`
+  max-width: 425px;
+  width: 100%;
+  margin: auto;
+`;
+
+const Wrap = styled.div`
+  padding: 0px 20px;
+`;
+
 const SearchBar = styled.div`
   width: 100%;
-  height: 8vh;
+  height: 11vh;
+  background-color: #ececc8;
+  padding-top: 40px;
 `;
 
 const FlexSearchBar = styled.div`
@@ -132,21 +104,28 @@ const FlexSearchBar = styled.div`
 `;
 
 const Logo = styled.div`
-  width: 65px;
-  height: 25px;
+  width: 80px;
+  height: 30px;
   background-color: #ddd;
+`;
+
+const FlexIcon = styled.div`
+  display: flex;
+  align-items: center;
+  vertical-align: center;
 `;
 
 const Temdiv = styled.div`
   width: 28px;
   height: 28px;
   background-color: #ddd;
+  margin-left: 22px;
 `;
 
 const UploadBtn = styled.button`
   width: 100%;
   background-color: #636363;
-  height: 7vh;
+  height: 7.5vh;
   color: #fff;
   font-size: 18px;
   font-weight: 700;
@@ -180,15 +159,21 @@ const Flex = styled.div`
 
 const MarginDiv = styled.div`
   margin-bottom: 24px;
+  margin-top: 20px;
+  padding-left: 20px;
 `;
 
 const Circle = styled.div`
-  width: 135px;
-  height: 135px;
+  width: 120px;
+  height: 120px;
   background-color: #ddd;
   border: 5px solid #e6cf00;
   border-radius: 120px;
-  margin: 0px 12px 8px 0px;
+  margin: 0px 12px 16px 0px;
+`;
+
+const TextWrap = styled.div`
+  padding: 25px;
 `;
 
 // const Triangle = styled.div`
