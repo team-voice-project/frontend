@@ -71,7 +71,7 @@ const Track = () => {
           <div style={{ width: "100px", textAlign: "center" }}>
             <div style={{ display: "flex" }}>
               <Title>깔끔한 목소리의 나래이션 입니다.</Title>
-              <p>...</p>
+              <p style={{ color: "white" }}>...</p>
             </div>
           </div>
           <Text>김용성</Text>
@@ -92,7 +92,9 @@ const Track = () => {
               <Text>300</Text>
             </div>
             <div style={{ display: "flex", lineHeight: "50%" }}>
-              <AiOutlineComment style={{ marginRight: "5px" }} />
+              <AiOutlineComment
+                style={{ color: "white", marginRight: "5px" }}
+              />
               <Text>300</Text>
             </div>
           </div>
@@ -138,10 +140,12 @@ const Title = styled.h1`
   font-size: 14px;
   height: 20px;
   overflow: hidden;
+  color: white;
 `;
 
 const Text = styled.p`
   margin-top: 5px;
   font-size: 13px;
+  color: white;
 `;
 export default Track;
