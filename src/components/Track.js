@@ -68,7 +68,7 @@ const Track = () => {
         )}
 
         <div onClick={openModal} style={{ cursor: "pointer" }}>
-          <div style={{ width: "100px", textAlign: "center" }}>
+          <div style={{ width: "100px", height: "15px", textAlign: "center" }}>
             <div style={{ display: "flex" }}>
               <Title>깔끔한 목소리의 나래이션 입니다.</Title>
               <p style={{ color: "white" }}>...</p>
@@ -144,7 +144,7 @@ const Title = styled.h1`
 `;
 
 const Text = styled.p`
-  margin-top: 5px;
+  margin-top: 03px;
   font-size: 13px;
   color: white;
 `;
