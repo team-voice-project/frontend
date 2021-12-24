@@ -141,6 +141,7 @@ const Section = styled.div`
   top: 0;
   left: 0;
   bottom: 0;
+  height: 130%;
   background-color: rgba(10, 10, 10, 0.86);
   backdrop-filter: blur(4px);
 `;
