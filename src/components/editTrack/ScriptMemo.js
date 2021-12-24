@@ -28,6 +28,5 @@ const MemoWrap = styled.div`
     padding: 10px;
     overflow-x: hidden;
     overflow-y: auto;
-    margin: 0 -10px;
   }
 `;
