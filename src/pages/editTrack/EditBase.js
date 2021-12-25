@@ -195,7 +195,7 @@ const EditWrap = styled.section`
         border: 0;
         padding: 7px 13px 8.6px 13px;
         color: #fff;
-        margin: 5px;
+        margin: 0 5px;
         border-radius: 20px;
         background-color: var(--point-color);
         display: inline-flex;

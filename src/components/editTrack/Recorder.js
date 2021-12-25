@@ -6,6 +6,15 @@ import { Container } from "../../elements";
 import StopWatch from "./StopWatch";
 import pushAudio from "../../shared/audio/push.mp3";
 
+// 허용 가능한 음원 파일 타입 리스트
+const AUDIO_TYPE_LIST = [
+  "audio/midi",
+  "audio/mpeg",
+  "audio/webm",
+  "audio/ogg",
+  "audio/wav",
+];
+
 const Recorder = ({
   setVoiceFile,
   setScriptActive,
@@ -158,6 +167,15 @@ const Recorder = ({
   };
 
   const handleUploadAudioFile = (e) => {
+    const is_audio = AUDIO_TYPE_LIST.some(
+      (type) => type === e.target.files[0].type
+    );
+
+    if (!is_audio) {
+      alert("오디오 파일만 첨부 할 수 있습니다.");
+      return;
+    }
+
     setUploadStateBubble({ state: false });
     setStopWatchMode("reset");
     setScriptActive(false);
@@ -282,6 +300,7 @@ const Recorder = ({
                 type="file"
                 onChange={handleUploadAudioFile}
                 ref={uploaderRef}
+                accept={"audio/*"}
               />
             </label>
             <span className={"btn-text"}>파일 첨부</span>

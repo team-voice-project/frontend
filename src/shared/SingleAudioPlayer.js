@@ -33,7 +33,7 @@ const SingleAudioPlayer = ({ audio }) => {
     <PlayerWrap progress={progress}>
       <AudioPlayer
         overrideStyles={true}
-        src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+        src={audio}
         colors={{
           sliderTrack: "#8A8A8A",
           slider: "#fff",

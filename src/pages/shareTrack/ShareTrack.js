@@ -4,6 +4,9 @@ import styled from "styled-components";
 import { Container } from "../../elements";
 import SingleAudioPlayer from "../../shared/SingleAudioPlayer";
 
+// 임시 테스트 음원파일
+import pushAudio from "../../shared/audio/push.mp3";
+
 const ShareTrack = () => {
   return (
     <ShareWrap>
@@ -31,7 +34,7 @@ const ShareTrack = () => {
         </div>
 
         <div className={"player-widget"}>
-          <SingleAudioPlayer />
+          <SingleAudioPlayer audio={pushAudio} />
         </div>
 
         <div className={"btn-group"}>
