@@ -107,8 +107,8 @@ const PlayerWrap = styled.article`
       border-radius: 50%;
       top: 50%;
       margin-top: -5px;
-
-      left: ${(props) => (props.progress ? props.progress + "%" : "0")};
+      margin-left: -5px;
+      left: ${(props) => (props.progress ? props.progress + 2 + "%" : "0")};
     }
   }
 

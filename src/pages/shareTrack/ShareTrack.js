@@ -4,10 +4,11 @@ import styled from "styled-components";
 import { Container } from "../../elements";
 import SingleAudioPlayer from "../../shared/SingleAudioPlayer";
 
-// 임시 테스트 음원파일
-import pushAudio from "../../shared/audio/push.mp3";
+import { useSelector } from "react-redux";
 
 const ShareTrack = () => {
+  const track_info = useSelector((state) => state.editTrack);
+  console.log("공유할 트랙 정보", track_info);
   return (
     <ShareWrap>
       <Container _className={"share-page-container"}>
@@ -19,22 +20,28 @@ const ShareTrack = () => {
 
         <div className={"track-info"}>
           <div className={"emoticon"}></div>
-          <div className={"track-subject"}>공유페이지 제목입니다.</div>
+          <div className={"track-subject"}>{track_info.subject}</div>
           <div className={"track-tags"}>
-            <button type={"button"} className={"tag-item"}>
-              깔끔한
-            </button>
-            <button type={"button"} className={"tag-item"}>
-              깔끔한
-            </button>
-            <button type={"button"} className={"tag-item"}>
-              깔끔한
-            </button>
+            {track_info.tags.map((item, idx) => {
+              return (
+                <button
+                  key={`tag-id-${idx}`}
+                  type={"button"}
+                  className={"tag-item"}
+                >
+                  {item}
+                </button>
+              );
+            })}
           </div>
         </div>
 
         <div className={"player-widget"}>
-          <SingleAudioPlayer audio={pushAudio} />
+          <SingleAudioPlayer
+            audio={
+              "https://cdn.mewpot.com/Refresh-wqHbZeK3wJaWt2nhaMizdE3q.mp3?token=st=1640413825~exp=1640424625~acl=/*~hmac=0a272ed26c7c396ce3a9d4b511d612d538c86181a0d188219857dcc5f205ef8b&response-content-disposition=attachment&filename=MP_%EC%83%81%EC%BE%8C%ED%95%9C%20%ED%95%98%EB%A3%A8.mp3"
+            }
+          />
         </div>
 
         <div className={"btn-group"}>

@@ -1,22 +1,37 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
+import { actionCreators as editTrackActions } from "../../redux/modules/editTrack";
 
 import { Container } from "../../elements";
 import ScriptMemo from "../../components/editTrack/ScriptMemo";
 import Recorder from "../../components/editTrack/Recorder";
 import ScriptView from "../../components/editTrack/ScriptView";
+import { useDispatch } from "react-redux";
 
-const EditRecord = () => {
-  const handleClickNextBtn = () => {};
+const EditRecord = ({ history }) => {
+  const dispatch = useDispatch();
   const scriptRef = useRef(null);
-  const [voice_file, setVoiceFile] = useState({ file: null, type: null });
+  const [voice_file, setVoiceFile] = useState({
+    file: null,
+    type: null,
+    url: null,
+  });
   const [script_active, setScriptActive] = useState(false);
   const [script_text, setScriptText] = useState("");
 
-  // 파일 확인용 임시 로그
-  useEffect(() => {
-    console.log("현재 보이스 파일: ", voice_file);
-  }, [voice_file]);
+  const handleClickNextBtn = () => {
+    for (const prop in voice_file) {
+      console.log("파일 속성", prop);
+      if (voice_file[prop] === null) {
+        alert("목소리가 준비되어있지 않아요 :(");
+        return;
+      }
+    }
+
+    console.log("저장될 녹음 파일: ", voice_file);
+    dispatch(editTrackActions.saveAudio(voice_file));
+    history.push("/edit/final");
+  };
 
   return (
     <EditWrap>

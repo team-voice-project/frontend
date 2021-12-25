@@ -45,12 +45,14 @@ const Recorder = ({
 
   const getVoiceBlobUrl = () => {
     const voice_blob = new Blob(chunks, { type: "audio/ogg codecs=opus" });
+    const url = URL.createObjectURL(voice_blob);
     // 실제 서버로 넘길 보이스 파일 데이터 객체
     setVoiceFile({
       file: voice_blob,
       type: "record",
+      url,
     });
-    return URL.createObjectURL(voice_blob);
+    return url;
   };
 
   const handleClickOnRecord = () => {
@@ -162,6 +164,7 @@ const Recorder = ({
     setVoiceFile({
       file: null,
       type: null,
+      url: null,
     });
     setUploadStateBubble({ state: false });
   };
@@ -189,9 +192,6 @@ const Recorder = ({
     const reader = new FileReader();
     const file = e.target.files[0];
     reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      playerRef.current.src = reader.result;
-    };
 
     playerRef.current.onloadedmetadata = function () {
       let runtime = Math.floor(playerRef.current.duration * 1000);
@@ -199,10 +199,15 @@ const Recorder = ({
       setRuntimeMemory(timer_str);
     };
 
-    setVoiceFile({
-      file: e.target.files[0],
-      type: "upload",
-    });
+    reader.onloadend = () => {
+      playerRef.current.src = reader.result;
+
+      setVoiceFile({
+        file: e.target.files[0],
+        type: "upload",
+        url: playerRef.current.src,
+      });
+    };
 
     setTimeout(() => {
       setUploadStateBubble({ state: true, text: "파일이 첨부되었습니다." });
