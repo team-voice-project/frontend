@@ -15,6 +15,7 @@ const AUDIO_TYPE_LIST = [
   "audio/wav",
 ];
 
+// FIXME: 파일 첨부 후 녹음 시 스톱워치 동작 오류 있음
 const Recorder = ({
   setVoiceFile,
   setScriptActive,
