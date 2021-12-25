@@ -1,12 +1,15 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
+import { actionCreators as editTrackActions } from "../../redux/modules/editTrack";
 
 import { Container } from "../../elements";
 import OptModal from "../../components/editTrack/OptModal";
 import CategoryList from "../../components/editTrack/CategoryList";
 import TagList from "../../components/editTrack/TagList";
+import { useDispatch } from "react-redux";
 
-const EditBase = () => {
+const EditBase = ({ history }) => {
+  const dispatch = useDispatch();
   const [modal_state, setModalState] = useState(null);
   const [selected_cate, setSelectedCate] = useState("");
   const [selected_tag, setSelectedTag] = useState([]);
@@ -34,12 +37,14 @@ const EditBase = () => {
     }
 
     const save_data = {
-      selected_cate,
-      selected_tag,
+      category: selected_cate,
+      tags: selected_tag,
       subject: subjectRef.current.value,
     };
 
     console.log("저장할 데이터", save_data);
+    dispatch(editTrackActions.saveBase(save_data));
+    history.push("/edit/record");
   };
 
   const handleRemoveTag = (tag) => {
@@ -195,7 +200,7 @@ const EditWrap = styled.section`
         border: 0;
         padding: 7px 13px 8.6px 13px;
         color: #fff;
-        margin: 5px;
+        margin: 0 5px;
         border-radius: 20px;
         background-color: var(--point-color);
         display: inline-flex;

@@ -33,7 +33,7 @@ const SingleAudioPlayer = ({ audio }) => {
     <PlayerWrap progress={progress}>
       <AudioPlayer
         overrideStyles={true}
-        src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+        src={audio}
         colors={{
           sliderTrack: "#8A8A8A",
           slider: "#fff",
@@ -107,8 +107,8 @@ const PlayerWrap = styled.article`
       border-radius: 50%;
       top: 50%;
       margin-top: -5px;
-
-      left: ${(props) => (props.progress ? props.progress + "%" : "0")};
+      margin-left: -5px;
+      left: ${(props) => (props.progress ? props.progress + 2 + "%" : "0")};
     }
   }
 

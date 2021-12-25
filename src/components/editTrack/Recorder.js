@@ -6,6 +6,15 @@ import { Container } from "../../elements";
 import StopWatch from "./StopWatch";
 import pushAudio from "../../shared/audio/push.mp3";
 
+// 허용 가능한 음원 파일 타입 리스트
+const AUDIO_TYPE_LIST = [
+  "audio/midi",
+  "audio/mpeg",
+  "audio/webm",
+  "audio/ogg",
+  "audio/wav",
+];
+
 const Recorder = ({
   setVoiceFile,
   setScriptActive,
@@ -36,12 +45,14 @@ const Recorder = ({
 
   const getVoiceBlobUrl = () => {
     const voice_blob = new Blob(chunks, { type: "audio/ogg codecs=opus" });
+    const url = URL.createObjectURL(voice_blob);
     // 실제 서버로 넘길 보이스 파일 데이터 객체
     setVoiceFile({
       file: voice_blob,
       type: "record",
+      url,
     });
-    return URL.createObjectURL(voice_blob);
+    return url;
   };
 
   const handleClickOnRecord = () => {
@@ -153,11 +164,21 @@ const Recorder = ({
     setVoiceFile({
       file: null,
       type: null,
+      url: null,
     });
     setUploadStateBubble({ state: false });
   };
 
   const handleUploadAudioFile = (e) => {
+    const is_audio = AUDIO_TYPE_LIST.some(
+      (type) => type === e.target.files[0].type
+    );
+
+    if (!is_audio) {
+      alert("오디오 파일만 첨부 할 수 있습니다.");
+      return;
+    }
+
     setUploadStateBubble({ state: false });
     setStopWatchMode("reset");
     setScriptActive(false);
@@ -171,9 +192,6 @@ const Recorder = ({
     const reader = new FileReader();
     const file = e.target.files[0];
     reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      playerRef.current.src = reader.result;
-    };
 
     playerRef.current.onloadedmetadata = function () {
       let runtime = Math.floor(playerRef.current.duration * 1000);
@@ -181,10 +199,15 @@ const Recorder = ({
       setRuntimeMemory(timer_str);
     };
 
-    setVoiceFile({
-      file: e.target.files[0],
-      type: "upload",
-    });
+    reader.onloadend = () => {
+      playerRef.current.src = reader.result;
+
+      setVoiceFile({
+        file: e.target.files[0],
+        type: "upload",
+        url: playerRef.current.src,
+      });
+    };
 
     setTimeout(() => {
       setUploadStateBubble({ state: true, text: "파일이 첨부되었습니다." });
@@ -282,6 +305,7 @@ const Recorder = ({
                 type="file"
                 onChange={handleUploadAudioFile}
                 ref={uploaderRef}
+                accept={"audio/*"}
               />
             </label>
             <span className={"btn-text"}>파일 첨부</span>
