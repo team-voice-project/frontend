@@ -10,10 +10,14 @@ const Category = () => {
 
   return (
     <div>
-      <Header />
+      <Header noHeader />
       <Wrap>
         <div style={{ marginBottom: "40px", padding: "0px 20px" }}>
-          <Text>카테고리</Text>
+          <Flex>
+            <Icon></Icon>
+            <Text>카테고리</Text>
+          </Flex>
+
           <Desc>카테고리에서 태그 조정을 통해 원하는 목소리를 찾아보세요</Desc>
         </div>
 
@@ -76,13 +80,25 @@ const Desc = styled.div`
 `;
 
 const Rectangle = styled.div`
-  width: 120px;
-  height: 112px;
+  width: 121px;
+  height: 116px;
   background-color: #ddd;
   border-radius: 10px;
   background-image: url("/assets/kimkong.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+  /* @media screen and (max-width: 375px) {
+    width: 100px;
+    height: 96px;
+  } */
+  @media screen and (max-width: 380px) {
+    width: 105px;
+    height: 100px;
+  }
+  @media screen and (max-width: 320px) {
+    width: 85px;
+    height: 82px;
+  }
 `;
 
 const CategoryName = styled.div`
@@ -92,7 +108,14 @@ const CategoryName = styled.div`
 
 const Flex = styled.div`
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  vertical-align: center;
+`;
+
+const Icon = styled.div`
+  width: 24px;
+  height: 24px;
+  background-color: #fff;
 `;
 
 const Box = styled.div`

@@ -8,7 +8,6 @@ const CategoryModal = ({ setShowModal }) => {
       <BackGround
         onClick={() => {
           setShowModal(false);
-          document.body.style.overflow = "unset";
         }}
       >
         <Wrap>
@@ -21,6 +20,12 @@ const CategoryModal = ({ setShowModal }) => {
               <Tag>유쾌한</Tag>
               <Tag>젠틀한</Tag>
               <Tag>귀여운</Tag>
+              <Tag>중후한</Tag>
+              <Tag>아이같은</Tag>
+              <Tag>어른스러운</Tag>
+              <Tag>잔잔한</Tag>
+              <Tag>독특한</Tag>
+              <Tag>친근한</Tag>
             </TagDiv>
           </Modal>
 
@@ -44,6 +49,7 @@ const BackGround = styled.div`
   left: 0;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 9999;
+  overflow-y: auto;
 `;
 
 const Wrap = styled.div`
@@ -59,7 +65,7 @@ const Modal = styled.div`
   width: 100%;
   margin: auto;
   height: 60vh;
-  background-color: #fff;
+  background-color: #2c2b2b;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
 `;
@@ -71,20 +77,26 @@ const TagDiv = styled.div`
 
 const Tag = styled.button`
   max-width: 100px;
-  height: 42px;
+  height: 38px;
   padding: 0px 14px;
-  background-color: #acaaaa;
+  background-color: #000;
   color: #fff;
-  font-size: 0.85em;
+  font-size: 13px;
   border-radius: 20px;
   border: none;
   text-align: center;
   align-items: center;
-  margin: 0px 12px 30px 0px;
+  margin: 0px 12px 20px 0px;
   float: left;
 
   &:hover {
     background-color: #ff1953;
+  }
+  @media screen and (max-width: 360px) {
+    height: 28px;
+    padding: 0px 14px;
+    font-size: 11px;
+    margin: 0px 8px 12px 0px;
   }
 `;
 
@@ -100,6 +112,9 @@ const ButtonDiv = styled.div`
 const Ment = styled.div`
   font-size: 13px;
   text-align: center;
+  @media screen and (max-width: 360px) {
+    font-size: 12px;
+  }
 `;
 
 const TagButton = styled.button`
@@ -121,6 +136,9 @@ const TextDiv = styled.div`
   font-weight: 700;
   text-align: center;
   margin: 20px 0px;
+  @media screen and (max-width: 360px) {
+    font-size: 17px;
+  }
 `;
 
 export default CategoryModal;
