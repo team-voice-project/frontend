@@ -1,10 +1,21 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
+import moment from "moment";
 
 import { Container } from "../../elements";
 import StopWatch from "./StopWatch";
-import moment from "moment";
+import pushAudio from "../../shared/audio/push.mp3";
 
+// 허용 가능한 음원 파일 타입 리스트
+const AUDIO_TYPE_LIST = [
+  "audio/midi",
+  "audio/mpeg",
+  "audio/webm",
+  "audio/ogg",
+  "audio/wav",
+];
+
+// FIXME: 파일 첨부 후 녹음 시 스톱워치 동작 오류 있음
 const Recorder = ({
   setVoiceFile,
   setScriptActive,
@@ -35,12 +46,14 @@ const Recorder = ({
 
   const getVoiceBlobUrl = () => {
     const voice_blob = new Blob(chunks, { type: "audio/ogg codecs=opus" });
+    const url = URL.createObjectURL(voice_blob);
     // 실제 서버로 넘길 보이스 파일 데이터 객체
     setVoiceFile({
       file: voice_blob,
       type: "record",
+      url,
     });
-    return URL.createObjectURL(voice_blob);
+    return url;
   };
 
   const handleClickOnRecord = () => {
@@ -152,11 +165,21 @@ const Recorder = ({
     setVoiceFile({
       file: null,
       type: null,
+      url: null,
     });
     setUploadStateBubble({ state: false });
   };
 
   const handleUploadAudioFile = (e) => {
+    const is_audio = AUDIO_TYPE_LIST.some(
+      (type) => type === e.target.files[0].type
+    );
+
+    if (!is_audio) {
+      alert("오디오 파일만 첨부 할 수 있습니다.");
+      return;
+    }
+
     setUploadStateBubble({ state: false });
     setStopWatchMode("reset");
     setScriptActive(false);
@@ -170,9 +193,6 @@ const Recorder = ({
     const reader = new FileReader();
     const file = e.target.files[0];
     reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      playerRef.current.src = reader.result;
-    };
 
     playerRef.current.onloadedmetadata = function () {
       let runtime = Math.floor(playerRef.current.duration * 1000);
@@ -180,10 +200,15 @@ const Recorder = ({
       setRuntimeMemory(timer_str);
     };
 
-    setVoiceFile({
-      file: e.target.files[0],
-      type: "upload",
-    });
+    reader.onloadend = () => {
+      playerRef.current.src = reader.result;
+
+      setVoiceFile({
+        file: e.target.files[0],
+        type: "upload",
+        url: playerRef.current.src,
+      });
+    };
 
     setTimeout(() => {
       setUploadStateBubble({ state: true, text: "파일이 첨부되었습니다." });
@@ -198,12 +223,7 @@ const Recorder = ({
   return (
     <RecorderWrap>
       <div className={"hidden-system-audio"}>
-        <audio
-          preload="auto"
-          controls
-          src="https://cdn.mewpot.com/Tiny%20Button%20Push-wH6BJBzVTMP1u1SBEkRRK1As.mp3?token=st=1640320970~exp=1640331770~acl=/*~hmac=26c4200d6fcb63ad64d5bae4910a47844835f9f4859b00c0cd597c01efbff99d&response-content-disposition=attachment&filename=MP_Tiny%20Button%20Push.mp3"
-          ref={systemAudioRef}
-        >
+        <audio preload="auto" controls src={pushAudio} ref={systemAudioRef}>
           <code>audio</code> element.
         </audio>
       </div>
@@ -286,6 +306,7 @@ const Recorder = ({
                 type="file"
                 onChange={handleUploadAudioFile}
                 ref={uploaderRef}
+                accept={"audio/*"}
               />
             </label>
             <span className={"btn-text"}>파일 첨부</span>
@@ -352,7 +373,7 @@ const RecorderWrap = styled.div`
     font-size: 14px;
     height: 42px;
     border-radius: 22px;
-    background: #4142f4;
+    background: var(--point-color);
     max-width: 320px;
     width: 100%;
     z-index: -1;
@@ -408,7 +429,7 @@ const RecorderWrap = styled.div`
       }
 
       &.pause {
-        border: 2px solid #9422fc;
+        border: 2px solid var(--point-color);
         padding: 4px;
         display: flex;
         align-items: center;

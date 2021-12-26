@@ -6,13 +6,20 @@ import Track from "../components/Track";
 import MusicPlayer from "../components/MusicPlayer";
 
 const MyPage = (props) => {
+  const [checkedInputs, setCheckedInputs] = useState([]);
+
+  const changeRadio = (e) => {
+    if (e.target.checked) {
+      setCheckedInputs(e.target.id);
+    }
+  };
   return (
     <Container>
       <div
         style={{
           background: "white",
           padding: "50px 10px 10px 10px",
-          height: "300px",
+          height: "100%",
         }}
       >
         <Profile>
@@ -36,9 +43,36 @@ const MyPage = (props) => {
         <UpBtn>나의 목소리 올리기 </UpBtn>
       </div>
 
-      <div style={{ textAlign: "center", margin: "20px 0px 0px 20px" }}>
-        <TrackBtn>트랙 리스트</TrackBtn>
-        <TrackBtn>좋아요 목록</TrackBtn>
+      <div
+        style={{
+          display: "flex",
+          textAlign: "center",
+          justifyContent: "center",
+          margin: "20px 0 0 0",
+        }}
+      >
+        <label style={{ marginRight: "10px" }}>
+          <FormCheckLeft
+            type="radio"
+            {...props}
+            id={props.id}
+            name="radioButton"
+            onChange={changeRadio}
+            value={checkedInputs}
+          />
+          <FormCheckText>트랙 리스트</FormCheckText>
+        </label>
+        <label>
+          <FormCheckLeft
+            type="radio"
+            {...props}
+            id={props.id}
+            name="radioButton"
+            onChange={changeRadio}
+            value={checkedInputs}
+          />
+          <FormCheckText>좋아요 목록</FormCheckText>
+        </label>
       </div>
       <div
         style={{
@@ -62,6 +96,39 @@ MyPage.defaultProps = {
   user_image:
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgXaZTRs1NC8dvfYkOxERlkyi-nEMnP15bag&usqp=CAU",
 };
+
+const FormCheckText = styled.span`
+  font-size: 15px;
+  font-weight: 900;
+  width: 110px;
+  height: 35px;
+  background: black;
+  border-radius: 50px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: #777;
+`;
+
+const FormCheckLeft = styled.input.attrs({ type: "radio" })`
+  &:checked {
+    display: inline-block;
+    background: none;
+    padding: 0px 10px;
+    text-align: center;
+    height: 35px;
+    line-height: 33px;
+    font-weight: 500;
+    display: none;
+  }
+  &:checked + ${FormCheckText} {
+    background: white;
+    color: black;
+  }
+  display: none;
+`;
 
 const Profile = styled.div`
   display: flex;

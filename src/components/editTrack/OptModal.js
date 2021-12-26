@@ -29,14 +29,11 @@ const ModalWrap = styled.article`
   z-index: 9999;
 
   .modal-content {
-    background-color: #fff;
+    background-color: #2c2b2b;
     padding: 40px 20px;
     width: 100%;
     height: 80vh;
     border-radius: 12px 12px 0 0;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
-  }
-
-  .apply-btn {
   }
 `;
