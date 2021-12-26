@@ -1,16 +1,65 @@
 import React from "react";
 import styled from "styled-components";
+import { BiPause } from "react-icons/bi";
+import { FaPlay } from "react-icons/fa";
+
+import MenuModal from "./MenuModal";
 
 const PlayBox = () => {
+  const [modalOpen, setModalOpen] = React.useState(false);
+  const [playBtn, setPlayBtn] = React.useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   return (
     <div>
       <Flex>
+        <MenuModal open={modalOpen} close={closeModal} header={"123"} />
         <MarginDiv>
-          <Circle>
-            <PlayButton />
-          </Circle>
+          {playBtn ? (
+            <Circle
+              style={{
+                border: "5px solid #f1134e ",
+                transition: "all 300ms ease-in",
+              }}
+            >
+              <PlayButton
+                onClick={() => {
+                  setPlayBtn(false);
+                }}
+              >
+                <BiPause
+                  style={{
+                    color: "white",
+                    fontSize: "20px",
+                  }}
+                />
+              </PlayButton>
+            </Circle>
+          ) : (
+            <Circle>
+              <PlayButton
+                onClick={() => {
+                  setPlayBtn(true);
+                }}
+              >
+                <FaPlay
+                  style={{
+                    color: "white",
+                    marginLeft: "4px",
+                    marginTop: "2px",
+                  }}
+                />
+              </PlayButton>
+            </Circle>
+          )}
 
-          <Title>깔끔한 목소리</Title>
+          <Title>깔끔한 목소리 나레이션</Title>
           <Name>김명자</Name>
           <Count>
             <Flex>
@@ -39,63 +88,76 @@ const Flex = styled.div`
 `;
 
 const MarginDiv = styled.div`
-  margin-bottom: 24px;
-  margin-top: 20px;
-  padding-left: 20px;
+  margin: 0px 16px 20px 0px;
   @media screen and (max-width: 360px) {
-    padding-left: 20px;
+    margin: 0px 10px 20px 0px;
   }
 `;
 
 const Circle = styled.div`
-  width: 120px;
-  height: 120px;
+  width: 130px;
+  height: 130px;
   background-color: #ddd;
-  border: 5px solid #e6cf00;
+  /* border: 5px solid #ff00b3; */
   border-radius: 120px;
-  margin: 0px 12px 16px 0px;
+  margin: 0px 0px 12px 0px;
   background-image: url("/assets/kimkong.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   @media screen and (max-width: 360px) {
-    width: 100px;
-    height: 100px;
+    width: 110px;
+    height: 110px;
     border-radius: 100px;
     margin: 0px 0px 12px 0px;
   }
 `;
 
 const PlayButton = styled.button`
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   border-radius: 50px;
-  background-color: #727272;
+  background-color: #f1134e;
   border: none;
   position: relative;
-  left: 85px;
-  top: 80px;
-  background-image: url("/assets/playButton.png");
+  left: 92px;
+  top: 90px;
+  /* background-image: url("/assets/playButton.png");
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover; */
   @media screen and (max-width: 360px) {
-    width: 30px;
-    height: 30px;
-    border-radius: 30px;
+    width: 26px;
+    height: 26px;
+    border-radius: 28px;
     margin: 0px 0px 16px 0px;
     position: relative;
-    left: 70px;
-    top: 65px;
+    left: 78px;
+    top: 74px;
   }
 `;
 
-const Title = styled.div`
-  font-size: 14px;
-  margin: 2px 0px;
+const Title = styled.text`
+  font-size: 13px;
+  margin: 0px 0px 2px 0px;
+  overflow: hidden;
+  width: 100px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+
+  @media screen and (max-width: 360px) {
+    font-size: 12px;
+    margin: 0px 0px 2px 0px;
+    overflow: hidden;
+  }
 `;
 
 const Name = styled.div`
   font-size: 12px;
   margin-bottom: 5px;
+  @media screen and (max-width: 360px) {
+    font-size: 11px;
+  }
 `;
 
 const Count = styled.div`
@@ -117,6 +179,9 @@ const IconDiv = styled.div`
 const LikeComment = styled.div`
   font-size: 12px;
   margin-right: 4px;
+  @media screen and (max-width: 360px) {
+    font-size: 11px;
+  }
 `;
 
 export default PlayBox;

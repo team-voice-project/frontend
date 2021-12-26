@@ -1,20 +1,44 @@
 {
   "RESULT": [
     {
-      "trackId": "AAA",
-      "tag": "발랄한, 중저음, 중성",
+      "trackId": "CCC",
+      "nickname": "hi",
+      "category": "나레이션",
+      "tag": "여성스러운",
+      "trackThumbnailId": "CCC",
       "trackUrl": "",
-      "likeCnt": "20",
-      "commentCnt": "15",
-      "createdAt": "2021-12-23"
+      "likeCnt": "1",
+      "createdAt": "2"
     },
     {
-      "trackId": "BBB",
-      "tag": "태그1,태그2,",
+      "trackId": "목소리",
+      "nickname": "hello",
+      "category": "나레이션",
+      "tag": "여성스러운,부드러운, 중후한",
+      "trackThumbnailId": "123",
+      "trackUrl": "",
+      "likeCnt": "3",
+      "createdAt": "5"
+    },
+    {
+      "trackId": "젠틀맨",
+      "nickname": "okok",
+      "category": "일상언어",
+      "tag": "젠틀한, 남성적인, 부드러운",
+      "trackThumbnailId": "456",
+      "trackUrl": "",
+      "likeCnt": "7",
+      "createdAt": "8"
+    },
+    {
+      "trackId": "잔잔맨",
+      "nickname": "hi",
+      "category": "라디오 ",
+      "tag": "잔잔한, 어른스러운, 친근한",
+      "trackThumbnailId": "789",
       "trackUrl": "",
       "likeCnt": "15",
-      "commentCnt": "30",
-      "createdAt": "2021-12-23"
+      "createdAt": "52"
     }
   ]
 }

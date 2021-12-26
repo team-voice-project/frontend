@@ -14,7 +14,7 @@ const OnBoarding = ({ setShowModal }) => {
             <Name>조은영</Name>
           </Flex>
           <div>
-            <BigCircle></BigCircle>
+            <OAOImage></OAOImage>
             <div>
               <FlexCount>
                 <div style={{ margin: "auto", display: "flex" }}>
@@ -44,7 +44,6 @@ const OnBoarding = ({ setShowModal }) => {
         <Btn
           onClick={() => {
             setShowModal(false);
-            // document.body.style.overflow = "unset";
           }}
         >
           다른 목소리 듣기
@@ -60,14 +59,15 @@ const Background = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgb(255, 251, 251);
+  background-color: rgb(0, 0, 0);
   z-index: 9999;
+  overflow-y: auto;
 `;
 
 const BoxDiv = styled.div`
   width: 100%;
-  height: 560px;
-  background-color: #b6b6b6;
+  height: 520px;
+  background-color: #252525;
   border-radius: 12px;
   margin-bottom: 45px;
   padding: 23px;
@@ -111,12 +111,11 @@ const Name = styled.div`
   margin-left: 12px;
 `;
 
-const BigCircle = styled.div`
-  width: 230px;
-  height: 230px;
-  border-radius: 200px;
+const OAOImage = styled.div`
+  width: 180px;
+  height: 180px;
   background-color: #ddd;
-  margin: 25px auto 20px auto;
+  margin: 48px auto 25px auto;
 `;
 
 const IconDiv = styled.div`
@@ -128,12 +127,12 @@ const IconDiv = styled.div`
 
 const CountText = styled.div`
   font-size: 18px;
-  color: #fff;
+  color: #c4c4c4;
 `;
 
 const BoldFont = styled.div`
   font-size: 20px;
-  color: #fff;
+  color: #c4c4c4;
   font-weight: 550;
   text-align: center;
 `;
@@ -141,7 +140,8 @@ const BoldFont = styled.div`
 const TagBox = styled.button`
   width: 60px;
   height: 32px;
-  background-color: #ffffff;
+  background-color: #000000;
+  color: #fff;
   border-radius: 20px;
   font-size: 13px;
   text-align: center;
@@ -160,11 +160,10 @@ const PlayBar = styled.div`
 
 const Btn = styled.button`
   width: 100%;
-  height: 7vh;
+  height: 62px;
   border: none;
   border-radius: 10px;
-  background-color: #777777;
-  color: #fff;
+  background-color: #f1134e;
   margin-bottom: 15px;
   font-size: 20px;
   font-weight: 700;

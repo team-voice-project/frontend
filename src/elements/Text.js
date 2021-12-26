@@ -21,6 +21,10 @@ const TitleText = styled.div`
   margin: 18px 0px;
   font-size: 23px;
   font-weight: 900;
+  @media screen and (max-width: 360px) {
+    font-size: 19px;
+    font-weight: 550;
+  }
 `;
 
 export default Text;
