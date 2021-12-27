@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Container } from "../../elements";
+import Tag from "../../elements/Tag";
 
 const CategoryModal = ({ setShowModal }) => {
   return (
@@ -14,18 +15,6 @@ const CategoryModal = ({ setShowModal }) => {
           <Modal>
             <TagDiv>
               <Tag>여성적인</Tag>
-              <Tag>남성적인</Tag>
-              <Tag>깔끔한</Tag>
-              <Tag>부드러운</Tag>
-              <Tag>유쾌한</Tag>
-              <Tag>젠틀한</Tag>
-              <Tag>귀여운</Tag>
-              <Tag>중후한</Tag>
-              <Tag>아이같은</Tag>
-              <Tag>어른스러운</Tag>
-              <Tag>잔잔한</Tag>
-              <Tag>독특한</Tag>
-              <Tag>친근한</Tag>
             </TagDiv>
           </Modal>
 
@@ -75,30 +64,30 @@ const TagDiv = styled.div`
   margin-top: 22px;
 `;
 
-const Tag = styled.button`
-  max-width: 100px;
-  height: 38px;
-  padding: 0px 14px;
-  background-color: #000;
-  color: #fff;
-  font-size: 13px;
-  border-radius: 20px;
-  border: none;
-  text-align: center;
-  align-items: center;
-  margin: 0px 12px 20px 0px;
-  float: left;
+// const Tag = styled.button`
+//   max-width: 100px;
+//   height: 38px;
+//   padding: 0px 14px;
+//   background-color: #000;
+//   color: #fff;
+//   font-size: 13px;
+//   border-radius: 20px;
+//   border: none;
+//   text-align: center;
+//   align-items: center;
+//   margin: 0px 12px 20px 0px;
+//   float: left;
 
-  &:hover {
-    background-color: #ff1953;
-  }
-  @media screen and (max-width: 360px) {
-    height: 28px;
-    padding: 0px 14px;
-    font-size: 11px;
-    margin: 0px 8px 12px 0px;
-  }
-`;
+//   &:hover {
+//     background-color: #ff1953;
+//   }
+//   @media screen and (max-width: 360px) {
+//     height: 28px;
+//     padding: 0px 14px;
+//     font-size: 11px;
+//     margin: 0px 8px 12px 0px;
+//   }
+// `;
 
 const ButtonDiv = styled.div`
   position: absolute;

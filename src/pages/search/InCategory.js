@@ -4,6 +4,7 @@ import CategoryModal from "../../components/category/CategoryModal";
 import Header from "../../components/category/Header";
 import Track from "../../components/mypage/Track";
 import { Text } from "../../elements/index";
+import Tag from "../../elements/Tag";
 
 const InCategory = () => {
   const [show_modal, setShowModal] = React.useState(false);
@@ -23,18 +24,7 @@ const InCategory = () => {
           <IconTag onClick={openModal}></IconTag>
         </Flex>
         <TagGrid>
-          <Tag>
-            여성적인
-            <ButtonX>x</ButtonX>
-          </Tag>
-          <Tag>
-            여성적인
-            <ButtonX>x</ButtonX>
-          </Tag>
-          <Tag>
-            여성적인
-            <ButtonX>x</ButtonX>
-          </Tag>
+          <Tag removable={"true"}>여성적인</Tag>
         </TagGrid>
 
         <TrackGrid>
@@ -113,31 +103,6 @@ const IconTag = styled.div`
 
 const TagGrid = styled.div`
   margin: 10px 8px 0px 15px;
-`;
-
-const Tag = styled.div`
-  max-width: 100px;
-  height: 34px;
-  line-height: 34px;
-  padding: 0px 12px;
-  background-color: #f1134e;
-  color: #fff;
-  font-size: 12px;
-  border-radius: 20px;
-  border: none;
-  text-align: center;
-  align-items: center;
-  margin: 0px 12px 30px 0px;
-  float: left;
-  @media screen and (max-width: 360px) {
-    max-width: 75px;
-    height: 30px;
-    line-height: 30px;
-    padding: 0px 12px;
-    font-size: 10px;
-    border-radius: 20px;
-    margin: 0px 12px 30px 0px;
-  }
 `;
 
 const ButtonX = styled.button`

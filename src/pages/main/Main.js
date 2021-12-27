@@ -8,11 +8,10 @@ import PlayBox from "../../components/category/PlayBox";
 import MusicPlayer from "../../components/mypage/MusicPlayer";
 
 const Main = (props) => {
-  const [show_modal, setShowModal] = React.useState(false);
+  const [showModal, setShowModal] = React.useState(false);
 
   const openModal = () => {
     setShowModal(true);
-    // document.body.style.overflow = "hidden";
   };
 
   React.useEffect(() => {
@@ -22,7 +21,7 @@ const Main = (props) => {
   return (
     <>
       <Header topMenu />
-      {show_modal && <OnBoarding setShowModal={setShowModal} />}
+      {showModal && <OnBoarding setShowModal={setShowModal} />}
       <WrapDiv>
         <Wrap>
           <UploadBtn>나도 목소리 올리기</UploadBtn>
