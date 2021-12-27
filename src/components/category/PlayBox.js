@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { BiPause } from "react-icons/bi";
 import { FaPlay } from "react-icons/fa";
 
-import MenuModal from "./MenuModal";
+import MenuModal from "../mypage/MenuModal";
 
 const PlayBox = () => {
   const [modalOpen, setModalOpen] = React.useState(false);

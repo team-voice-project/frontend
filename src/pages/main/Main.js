@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { history } from "../redux/configStore";
-import { Text } from "../elements/index";
-import OnBoarding from "../components/Onboarding";
-import Header from "../components/Header";
-import PlayBox from "../components/PlayBox";
-import MusicPlayer from "../components/MusicPlayer";
+import { history } from "../../redux/configStore";
+import { Text } from "../../elements";
+import OnBoarding from "../../components/category/Onboarding";
+import Header from "../../components/category/Header";
+import PlayBox from "../../components/category/PlayBox";
+import MusicPlayer from "../../components/mypage/MusicPlayer";
 
 const Main = (props) => {
   const [show_modal, setShowModal] = React.useState(false);

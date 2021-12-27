@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Container from "../elements/Container";
+import Container from "../../elements/Container";
 import styled from "styled-components";
-import Track from "../components/Track";
+import Track from "../../components/mypage/Track";
 
-import MusicPlayer from "../components/MusicPlayer";
+import MusicPlayer from "../../components/mypage/MusicPlayer";
 
 const MyPage = (props) => {
   const [checkedInputs, setCheckedInputs] = useState([]);

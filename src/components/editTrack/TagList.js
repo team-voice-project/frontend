@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Container } from "../../elements";
+import { Container, Tag } from "../../elements";
 
 const TagList = ({ selected_tag, setSelectedTag, setModalState }) => {
   const initial_list = [
@@ -44,14 +44,14 @@ const TagList = ({ selected_tag, setSelectedTag, setModalState }) => {
         {tag_list.map((tag_name, idx) => {
           const isSelected = checkSelectedTag(tag_name);
           return (
-            <button
-              type={"button"}
-              key={`tag-id-${idx}`}
-              className={`tag-item ${isSelected ? "on" : ""}`}
-              onClick={() => handleClickTagItem(tag_name)}
-            >
-              {tag_name}
-            </button>
+            <span key={`tag-id-${idx}`}>
+              <Tag
+                _className={`tag-item ${isSelected ? "on" : ""}`}
+                _onClick={() => handleClickTagItem(tag_name)}
+              >
+                {tag_name}
+              </Tag>
+            </span>
           );
         })}
       </div>

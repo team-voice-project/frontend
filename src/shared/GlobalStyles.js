@@ -20,6 +20,8 @@ const GlobalStyles = createGlobalStyle`
     overflow-x: hidden;
     background: #000000;
     color: #fff;
+    font-family: 'Pretendard Variable';
+    font-weight: 400;
   }
 
   ol, ul, li {

@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import CategoryModal from "../components/CategoryModal";
-import Header from "../components/Header";
-import Track from "../components/Track";
-import { Text } from "../elements/index";
+import CategoryModal from "../../components/category/CategoryModal";
+import Header from "../../components/category/Header";
+import Track from "../../components/mypage/Track";
+import { Text } from "../../elements/index";
 
 const InCategory = () => {
   const [show_modal, setShowModal] = React.useState(false);
