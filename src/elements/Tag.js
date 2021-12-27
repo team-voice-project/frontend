@@ -31,7 +31,7 @@ Tag.defaultProps = {
 };
 
 const TagWrap = styled.button`
-  font-family: "Pretendard Variable";
+  font-family: "Pretendard Variable", serif;
   font-weight: 400;
   border: 0;
   padding: 10px 15px 11px 15px;
@@ -49,7 +49,7 @@ const TagWrap = styled.button`
 const RemovableTag = styled.button`
   display: flex;
   align-items: center;
-  font-family: "Pretendard Variable";
+  font-family: "Pretendard Variable", serif;
   font-weight: 400;
   border: 0;
   padding: 10px 15px 11px 15px;

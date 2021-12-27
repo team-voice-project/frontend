@@ -2,8 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Font = (props) => {
-  const { margin, fontWeight, color, fontSize, title, m, b, children } =
-    props;
+  const { margin, fontWeight, color, fontSize, title, m, b, children } = props;
 
   const styles = {
     margin,
@@ -35,13 +34,13 @@ Font.defaultProps = {
 
 const FontWrap = styled.div`
 ${(props) => (props.fontSize ? `font-size: ${props.fontSize};` : "")}
-  font-family:"Black Han Sans";
+  font-family:'Black Han Sans', serif;
   margin ${(props) => props.margin};
 `;
 
 const RegularFont = styled.div`
   ${(props) => (props.fontSize ? `font-size: ${props.fontSize};` : "")}
-  font-family:"pretendard";
+  font-family: "Pretendard Variable", serif;
   font-weight:400;
   color: ${(props) => props.color};
   margin ${(props) => props.margin};
@@ -49,14 +48,14 @@ const RegularFont = styled.div`
 
 const MediumFont = styled.div`
   font-size:16px;
-  font-family:"pretendard";
+  font-family: "Pretendard Variable", serif;
   font-weight:500;
   margin ${(props) => props.margin};
   `;
 
 const BoledFont = styled.div`
 ${(props) => (props.fontSize ? `font-size: ${props.fontSize};` : "")}
-    font-family:"pretendard";
+font-family: "Pretendard Variable", serif;
   font-weight:700;
   margin ${(props) => props.margin};
   `;

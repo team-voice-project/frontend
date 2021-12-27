@@ -20,7 +20,7 @@ const GlobalStyles = createGlobalStyle`
     overflow-x: hidden;
     background: #000000;
     color: #fff;
-    font-family: 'Pretendard Variable';
+    font-family: 'Pretendard Variable',serif;
     font-weight: 400;
   }
 
