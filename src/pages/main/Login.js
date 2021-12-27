@@ -1,8 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import { Container } from "../../elements";
+import { Link } from "react-router-dom";
+import { getCookie } from "../../shared/Cookie";
+import { useDispatch } from "react-redux";
+import { actionCreators as userActions } from "../../redux/modules/user";
 
-const Login = () => {
+const Login = ({ history, location }) => {
+  const dispatch = useDispatch();
+  console.log(history);
+  const cookie = getCookie("token");
+  console.log(cookie);
+
   return (
     <>
       <Container>
@@ -18,9 +27,10 @@ const Login = () => {
 
         <OAOImage></OAOImage>
 
-        <LoginButtonG></LoginButtonG>
-        <LoginButtonN></LoginButtonN>
-        <LoginButtonK></LoginButtonK>
+        <LoginButtonG href="https://accounts.google.com/o/oauth2/v2/auth?scope=profile&amp;response_type=code&amp;client_id=283372056185-4d683ifd0ec8u3un2lmtmrq94qh0cgc8.apps.googleusercontent.com&amp;redirect_uri=http://localhost:3000/api/auth/google/callback"></LoginButtonG>
+
+        <LoginButtonN href="https://nid.naver.com/oauth2.0/authorize?response_type=code&amp;client_id=vNamYzNai5L1YAnpDWjU&amp;redirect_uri=http://localhost:3000/api/auth/naver/callback&amp;state=state"></LoginButtonN>
+        <LoginButtonK href="https://kauth.kakao.com/oauth/authorize?client_id=f1e0d9ea23cc43e8717f86da6573a3a1&amp;redirect_uri=http://localhost:3000/api/auth/kakao/callback&amp;response_type=code"></LoginButtonK>
       </Container>
     </>
   );
@@ -64,7 +74,8 @@ const OAOImage = styled.div`
   background-color: #fff;
 `;
 
-const LoginButtonG = styled.button`
+const LoginButtonG = styled.a`
+  display: block;
   width: 100%;
   height: 60px;
   margin-bottom: 12px;
@@ -81,7 +92,8 @@ const LoginButtonG = styled.button`
   }
 `;
 
-const LoginButtonN = styled.button`
+const LoginButtonN = styled.a`
+  display: block;
   width: 100%;
   height: 60px;
   margin-bottom: 12px;
@@ -98,7 +110,8 @@ const LoginButtonN = styled.button`
   }
 `;
 
-const LoginButtonK = styled.button`
+const LoginButtonK = styled.a`
+  display: block;
   width: 100%;
   height: 60px;
   margin-bottom: 12px;

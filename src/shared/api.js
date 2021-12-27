@@ -1,10 +1,13 @@
 import axios from "axios";
+import { getCookie } from "./Cookie";
 
 // ******** Axios 인스턴스 생성 ******** //
+const cookie = getCookie("token");
 
 const api = axios.create({
-  baseURL: "http://13.209.4.79:5001/",
+  baseURL: "http://54.180.82.210",
   headers: {
+    authorization: cookie,
     "X-Requested-With": "XMLHttpRequest",
     "Content-type": "application/json; charset=UTF-8",
     accept: "application/json",
@@ -13,16 +16,14 @@ const api = axios.create({
 
 // ******** Interceptor를 통한 Header 설정 ******** //
 
-api.interceptors.request.use((config) => {
-  const accessToken = document.cookie.split("=")[1];
-  config.headers.common["authorization"] = `${accessToken}`;
-  return config;
-});
+api.interceptors.request.use((config) => {});
 
 // ******** Export api ******** //
 
 export const apis = {
-  register: () => api.post("/api/auth/register"),
+  google: () => api.get("/api/auth/google"),
+  naver: () => api.get("/api/auth/naver"),
+  kakao: () => api.get("/api/auth/kakao"),
   changeNickname: (nickname) => api.post("/api/auth/nickname", nickname),
   checkUser: () => api.get("/api/auth/me"),
   editProfileImage: (userId, profileImage) =>
