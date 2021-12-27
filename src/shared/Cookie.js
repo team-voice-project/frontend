@@ -1,6 +1,15 @@
 // 키값 기준으로 쿠키에 저장된 값을 가져오는 함수
 const getCookie = (name) => {
-  // document.cookie;
+  const hasOAO = document.cookie.indexOf("OAO=") > -1;
+  if (!hasOAO) {
+    return;
+  }
+  const token = document.cookie
+    .split("OAO=")
+    .filter((parts) => !parts.indexOf("__OAO-"))[0]
+    .split("__OAO-token=")[1];
+
+  return token;
 };
 
 // 쿠키에 저장하는 함수
