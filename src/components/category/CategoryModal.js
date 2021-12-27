@@ -64,31 +64,6 @@ const TagDiv = styled.div`
   margin-top: 22px;
 `;
 
-// const Tag = styled.button`
-//   max-width: 100px;
-//   height: 38px;
-//   padding: 0px 14px;
-//   background-color: #000;
-//   color: #fff;
-//   font-size: 13px;
-//   border-radius: 20px;
-//   border: none;
-//   text-align: center;
-//   align-items: center;
-//   margin: 0px 12px 20px 0px;
-//   float: left;
-
-//   &:hover {
-//     background-color: #ff1953;
-//   }
-//   @media screen and (max-width: 360px) {
-//     height: 28px;
-//     padding: 0px 14px;
-//     font-size: 11px;
-//     margin: 0px 8px 12px 0px;
-//   }
-// `;
-
 const ButtonDiv = styled.div`
   position: absolute;
   bottom: 0;

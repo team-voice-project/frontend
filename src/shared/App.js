@@ -14,6 +14,7 @@ import MyPage from "../pages/myPage/MyPage";
 import EditProfile from "../pages/editProfile/EditProfile";
 import ShareTrack from "../pages/shareTrack/ShareTrack";
 import Category from "../pages/search/Category";
+import LoginCallback from "../shared/LoginCallback";
 
 function App() {
   return (
@@ -31,6 +32,9 @@ function App() {
       <Route exact path="/mypage" component={MyPage} />
       <Route exact path="/edit/profile" component={EditProfile} />
       <Route path="/share/:track_id" component={ShareTrack} exact />
+      <Route path="/api/auth/kakao/callback" component={LoginCallback} exact />
+      <Route path="/api/auth/naver/callback" component={LoginCallback} exact />
+      <Route path="/api/auth/google/callback" component={LoginCallback} exact />
     </>
   );
 }
