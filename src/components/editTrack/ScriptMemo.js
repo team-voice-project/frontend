@@ -21,13 +21,13 @@ const MemoWrap = styled.div`
   height: 100%;
 
   textarea {
+    color: #fff;
+    background-color: #2c2b2b;
     border: 0;
     width: 100%;
     height: calc(100% - 24px);
     max-height: calc(100% - 24px);
-    padding: 10px;
     overflow-x: hidden;
     overflow-y: auto;
-    margin: 0 -10px;
   }
 `;

@@ -1,12 +1,16 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
+import { actionCreators as editTrackActions } from "../../redux/modules/editTrack";
 
-import { Container } from "../../elements";
+import { Container, Tag } from "../../elements";
 import OptModal from "../../components/editTrack/OptModal";
 import CategoryList from "../../components/editTrack/CategoryList";
 import TagList from "../../components/editTrack/TagList";
+import { useDispatch } from "react-redux";
+import { IoCloseSharp } from 'react-icons/io5';
 
-const EditBase = () => {
+const EditBase = ({ history }) => {
+  const dispatch = useDispatch();
   const [modal_state, setModalState] = useState(null);
   const [selected_cate, setSelectedCate] = useState("");
   const [selected_tag, setSelectedTag] = useState([]);
@@ -34,12 +38,14 @@ const EditBase = () => {
     }
 
     const save_data = {
-      selected_cate,
-      selected_tag,
-      subejct: subjectRef.current.value,
+      category: selected_cate,
+      tags: selected_tag,
+      subject: subjectRef.current.value,
     };
 
     console.log("저장할 데이터", save_data);
+    dispatch(editTrackActions.saveBase(save_data));
+    history.push("/edit/record");
   };
 
   const handleRemoveTag = (tag) => {
@@ -62,7 +68,7 @@ const EditBase = () => {
       </Container>
       <Container padding={"0px"}>
         <div className={"progress-bar"}>
-          <div className={"progress-bar-content"}></div>
+          <div className={"progress-bar-content"} />
         </div>
       </Container>
       <Container padding={"20px"}>
@@ -70,8 +76,12 @@ const EditBase = () => {
           <strong className={"title"}>기본 설정하기</strong>
 
           <div className={"edit-controls"}>
-            <span className={"control-subject"}>
-              {selected_cate ? selected_cate : "카테고리 선택"}
+            <span className={"category"}>
+              {selected_cate ? (
+                <span className={"selected"}>{selected_cate}</span>
+              ) : (
+                <span className={"default"}>카테고리 선택</span>
+              )}
             </span>
             <button
               type={"button"}
@@ -89,13 +99,14 @@ const EditBase = () => {
                 ? "태그 선택"
                 : selected_tag.map((item, idx) => {
                     return (
-                      <button
-                        type={"button"}
-                        key={`tag-unit-${idx}`}
-                        onClick={() => handleRemoveTag(item)}
-                      >
-                        {item}
-                      </button>
+                      <span key={`tag-unit-${idx}`}>
+                        <Tag
+                          removable={'true'}
+                          _onClick={() => handleRemoveTag(item)}
+                        >
+                          {item}
+                        </Tag>
+                      </span>
                     );
                   })}
             </div>
@@ -160,7 +171,7 @@ const EditWrap = styled.section`
     .progress-bar-content {
       width: 33%;
       height: inherit;
-      background-color: #ffdc62;
+      background-color: var(--point-color);
     }
   }
 
@@ -178,20 +189,38 @@ const EditWrap = styled.section`
     justify-content: space-between;
     border-top: 1px solid #f4f4f4;
 
-    & > .tag-list {
+    .category {
+      .default {
+        color: #525252;
+      }
     }
 
-    input,
-    textarea {
+    .tag-list {
+      color: #525252;
+
+      button {
+        border: 0;
+        padding: 7px 13px 8.6px 13px;
+        color: #fff;
+        margin: 0 5px;
+        border-radius: 20px;
+        background-color: var(--point-color);
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    input {
+      color: #fff;
       font-size: 16px;
       border: 0;
       width: 100%;
-    }
+      background-color: #000;
 
-    textarea {
-      overflow: hidden;
-      background-color: #eee;
-      min-height: 90px;
+      &::placeholder {
+        color: #525252;
+      }
     }
   }
 `;
