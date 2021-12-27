@@ -1,18 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import { history } from "../redux/configStore";
-import { Text } from "../elements/index";
+import { Text } from "../elements";
 import OnBoarding from "../components/Onboarding";
 import Header from "../components/Header";
 import PlayBox from "../components/PlayBox";
 import MusicPlayer from "../components/MusicPlayer";
 
 const Main = (props) => {
-  const [show_modal, setShowModal] = React.useState(false);
+  const [showModal, setShowModal] = React.useState(false);
 
   const openModal = () => {
     setShowModal(true);
-    // document.body.style.overflow = "hidden";
   };
 
   React.useEffect(() => {
@@ -22,7 +21,7 @@ const Main = (props) => {
   return (
     <>
       <Header topMenu />
-      {show_modal && <OnBoarding setShowModal={setShowModal} />}
+      {showModal && <OnBoarding setShowModal={setShowModal} />}
       <WrapDiv>
         <Wrap>
           <UploadBtn>나도 목소리 올리기</UploadBtn>
