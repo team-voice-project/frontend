@@ -2,7 +2,7 @@ import axios from "axios";
 import { getCookie } from "./Cookie";
 
 // ******** Axios 인스턴스 생성 ******** //
-const cookie = getCookie("token");
+const cookie = getCookie();
 
 const api = axios.create({
   baseURL: "http://54.180.82.210",

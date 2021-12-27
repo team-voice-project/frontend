@@ -1,17 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Container } from "../../elements";
-import { Link } from "react-router-dom";
-import { getCookie } from "../../shared/Cookie";
-import { useDispatch } from "react-redux";
-import { actionCreators as userActions } from "../../redux/modules/user";
 
 const Login = ({ history, location }) => {
-  const dispatch = useDispatch();
-  console.log(history);
-  const cookie = getCookie("token");
-  console.log(cookie);
-
   return (
     <>
       <Container>
