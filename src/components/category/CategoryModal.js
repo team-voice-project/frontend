@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Container } from "../elements";
+import { Container } from "../../elements";
 
 const CategoryModal = ({ setShowModal }) => {
   return (

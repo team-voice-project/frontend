@@ -2,11 +2,12 @@ import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { actionCreators as editTrackActions } from "../../redux/modules/editTrack";
 
-import { Container } from "../../elements";
+import { Container, Tag } from "../../elements";
 import OptModal from "../../components/editTrack/OptModal";
 import CategoryList from "../../components/editTrack/CategoryList";
 import TagList from "../../components/editTrack/TagList";
 import { useDispatch } from "react-redux";
+import { IoCloseSharp } from 'react-icons/io5';
 
 const EditBase = ({ history }) => {
   const dispatch = useDispatch();
@@ -98,13 +99,14 @@ const EditBase = ({ history }) => {
                 ? "태그 선택"
                 : selected_tag.map((item, idx) => {
                     return (
-                      <button
-                        type={"button"}
-                        key={`tag-unit-${idx}`}
-                        onClick={() => handleRemoveTag(item)}
-                      >
-                        {item}
-                      </button>
+                      <span key={`tag-unit-${idx}`}>
+                        <Tag
+                          removable={'true'}
+                          _onClick={() => handleRemoveTag(item)}
+                        >
+                          {item}
+                        </Tag>
+                      </span>
                     );
                   })}
             </div>
@@ -206,11 +208,6 @@ const EditWrap = styled.section`
         display: inline-flex;
         align-items: center;
         justify-content: space-between;
-
-        &::after {
-          content: "x";
-          margin-left: 7px;
-        }
       }
     }
 

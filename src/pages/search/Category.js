@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { useLocation } from "react-router";
 
-import Header from "../components/Header";
-import Text from "../elements/Text";
+import Header from "../../components/category/Header";
+import Text from "../../elements/Text";
 
 const Category = () => {
   const location = useLocation();

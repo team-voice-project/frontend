@@ -1,6 +1,6 @@
 import React, { Profiler, useEffect } from "react";
 import styled from "styled-components";
-import Container from "../elements/Container";
+import Container from "../../elements/Container";
 import { TiDeleteOutline } from "react-icons/ti";
 import { FcLike } from "react-icons/fc";
 import { AiOutlineComment } from "react-icons/ai";

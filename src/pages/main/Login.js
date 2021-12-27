@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Container } from "../elements";
+import { Container } from "../../elements";
 
 const Login = () => {
   return (
@@ -72,7 +72,7 @@ const LoginButtonG = styled.button`
   border: none;
   border-radius: 12px;
 
-  background-image: url("/assets/google.png");
+  background-image: url("/assets/images/google.png");
   background-repeat: no-repeat;
   background-size: cover;
   @media screen and (max-width: 360px) {
@@ -89,7 +89,7 @@ const LoginButtonN = styled.button`
   border: none;
   border-radius: 12px;
 
-  background-image: url("/assets/naver.png");
+  background-image: url("/assets/images/naver.png");
   background-repeat: no-repeat;
   background-size: cover;
   @media screen and (max-width: 360px) {
@@ -106,7 +106,7 @@ const LoginButtonK = styled.button`
   border: none;
   border-radius: 12px;
 
-  background-image: url("/assets/kakao.png");
+  background-image: url("/assets/images/kakao.png");
   background-repeat: no-repeat;
   background-size: cover;
   @media screen and (max-width: 360px) {

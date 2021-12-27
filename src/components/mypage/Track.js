@@ -6,8 +6,8 @@ import { FaPlay } from "react-icons/fa";
 import { BiPause } from "react-icons/bi";
 import { AiOutlineComment } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
-import MenuModal from "../components/MenuModal";
-import Container from "../elements/Container";
+import MenuModal from "./MenuModal";
+import Container from "../../elements/Container";
 
 const Track = () => {
   const history = useHistory();

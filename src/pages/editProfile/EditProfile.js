@@ -1,5 +1,5 @@
 import React from "react";
-import Container from "../elements/Container";
+import Container from "../../elements/Container";
 import styled from "styled-components";
 
 const EditProfile = (props) => {

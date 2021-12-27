@@ -2,9 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import qs from "qs";
 
-import Header from "../components/Header";
-import { Container, Text } from "../elements/index";
-import Track from "../components/Track";
+import Header from "../../components/category/Header";
+import { Container, Text } from "../../elements/index";
+import Track from "../../components/mypage/Track";
 
 const Search = () => {
   const [voice_search, setVoiceSearch] = React.useState("");

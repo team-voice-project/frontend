@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { history } from "../redux/configStore";
+import { history } from "../../redux/configStore";
 
 const Header = (props) => {
   const { topMenu, noHeader } = props;
