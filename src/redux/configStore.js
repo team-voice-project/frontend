@@ -5,12 +5,14 @@ import { connectRouter } from "connected-react-router";
 
 import EditTrack from "./modules/editTrack";
 import User from "./modules/user";
+import Mypage from "./modules/mypage";
 
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
   editTrack: EditTrack,
   user: User,
+  mypage: Mypage,
   router: connectRouter(history),
 });
 
