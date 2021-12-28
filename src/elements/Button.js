@@ -29,7 +29,7 @@ const ButtonWrap = styled.button`
   border-radius: 10px;
   border: none;
   ${(props) => (props.bg ? "background:#F1134E;" : "background:black;")}
-  opacity: ${(props) => (props._disabled ? "0.5" : "1")};
+  opacity: ${(props) => (props._disabled ? 0.5 : 1)};
   margin: ${(props) => props.margin};
 `;
 

@@ -1,19 +1,29 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
 import { actionCreators as editTrackActions } from "../../redux/modules/editTrack";
 
-import { Container, Tag } from "../../elements";
+import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/ri";
+import { Container, Tag, Font } from "../../elements";
 import OptModal from "../../components/editTrack/OptModal";
 import CategoryList from "../../components/editTrack/CategoryList";
 import TagList from "../../components/editTrack/TagList";
-import { useDispatch } from "react-redux";
 
 const EditBase = ({ history }) => {
   const dispatch = useDispatch();
   const [modal_state, setModalState] = useState(null);
   const [selected_cate, setSelectedCate] = useState("");
   const [selected_tag, setSelectedTag] = useState([]);
-  const subjectRef = useRef(null);
+  const [subject, setSubject] = useState("");
+  const nextBtnRef = useRef(null);
+
+  useEffect(() => {
+    if (selected_cate && selected_tag.length && subject) {
+      nextBtnRef.current.classList.add("active");
+    } else {
+      nextBtnRef.current.classList.remove("active");
+    }
+  }, [selected_cate, selected_tag, subject]);
 
   const handleOpenTargetModal = (e) => {
     const modal_type = e.currentTarget.dataset.modalType;
@@ -31,7 +41,7 @@ const EditBase = ({ history }) => {
       return;
     }
 
-    if (!subjectRef.current.value) {
+    if (!subject) {
       alert("제목을 입력해주세요.");
       return;
     }
@@ -39,7 +49,7 @@ const EditBase = ({ history }) => {
     const save_data = {
       category: selected_cate,
       tags: selected_tag,
-      subject: subjectRef.current.value,
+      subject: subject,
     };
 
     console.log("저장할 데이터", save_data);
@@ -55,13 +65,25 @@ const EditBase = ({ history }) => {
     ]);
   };
 
+  const handleKeyUpSubject = (e) => {
+    setSubject(e.target.value);
+  };
+
   return (
     <EditWrap>
       <Container padding={"0"}>
         <nav className={"edit-header"}>
-          <button type={"button"}>뒤로가기</button>
-          <button type={"button"} onClick={handleClickNextBtn}>
-            다음
+          <button type={"button"} className={"back-btn"}>
+            <RiArrowLeftSLine />
+          </button>
+          <button
+            type={"button"}
+            className={"next-btn"}
+            onClick={handleClickNextBtn}
+            ref={nextBtnRef}
+          >
+            <Font title={"true"}>다음</Font>
+            <RiArrowRightSLine />
           </button>
         </nav>
       </Container>
@@ -88,7 +110,7 @@ const EditBase = ({ history }) => {
               className={"select-btn"}
               onClick={handleOpenTargetModal}
             >
-              선택
+              <RiArrowRightSLine />
             </button>
           </div>
 
@@ -115,7 +137,7 @@ const EditBase = ({ history }) => {
               className={"select-btn"}
               onClick={handleOpenTargetModal}
             >
-              선택
+              <RiArrowRightSLine />
             </button>
           </div>
 
@@ -123,7 +145,7 @@ const EditBase = ({ history }) => {
             <input
               type="text"
               placeholder={"녹음본 제목 작성"}
-              ref={subjectRef}
+              onKeyUp={handleKeyUpSubject}
             />
           </div>
         </div>
@@ -157,9 +179,42 @@ export default EditBase;
 const EditWrap = styled.section`
   .edit-header {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     height: 40px;
     padding: 8px 20px;
+
+    .back-btn,
+    .next-btn {
+      border: 0;
+      height: inherit;
+      background: none;
+      display: flex;
+      align-items: center;
+
+      svg {
+        font-size: 24px;
+      }
+    }
+
+    .next-btn {
+      opacity: 0.5;
+      pointer-events: none;
+
+      &.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+  }
+
+  .select-btn {
+    border: 0;
+    height: inherit;
+    background: none;
+    display: flex;
+    align-items: center;
+    font-size: 24px;
   }
 
   .progress-bar {
@@ -181,7 +236,7 @@ const EditWrap = styled.section`
   }
 
   .edit-controls {
-    padding: 18px 0;
+    padding: 16.5px 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
