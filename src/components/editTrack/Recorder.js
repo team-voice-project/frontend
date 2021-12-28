@@ -8,15 +8,7 @@ import pushAudio from "../../shared/audio/push.mp3";
 import { BsFillMicFill } from "react-icons/bs";
 import { IoStopSharp, IoPlaySharp } from "react-icons/io5";
 import { ImFolder } from "react-icons/im";
-
-// 허용 가능한 음원 파일 타입 리스트
-const AUDIO_TYPE_LIST = [
-  "audio/midi",
-  "audio/mpeg",
-  "audio/webm",
-  "audio/ogg",
-  "audio/wav",
-];
+import { AUDIO_TYPE_LIST } from "../../shared/utils";
 
 const Recorder = ({
   setVoiceFile,
@@ -46,9 +38,9 @@ const Recorder = ({
     return;
   }
 
-  // 15728640 byte === 15 MB === 약 30분
+  // 15728640 byte === 15 MB === 약 30분  // *.m4a
   const getVoiceBlobUrl = () => {
-    const voice_blob = new Blob(chunks, { type: "audio/ogg codecs=opus" });
+    const voice_blob = new Blob(chunks, { type: "audio/ogg" });
     console.log("보이스 녹음 파일: ", voice_blob);
     const url = URL.createObjectURL(voice_blob);
     // 실제 서버로 넘길 보이스 파일 데이터 객체
@@ -452,6 +444,7 @@ const RecorderWrap = styled.div`
       }
 
       &.record {
+        color: #fff;
         background: var(--point-color);
         font-size: 21px;
       }
@@ -486,10 +479,7 @@ const RecorderWrap = styled.div`
       &.play {
         font-size: 20px;
         background: #fff;
-
-        * {
-          color: var(--point-color) !important;
-        }
+        color: var(--point-color);
       }
     }
 
@@ -508,6 +498,7 @@ const RecorderWrap = styled.div`
     .btn {
       width: 48px;
       height: 48px;
+      color: #fff;
       background: #2c2b2b;
     }
 

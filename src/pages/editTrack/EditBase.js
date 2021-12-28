@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { actionCreators as editTrackActions } from "../../redux/modules/editTrack";
+import { apis } from "../../shared/api";
 
 import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/ri";
 import { Container, Tag, Font } from "../../elements";
@@ -11,11 +12,24 @@ import TagList from "../../components/editTrack/TagList";
 
 const EditBase = ({ history }) => {
   const dispatch = useDispatch();
+  const [menu_info, setMenuInfo] = useState(null);
   const [modal_state, setModalState] = useState(null);
   const [selected_cate, setSelectedCate] = useState("");
   const [selected_tag, setSelectedTag] = useState([]);
   const [subject, setSubject] = useState("");
   const nextBtnRef = useRef(null);
+
+  useEffect(async () => {
+    const infos = await getMenuInfo();
+    if (infos) {
+      setMenuInfo(infos);
+    } else {
+      alert(
+        "목소리 업로드 페이지를 이용 할 수 없습니다 :( \n 관리자에게 문의하세요."
+      );
+      history.replace("/");
+    }
+  }, []);
 
   useEffect(() => {
     if (selected_cate && selected_tag.length && subject) {
@@ -25,9 +39,23 @@ const EditBase = ({ history }) => {
     }
   }, [selected_cate, selected_tag, subject]);
 
+  const getMenuInfo = async () => {
+    try {
+      const res = await apis.getMenuInfoDB();
+      return res.data;
+    } catch (err) {
+      console.error("[getMenuInfo] 카테고리, 태그 정보를 가져올 수 없습니다.");
+      return null;
+    }
+  };
+
   const handleOpenTargetModal = (e) => {
     const modal_type = e.currentTarget.dataset.modalType;
     setModalState(modal_type);
+  };
+
+  const handleClickBackBtn = () => {
+    history.replace("/mypage");
   };
 
   const handleClickNextBtn = () => {
@@ -73,7 +101,11 @@ const EditBase = ({ history }) => {
     <EditWrap>
       <Container padding={"0"}>
         <nav className={"edit-header"}>
-          <button type={"button"} className={"back-btn"}>
+          <button
+            type={"button"}
+            className={"back-btn"}
+            onClick={handleClickBackBtn}
+          >
             <RiArrowLeftSLine />
           </button>
           <button
@@ -154,7 +186,8 @@ const EditBase = ({ history }) => {
       {modal_state === "category" && (
         <OptModal>
           <CategoryList
-            selected_category={selected_cate}
+            initial_list={menu_info.category}
+            selected_cate={selected_cate}
             setSelectedCate={setSelectedCate}
             setModalState={setModalState}
           />
@@ -164,6 +197,7 @@ const EditBase = ({ history }) => {
       {modal_state === "tag" && (
         <OptModal>
           <TagList
+            initial_list={menu_info.tag}
             selected_tag={selected_tag}
             setSelectedTag={setSelectedTag}
             setModalState={setModalState}
@@ -191,6 +225,7 @@ const EditWrap = styled.section`
       background: none;
       display: flex;
       align-items: center;
+      color: #fff;
 
       svg {
         font-size: 24px;
@@ -215,6 +250,7 @@ const EditWrap = styled.section`
     display: flex;
     align-items: center;
     font-size: 24px;
+    color: #fff;
   }
 
   .progress-bar {

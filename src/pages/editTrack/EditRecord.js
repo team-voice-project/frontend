@@ -32,6 +32,10 @@ const EditRecord = ({ history }) => {
     }
   }, [voice_file]);
 
+  const handleClickBackBtn = () => {
+    history.goBack();
+  };
+
   const handleClickNextBtn = () => {
     for (const prop in voice_file) {
       console.log("파일 속성", prop);
@@ -50,7 +54,11 @@ const EditRecord = ({ history }) => {
     <EditWrap>
       <Container padding={"0"}>
         <nav className={"edit-header"}>
-          <button type={"button"} className={"back-btn"}>
+          <button
+            type={"button"}
+            className={"back-btn"}
+            onClick={handleClickBackBtn}
+          >
             <RiArrowLeftSLine />
           </button>
           <button
@@ -113,6 +121,7 @@ const EditWrap = styled.section`
       background: none;
       display: flex;
       align-items: center;
+      color: #fff;
 
       svg {
         font-size: 24px;

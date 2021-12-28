@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Container } from "../../elements";
+import { Container, Font } from "../../elements";
 import SingleAudioPlayer from "../../shared/SingleAudioPlayer";
 
 import { useSelector } from "react-redux";
@@ -12,15 +12,16 @@ const ShareTrack = () => {
   return (
     <ShareWrap>
       <Container _className={"share-page-container"}>
-        <p className={"greetings"}>
-          축하합니다!
-          <br />
-          나의 목소리를 공유해보아요!
-        </p>
+        <div className={"greetings"}>
+          <Font title fontSize={"20px"}>
+            축하합니다! <br />
+            나의 목소리를 공유해보아요!
+          </Font>
+        </div>
 
         <div className={"track-info"}>
           <div className={"emoticon"}></div>
-          <div className={"track-subject"}>{track_info.subject}</div>
+
           <div className={"track-tags"}>
             {track_info.tags.map((item, idx) => {
               return (
@@ -33,15 +34,26 @@ const ShareTrack = () => {
                 </button>
               );
             })}
+            <button type={"button"} className={"tag-item"}>
+              123
+            </button>
+            <button type={"button"} className={"tag-item"}>
+              123
+            </button>
+            <button type={"button"} className={"tag-item"}>
+              123
+            </button>
+          </div>
+
+          <div className={"track-subject"}>
+            <Font b fontSize={"18px;"}>
+              {track_info.subject} 제목입니다.
+            </Font>
           </div>
         </div>
 
         <div className={"player-widget"}>
-          <SingleAudioPlayer
-            audio={
-              "https://cdn.mewpot.com/Refresh-wqHbZeK3wJaWt2nhaMizdE3q.mp3?token=st=1640413825~exp=1640424625~acl=/*~hmac=0a272ed26c7c396ce3a9d4b511d612d538c86181a0d188219857dcc5f205ef8b&response-content-disposition=attachment&filename=MP_%EC%83%81%EC%BE%8C%ED%95%9C%20%ED%95%98%EB%A3%A8.mp3"
-            }
-          />
+          <SingleAudioPlayer />
         </div>
 
         <div className={"btn-group"}>
@@ -63,12 +75,7 @@ const ShareWrap = styled.article`
   width: 100vw;
   height: 100vh;
   text-align: center;
-  background: rgb(241, 19, 78);
-  background: linear-gradient(
-    349deg,
-    rgba(241, 19, 78, 1) 0%,
-    rgba(134, 113, 243, 1) 100%
-  );
+  background: #000;
 
   .share-page-container {
     height: 100%;
@@ -79,16 +86,23 @@ const ShareWrap = styled.article`
   }
 
   .greetings {
+    margin-top: 30px;
+    line-height: 1.62;
+  }
+
+  .player-widget {
+    position: relative;
+    margin-bottom: 20px;
   }
 
   .track-info {
     .emoticon {
-      width: 180px;
-      height: 180px;
-      background-color: #000;
+      width: 140px;
+      height: 140px;
+      background-color: #fff;
       border-radius: 50%;
       margin: 0 auto;
-      margin-bottom: 15px;
+      margin-bottom: 30px;
     }
 
     .track-subject {
@@ -97,14 +111,18 @@ const ShareWrap = styled.article`
     }
 
     .track-tags {
+      margin-bottom: 12px;
+
       .tag-item {
         font-size: 13px;
         border: 0;
         color: #fff;
         border-radius: 30px;
         padding: 9px 11px;
-        background-color: #000;
+        background-color: #2c2b2b;
         margin-right: 8px;
+        min-width: 60px;
+        font-family: "Pretendard Variable", serif;
 
         &:last-child {
           margin-right: 0;
@@ -123,7 +141,7 @@ const ShareWrap = styled.article`
       border: 0;
       width: 100%;
       height: 56px;
-      background-color: #000;
+      background-color: var(--point-color);
       border-radius: 8px;
       margin-bottom: 10px;
 
