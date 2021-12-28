@@ -37,7 +37,8 @@ export const apis = {
     api.get(`/api/common/user/${userId}`, userInfo, myTracks, likeTracks),
   detailTrack: (trackId, track, comments) =>
     api.get(`/api/common/track/${trackId}`, track, comments),
-  mainPage: (tracks) => api.get("/api/common", tracks),
+
+  mainPage: () => api.get("/api/common"),
 
   category: () =>
     api.get(
@@ -51,4 +52,6 @@ export const apis = {
     api.put(`/api/tracks/${trackId}/comment/${commentId}`, comment),
   deleteComment: (tracksId, commentId) =>
     api.delete(`/api/tracks/${tracksId}/comment/${commentId}`),
+
+  categoryList: () => api.get(`api/listinfo`),
 };

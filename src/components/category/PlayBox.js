@@ -135,7 +135,7 @@ const PlayButton = styled.button`
   }
 `;
 
-const Title = styled.text`
+const Title = styled.div`
   font-size: 13px;
   margin: 0px 0px 2px 0px;
   overflow: hidden;
