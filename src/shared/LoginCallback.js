@@ -22,14 +22,12 @@ const getPlatform = () => {
     platform = null;
   }
 
-  console.log(FULL_URL);
   return platform;
 };
 
 const LoginCallback = ({ history }) => {
   const dispatch = useDispatch();
   const platform = getPlatform();
-  console.log(platform);
 
   const { code } = qs.parse(window.location.search, {
     ignoreQueryPrefix: true,
@@ -40,7 +38,6 @@ const LoginCallback = ({ history }) => {
       console.log("통신 완료", res);
       const user = res.data.user.nickname;
       const userToken = res.data.user.jwtToken;
-      console.log("쿠키 저장");
       setCookie("OAO", `__OAO-nick=${user}__OAO-token=${userToken}`, 3);
 
       dispatch(userActions.setUser({ user: user, is_login: true }));
@@ -51,7 +48,6 @@ const LoginCallback = ({ history }) => {
       window.alert("로그인을 다시 시도해주세요!");
       history.push("/login");
     });
-  console.log(code);
   return <div>테스트</div>;
 };
 

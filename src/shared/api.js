@@ -7,19 +7,14 @@ const cookie = getCookie();
 const api = axios.create({
   baseURL: "http://54.180.82.210",
   headers: {
-    authorization: cookie,
+    authorization: "Bearer " + getCookie(),
     "X-Requested-With": "XMLHttpRequest",
     "Content-type": "application/json; charset=UTF-8",
     accept: "application/json",
   },
 });
 
-// ******** Interceptor를 통한 Header 설정 ******** //
-
-api.interceptors.request.use((config) => {});
-
 // ******** Export api ******** //
-
 export const apis = {
   google: () => api.get("/api/auth/google"),
   naver: () => api.get("/api/auth/naver"),
@@ -53,5 +48,5 @@ export const apis = {
   deleteComment: (tracksId, commentId) =>
     api.delete(`/api/tracks/${tracksId}/comment/${commentId}`),
 
-  categoryList: () => api.get(`api/listinfo`),
+  categoryList: () => api.get(`/api/listinfo`),
 };

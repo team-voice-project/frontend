@@ -14,13 +14,10 @@ const getCookie = (name) => {
 
 // 쿠키에 저장하는 함수
 const setCookie = (name, value, exp = 5) => {
-  console.log("네임이야", name);
-  console.log("밸류야", value);
   let date = new Date();
   // 날짜를 만들어줍니다.
   date.setTime(date.getTime() + exp * 24 * 60 * 60 * 1000);
   let expires = "; expires=" + date.toGMTString();
-  console.log(date.setTime(date.getTime() + exp * 24 * 60 * 60 * 1000));
   // 저장!
   document.cookie = name + "=" + value + expires + "; path=/";
 };

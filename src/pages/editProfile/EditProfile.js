@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { getCookie } from "../../shared/Cookie";
 
 const EditProfile = (props) => {
-  console.log(getCookie());
   return (
     <Container>
       <div
