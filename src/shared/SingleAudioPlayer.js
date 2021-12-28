@@ -8,7 +8,7 @@ const SingleAudioPlayer = ({ audio }) => {
       <AudioPlayer
         timeFormat={"mm:ss"}
         defaultCurrentTime={"00:00"}
-        src="http://54.180.82.210/jvoi31ic0us1640698094191.ogg"
+        src={audio}
         onPlay={(e) => console.log("onPlay")}
       />
     </PlayerWrap>

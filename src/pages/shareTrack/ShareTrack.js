@@ -1,14 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
+import { apis } from "../../shared/api";
 
-import { Container, Font } from "../../elements";
+import { Container, Font, Button } from "../../elements";
 import SingleAudioPlayer from "../../shared/SingleAudioPlayer";
 
-import { useSelector } from "react-redux";
+const ShareTrack = ({ history }) => {
+  const params = useParams();
+  const [track_info, setTrackInfo] = useState(null);
 
-const ShareTrack = () => {
-  const track_info = useSelector((state) => state.editTrack);
-  console.log("공유할 트랙 정보", track_info);
+  const getTrackInfo = async (id) => {
+    const res = await apis.getShareInfoDB(id);
+    console.log(res);
+    setTrackInfo(res.data.track);
+  };
+
+  useEffect(() => {
+    const { track_id } = params;
+    if (track_id) {
+      getTrackInfo(track_id);
+    } else {
+      alert("공유 정보를 불러올 수 없습니다.");
+    }
+  }, []);
+
+  const handleClickGoMypage = () => {
+    history.push("/mypage");
+  };
+
   return (
     <ShareWrap>
       <Container _className={"share-page-container"}>
@@ -20,49 +40,40 @@ const ShareTrack = () => {
         </div>
 
         <div className={"track-info"}>
-          <div className={"emoticon"}></div>
+          <div className={"emoticon"}>
+            <img src={track_info?.trackThumbnailUrl} alt="" />
+          </div>
 
           <div className={"track-tags"}>
-            {track_info.tags.map((item, idx) => {
+            {track_info?.TrackTags.map((item, idx) => {
               return (
                 <button
                   key={`tag-id-${idx}`}
                   type={"button"}
                   className={"tag-item"}
                 >
-                  {item}
+                  {item.tag}
                 </button>
               );
             })}
-            <button type={"button"} className={"tag-item"}>
-              123
-            </button>
-            <button type={"button"} className={"tag-item"}>
-              123
-            </button>
-            <button type={"button"} className={"tag-item"}>
-              123
-            </button>
           </div>
 
           <div className={"track-subject"}>
             <Font b fontSize={"18px;"}>
-              {track_info.subject} 제목입니다.
+              {track_info?.title}
             </Font>
           </div>
         </div>
 
         <div className={"player-widget"}>
-          <SingleAudioPlayer />
+          <SingleAudioPlayer audio={track_info?.trackUrl} />
         </div>
 
         <div className={"btn-group"}>
-          <button type={"button"} className={"share-btn"}>
-            공유하기
-          </button>
-          <button type={"button"} className={"mypage-btn"}>
+          <Button _className={"share-btn"}>공유하기</Button>
+          <Button _className={"mypage-btn"} _onClick={handleClickGoMypage}>
             마이페이지로 가기
-          </button>
+          </Button>
         </div>
       </Container>
     </ShareWrap>
@@ -76,6 +87,7 @@ const ShareWrap = styled.article`
   height: 100vh;
   text-align: center;
   background: #000;
+  padding-bottom: 40px;
 
   .share-page-container {
     height: 100%;
@@ -103,6 +115,17 @@ const ShareWrap = styled.article`
       border-radius: 50%;
       margin: 0 auto;
       margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
 
     .track-subject {
@@ -142,12 +165,23 @@ const ShareWrap = styled.article`
       width: 100%;
       height: 56px;
       background-color: var(--point-color);
-      border-radius: 8px;
+      border-radius: 6px;
       margin-bottom: 10px;
+      font-size: 20px;
 
       &:last-child {
         margin-bottom: 0;
       }
+    }
+
+    .share-btn {
+      border: 0;
+    }
+
+    .mypage-btn {
+      border: 3px solid #fff;
+      color: #fff;
+      background-color: #000;
     }
   }
 `;
