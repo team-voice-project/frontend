@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { history } from "../../redux/configStore";
 import { Text } from "../../elements";
 import OnBoarding from "../../components/category/Onboarding";
 import Header from "../../components/category/Header";
 import PlayBox from "../../components/category/PlayBox";
 import MusicPlayer from "../../components/mypage/MusicPlayer";
+import { apis } from "../../shared/api";
 
 const Main = (props) => {
   const [showModal, setShowModal] = React.useState(false);
@@ -16,12 +16,18 @@ const Main = (props) => {
 
   React.useEffect(() => {
     openModal();
+    list();
   }, []);
+
+  const list = async () => {
+    const res = await apis.categoryList();
+    console.log("실행?");
+  };
 
   return (
     <>
       <Header topMenu />
-      {showModal && <OnBoarding setShowModal={setShowModal} />}
+      {/* {showModal && <OnBoarding setShowModal={setShowModal} />} */}
       <WrapDiv>
         <Wrap>
           <UploadBtn>나도 목소리 올리기</UploadBtn>

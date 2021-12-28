@@ -2,13 +2,13 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { apis } from "../../shared/api";
 
-const LOAD_POST = "LOAD_POST";
+const LOAD_TRACK = "LOAD_TRACK";
 
-const loadPost = createAction(LOAD_POST, (post) => ({ post }));
+const loadTrack = createAction(LOAD_POST, (track_list) => ({ track_list }));
 
 //middleware
 
-const loadpostDB = () => {
+const loadTrackDB = () => {
   return async function (dispatch, useState, { history }) {
     await apis.myPage.then((res) => {
       console.log(res);
@@ -18,5 +18,10 @@ const loadpostDB = () => {
 
 //reducer
 export default handleActions({
-  [LOAD_POST]: (state, action) => produce(state, (draft) => {}),
+  [LOAD_TRACK]: (state, action) => produce(state, (draft) => {}),
 });
+
+const actionCreators = {
+  loadTrack,
+  loadTrackDB,
+};

@@ -2,7 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import { Container } from "../../elements";
 
+const GOOGLE_KEY = process.env.REACT_APP_GOOGLE_KEY;
+const NAVER_KEY = process.env.REACT_APP_NAVER_KEY;
+const KAKAO_KEY = process.env.REACT_APP_KAKAO_KEY;
+
 const Login = ({ history, location }) => {
+  console.log(NAVER_KEY);
+
   return (
     <>
       <Container>
@@ -20,7 +26,9 @@ const Login = ({ history, location }) => {
 
         <LoginButtonG href="https://accounts.google.com/o/oauth2/v2/auth?scope=profile&amp;response_type=code&amp;client_id=283372056185-4d683ifd0ec8u3un2lmtmrq94qh0cgc8.apps.googleusercontent.com&amp;redirect_uri=http://localhost:3000/api/auth/google/callback"></LoginButtonG>
 
-        <LoginButtonN href="https://nid.naver.com/oauth2.0/authorize?response_type=code&amp;client_id=vNamYzNai5L1YAnpDWjU&amp;redirect_uri=http://localhost:3000/api/auth/naver/callback&amp;state=state"></LoginButtonN>
+        <LoginButtonN
+          href={`https://nid.naver.com/oauth2.0/authorize?response_type=code&amp;client_id=${NAVER_KEY}&amp;redirect_uri=http://localhost:3000/api/auth/naver/callback&amp;state=state`}
+        ></LoginButtonN>
         <LoginButtonK href="https://kauth.kakao.com/oauth/authorize?client_id=f1e0d9ea23cc43e8717f86da6573a3a1&amp;redirect_uri=http://localhost:3000/api/auth/kakao/callback&amp;response_type=code"></LoginButtonK>
       </Container>
     </>
