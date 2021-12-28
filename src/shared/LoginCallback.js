@@ -41,7 +41,7 @@ const LoginCallback = ({ history }) => {
       const user = res.data.user.nickname;
       const userToken = res.data.user.jwtToken;
       console.log("쿠키 저장");
-      setCookie("OAO", `__OAO-nick=${user}__OAO-token=${userToken}`, 1);
+      setCookie("OAO", `__OAO-nick=${user}__OAO-token=${userToken}`, 3);
 
       dispatch(userActions.setUser({ user: user, is_login: true }));
       history.push("/edit/profile");
