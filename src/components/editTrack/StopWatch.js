@@ -18,7 +18,6 @@ const StopWatch = ({
   const [time, setTime] = useState("00:00:00");
   const [display_time, setDisplayTime] = useState("00:00:00");
   const [is_continue, setContinue] = useState(false);
-  // console.log("진행중", timeRef.current);
 
   const handleStart = () => {
     // 현재 오디오 파일 또는 업로드된 파일이 있다면 일시정지 후 이어듣기 가능 상태를 true
@@ -72,7 +71,7 @@ const StopWatch = ({
       handlePause();
     } else if (mode === "play") {
       handleStart();
-    } else {
+    } else if (mode === "reset") {
       handleReset();
     }
   }, [mode]);

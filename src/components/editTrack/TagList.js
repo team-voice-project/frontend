@@ -44,14 +44,13 @@ const TagList = ({ selected_tag, setSelectedTag, setModalState }) => {
         {tag_list.map((tag_name, idx) => {
           const isSelected = checkSelectedTag(tag_name);
           return (
-            <span key={`tag-id-${idx}`}>
-              <Tag
-                _className={`tag-item ${isSelected ? "on" : ""}`}
-                _onClick={() => handleClickTagItem(tag_name)}
-              >
-                {tag_name}
-              </Tag>
-            </span>
+            <Tag
+              key={`tag-id-${idx}`}
+              _className={`tag-item ${isSelected ? "on" : ""}`}
+              _onClick={() => handleClickTagItem(tag_name)}
+            >
+              {tag_name}
+            </Tag>
           );
         })}
       </div>
