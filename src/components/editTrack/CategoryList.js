@@ -1,15 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Container } from "../../elements";
+import { Container, Button } from "../../elements";
 
 const CategoryList = ({
-  selected_category,
+  initial_list,
+  selected_cate,
   setSelectedCate,
   setModalState,
 }) => {
-  const initial_list = ["나래이션", "성대모사", "효과음"]; // 실제 카테고리 리스트 DB를 받아올 변수
-  const [cate_list, setCateList] = useState(initial_list); // 실제 카테고리 리스트 state
-  const [active_list, setActiveList] = useState("나래이션"); // 초기 렌더링 + 클릭 동작 시 active 할 카테고리 리스트 정보 state
+  const cate_list = initial_list; // 실제 카테고리 리스트 state
+  const [active_list, setActiveList] = useState(selected_cate); // 초기 렌더링 + 클릭 동작 시 active 할 카테고리 리스트 정보 state
+  const [apply_btn_disabled, setApplyBtnDisabled] = useState(true);
+
+  useEffect(() => {
+    if (!active_list.length) {
+      setApplyBtnDisabled(true);
+    } else {
+      setApplyBtnDisabled(false);
+    }
+  }, [active_list]);
 
   if (!cate_list) {
     return "카테고리가 없습니다.";
@@ -26,7 +35,9 @@ const CategoryList = ({
   return (
     <CategoryWarp>
       <div className={"category-list"}>
-        {cate_list.map((cate_name, idx) => {
+        {cate_list.map((item, idx) => {
+          const cate_name = item.category;
+          const img_src = item.categoryUrl;
           const isSelected = checkSelectedCate(cate_name);
           return (
             <button
@@ -35,7 +46,9 @@ const CategoryList = ({
               className={`cate-item ${isSelected ? "on" : ""}`}
               onClick={() => handleClickCateItem(cate_name)}
             >
-              <span className={"cate-img"}></span>
+              <span className={"cate-img"}>
+                <img src={img_src} alt="" />
+              </span>
               <span className={"cate-name"}>{cate_name}</span>
             </button>
           );
@@ -44,16 +57,15 @@ const CategoryList = ({
 
       <div className={"btn-position"}>
         <Container padding={"0"}>
-          <button
-            type={"button"}
-            className={"apply-btn"}
-            onClick={() => {
+          <Button
+            _disabled={apply_btn_disabled}
+            _onClick={() => {
               setSelectedCate(active_list);
               setModalState(null);
             }}
           >
             카테고리 선택하기
-          </button>
+          </Button>
         </Container>
       </div>
     </CategoryWarp>
@@ -71,9 +83,8 @@ const CategoryWarp = styled.div`
     align-items: flex-start;
     overflow-y: auto;
     overflow-x: hidden;
-    height: 100%;
+    height: calc(100% - 56px);
     width: 100%;
-    padding-bottom: 50px;
   }
 
   .cate-item {
@@ -113,6 +124,15 @@ const CategoryWarp = styled.div`
       margin-bottom: 10px;
       border-radius: 12px;
       overflow: hidden;
+
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }
     }
 
     .cate-name {
@@ -133,8 +153,7 @@ const CategoryWarp = styled.div`
       border: 0;
       color: #fff;
       height: 56px;
-      font-weight: bold;
-      font-size: 17px;
+      font-size: 20px;
       border-radius: 6px;
       background-color: var(--point-color);
     }

@@ -6,7 +6,7 @@ const ScriptMemo = forwardRef((props, ref) => {
   return (
     <MemoWrap>
       <textarea
-        placeholder={"녹음본 제목 작성"}
+        placeholder={"녹음 시 필요한 내용을 작성해서 읽어보세요!"}
         onKeyUp={autoHeightArea}
         onKeyDown={autoHeightArea}
         ref={ref}

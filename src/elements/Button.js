@@ -4,6 +4,7 @@ import styled from "styled-components";
 const Button = (props) => {
   const { bg, children, _onClick, _disabled, margin, border } = props;
 
+  console.log("버튼 disabled", _disabled);
   const styles = {
     bg,
     margin,
@@ -11,7 +12,12 @@ const Button = (props) => {
   };
 
   return (
-    <ButtonWrap {...styles} onClick={_onClick} disabled={_disabled}>
+    <ButtonWrap
+      type={"button"}
+      {...styles}
+      onClick={_onClick}
+      disabled={_disabled}
+    >
       {children}
     </ButtonWrap>
   );
@@ -34,6 +40,7 @@ const ButtonWrap = styled.button`
   ${(props) => (props.border ? "border: 3px solid #fff;" : "")}
   opacity: ${(props) => (props._disabled ? "0.5" : "1")};
   margin: ${(props) => props.margin};
+
 `;
 
 export default Button;
