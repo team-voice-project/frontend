@@ -28,8 +28,8 @@ const Font = (props) => {
 
 Font.defaultProps = {
   margin: false,
-  color: false,
-  fontSize: false,
+  color: "inherit",
+  fontSize: "inherit",
 };
 
 const FontWrap = styled.div`
