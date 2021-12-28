@@ -195,9 +195,14 @@ const Recorder = ({
     reader.readAsDataURL(file);
 
     playerRef.current.onloadedmetadata = function () {
-      let runtime = Math.floor(playerRef.current.duration * 1000);
-      const timer_str = moment(runtime).format("mm:ss:SS");
-      setRuntimeMemory(timer_str);
+      console.log("현재 입력될 파일의 재생시간", playerRef.current.duration);
+
+      // 업로드 파일 재생시간이 Infinity 미만 일 경우에만 제한시간을 설정
+      if (Number.MAX_SAFE_INTEGE > playerRef.current.duration) {
+        let runtime = Math.floor(playerRef.current.duration * 1000);
+        const timer_str = moment(runtime).format("mm:ss:SS");
+        setRuntimeMemory(timer_str);
+      }
     };
 
     reader.onloadend = () => {
@@ -212,6 +217,7 @@ const Recorder = ({
 
     setTimeout(() => {
       setUploadStateBubble({ state: true, text: "파일이 첨부되었습니다." });
+      console.log("설정된 제한시간", runtime_memory);
     }, 500);
   };
 

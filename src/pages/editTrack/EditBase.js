@@ -7,7 +7,6 @@ import OptModal from "../../components/editTrack/OptModal";
 import CategoryList from "../../components/editTrack/CategoryList";
 import TagList from "../../components/editTrack/TagList";
 import { useDispatch } from "react-redux";
-import { IoCloseSharp } from 'react-icons/io5';
 
 const EditBase = ({ history }) => {
   const dispatch = useDispatch();
@@ -99,14 +98,13 @@ const EditBase = ({ history }) => {
                 ? "태그 선택"
                 : selected_tag.map((item, idx) => {
                     return (
-                      <span key={`tag-unit-${idx}`}>
-                        <Tag
-                          removable={'true'}
-                          _onClick={() => handleRemoveTag(item)}
-                        >
-                          {item}
-                        </Tag>
-                      </span>
+                      <Tag
+                        key={`tag-unit-${idx}`}
+                        removable={"true"}
+                        _onClick={() => handleRemoveTag(item)}
+                      >
+                        {item}
+                      </Tag>
                     );
                   })}
             </div>
