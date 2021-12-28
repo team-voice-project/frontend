@@ -53,4 +53,5 @@ export const apis = {
 
   // 공통 API
   getMenuInfoDB: () => api.get("/api/tracks/listinfo"),
+  getShareInfoDB: (id) => api.get(`/api/tracks/${id}`),
 };

@@ -23,10 +23,6 @@ const uploadTrack = createAction(UPLOAD_TRACK, (track) => ({ track }));
 // middlewares
 const sendUploadTrackData = (track) => {
   return async (dispatch, getState, { history }) => {
-    console.log("[sendUploadTrackData]", track);
-    // api 연결 할것 -> /api/track [POST]
-    // 업로드 후 response 데이터로 트랙정보 업데이트 할것 아래 dispatch 시에
-
     const trackData = new FormData();
     trackData.append("trackThumbnailUrl", track.cover_url);
     trackData.append("trackFile", track.audio_file);
@@ -36,8 +32,15 @@ const sendUploadTrackData = (track) => {
       trackData.append(`tag${idx + 1}`, track.tags[idx]);
     });
 
-    const res = await apis.uploadTrack(trackData);
-    console.log("DB로 트랙정보를 업로드 한 결과: ", res);
+    try {
+      const res = await apis.uploadTrack(trackData);
+      const { trackId } = res.data;
+      history.push(`/share/${trackId}`);
+    } catch (err) {
+      // TODO: 업로드 실패 시 error 페이지 리다이렉팅 처리 할것
+      console.log("[업로드 실패]", err.response);
+    }
+
     // dispatch(uploadTrack(track));
     // history.push("/share/123");
   };
