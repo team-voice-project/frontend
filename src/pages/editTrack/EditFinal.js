@@ -1,49 +1,75 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as editTrackActions } from "../../redux/modules/editTrack";
 import { apis } from "../../shared/api";
 
-import { Container } from "../../elements";
+import { Container, Button } from "../../elements";
 import { RiArrowLeftSLine } from "react-icons/ri";
+import { HiCheck } from "react-icons/hi";
 
 const EditFinal = ({ history }) => {
   const dispatch = useDispatch();
   const [emo_list, setEmoList] = useState([]);
   const track_info = useSelector((state) => state.editTrack);
   const [send_track, setSendTrack] = useState(track_info);
-  console.log("보낼 트랙 정보: ", send_track);
+  const track_id = useLocation().state?.track_id;
 
-  useEffect(async () => {
+  console.log("보낼 데이터", send_track);
+
+  useEffect(() => {
+    initFinalPage();
+    console.log("넘겨받은 id: ", track_id);
+
+    if (!send_track.subject) {
+      alert(
+        "작성중인 목소리 정보를 찾을 수 없습니다. 다시 처음부터 시도하세요."
+      );
+
+      if (track_id) {
+        history.push(`/edit/base/${track_id}`);
+      } else {
+        history.push(`/edit/base`);
+      }
+    }
+
+    console.log("init 후 send_track:", send_track);
+  }, []);
+
+  const initFinalPage = async () => {
     // 이모티콘 active 동작을 위해 객체 형식 변환
-    const infos = await getEmoList();
+    const emo_info = await getEmoList();
 
-    if (infos) {
-      const formatted = infos.map((item, idx) => {
-        // 선택된 이모티콘 정보가 있을 경우 해당 아이템을 active 그렇지 않을 경우 첫번째 아이템을 active
-        const selected =
-          item.trackThumbnailUrl === track_info.cover_url || idx === 0;
-        if (selected) {
-          // 초기 이모티콘 Url 정보 세팅
-          setSendTrack({
-            ...send_track,
-            cover_url: item.trackThumbnailUrl,
-          });
-
-          return { id: idx, emo_url: item.trackThumbnailUrl, active: true };
-        } else {
-          return { id: idx, emo_url: item.trackThumbnailUrl, active: false };
-        }
+    if (emo_info) {
+      const formatted = emo_info.map((item, idx) => {
+        return {
+          id: idx,
+          emo_url: item.trackThumbnailUrlFace,
+          active: false,
+        };
       });
+
+      // 선택된 이모티콘 정보가 있을 경우 해당 아이템을 active 그렇지 않을 경우 첫번째 아이템을 active
+      const active_idx = formatted.findIndex(
+        (item) => item.emo_url === track_info.cover_url
+      );
+
+      if (active_idx > -1) {
+        formatted[active_idx].active = true;
+      } else {
+        formatted[0].active = true;
+      }
 
       setEmoList(formatted);
     } else {
       alert(
         "목소리 업로드 페이지를 이용 할 수 없습니다 :( \n 관리자에게 문의하세요."
       );
+
       history.replace("/");
     }
-  }, []);
+  };
 
   const getEmoList = async () => {
     try {
@@ -77,29 +103,30 @@ const EditFinal = ({ history }) => {
 
   const handleUploadTrack = () => {
     const { audio_file, audio_url, category, subject, tags } = track_info;
-
     // 리덕스에 업로드 할 정보가 없을 경우 처음부터 다시 진행하도록..
     if (
       !tags.length ||
-      category === "" ||
-      subject === "" ||
-      !audio_file ||
-      audio_url === ""
+      !category ||
+      !subject ||
+      // !audio_file ||
+      !audio_url
     ) {
       alert("업로드할 정보를 찾을 수 없습니다. 처음부터 진행해주세요 :(");
       history.push("/edit/base");
       return;
-    } else {
-      const cover_url = emo_list.filter((item) => item.active)[0].emo_url;
-      console.log("현재 선택된 커버 아이디", cover_url);
-      const send_data = {
-        ...track_info,
-        cover_url,
-      };
-
-      console.log("send_data", send_data);
-      dispatch(editTrackActions.sendUploadTrackData(send_data));
     }
+
+    const mode = track_id ? "update" : "upload";
+    const cover_url = emo_list.filter((item) => item.active)[0].emo_url;
+    const send_data = {
+      ...track_info,
+      cover_url,
+      mode,
+      track_id,
+    };
+
+    console.log("send_data", send_data);
+    dispatch(editTrackActions.sendTrackData(send_data));
   };
 
   const handleClickBackBtn = () => {
@@ -108,8 +135,8 @@ const EditFinal = ({ history }) => {
 
   return (
     <EditWrap>
-      <Container padding={"0"}>
-        <nav className={"edit-header"}>
+      <nav className={"edit-header"}>
+        <Container padding={"0"}>
           <button
             type={"button"}
             className={"back-btn"}
@@ -117,8 +144,8 @@ const EditFinal = ({ history }) => {
           >
             <RiArrowLeftSLine />
           </button>
-        </nav>
-      </Container>
+        </Container>
+      </nav>
 
       <Container padding={"0px"}>
         <div className={"progress-bar"}>
@@ -142,6 +169,7 @@ const EditFinal = ({ history }) => {
                     onClick={() => handleClickEmoItem(idx)}
                   >
                     <img src={item.emo_url} alt="" />
+                    <HiCheck className={"icon-check"} />
                   </li>
                 );
               })}
@@ -155,13 +183,9 @@ const EditFinal = ({ history }) => {
           </div>
         </div>
 
-        <button
-          type={"button"}
-          className={"upload-btn"}
-          onClick={handleUploadTrack}
-        >
+        <Button _className={"upload-btn"} _onClick={handleUploadTrack}>
           업로드하기
-        </button>
+        </Button>
       </Container>
     </EditWrap>
   );
@@ -171,6 +195,8 @@ export default EditFinal;
 
 const EditWrap = styled.section`
   .edit-header {
+    position: sticky;
+    top: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -232,6 +258,17 @@ const EditWrap = styled.section`
       background: #2c2b2b;
       position: relative;
 
+      .icon-check {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 38px;
+        color: var(--point-color);
+        z-index: 1;
+      }
+
       img {
         position: absolute;
         top: 0;
@@ -244,6 +281,9 @@ const EditWrap = styled.section`
       }
 
       &.active {
+        .icon-check {
+          display: block;
+        }
         &::after {
           content: "";
           display: block;
@@ -253,6 +293,7 @@ const EditWrap = styled.section`
           right: 0;
           bottom: 0;
           border-radius: 50%;
+          background-color: rgba(0, 0, 0, 0.5);
           border: 4px solid var(--point-color);
         }
       }
@@ -263,7 +304,7 @@ const EditWrap = styled.section`
     text-align: center;
     line-height: 1.82;
     font-size: 12px;
-    margin-bottom: 60px;
+    margin-bottom: 20px;
   }
 
   .upload-btn {
@@ -272,8 +313,7 @@ const EditWrap = styled.section`
     border: 0;
     color: #fff;
     height: 56px;
-    font-weight: bold;
-    font-size: 17px;
+    font-size: 20px;
     border-radius: 6px;
     background-color: var(--point-color);
   }

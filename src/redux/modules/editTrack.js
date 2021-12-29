@@ -21,28 +21,51 @@ const saveAudio = createAction(SAVE_AUDIO, (audio_info) => ({ audio_info }));
 const uploadTrack = createAction(UPLOAD_TRACK, (track) => ({ track }));
 
 // middlewares
-const sendUploadTrackData = (track) => {
+const sendTrackData = (track) => {
   return async (dispatch, getState, { history }) => {
+    console.log("현재 모드: ", track.mode);
+    console.log("미들웨어에서 받은 트랙", track);
+
     const trackData = new FormData();
-    trackData.append("trackThumbnailUrl", track.cover_url);
-    trackData.append("trackFile", track.audio_file);
+    trackData.append("trackThumbnailUrlFace", track.cover_url);
     trackData.append("title", track.subject);
+    trackData.append("trackFile", track.audio_file);
     trackData.append("category", track.category);
-    track.tags.forEach((tag, idx) => {
-      trackData.append(`tag${idx + 1}`, track.tags[idx]);
-    });
+    trackData.append("tag1", track.tags[0] ? track.tags[0] : "");
+    trackData.append("tag2", track.tags[1] ? track.tags[1] : "");
+    trackData.append("tag3", track.tags[2] ? track.tags[2] : "");
 
-    try {
-      const res = await apis.uploadTrack(trackData);
-      const { trackId } = res.data;
-      history.push(`/share/${trackId}`);
-    } catch (err) {
-      // TODO: 업로드 실패 시 error 페이지 리다이렉팅 처리 할것
-      console.log("[업로드 실패]", err.response);
+    if (track.mode === "upload") {
+      try {
+        const res = await apis.uploadTrack(trackData);
+        const { trackId } = res.data;
+        history.push(`/share/${trackId}`);
+      } catch (err) {
+        // TODO: 업로드 실패 시 error 페이지 리다이렉팅 처리 할것
+        console.log("[업로드 실패]", err.response);
+      }
+    } else if (track.mode === "update") {
+      const update_date = {
+        trackThumbnailUrlFace: track.cover_url,
+        title: track.subject,
+        category: track.category,
+        tag1: track.tags[0] ? track.tags[0] : "",
+        tag2: track.tags[1] ? track.tags[1] : "",
+        tag3: track.tags[2] ? track.tags[2] : "",
+      };
+
+      try {
+        const res = await apis.updateTrack(track.track_id, update_date);
+        console.log("업데이트 후 결과: ", res);
+        history.push(`/share/${track.track_id}`);
+      } catch (err) {
+        // TODO: 업데이트 실패 시 error 페이지 리다이렉팅 처리 할것
+        console.log("[업데이트 실패]", err.response);
+      }
+    } else {
+      alert("올바른 방법으로 다시 시도해주세요.");
+      history.goBack();
     }
-
-    // dispatch(uploadTrack(track));
-    // history.push("/share/123");
   };
 };
 
@@ -52,10 +75,15 @@ export default handleActions(
     [SAVE_BASE]: (state, action) =>
       produce(state, (draft) => {
         console.log("[SET_BASE]", action.payload.base_info);
-        const { category, tags, subject } = action.payload.base_info;
+        const { category, tags, subject, audio_url, cover_url } =
+          action.payload.base_info;
         draft.category = category;
         draft.tags = tags;
         draft.subject = subject;
+
+        // 수정 모드일때
+        draft.cover_url = cover_url;
+        draft.audio_url = audio_url;
       }),
 
     [SAVE_AUDIO]: (state, action) =>
@@ -64,13 +92,6 @@ export default handleActions(
         draft.audio_file = action.payload.audio_info.file;
         draft.audio_url = action.payload.audio_info.url;
       }),
-
-    [UPLOAD_TRACK]: (state, action) =>
-      produce(state, (draft) => {
-        console.log("[UPLOAD_TRACK]", action.payload.track);
-        draft.cover_url = action.payload.track.cover_url;
-        draft.audio_url = action.payload.track.audio_url;
-      }),
   },
   initialState
 );
@@ -78,7 +99,7 @@ export default handleActions(
 const actionCreators = {
   saveBase,
   saveAudio,
-  sendUploadTrackData,
+  sendTrackData,
 };
 
 export { actionCreators };

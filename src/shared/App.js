@@ -26,6 +26,7 @@ function App() {
       <Route path="/search" component={Search} exact />
       <Route path="/login" component={Login} exact />
       <Route path="/edit/base" component={EditBase} exact />
+      <Route path="/edit/base/:track_id" component={EditBase} exact />
       <Route path="/edit/record" component={EditRecord} exact />
       <Route path="/edit/final" component={EditFinal} exact />
       <Route path="/portfolio" component={PortfolioPage} exact />

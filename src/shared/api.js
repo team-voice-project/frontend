@@ -50,8 +50,9 @@ export const apis = {
 
   // 트랙 업로드 관련 API
   uploadTrack: (track) => api.post(`/api/tracks`, track),
+  updateTrack: (id, track) => api.put(`/api/tracks/${id}`, track),
 
   // 공통 API
   getMenuInfoDB: () => api.get("/api/tracks/listinfo"),
-  getShareInfoDB: (id) => api.get(`/api/tracks/${id}`),
+  getTrackInfoDB: (id) => api.get(`/api/tracks/${id}`),
 };

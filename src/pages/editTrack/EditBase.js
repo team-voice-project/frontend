@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import { actionCreators as editTrackActions } from "../../redux/modules/editTrack";
 import { apis } from "../../shared/api";
 
@@ -12,23 +13,17 @@ import TagList from "../../components/editTrack/TagList";
 
 const EditBase = ({ history }) => {
   const dispatch = useDispatch();
+  const track_id = useParams()?.track_id;
   const [menu_info, setMenuInfo] = useState(null);
   const [modal_state, setModalState] = useState(null);
   const [selected_cate, setSelectedCate] = useState("");
   const [selected_tag, setSelectedTag] = useState([]);
   const [subject, setSubject] = useState("");
+  const [rest_data, setRestData] = useState({});
   const nextBtnRef = useRef(null);
 
   useEffect(async () => {
-    const infos = await getMenuInfo();
-    if (infos) {
-      setMenuInfo(infos);
-    } else {
-      alert(
-        "목소리 업로드 페이지를 이용 할 수 없습니다 :( \n 관리자에게 문의하세요."
-      );
-      history.replace("/");
-    }
+    initBasePage();
   }, []);
 
   useEffect(() => {
@@ -39,12 +34,51 @@ const EditBase = ({ history }) => {
     }
   }, [selected_cate, selected_tag, subject]);
 
-  const getMenuInfo = async () => {
+  const initBasePage = async () => {
+    // 카테고리, 태그 정보 불러오기
+    const menu_info = await getMenuData();
+    if (menu_info) {
+      setMenuInfo(menu_info);
+    } else {
+      alert(
+        "목소리 업로드 페이지를 이용 할 수 없습니다 :( \n 관리자에게 문의하세요."
+      );
+      history.replace("/");
+    }
+
+    //  수정 시 기존 데이터 불러오기
+    if (track_id) {
+      const { TrackTags, title, category, trackUrl, TrackThumbnail } =
+        await getTrackData(track_id);
+      const reveal_tags = TrackTags.map((item) => item.tag);
+      setSelectedCate(category);
+      setSelectedTag(reveal_tags);
+      setSubject(title);
+      setRestData({
+        audio_file: null,
+        audio_url: trackUrl,
+        audio_runtime: "00:00:00",
+        cover_url: TrackThumbnail.trackThumbnailUrlFace,
+      });
+    }
+  };
+
+  const getTrackData = async (id) => {
+    try {
+      const res = await apis.getTrackInfoDB(id);
+      return res.data.track;
+    } catch (err) {
+      console.error("[getTrackData] 트랙정보를 가져올 수 없습니다.");
+      return null;
+    }
+  };
+
+  const getMenuData = async () => {
     try {
       const res = await apis.getMenuInfoDB();
       return res.data;
     } catch (err) {
-      console.error("[getMenuInfo] 카테고리, 태그 정보를 가져올 수 없습니다.");
+      console.error("[getMenuData] 카테고리, 태그 정보를 가져올 수 없습니다.");
       return null;
     }
   };
@@ -74,15 +108,24 @@ const EditBase = ({ history }) => {
       return;
     }
 
-    const save_data = {
+    let save_data = {
       category: selected_cate,
       tags: selected_tag,
       subject: subject,
+      ...rest_data,
     };
 
     console.log("저장할 데이터", save_data);
     dispatch(editTrackActions.saveBase(save_data));
-    history.push("/edit/record");
+
+    if (track_id) {
+      history.push({
+        pathname: "/edit/final",
+        state: { track_id },
+      });
+    } else {
+      history.push("/edit/record");
+    }
   };
 
   const handleRemoveTag = (tag) => {
@@ -178,6 +221,7 @@ const EditBase = ({ history }) => {
               type="text"
               placeholder={"녹음본 제목 작성"}
               onKeyUp={handleKeyUpSubject}
+              defaultValue={subject}
             />
           </div>
         </div>
