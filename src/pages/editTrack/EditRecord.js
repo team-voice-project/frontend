@@ -1,12 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { actionCreators as editTrackActions } from "../../redux/modules/editTrack";
 
-import { Container } from "../../elements";
+import { Container, Font } from "../../elements";
 import ScriptMemo from "../../components/editTrack/ScriptMemo";
 import Recorder from "../../components/editTrack/Recorder";
 import ScriptView from "../../components/editTrack/ScriptView";
 import { useDispatch } from "react-redux";
+import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/ri";
 
 const EditRecord = ({ history }) => {
   const dispatch = useDispatch();
@@ -18,6 +19,22 @@ const EditRecord = ({ history }) => {
   });
   const [script_active, setScriptActive] = useState(false);
   const [script_text, setScriptText] = useState("");
+  const nextBtnRef = useRef(null);
+
+  useEffect(() => {
+    const empty_voice = Object.values(voice_file).some((prop) => prop === null);
+    if (empty_voice) {
+      console.log("보이스 파일 없음: ", voice_file);
+      nextBtnRef.current.classList.remove("active");
+    } else {
+      console.log("보이스 파일 있음: ", voice_file);
+      nextBtnRef.current.classList.add("active");
+    }
+  }, [voice_file]);
+
+  const handleClickBackBtn = () => {
+    history.goBack();
+  };
 
   const handleClickNextBtn = () => {
     for (const prop in voice_file) {
@@ -37,9 +54,21 @@ const EditRecord = ({ history }) => {
     <EditWrap>
       <Container padding={"0"}>
         <nav className={"edit-header"}>
-          <button type={"button"}>뒤로가기</button>
-          <button type={"button"} onClick={handleClickNextBtn}>
-            다음
+          <button
+            type={"button"}
+            className={"back-btn"}
+            onClick={handleClickBackBtn}
+          >
+            <RiArrowLeftSLine />
+          </button>
+          <button
+            type={"button"}
+            className={"next-btn"}
+            onClick={handleClickNextBtn}
+            ref={nextBtnRef}
+          >
+            <Font title={"true"}>다음</Font>
+            <RiArrowRightSLine />
           </button>
         </nav>
       </Container>
@@ -80,9 +109,34 @@ const EditWrap = styled.section`
 
   .edit-header {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     height: 40px;
     padding: 8px 20px;
+
+    .back-btn,
+    .next-btn {
+      border: 0;
+      height: inherit;
+      background: none;
+      display: flex;
+      align-items: center;
+      color: #fff;
+
+      svg {
+        font-size: 24px;
+      }
+    }
+
+    .next-btn {
+      opacity: 0.5;
+      pointer-events: none;
+
+      &.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
   }
 
   .progress-bar {
@@ -119,6 +173,7 @@ const EditWrap = styled.section`
     height: 30vh;
     background-color: rgba(0, 0, 0, 0.85);
     display: flex;
+    justify-content: space-between;
     flex-direction: column;
 
     &.active {

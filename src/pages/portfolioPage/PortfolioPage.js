@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import Container from "../../elements/Container";
 import styled from "styled-components";
 import Track from "../../components/mypage/Track";
-
 import MusicPlayer from "../../components/mypage/MusicPlayer";
+import { useSelector } from "react-redux";
 
 const PortfolioPage = (props) => {
   const [checkedInputs, setCheckedInputs] = useState([]);
+  const track = useSelector((state) => state.mypage.track);
 
   const changeRadio = (e) => {
     if (e.target.checked) {
@@ -51,8 +52,6 @@ const PortfolioPage = (props) => {
         <label style={{ marginRight: "10px" }}>
           <FormCheckLeft
             type="radio"
-            {...props}
-            id={props.id}
             name="radioButton"
             onChange={changeRadio}
             value={checkedInputs}
@@ -62,8 +61,6 @@ const PortfolioPage = (props) => {
         <label>
           <FormCheckLeft
             type="radio"
-            {...props}
-            id={props.id}
             name="radioButton"
             onChange={changeRadio}
             value={checkedInputs}
@@ -78,12 +75,13 @@ const PortfolioPage = (props) => {
           margin: "0px",
         }}
       >
-        <Track />
-        <Track />
-        <Track />
-        <Track />
-        <Track />
-        <Track />
+        {track.track_info === undefined ? (
+          <Track />
+        ) : (
+          track.track_info.map((p, idx) => {
+            return <Track key={idx} {...p} />;
+          })
+        )}
       </div>
       <MusicPlayer />
     </Container>

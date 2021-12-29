@@ -1,5 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
+import { apis } from "../../shared/api";
 
 const SAVE_BASE = "SAVE_BASE";
 const SAVE_AUDIO = "SAVE_AUDIO";
@@ -12,7 +13,7 @@ const initialState = {
   audio_file: null,
   audio_url: "",
   audio_runtime: "00:00:00",
-  cover_id: null,
+  cover_url: null,
 };
 
 const saveBase = createAction(SAVE_BASE, (base_info) => ({ base_info }));
@@ -21,12 +22,27 @@ const uploadTrack = createAction(UPLOAD_TRACK, (track) => ({ track }));
 
 // middlewares
 const sendUploadTrackData = (track) => {
-  return (dispatch, getState, { history }) => {
-    console.log("[sendUploadTrackData]", track);
-    // api 연결 할것 -> /api/track [POST]
-    // 업로드 후 response 데이터로 트랙정보 업데이트 할것 아래 dispatch 시에
-    dispatch(uploadTrack(track));
-    history.push("/share/123");
+  return async (dispatch, getState, { history }) => {
+    const trackData = new FormData();
+    trackData.append("trackThumbnailUrl", track.cover_url);
+    trackData.append("trackFile", track.audio_file);
+    trackData.append("title", track.subject);
+    trackData.append("category", track.category);
+    track.tags.forEach((tag, idx) => {
+      trackData.append(`tag${idx + 1}`, track.tags[idx]);
+    });
+
+    try {
+      const res = await apis.uploadTrack(trackData);
+      const { trackId } = res.data;
+      history.push(`/share/${trackId}`);
+    } catch (err) {
+      // TODO: 업로드 실패 시 error 페이지 리다이렉팅 처리 할것
+      console.log("[업로드 실패]", err.response);
+    }
+
+    // dispatch(uploadTrack(track));
+    // history.push("/share/123");
   };
 };
 
@@ -52,7 +68,7 @@ export default handleActions(
     [UPLOAD_TRACK]: (state, action) =>
       produce(state, (draft) => {
         console.log("[UPLOAD_TRACK]", action.payload.track);
-        draft.cover_id = action.payload.track.cover_id;
+        draft.cover_url = action.payload.track.cover_url;
         draft.audio_url = action.payload.track.audio_url;
       }),
   },

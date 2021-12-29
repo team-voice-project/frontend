@@ -5,17 +5,11 @@ import moment from "moment";
 import { Container } from "../../elements";
 import StopWatch from "./StopWatch";
 import pushAudio from "../../shared/audio/push.mp3";
+import { BsFillMicFill } from "react-icons/bs";
+import { IoStopSharp, IoPlaySharp } from "react-icons/io5";
+import { ImFolder } from "react-icons/im";
+import { AUDIO_TYPE_LIST } from "../../shared/utils";
 
-// 허용 가능한 음원 파일 타입 리스트
-const AUDIO_TYPE_LIST = [
-  "audio/midi",
-  "audio/mpeg",
-  "audio/webm",
-  "audio/ogg",
-  "audio/wav",
-];
-
-// FIXME: 파일 첨부 후 녹음 시 스톱워치 동작 오류 있음
 const Recorder = ({
   setVoiceFile,
   setScriptActive,
@@ -44,8 +38,10 @@ const Recorder = ({
     return;
   }
 
+  // 15728640 byte === 15 MB === 약 30분  // *.m4a
   const getVoiceBlobUrl = () => {
-    const voice_blob = new Blob(chunks, { type: "audio/ogg codecs=opus" });
+    const voice_blob = new Blob(chunks, { type: "audio/ogg" });
+    console.log("보이스 녹음 파일: ", voice_blob);
     const url = URL.createObjectURL(voice_blob);
     // 실제 서버로 넘길 보이스 파일 데이터 객체
     setVoiceFile({
@@ -180,7 +176,7 @@ const Recorder = ({
       return;
     }
 
-    setUploadStateBubble({ state: false });
+    setUploadStateBubble({ state: true, text: "파일이 읽어들이는중.." });
     setStopWatchMode("reset");
     setScriptActive(false);
 
@@ -217,7 +213,6 @@ const Recorder = ({
 
     setTimeout(() => {
       setUploadStateBubble({ state: true, text: "파일이 첨부되었습니다." });
-      console.log("설정된 제한시간", runtime_memory);
     }, 500);
   };
 
@@ -261,13 +256,27 @@ const Recorder = ({
           </div>
         }
 
+        <StopWatch
+          _className={"stopwatch"}
+          mode={stopwatch_mode}
+          setMode={setStopWatchMode}
+          runtime_memory={runtime_memory}
+          setRuntimeMemory={setRuntimeMemory}
+          setControls={setControls}
+          playerRef={playerRef}
+          has_audio={has_audio}
+          has_upload={uploaderRef.current?.files[0]}
+        />
+
         <div className={"main-controls"}>
           <div className={`side-item repeat ${!repeat_visible && "disabled"}`}>
             <button
               type="button"
-              className={"btn"}
+              className={"btn repeat"}
               onClick={handleClickResetRecord}
-            />
+            >
+              <BsFillMicFill />
+            </button>
             <span className={"btn-text"}>다시 녹음</span>
           </div>
 
@@ -278,7 +287,10 @@ const Recorder = ({
                   type="button"
                   className={"btn record on"}
                   onClick={handleClickOnRecord}
-                />
+                >
+                  <BsFillMicFill />
+                </button>
+
                 <span className={"btn-text"}>녹음</span>
               </div>
             )}
@@ -289,7 +301,9 @@ const Recorder = ({
                   type="button"
                   className={"btn pause"}
                   onClick={handleClickOffRecord}
-                />
+                >
+                  <IoStopSharp className={"icon-pause"} />
+                </button>
                 <span className={"btn-text"}>정지</span>
               </div>
             )}
@@ -300,7 +314,9 @@ const Recorder = ({
                   type="button"
                   className={"btn play"}
                   onClick={handleClickPlayRecord}
-                />
+                >
+                  <IoPlaySharp />
+                </button>
                 <span className={"btn-text"}>재생</span>
               </div>
             )}
@@ -314,22 +330,11 @@ const Recorder = ({
                 ref={uploaderRef}
                 accept={"audio/*"}
               />
+              <ImFolder />
             </label>
             <span className={"btn-text"}>파일 첨부</span>
           </div>
         </div>
-
-        <StopWatch
-          _className={"stopwatch"}
-          mode={stopwatch_mode}
-          setMode={setStopWatchMode}
-          runtime_memory={runtime_memory}
-          setRuntimeMemory={setRuntimeMemory}
-          setControls={setControls}
-          playerRef={playerRef}
-          has_audio={has_audio}
-          has_upload={uploaderRef.current?.files[0]}
-        />
       </Container>
     </RecorderWrap>
   );
@@ -340,6 +345,7 @@ export default Recorder;
 const RecorderWrap = styled.div`
   height: 40vh;
   padding: 40px;
+  max-height: 216px;
 
   .hidden-system-audio {
     display: none;
@@ -429,9 +435,18 @@ const RecorderWrap = styled.div`
       border-radius: 50%;
       margin-bottom: 10px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &.repeat {
+        font-size: 21px;
+      }
 
       &.record {
-        background: #c85241;
+        color: #fff;
+        background: var(--point-color);
+        font-size: 21px;
       }
 
       &.pause {
@@ -440,11 +455,21 @@ const RecorderWrap = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
+        position: relative;
+
+        .icon-pause {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          color: #fff;
+          font-size: 20px;
+        }
 
         &::after {
           content: "";
           display: block;
-          background: #fff;
+          background: var(--point-color);
           width: 100%;
           height: 100%;
           border-radius: 50%;
@@ -452,7 +477,9 @@ const RecorderWrap = styled.div`
       }
 
       &.play {
+        font-size: 20px;
         background: #fff;
+        color: var(--point-color);
       }
     }
 
@@ -471,7 +498,8 @@ const RecorderWrap = styled.div`
     .btn {
       width: 48px;
       height: 48px;
-      background: #fff;
+      color: #fff;
+      background: #2c2b2b;
     }
 
     .btn-text {
@@ -492,7 +520,7 @@ const RecorderWrap = styled.div`
   }
 
   .stopwatch {
-    font-size: 14px;
+    font-size: 24px;
     text-align: center;
     flex-basis: 100%;
     margin-top: 5px;

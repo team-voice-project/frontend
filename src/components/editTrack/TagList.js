@@ -1,23 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Container, Tag } from "../../elements";
+import { Container, Tag, Button } from "../../elements";
 
-const TagList = ({ selected_tag, setSelectedTag, setModalState }) => {
-  const initial_list = [
-    "여성적인",
-    "깔끔한",
-    "부드러움",
-    "깔끔한",
-    "부드러움",
-    "깔끔한",
-    "부드러움",
-    "깔끔한",
-    "부드러움",
-    "깔끔한",
-    "부드러움",
-  ]; // 실제 태그 리스트 DB를 받아올 변수
-  const [tag_list, setTagList] = useState(initial_list); // 실제 태그 리스트 state
-  const [active_list, setActiveList] = useState(["깔끔한"]); // 초기 렌더링 + 클릭 동작 시 active 할 태그 리스트 정보 state
+const TagList = ({
+  initial_list,
+  selected_tag,
+  setSelectedTag,
+  setModalState,
+}) => {
+  const tag_list = initial_list; // 실제 태그 리스트 state
+  const [active_list, setActiveList] = useState(selected_tag); // 초기 렌더링 + 클릭 동작 시 active 할 태그 리스트 정보 state
+  const [apply_btn_disabled, setApplyBtnDisabled] = useState(true);
+
+  useEffect(() => {
+    if (!active_list.length) {
+      setApplyBtnDisabled(true);
+    } else {
+      setApplyBtnDisabled(false);
+    }
+  }, [active_list]);
 
   if (!tag_list) {
     return "태그 없습니다.";
@@ -30,6 +31,11 @@ const TagList = ({ selected_tag, setSelectedTag, setModalState }) => {
   const handleClickTagItem = (tag_name) => {
     const isActive = checkSelectedTag(tag_name);
 
+    if (!isActive && active_list.length > 2) {
+      alert("이미 3가지를 선택하셨어요.");
+      return;
+    }
+
     if (isActive) {
       const filtered = active_list.filter((item) => item !== tag_name);
       setActiveList([...filtered]);
@@ -41,7 +47,8 @@ const TagList = ({ selected_tag, setSelectedTag, setModalState }) => {
   return (
     <TagListyWarp>
       <div className={"tag-list"}>
-        {tag_list.map((tag_name, idx) => {
+        {tag_list.map((item, idx) => {
+          const tag_name = item.tag;
           const isSelected = checkSelectedTag(tag_name);
           return (
             <Tag
@@ -58,16 +65,15 @@ const TagList = ({ selected_tag, setSelectedTag, setModalState }) => {
       <div className={"btn-position"}>
         <p className={"guide-text"}>원하는 태그를 3개 선택하여 설정하세요</p>
         <Container padding={"0"}>
-          <button
-            type={"button"}
-            className={"apply-btn"}
-            onClick={() => {
+          <Button
+            _disabled={apply_btn_disabled}
+            _onClick={() => {
               setSelectedTag(active_list);
               setModalState(null);
             }}
           >
             태그 선택하기
-          </button>
+          </Button>
         </Container>
       </div>
     </TagListyWarp>
@@ -120,8 +126,7 @@ const TagListyWarp = styled.div`
       border: 0;
       color: #fff;
       height: 56px;
-      font-weight: bold;
-      font-size: 17px;
+      font-size: 20px;
       border-radius: 6px;
       background-color: var(--point-color);
     }

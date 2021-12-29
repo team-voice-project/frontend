@@ -48,5 +48,10 @@ export const apis = {
   deleteComment: (tracksId, commentId) =>
     api.delete(`/api/tracks/${tracksId}/comment/${commentId}`),
 
-  categoryList: () => api.get(`/api/listinfo`),
+  // 트랙 업로드 관련 API
+  uploadTrack: (track) => api.post(`/api/tracks`, track),
+
+  // 공통 API
+  getMenuInfoDB: () => api.get("/api/tracks/listinfo"),
+  getShareInfoDB: (id) => api.get(`/api/tracks/${id}`),
 };
