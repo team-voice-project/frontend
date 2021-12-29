@@ -5,7 +5,9 @@ import { useLocation } from "react-router";
 import Header from "../../components/category/Header";
 import Text from "../../elements/Text";
 
-const Category = () => {
+import { RiArrowLeftSLine } from "react-icons/ri";
+
+const Category = (props) => {
   const location = useLocation();
 
   return (
@@ -14,7 +16,13 @@ const Category = () => {
       <Wrap>
         <div style={{ marginBottom: "40px", padding: "0px 20px" }}>
           <Flex>
-            <Icon></Icon>
+            <RiArrowLeftSLine
+              cursor="pointer"
+              size="32"
+              onClick={() => {
+                props.history.push("/");
+              }}
+            />
             <Text>카테고리</Text>
           </Flex>
 
@@ -87,10 +95,7 @@ const Rectangle = styled.div`
   background-image: url("/assets/kimkong.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  /* @media screen and (max-width: 375px) {
-    width: 100px;
-    height: 96px;
-  } */
+
   @media screen and (max-width: 380px) {
     width: 105px;
     height: 100px;

@@ -3,8 +3,12 @@ import styled from "styled-components";
 import CategoryModal from "../../components/category/CategoryModal";
 import Header from "../../components/category/Header";
 import Track from "../../components/mypage/Track";
-import { Text } from "../../elements/index";
+import { Font } from "../../elements/index";
 import Tag from "../../elements/Tag";
+
+import { RiArrowRightSLine, RiLineHeight } from "react-icons/ri";
+import { RiArrowLeftSLine } from "react-icons/ri";
+import { BsFilterRight } from "react-icons/bs";
 
 const InCategory = () => {
   const [show_modal, setShowModal] = React.useState(false);
@@ -20,8 +24,14 @@ const InCategory = () => {
 
       <Wrap>
         <Flex style={{ justifyContent: "space-between" }}>
-          <Text>카테고리 나레이션</Text>
-          <IconTag onClick={openModal}></IconTag>
+          <Flex>
+            <RiArrowLeftSLine size="32" />
+            <Font title fontSize="22px" margin="18px 0px">
+              카테고리 나레이션
+            </Font>
+          </Flex>
+
+          <BsFilterRight size="32" onClick={openModal}></BsFilterRight>
         </Flex>
         <TagGrid>
           <Tag removable={"true"}>여성적인</Tag>

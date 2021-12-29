@@ -2,6 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import Header from "./Header";
 import Container from "../../elements/Container";
+import SingleAudioPlayer from "../../shared/SingleAudioPlayer";
+
+import { HiHeart } from "react-icons/hi";
+import { RiChat4Fill } from "react-icons/ri";
+import { Button, Font } from "../../elements";
 
 const OnBoarding = ({ setShowModal }) => {
   return (
@@ -15,20 +20,6 @@ const OnBoarding = ({ setShowModal }) => {
           </Flex>
           <div>
             <OAOImage></OAOImage>
-            <div>
-              <FlexCount>
-                <div style={{ margin: "auto", display: "flex" }}>
-                  <CountBox>
-                    <IconDiv></IconDiv>
-                    <CountText>132</CountText>
-                  </CountBox>
-                  <CountBox>
-                    <IconDiv></IconDiv>
-                    <CountText>28</CountText>
-                  </CountBox>
-                </div>
-              </FlexCount>
-            </div>
           </div>
           <BoldFont>새벽에 어울리는 나레이션</BoldFont>
 
@@ -38,16 +29,31 @@ const OnBoarding = ({ setShowModal }) => {
             <TagBox>깔끔한</TagBox>
           </FlexTag>
 
-          <PlayBar></PlayBar>
+          <SingleAudioPlayer></SingleAudioPlayer>
+
+          <FlexCount>
+            <CountBox>
+              <HiHeart size="23"></HiHeart>
+              <CountText>132</CountText>
+            </CountBox>
+            <CountBox>
+              <RiChat4Fill size="20"></RiChat4Fill>
+              <CountText>28</CountText>
+            </CountBox>
+          </FlexCount>
         </BoxDiv>
-        <Btn>나도 목소리 올리기</Btn>
-        <Btn
-          onClick={() => {
+        <Button bg margin="0px 0px 15px 0px">
+          나도 목소리 올리기
+        </Button>
+        <Button
+          border
+          margin="0px 0px 25px 0px"
+          _onClick={() => {
             setShowModal(false);
           }}
         >
           다른 목소리 듣기
-        </Btn>
+        </Button>
       </Container>
     </Background>
   );
@@ -83,20 +89,20 @@ const CountBox = styled.div`
   display: flex;
   align-items: center;
   vertical-align: center;
-  margin-right: 15px;
+  margin-right: 18px;
 `;
 
 const FlexTag = styled.div`
   width: 100%;
-  margin: auto;
+  margin: 0px auto 20px 0px;
   text-align: center;
 `;
 
 const FlexCount = styled.div`
   display: flex;
   align-items: center;
-  vertical-align: center;
-  margin-bottom: 20px;
+  vertical-align: right;
+  margin: 30px 0px 0px 220px;
 `;
 
 const SmallCircle = styled.div`
@@ -126,8 +132,9 @@ const IconDiv = styled.div`
 `;
 
 const CountText = styled.div`
-  font-size: 18px;
+  font-size: 14px;
   color: #c4c4c4;
+  margin-left: 2px;
 `;
 
 const BoldFont = styled.div`

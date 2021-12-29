@@ -1,13 +1,21 @@
 import React from "react";
 import styled from "styled-components";
-import { Text } from "../../elements";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import { Text, Button, Font } from "../../elements/index";
 import OnBoarding from "../../components/category/Onboarding";
 import Header from "../../components/category/Header";
 import PlayBox from "../../components/category/PlayBox";
 import MusicPlayer from "../../components/mypage/MusicPlayer";
-import { apis } from "../../shared/api";
+
+import { actionCreators as postActions } from "../../redux/modules/post";
+
+import { RiArrowRightSLine } from "react-icons/ri";
 
 const Main = (props) => {
+  const dispatch = useDispatch();
+
   const [showModal, setShowModal] = React.useState(false);
 
   const openModal = () => {
@@ -16,53 +24,50 @@ const Main = (props) => {
 
   React.useEffect(() => {
     openModal();
-    list();
+    dispatch(postActions.loadPostDB());
   }, []);
 
-  const list = async () => {
-    const res = await apis.categoryList();
-    console.log("실행?");
-  };
+  const track_list = useSelector((state) => state.post.post_list);
+  // console.log("트랙리스트", track_list);
 
   return (
     <>
-      <Header topMenu />
-      {/* {showModal && <OnBoarding setShowModal={setShowModal} />} */}
+      <Header topMenu props={props} />
+      {showModal && <OnBoarding setShowModal={setShowModal} />}
       <WrapDiv>
         <Wrap>
-          <UploadBtn>나도 목소리 올리기</UploadBtn>
+          <Button bg>나도 목소리 올리기</Button>
           <DivText>나의 목소리를 올려서 사람들에게 들려주세요!</DivText>
         </Wrap>
+        {track_list &&
+          track_list.map((list, idx) => {
+            console.log("여기", list);
+            return (
+              <React.Fragment key={idx}>
+                <Wrap>
+                  <DivBoldText>
+                    <Font title fontSize="22px" margin="18px 0px">
+                      최근에 올라온 목소리
+                    </Font>
+                    <IconDiv>
+                      <RiArrowRightSLine size="28" cursor="pointer" />
+                    </IconDiv>
+                  </DivBoldText>
+                </Wrap>
 
-        <Wrap>
-          <DivBoldText>
-            <Text>최근에 올라온 목소리</Text>
-            <div
-              style={{ width: "28px", height: "28px", backgroundColor: "#ddd" }}
-            ></div>
-          </DivBoldText>
-        </Wrap>
+                <Flex>
+                  {list.map((l) => {
+                    return (
+                      <div key={l.trackId}>
+                        <PlayBox {...l} />
+                      </div>
+                    );
+                  })}
+                </Flex>
+              </React.Fragment>
+            );
+          })}
 
-        <Flex>
-          <PlayBox />
-          <PlayBox />
-          <PlayBox />
-        </Flex>
-
-        <Wrap>
-          <DivBoldText>
-            <Text>인기있는 나레이션</Text>
-            <div
-              style={{ width: "28px", height: "28px", backgroundColor: "#ddd" }}
-            ></div>
-          </DivBoldText>
-        </Wrap>
-
-        <Flex>
-          <PlayBox />
-          <PlayBox />
-          <PlayBox />
-        </Flex>
         <MusicPlayer />
       </WrapDiv>
     </>
@@ -102,6 +107,11 @@ const DivBoldText = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+`;
+
+const IconDiv = styled.div`
+  width: 28px;
+  height: 28px;
 `;
 
 const Flex = styled.div`

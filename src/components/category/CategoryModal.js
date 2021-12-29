@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Container } from "../../elements";
+import { Button, Container } from "../../elements";
 import Tag from "../../elements/Tag";
 
 const CategoryModal = ({ setShowModal }) => {
@@ -21,7 +21,9 @@ const CategoryModal = ({ setShowModal }) => {
           <ButtonDiv>
             <Ment>태그 3개를 선택하여 원하는 목소리를 찾아보세요</Ment>
             <TagButton>
-              <TextDiv>태그 적용하기</TextDiv>
+              <Button bg _disabled>
+                태그 적용하기
+              </Button>
             </TagButton>
           </ButtonDiv>
         </Wrap>

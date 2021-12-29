@@ -4,8 +4,11 @@ import { BiPause } from "react-icons/bi";
 import { FaPlay } from "react-icons/fa";
 
 import MenuModal from "../mypage/MenuModal";
+import { HiHeart } from "react-icons/hi";
+import { RiChat4Fill } from "react-icons/ri";
 
-const PlayBox = () => {
+const PlayBox = (props) => {
+  // console.log("프롭스", props);
   const [modalOpen, setModalOpen] = React.useState(false);
   const [playBtn, setPlayBtn] = React.useState(false);
 
@@ -59,15 +62,19 @@ const PlayBox = () => {
             </Circle>
           )}
 
-          <Title>깔끔한 목소리 나레이션</Title>
-          <Name>김명자</Name>
+          <Title>{props.title}</Title>
+          <Name>{props.User.nickname}</Name>
           <Count>
             <Flex>
-              <IconDiv></IconDiv>
+              <IconDiv size="15" color="Red">
+                <HiHeart />
+              </IconDiv>
               <LikeComment>132</LikeComment>
             </Flex>
             <Flex>
-              <IconDiv></IconDiv>
+              <IconDiv>
+                <RiChat4Fill size="15" />
+              </IconDiv>
               <LikeComment>20</LikeComment>
             </Flex>
           </Count>
@@ -95,8 +102,8 @@ const MarginDiv = styled.div`
 `;
 
 const Circle = styled.div`
-  width: 130px;
-  height: 130px;
+  width: 118px;
+  height: 118px;
   background-color: #ddd;
   /* border: 5px solid #ff00b3; */
   border-radius: 120px;
@@ -105,8 +112,8 @@ const Circle = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   @media screen and (max-width: 360px) {
-    width: 110px;
-    height: 110px;
+    width: 100px;
+    height: 100px;
     border-radius: 100px;
     margin: 0px 0px 12px 0px;
   }
@@ -119,8 +126,8 @@ const PlayButton = styled.button`
   background-color: #f1134e;
   border: none;
   position: relative;
-  left: 92px;
-  top: 90px;
+  left: 90px;
+  top: 85px;
   /* background-image: url("/assets/playButton.png");
   background-repeat: no-repeat;
   background-size: cover; */
@@ -130,8 +137,8 @@ const PlayButton = styled.button`
     border-radius: 28px;
     margin: 0px 0px 16px 0px;
     position: relative;
-    left: 78px;
-    top: 74px;
+    left: 76px;
+    top: 72px;
   }
 `;
 
@@ -173,7 +180,6 @@ const IconDiv = styled.div`
   width: 15px;
   height: 15px;
   margin-right: 5px;
-  background-color: #ddd;
 `;
 
 const LikeComment = styled.div`
