@@ -16,11 +16,8 @@ const EditFinal = ({ history }) => {
   const [send_track, setSendTrack] = useState(track_info);
   const track_id = useLocation().state?.track_id;
 
-  console.log("보낼 데이터", send_track);
-
   useEffect(() => {
     initFinalPage();
-    console.log("넘겨받은 id: ", track_id);
 
     if (!send_track.subject) {
       alert(
@@ -33,8 +30,6 @@ const EditFinal = ({ history }) => {
         history.push(`/edit/base`);
       }
     }
-
-    console.log("init 후 send_track:", send_track);
   }, []);
 
   const initFinalPage = async () => {
@@ -125,7 +120,6 @@ const EditFinal = ({ history }) => {
       track_id,
     };
 
-    console.log("send_data", send_data);
     dispatch(editTrackActions.sendTrackData(send_data));
   };
 

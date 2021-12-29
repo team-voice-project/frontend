@@ -33,6 +33,7 @@ const Recorder = ({
   const uploaderRef = useRef(null);
   const systemAudioRef = useRef(null);
   const playBtnRef = useRef(null);
+  const mainControlRef = useRef(null);
 
   if (!navigator.mediaDevices) {
     return;
@@ -55,6 +56,12 @@ const Recorder = ({
   const handleClickOnRecord = () => {
     // 녹음 시 버튼 효과음 재생
     systemAudioRef.current.play();
+
+    // 녹음& 정지 버튼 반복 동작 방지
+    mainControlRef.current.classList.add("prevent");
+    setTimeout(() => {
+      mainControlRef.current.classList.remove("prevent");
+    }, 500);
 
     // 사용자 동의 후 작동
     setControls({
@@ -268,7 +275,7 @@ const Recorder = ({
           has_upload={uploaderRef.current?.files[0]}
         />
 
-        <div className={"main-controls"}>
+        <div className={"main-controls"} ref={mainControlRef}>
           <div className={`side-item repeat ${!repeat_visible && "disabled"}`}>
             <button
               type="button"
@@ -411,6 +418,10 @@ const RecorderWrap = styled.div`
     display: flex;
     justify-content: center;
     align-items: flex-end;
+
+    &.prevent {
+      pointer-events: none;
+    }
 
     .main-item {
       margin: 0 34px;

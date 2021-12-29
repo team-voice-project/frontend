@@ -4,7 +4,7 @@ import { apis } from "../../shared/api";
 
 const SAVE_BASE = "SAVE_BASE";
 const SAVE_AUDIO = "SAVE_AUDIO";
-const UPLOAD_TRACK = "UPLOAD_TRACK";
+const RESET_TRACK = "RESET_TRACK";
 
 const initialState = {
   category: "",
@@ -18,14 +18,11 @@ const initialState = {
 
 const saveBase = createAction(SAVE_BASE, (base_info) => ({ base_info }));
 const saveAudio = createAction(SAVE_AUDIO, (audio_info) => ({ audio_info }));
-const uploadTrack = createAction(UPLOAD_TRACK, (track) => ({ track }));
+const resetTrack = createAction(RESET_TRACK, () => ({}));
 
 // middlewares
 const sendTrackData = (track) => {
   return async (dispatch, getState, { history }) => {
-    console.log("현재 모드: ", track.mode);
-    console.log("미들웨어에서 받은 트랙", track);
-
     const trackData = new FormData();
     trackData.append("trackThumbnailUrlFace", track.cover_url);
     trackData.append("title", track.subject);
@@ -56,7 +53,6 @@ const sendTrackData = (track) => {
 
       try {
         const res = await apis.updateTrack(track.track_id, update_date);
-        console.log("업데이트 후 결과: ", res);
         history.push(`/share/${track.track_id}`);
       } catch (err) {
         // TODO: 업데이트 실패 시 error 페이지 리다이렉팅 처리 할것

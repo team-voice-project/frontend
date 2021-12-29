@@ -64,7 +64,7 @@ const StopWatch = ({
   };
 
   useEffect(() => {
-    console.log("스톱워치 모드: ", mode);
+    // console.log("스톱워치 모드: ", mode);
     if (mode === "start") {
       handleStart();
     } else if (mode === "stop") {

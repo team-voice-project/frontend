@@ -115,7 +115,6 @@ const EditBase = ({ history }) => {
       ...rest_data,
     };
 
-    console.log("저장할 데이터", save_data);
     dispatch(editTrackActions.saveBase(save_data));
 
     if (track_id) {
