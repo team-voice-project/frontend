@@ -4,30 +4,41 @@ import styled from "styled-components";
 import Track from "../../components/mypage/Track";
 import MusicPlayer from "../../components/mypage/MusicPlayer";
 import { useSelector } from "react-redux";
+import DefaultImg from "./profileIMG.png";
+import { RiArrowLeftSLine } from "react-icons/ri";
+import { history } from "../../redux/configStore";
 
 const PortfolioPage = (props) => {
   const [checkedInputs, setCheckedInputs] = useState([]);
   const track = useSelector((state) => state.mypage.track);
+  console.log(props);
+  const PROPS = props.location.props.props;
 
   const changeRadio = (e) => {
     if (e.target.checked) {
       setCheckedInputs(e.target.id);
     }
   };
+
   return (
     <Container>
       <div
         style={{
           background: "#2C2B2B",
-          padding: "50px 10px 10px 10px",
+          padding: "30px 10px 10px 10px",
           height: "100%",
         }}
       >
-        <BackBtn>🥕</BackBtn>
+        <RiArrowLeftSLine
+          onClick={() => {
+            history.goBack();
+          }}
+          size="30px"
+        />
         <Profile>
-          <ImageCircle src={props.user_image} />
+          <ImageCircle src={PROPS?.TrackThumbnail.trackThumbnailUrlFull} />
           <div>
-            <Name>김용성</Name>
+            <Name>{PROPS?.User.nickname}</Name>
             <Link href="http://www.naver.com" target="_blank">
               sacoraa@naver.com
             </Link>
@@ -89,8 +100,7 @@ const PortfolioPage = (props) => {
 };
 
 PortfolioPage.defaultProps = {
-  user_image:
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgXaZTRs1NC8dvfYkOxERlkyi-nEMnP15bag&usqp=CAU",
+  user_image: DefaultImg,
 };
 const FormCheckText = styled.span`
   font-size: 15px;
@@ -138,7 +148,7 @@ const ImageCircle = styled.div`
   height: 150px;
   border-radius: 50%;
   margin-right: 20px;
-  border: 1px solid black;
+  border: none;
   background: url("${(props) => props.src}");
   background-size: 100%;
   background-position: center;
@@ -150,26 +160,11 @@ const ImageCircle = styled.div`
   }
 `;
 
-const BackBtn = styled.button`
-  width: 24px;
-  height: 24px;
-  margin: 0 0 20px 5px;
-`;
-
-const TrackBtn = styled.button`
-  width: 96px;
-  height: 28px;
-  margin-right: 25px;
-  border-radius: 20px;
-  border: none;
-  font-weight: 900;
-  background-color: ${(props) => props.color};
-  color: #565656;
-`;
-
 const Name = styled.h1`
+  font-family: "Black Han Sans", serif;
   font-size: 18px;
-  margin-bottom: 10px;
+  font-weight: 300;
+  margin-bottom: 5px;
   color: white;
 `;
 

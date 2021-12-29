@@ -1,18 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 import Container from "../../elements/Container";
-import { TiDeleteOutline } from "react-icons/ti";
+import { IoIosClose } from "react-icons/io";
 import { FcLike } from "react-icons/fc";
+import { ImShare } from "react-icons/im";
 import { AiOutlineComment } from "react-icons/ai";
-
 import ReactAudioPlayer from "react-audio-player";
 import CommentList from "./CommentList";
 import CommentWrite from "./CommentWrite";
 import DetailTag from "./DetailTag";
+import { history } from "../../redux/configStore";
 
 const MenuModal = (props) => {
   const { open, close } = props;
-  console.log(props);
 
   return (
     <>
@@ -20,15 +20,32 @@ const MenuModal = (props) => {
         {open ? (
           <Section>
             <Container>
-              <div style={{ textAlign: "right" }}>
-                <TiDeleteOutline size="30px" color="white" onClick={close} />
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "right",
+                  alignItems: "center",
+                }}
+              >
+                <ImShare size="20px" />
+                <IoIosClose size="40px" color="white" onClick={close} />
               </div>
-              <Profile>
+              <Profile
+                onClick={() => {
+                  history.push({
+                    pathname: "/portfolio",
+                    props,
+                  });
+                  close();
+                }}
+              >
                 <ProfileCircle src={props.user_image} />
                 <Name>{props.props.User.nickname}</Name>
               </Profile>
               <div style={{ textAlign: "center" }}>
-                <ImageCircle src={props.props.trackThumbnailUrl} />
+                <ImageCircle
+                  src={props.props.TrackThumbnail?.trackThumbnailUrlFace}
+                />
               </div>
               <div
                 style={{
@@ -81,7 +98,7 @@ const MenuModal = (props) => {
                   return <CommentList key={idx} {...p} />;
                 })}
               </div>
-              <CommentWrite />
+              <CommentWrite {...props} />
             </Container>
           </Section>
         ) : null}
