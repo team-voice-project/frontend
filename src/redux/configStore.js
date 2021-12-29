@@ -6,10 +6,12 @@ import { connectRouter } from "connected-react-router";
 import EditTrack from "./modules/editTrack";
 import User from "./modules/user";
 import Mypage from "./modules/mypage";
+import Comment from "./modules/comment";
 
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
+  comment: Comment,
   editTrack: EditTrack,
   user: User,
   mypage: Mypage,

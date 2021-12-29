@@ -42,7 +42,7 @@ export const apis = {
   search: () => api.get("api/search?keyword=keyword"),
 
   commentTrack: (trackId, comment) =>
-    api.post(`/api/tracks/${trackId}/comment`, comment),
+    api.post(`/api/tracks/${trackId}/comment`, { comment }),
   editComment: (trackId, commentId, comment) =>
     api.put(`/api/tracks/${trackId}/comment/${commentId}`, comment),
   deleteComment: (tracksId, commentId) =>

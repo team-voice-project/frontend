@@ -1,12 +1,14 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import Container from "../../elements/Container";
 import styled from "styled-components";
 import Track from "../../components/mypage/Track";
-
+import { RiPencilFill } from "react-icons/ri";
 import MusicPlayer from "../../components/mypage/MusicPlayer";
 
 const MyPage = (props) => {
   const [checkedInputs, setCheckedInputs] = useState([]);
+  const track = useSelector((state) => state.mypage.track);
 
   const changeRadio = (e) => {
     if (e.target.checked) {
@@ -27,7 +29,7 @@ const MyPage = (props) => {
           <div>
             <div style={{ display: "flex" }}>
               <Name>김용성</Name>
-              <BackBtn>🥕</BackBtn>
+              <RiPencilFill style={{ color: "red", background: "black" }} />
             </div>
             <Link href="http://www.naver.com" target="_blank">
               sacoraa@naver.com
@@ -78,14 +80,16 @@ const MyPage = (props) => {
         style={{
           display: "flex",
           flexWrap: "wrap",
+          margin: "0px",
         }}
       >
-        <Track />
-        <Track />
-        <Track />
-        <Track />
-        <Track />
-        <Track />
+        {track.track_info === undefined ? (
+          <Track />
+        ) : (
+          track.track_info.map((p, idx) => {
+            return <Track key={idx} {...p} />;
+          })
+        )}
       </div>
       <MusicPlayer />
     </Container>
@@ -159,7 +163,7 @@ const ImageCircle = styled.div`
 const BackBtn = styled.button`
   width: 24px;
   height: 24px;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 `;
 
 const UpBtn = styled.button`
@@ -174,18 +178,12 @@ const UpBtn = styled.button`
   color: white;
 `;
 
-const TrackBtn = styled.button`
-  width: 96px;
-  height: 28px;
-  margin-right: 25px;
-  border-radius: 20px;
-  border: none;
-  font-weight: 900;
-`;
-
 const Name = styled.h1`
+  font-family: "Black Han Sans", serif;
+  font-weight: 300;
+  color: black;
   font-size: 18px;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   margin-right: 5px;
 `;
 
@@ -196,6 +194,7 @@ const Link = styled.a`
 
 const Text = styled.p`
   margin-top: 10px;
+  color: black;
   font-size: 13px;
 `;
 
