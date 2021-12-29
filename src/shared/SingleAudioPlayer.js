@@ -9,7 +9,6 @@ const SingleAudioPlayer = ({ audio }) => {
         timeFormat={"mm:ss"}
         defaultCurrentTime={"00:00"}
         src={audio}
-        onPlay={(e) => console.log("onPlay")}
       />
     </PlayerWrap>
   );
@@ -17,8 +16,6 @@ const SingleAudioPlayer = ({ audio }) => {
 
 export default SingleAudioPlayer;
 
-// 프로그레스 내부 컬러 2C2B2B 외부컬러 FFF
-// height 4px / radius 6px
 const PlayerWrap = styled.article`
   .rhap_container {
     display: flex;

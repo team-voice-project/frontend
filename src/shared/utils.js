@@ -25,3 +25,7 @@ export const AUDIO_TYPE_LIST = [
   "audio/x-m4a",
   "audio/webm",
 ];
+
+export const byteToMegaByte = (byte) => {
+  return Math.round((byte / 1024 / 1024) * 100) / 100;
+};
