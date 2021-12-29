@@ -20,22 +20,24 @@ const Font = (props) => {
   }
 
   if (b) {
-    return <BoledFont {...StyleSheetList}>{children}</BoledFont>;
+    return <BoldFont {...StyleSheetList}>{children}</BoldFont>;
   }
 
   return <RegularFont {...styles}>{children}</RegularFont>;
 };
 
 Font.defaultProps = {
-  margin: false,
-  color: false,
-  fontSize: false,
+  margin: "false",
+  color: "false",
+  fontSize: "false",
+  align: "false",
 };
 
 const FontWrap = styled.div`
 ${(props) => (props.fontSize ? `font-size: ${props.fontSize};` : "")}
   font-family:'Black Han Sans', serif;
   margin ${(props) => props.margin};
+  font-weight:500; 
 `;
 
 const RegularFont = styled.div`
@@ -53,7 +55,7 @@ const MediumFont = styled.div`
   margin ${(props) => props.margin};
   `;
 
-const BoledFont = styled.div`
+const BoldFont = styled.div`
 ${(props) => (props.fontSize ? `font-size: ${props.fontSize};` : "")}
 font-family: "Pretendard Variable", serif;
   font-weight:700;
