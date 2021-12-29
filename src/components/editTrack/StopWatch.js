@@ -11,6 +11,7 @@ const StopWatch = ({
   playerRef,
   has_audio,
   has_upload,
+  recordLimitOff,
 }) => {
   const diff = -80; // audio file duration 길이와 스톱워치 타임 오차
   const timeRef = useRef(diff);
@@ -64,6 +65,8 @@ const StopWatch = ({
   };
 
   useEffect(() => {
+    console.log("런타임 메모리: ", runtime_memory);
+
     // console.log("스톱워치 모드: ", mode);
     if (mode === "start") {
       handleStart();
@@ -76,23 +79,33 @@ const StopWatch = ({
     }
   }, [mode]);
 
+  const resetRecorder = () => {
+    clearInterval(intervalRef.current);
+    timeRef.current = 0;
+    setTime("00:00:00");
+
+    setControls({
+      record: false,
+      pause: false,
+      play: true,
+    });
+
+    // 오디오 태그 플레이 타임 초기화
+    playerRef.current.currentTime = 0;
+    playerRef.current.pause();
+
+    setMode("stop");
+  };
+
   useEffect(() => {
-    if (runtime_memory === time) {
-      clearInterval(intervalRef.current);
-      timeRef.current = 0;
-      setTime("00:00:00");
+    // 저장된 녹음 시간과 같을때 재생 정지
+    if (time === runtime_memory) {
+      resetRecorder();
+    }
 
-      setControls({
-        record: false,
-        pause: false,
-        play: true,
-      });
-
-      // 오디오 태그 플레이 타임 초기화
-      playerRef.current.currentTime = 0;
-      playerRef.current.pause();
-
-      setMode("stop");
+    // 5분이 넘을 경우 강제 녹음 종료
+    if (time === "05:00:00") {
+      recordLimitOff();
     }
   }, [setRuntimeMemory, time]);
 
