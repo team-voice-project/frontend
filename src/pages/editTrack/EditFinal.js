@@ -30,6 +30,8 @@ const EditFinal = ({ history }) => {
         history.push(`/edit/base`);
       }
     }
+
+    return () => {};
   }, []);
 
   const initFinalPage = async () => {
