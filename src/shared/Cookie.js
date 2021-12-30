@@ -12,6 +12,20 @@ const getCookie = (name) => {
   return token;
 };
 
+const newGetCookie = (key) => {
+  const hasOAO = document.cookie.indexOf("OAO=") > -1;
+  if (!hasOAO) {
+    return;
+  }
+
+  return document.cookie
+    .split("OAO=")
+    .filter((parts) => !parts.indexOf("__OAO-"))[0]
+    .split("__OAO")
+    .filter((parts) => !parts.indexOf(`-${key}=`))[0]
+    .split(`-${key}=`)[1];
+};
+
 // 쿠키에 저장하는 함수
 const setCookie = (name, value, exp = 5) => {
   let date = new Date();
@@ -27,4 +41,4 @@ const deleteCookie = (name) => {
   document.cookie = name + "=; expires=Thu, 01 Jan 1999 00:00:10 GMT;";
 };
 
-export { setCookie, deleteCookie, getCookie };
+export { setCookie, deleteCookie, getCookie, newGetCookie };

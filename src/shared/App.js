@@ -15,6 +15,7 @@ import EditProfile from "../pages/editProfile/EditProfile";
 import ShareTrack from "../pages/shareTrack/ShareTrack";
 import Category from "../pages/search/Category";
 import LoginCallback from "../shared/LoginCallback";
+import Auth from "../shared/auth";
 
 function App() {
   return (
@@ -24,11 +25,15 @@ function App() {
       <Route path="/category" component={Category} exact />
       <Route path="/category/:categoryName" component={InCategory} exact />
       <Route path="/search" component={Search} exact />
-      <Route path="/login" component={Login} exact />
-      <Route path="/edit/base" component={EditBase} exact />
-      <Route path="/edit/base/:track_id" component={EditBase} exact />
-      <Route path="/edit/record" component={EditRecord} exact />
-      <Route path="/edit/final" component={EditFinal} exact />
+      <Route path="/login" component={Auth(Login, false)} exact />
+      <Route path="/edit/base" component={Auth(EditBase, true)} exact />
+      <Route
+        path="/edit/base/:track_id"
+        component={Auth(EditBase, true)}
+        exact
+      />
+      <Route path="/edit/record" component={Auth(EditRecord, true)} exact />
+      <Route path="/edit/final" component={Auth(EditFinal, true)} exact />
       <Route path="/portfolio" component={PortfolioPage} exact />
       <Route exact path="/mypage" component={MyPage} />
       <Route exact path="/edit/profile" component={EditProfile} />
