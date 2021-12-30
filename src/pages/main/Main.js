@@ -34,7 +34,14 @@ const Main = (props) => {
       {/* {showModal && <OnBoarding setShowModal={setShowModal} />} */}
       <WrapDiv>
         <Wrap>
-          <Button bg>나도 목소리 올리기</Button>
+          <Button
+            bg
+            _onClick={() => {
+              props.history.push("/edit/base");
+            }}
+          >
+            나도 목소리 올리기
+          </Button>
           <DivText>나의 목소리를 올려서 사람들에게 들려주세요!</DivText>
         </Wrap>
         {track_list &&

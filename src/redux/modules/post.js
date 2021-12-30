@@ -15,7 +15,6 @@ const loadImage = createAction(LOAD_IMAGE, (listInfo) => ({ listInfo }));
 const initialState = {};
 
 //middleware
-
 const loadPostDB = () => {
   return function (dispatch, getState, { history }) {
     apis.mainPage().then((res) => {
@@ -45,7 +44,6 @@ export default handleActions(
       }),
     [LOAD_IMAGE]: (state, action) =>
       produce(state, (draft) => {
-        console.log("이걱구봐앙ㅇ이거양이거바", action.payload.listInfo.tag);
         draft.Image_list = action.payload.listInfo.category;
         draft.tag_list = action.payload.listInfo.tag;
       }),

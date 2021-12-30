@@ -77,7 +77,6 @@ const Rectangle = styled.img`
   cursor: pointer;
   width: 115px;
   height: 112px;
-  background-color: #ddd;
   border-radius: 10px;
 
   @media screen and (max-width: 380px) {

@@ -12,7 +12,7 @@ const initialState = {
 
 const setKeyword = createAction(SET_KEYWORD, (keyword) => ({ keyword }));
 const getSearch = createAction(GET_SEARCH, (search_list) => ({ search_list }));
-const loadCategory = createAction(LOAD_CATEGORY, (list) => ({ list }));
+const loadCategory = createAction(LOAD_CATEGORY, (category) => ({ category }));
 
 //middleware
 const getSearchDB = (keyword) => {
@@ -24,11 +24,17 @@ const getSearchDB = (keyword) => {
   };
 };
 
-const loadCategoryDB = (category, tag1, tag2, tag3) => {
+const loadCategoryDB = (category, tag1 = "", tag2 = "", tag3 = "") => {
   return function (dispatch, getState, { history }) {
-    apis.category(category, tag1, tag2, tag3).then((res) => {
-      console.log(res);
-    });
+    apis
+      .category(category, tag1, tag2, tag3)
+      .then((res) => {
+        dispatch(loadCategory(res.data));
+      })
+      .catch((err) => {
+        console.log(err.response);
+        window.alert("검색결과가 없습니다!");
+      });
   };
 };
 
@@ -42,6 +48,11 @@ export default handleActions(
     [GET_SEARCH]: (state, action) =>
       produce(state, (draft) => {
         // draft.keyword = action.payload.keyword;
+      }),
+    [LOAD_CATEGORY]: (state, action) =>
+      produce(state, (draft) => {
+        console.log(action.payload);
+        draft.category_list = action.payload.category.tracks;
       }),
   },
   initialState

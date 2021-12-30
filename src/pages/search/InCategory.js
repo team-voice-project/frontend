@@ -19,6 +19,8 @@ const InCategory = (props) => {
   const name = props.match.params.categoryName;
 
   const tag_list = useSelector((state) => state.post.tag_list);
+  const category = useSelector((state) => state.search.category_list);
+  console.log("카테고리", category);
 
   const [show_modal, setShowModal] = React.useState(false);
 
@@ -28,14 +30,18 @@ const InCategory = (props) => {
 
   React.useEffect(() => {
     dispatch(postActions.loadImageDB());
-    // dispatch(searchActions.loadCategoryDB(name));
+    dispatch(searchActions.loadCategoryDB(name));
   }, []);
 
   return (
     <>
       {/* <Header topMenu /> */}
       {show_modal && (
-        <CategoryModal tagList={tag_list} setShowModal={setShowModal} />
+        <CategoryModal
+          tagList={tag_list}
+          name={name}
+          setShowModal={setShowModal}
+        />
       )}
 
       <Wrap>
@@ -56,9 +62,21 @@ const InCategory = (props) => {
             <BsFilterRight cursor="pointer" size="32" onClick={openModal} />
           </div>
         </Flex>
-        <TagGrid>
-          <Tag removable={"true"}>여성적인</Tag>
-        </TagGrid>
+        {category.map((list) => {
+          console.log("태그", list);
+          return (
+            <React.Fragment key={list.trackId}>
+              {list.TrackTags.map((l, i) => {
+                console.log("태태태태탵그", l);
+                return (
+                  <TagGrid key={i}>
+                    <Tag removable={"true"}>{l.tag}</Tag>
+                  </TagGrid>
+                );
+              })}
+            </React.Fragment>
+          );
+        })}
 
         <TrackGrid>
           <TrackDiv>
@@ -97,7 +115,8 @@ const TrackDiv = styled.div`
 `;
 
 const TagGrid = styled.div`
-  margin: 10px 8px 0px 15px;
+  margin: 10px 4px 0px 0px;
+  display: inline-block;
 `;
 
 // const Circle = styled.div`

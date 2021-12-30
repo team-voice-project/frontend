@@ -34,7 +34,6 @@ const Search = (props) => {
 
   const handleSearch = () => {
     const value = inputRef.current.value;
-    console.log(value);
     dispatch(searchActions.getSearchDB(value));
   };
 
