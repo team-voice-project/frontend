@@ -24,10 +24,10 @@ const EditRecord = ({ history }) => {
   useEffect(() => {
     const empty_voice = Object.values(voice_file).some((prop) => prop === null);
     if (empty_voice) {
-      console.log("보이스 파일 없음: ", voice_file);
+      // console.log("보이스 파일 없음: ", voice_file);
       nextBtnRef.current.classList.remove("active");
     } else {
-      console.log("보이스 파일 있음: ", voice_file);
+      // console.log("보이스 파일 있음: ", voice_file);
       nextBtnRef.current.classList.add("active");
     }
   }, [voice_file]);
@@ -38,14 +38,12 @@ const EditRecord = ({ history }) => {
 
   const handleClickNextBtn = () => {
     for (const prop in voice_file) {
-      console.log("파일 속성", prop);
       if (voice_file[prop] === null) {
         alert("목소리가 준비되어있지 않아요 :(");
         return;
       }
     }
 
-    console.log("저장될 녹음 파일: ", voice_file);
     dispatch(editTrackActions.saveAudio(voice_file));
     history.push("/edit/final");
   };

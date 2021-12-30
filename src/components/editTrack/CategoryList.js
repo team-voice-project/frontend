@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+
 import { Container, Button } from "../../elements";
+import { HiCheck } from "react-icons/hi";
 
 const CategoryList = ({
   initial_list,
@@ -46,10 +48,11 @@ const CategoryList = ({
               className={`cate-item ${isSelected ? "on" : ""}`}
               onClick={() => handleClickCateItem(cate_name)}
             >
-              <span className={"cate-img"}>
+              <div className={"cate-img"}>
                 <img src={img_src} alt="" />
-              </span>
-              <span className={"cate-name"}>{cate_name}</span>
+                <HiCheck className={"icon-check"} />
+              </div>
+              <div className={"cate-name"}>{cate_name}</div>
             </button>
           );
         })}
@@ -97,20 +100,37 @@ const CategoryWarp = styled.div`
     flex-direction: column;
     align-items: center;
 
+    .icon-check {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 38px;
+      color: var(--point-color);
+      z-index: 1;
+    }
+
     &.on {
       .cate-img {
         position: relative;
 
+        .icon-check {
+          display: block;
+        }
+
         &::after {
           content: "";
-          display: block;
           position: absolute;
           top: 0;
           left: 0;
           right: 0;
           bottom: 0;
           border: 5px solid var(--point-color);
+          background-color: rgba(0, 0, 0, 0.5);
           border-radius: 10px;
+          width: calc(100% - 10px);
+          height: calc(100% - 10px);
         }
       }
     }

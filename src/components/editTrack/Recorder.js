@@ -8,7 +8,7 @@ import pushAudio from "../../shared/audio/push.mp3";
 import { BsFillMicFill } from "react-icons/bs";
 import { IoStopSharp, IoPlaySharp } from "react-icons/io5";
 import { ImFolder } from "react-icons/im";
-import { AUDIO_TYPE_LIST } from "../../shared/utils";
+import { AUDIO_TYPE_LIST, byteToMegaByte } from "../../shared/utils";
 
 const Recorder = ({
   setVoiceFile,
@@ -33,10 +33,13 @@ const Recorder = ({
   const uploaderRef = useRef(null);
   const systemAudioRef = useRef(null);
   const playBtnRef = useRef(null);
+  const mainControlRef = useRef(null);
 
   if (!navigator.mediaDevices) {
     return;
   }
+
+  const checkVoiceFileSize = (size) => {};
 
   // 15728640 byte === 15 MB === 약 30분  // *.m4a
   const getVoiceBlobUrl = () => {
@@ -55,6 +58,12 @@ const Recorder = ({
   const handleClickOnRecord = () => {
     // 녹음 시 버튼 효과음 재생
     systemAudioRef.current.play();
+
+    // 녹음& 정지 버튼 반복 동작 방지
+    mainControlRef.current.classList.add("prevent");
+    setTimeout(() => {
+      mainControlRef.current.classList.remove("prevent");
+    }, 500);
 
     // 사용자 동의 후 작동
     setControls({
@@ -176,6 +185,18 @@ const Recorder = ({
       return;
     }
 
+    const file_size = e.target.files[0].size;
+    const limit = 20 * 1024 * 1024;
+    // if (file_size > limit) {
+    //   alert(
+    //     "20MB 이하 파일만 등록할 수 있습니다.\n\n" +
+    //       "현재파일 용량 : " +
+    //       byteToMegaByte(file_size) +
+    //       "MB"
+    //   );
+    //   return;
+    // }
+
     setUploadStateBubble({ state: true, text: "파일이 읽어들이는중.." });
     setStopWatchMode("reset");
     setScriptActive(false);
@@ -194,9 +215,11 @@ const Recorder = ({
       console.log("현재 입력될 파일의 재생시간", playerRef.current.duration);
 
       // 업로드 파일 재생시간이 Infinity 미만 일 경우에만 제한시간을 설정
-      if (Number.MAX_SAFE_INTEGE > playerRef.current.duration) {
+      if (String(playerRef.current.duration) !== "Infinity") {
         let runtime = Math.floor(playerRef.current.duration * 1000);
         const timer_str = moment(runtime).format("mm:ss:SS");
+
+        console.log("저장된 제한시간", timer_str);
         setRuntimeMemory(timer_str);
       }
     };
@@ -256,6 +279,8 @@ const Recorder = ({
           </div>
         }
 
+        <div className={"limit-guide"}>녹음 시간은 5분으로 제한됩니다.</div>
+
         <StopWatch
           _className={"stopwatch"}
           mode={stopwatch_mode}
@@ -266,9 +291,10 @@ const Recorder = ({
           playerRef={playerRef}
           has_audio={has_audio}
           has_upload={uploaderRef.current?.files[0]}
+          recordLimitOff={handleClickOffRecord}
         />
 
-        <div className={"main-controls"}>
+        <div className={"main-controls"} ref={mainControlRef}>
           <div className={`side-item repeat ${!repeat_visible && "disabled"}`}>
             <button
               type="button"
@@ -344,7 +370,7 @@ export default Recorder;
 
 const RecorderWrap = styled.div`
   height: 40vh;
-  padding: 40px;
+  padding: 20px 40px 40px 40px;
   max-height: 216px;
 
   .hidden-system-audio {
@@ -370,6 +396,18 @@ const RecorderWrap = styled.div`
 
   .audio-el {
     display: none;
+  }
+
+  .limit-guide {
+    font-size: 11px;
+    //position: absolute;
+    //top: -90px;
+    //left: 50%;
+    //transform: translateX(-50%);
+    //width: 100%;
+    //display: flex;
+    //align-items: center;
+    //justify-content: center;
   }
 
   .file-save-state {
@@ -411,6 +449,10 @@ const RecorderWrap = styled.div`
     display: flex;
     justify-content: center;
     align-items: flex-end;
+
+    &.prevent {
+      pointer-events: none;
+    }
 
     .main-item {
       margin: 0 34px;

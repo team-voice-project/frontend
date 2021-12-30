@@ -11,8 +11,7 @@ const ShareTrack = ({ history }) => {
   const [track_info, setTrackInfo] = useState(null);
 
   const getTrackInfo = async (id) => {
-    const res = await apis.getShareInfoDB(id);
-    console.log(res);
+    const res = await apis.getTrackInfoDB(id);
     setTrackInfo(res.data.track);
   };
 
@@ -41,7 +40,10 @@ const ShareTrack = ({ history }) => {
 
         <div className={"track-info"}>
           <div className={"emoticon"}>
-            <img src={track_info?.trackThumbnailUrl} alt="" />
+            <img
+              src={track_info?.TrackThumbnail.trackThumbnailUrlFull}
+              alt=""
+            />
           </div>
 
           <div className={"track-tags"}>
@@ -111,12 +113,9 @@ const ShareWrap = styled.article`
     .emoticon {
       width: 140px;
       height: 140px;
-      background-color: #fff;
-      border-radius: 50%;
       margin: 0 auto;
       margin-bottom: 30px;
       position: relative;
-      overflow: hidden;
 
       img {
         position: absolute;

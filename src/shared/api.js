@@ -38,7 +38,7 @@ export const apis = {
   search: (keyword) => api.get(`api/search?keyword=${keyword}`),
 
   commentTrack: (trackId, comment) =>
-    api.post(`/api/tracks/${trackId}/comment`, comment),
+    api.post(`/api/tracks/${trackId}/comment`, { comment }),
   editComment: (trackId, commentId, comment) =>
     api.put(`/api/tracks/${trackId}/comment/${commentId}`, comment),
   deleteComment: (tracksId, commentId) =>
@@ -46,8 +46,9 @@ export const apis = {
 
   // 트랙 업로드 관련 API
   uploadTrack: (track) => api.post(`/api/tracks`, track),
+  updateTrack: (id, track) => api.put(`/api/tracks/${id}`, track),
 
   // 공통 API
   getMenuInfoDB: () => api.get("/api/tracks/listinfo"),
-  getShareInfoDB: (id) => api.get(`/api/tracks/${id}`),
+  getTrackInfoDB: (id) => api.get(`/api/tracks/${id}`),
 };

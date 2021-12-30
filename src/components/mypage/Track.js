@@ -7,6 +7,7 @@ import { AiOutlineComment } from "react-icons/ai";
 import MenuModal from "./MenuModal";
 import { useDispatch } from "react-redux";
 import { actionCreators as trackCreators } from "../../redux/modules/mypage";
+import { RiChat4Fill } from "react-icons/ri";
 
 const Track = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -22,6 +23,8 @@ const Track = (props) => {
   useEffect(() => {
     dispatch(trackCreators.setTrackDB());
   }, []);
+
+  // console.log(props.TrackThumbnail.trackThumbnailUrlFace);
 
   return (
     <>
@@ -39,7 +42,7 @@ const Track = (props) => {
                 border: "3px solid #f1134e ",
                 transition: "all 300ms ease-in",
               }}
-              src={props.trackThumbnailUrl}
+              src={props.TrackThumbnail?.trackThumbnailUrlFace}
             />
 
             <PlayBtn
@@ -57,7 +60,7 @@ const Track = (props) => {
           </>
         ) : (
           <>
-            <ImageCircle src={props.trackThumbnailUrl} />
+            <ImageCircle src={props.TrackThumbnail?.trackThumbnailUrlFace} />
             <PlayBtn
               onClick={() => {
                 setPlayBtn(true);
@@ -97,16 +100,14 @@ const Track = (props) => {
               style={{
                 display: "flex",
                 marginRight: "15px",
-                lineHeight: "50%",
+                alignItems: "center",
               }}
             >
               <FcLike style={{ marginRight: "5px" }} />
               <Text>0</Text>
             </div>
-            <div style={{ display: "flex", lineHeight: "50%" }}>
-              <AiOutlineComment
-                style={{ color: "white", marginRight: "5px" }}
-              />
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <RiChat4Fill style={{ marginRight: "5px", marginTop: "3px" }} />
               <Text>0</Text>
             </div>
           </div>
