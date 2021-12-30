@@ -20,10 +20,6 @@ const Track = (props) => {
     setModalOpen(false);
   };
 
-  useEffect(() => {
-    dispatch(trackCreators.setTrackDB());
-  }, []);
-
   // console.log(props.TrackThumbnail.trackThumbnailUrlFace);
 
   return (

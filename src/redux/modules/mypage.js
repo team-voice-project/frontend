@@ -11,10 +11,10 @@ const initialState = {
 const setTrack = createAction(SET_TRACK, (track_info) => ({ track_info }));
 
 // middlewares
-const setTrackDB = () => {
+const setTrackDB = (userId) => {
   return (dispatch, getState, { history }) => {
-    const userId = 1;
-    apis.myPage(userId).then((res) => {
+    const userId = 4;
+    apis.detailTrack(userId).then((res) => {
       console.log(res);
       dispatch(setTrack(res.data.tracks));
     });
