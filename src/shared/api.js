@@ -2,7 +2,6 @@ import axios from "axios";
 import { getCookie } from "./Cookie";
 
 // ******** Axios 인스턴스 생성 ******** //
-const cookie = getCookie();
 
 const api = axios.create({
   baseURL: "http://13.125.215.6",
@@ -16,9 +15,6 @@ const api = axios.create({
 
 // ******** Export api ******** //
 export const apis = {
-  google: () => api.get("/api/auth/google"),
-  naver: () => api.get("/api/auth/naver"),
-  kakao: () => api.get("/api/auth/kakao"),
   changeNickname: (nickname) => api.post("/api/auth/nickname", nickname),
   checkUser: () => api.get("/api/auth/me"),
   editProfileImage: (userId, profileImage) =>
@@ -35,11 +31,11 @@ export const apis = {
 
   mainPage: () => api.get("/api/common"),
 
-  category: () =>
+  category: (category, tag1, tag2, tag3) =>
     api.get(
-      "/api/common/search?category=category&tag1=tag1&tag2=tag2&tag3=tag3"
+      `/api/common/search?category=${category}&tag1=${tag1}&tag2=${tag2}&tag3=${tag3}`
     ),
-  search: () => api.get("api/search?keyword=keyword"),
+  search: (keyword) => api.get(`api/search?keyword=${keyword}`),
 
   commentTrack: (trackId, comment) =>
     api.post(`/api/tracks/${trackId}/comment`, { comment }),

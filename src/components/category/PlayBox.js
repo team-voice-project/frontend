@@ -4,8 +4,11 @@ import { BiPause } from "react-icons/bi";
 import { FaPlay } from "react-icons/fa";
 
 import MenuModal from "../mypage/MenuModal";
+import { HiHeart } from "react-icons/hi";
+import { RiChat4Fill } from "react-icons/ri";
 
-const PlayBox = () => {
+const PlayBox = (props) => {
+  const Image = props.TrackThumbnail.trackThumbnailUrlFace;
   const [modalOpen, setModalOpen] = React.useState(false);
   const [playBtn, setPlayBtn] = React.useState(false);
 
@@ -22,12 +25,14 @@ const PlayBox = () => {
         <MenuModal open={modalOpen} close={closeModal} header={"123"} />
         <MarginDiv>
           {playBtn ? (
-            <Circle
-              style={{
-                border: "5px solid #f1134e ",
-                transition: "all 300ms ease-in",
-              }}
-            >
+            <div style={{ display: "flex" }}>
+              <Circle
+                src={Image}
+                style={{
+                  border: "5px solid #f1134e ",
+                  transition: "all 300ms ease-in",
+                }}
+              />
               <PlayButton
                 onClick={() => {
                   setPlayBtn(false);
@@ -40,9 +45,10 @@ const PlayBox = () => {
                   }}
                 />
               </PlayButton>
-            </Circle>
+            </div>
           ) : (
-            <Circle>
+            <div style={{ display: "flex" }}>
+              <Circle src={Image} />
               <PlayButton
                 onClick={() => {
                   setPlayBtn(true);
@@ -56,18 +62,22 @@ const PlayBox = () => {
                   }}
                 />
               </PlayButton>
-            </Circle>
+            </div>
           )}
 
-          <Title>깔끔한 목소리 나레이션</Title>
-          <Name>김명자</Name>
+          <Title>{props.title}</Title>
+          <Name>{props.User.nickname}</Name>
           <Count>
             <Flex>
-              <IconDiv></IconDiv>
+              <IconDiv size="15" color="Red">
+                <HiHeart />
+              </IconDiv>
               <LikeComment>132</LikeComment>
             </Flex>
             <Flex>
-              <IconDiv></IconDiv>
+              <IconDiv>
+                <RiChat4Fill size="15" />
+              </IconDiv>
               <LikeComment>20</LikeComment>
             </Flex>
           </Count>
@@ -94,19 +104,16 @@ const MarginDiv = styled.div`
   }
 `;
 
-const Circle = styled.div`
-  width: 130px;
-  height: 130px;
+const Circle = styled.img`
+  width: 118px;
+  height: 118px;
   background-color: #ddd;
   /* border: 5px solid #ff00b3; */
   border-radius: 120px;
   margin: 0px 0px 12px 0px;
-  background-image: url("/assets/kimkong.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
   @media screen and (max-width: 360px) {
-    width: 110px;
-    height: 110px;
+    width: 100px;
+    height: 100px;
     border-radius: 100px;
     margin: 0px 0px 12px 0px;
   }
@@ -119,19 +126,16 @@ const PlayButton = styled.button`
   background-color: #f1134e;
   border: none;
   position: relative;
-  left: 92px;
-  top: 90px;
-  /* background-image: url("/assets/playButton.png");
-  background-repeat: no-repeat;
-  background-size: cover; */
+  right: 30px;
+  top: 80px;
   @media screen and (max-width: 360px) {
     width: 26px;
     height: 26px;
     border-radius: 28px;
     margin: 0px 0px 16px 0px;
     position: relative;
-    left: 78px;
-    top: 74px;
+    right: 25px;
+    top: 70px;
   }
 `;
 
@@ -173,7 +177,6 @@ const IconDiv = styled.div`
   width: 15px;
   height: 15px;
   margin-right: 5px;
-  background-color: #ddd;
 `;
 
 const LikeComment = styled.div`

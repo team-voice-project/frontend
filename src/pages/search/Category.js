@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useLocation } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
 
 import Header from "../../components/category/Header";
-import Text from "../../elements/Text";
+import Font from "../../elements/Font";
+import { actionCreators as postActions } from "../../redux/modules/post";
 
-const Category = () => {
-  const location = useLocation();
+import { RiArrowLeftSLine } from "react-icons/ri";
+
+const Category = (props) => {
+  const dispatch = useDispatch();
+
+  const category_list = useSelector((state) => state.post.Image_list);
+
+  React.useEffect(() => {
+    dispatch(postActions.loadImageDB());
+  }, []);
 
   return (
     <div>
@@ -14,50 +24,34 @@ const Category = () => {
       <Wrap>
         <div style={{ marginBottom: "40px", padding: "0px 20px" }}>
           <Flex>
-            <Icon></Icon>
-            <Text>카테고리</Text>
+            <RiArrowLeftSLine
+              cursor="pointer"
+              size="32"
+              onClick={() => {
+                props.history.push("/");
+              }}
+            />
+            <Font>카테고리</Font>
           </Flex>
 
           <Desc>카테고리에서 태그 조정을 통해 원하는 목소리를 찾아보세요</Desc>
         </div>
 
         <BoxWrap>
-          <Box>
-            <Rectangle></Rectangle>
-            <CategoryName>전체</CategoryName>
-          </Box>
-          <Box>
-            <Rectangle></Rectangle>
-            <CategoryName>전체</CategoryName>
-          </Box>
-          <Box>
-            <Rectangle></Rectangle>
-            <CategoryName>전체</CategoryName>
-          </Box>
-          <Box>
-            <Rectangle></Rectangle>
-            <CategoryName>전체</CategoryName>
-          </Box>
-          <Box>
-            <Rectangle></Rectangle>
-            <CategoryName>전체</CategoryName>
-          </Box>
-          <Box>
-            <Rectangle></Rectangle>
-            <CategoryName>전체</CategoryName>
-          </Box>
-          <Box>
-            <Rectangle></Rectangle>
-            <CategoryName>전체</CategoryName>
-          </Box>
-          <Box>
-            <Rectangle></Rectangle>
-            <CategoryName>전체</CategoryName>
-          </Box>
-          <Box>
-            <Rectangle></Rectangle>
-            <CategoryName>전체</CategoryName>
-          </Box>
+          {category_list &&
+            category_list.map((l, idx) => {
+              const categoryName = l.category;
+              return (
+                <Box key={idx}>
+                  <Rectangle
+                    src={l.categoryUrl}
+                    onClick={() => {
+                      props.history.push(`/category/${categoryName}`);
+                    }}
+                  ></Rectangle>
+                </Box>
+              );
+            })}
         </BoxWrap>
       </Wrap>
     </div>
@@ -79,18 +73,13 @@ const Desc = styled.div`
   font-size: 13px;
 `;
 
-const Rectangle = styled.div`
-  width: 121px;
-  height: 116px;
+const Rectangle = styled.img`
+  cursor: pointer;
+  width: 115px;
+  height: 112px;
   background-color: #ddd;
   border-radius: 10px;
-  background-image: url("/assets/kimkong.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  /* @media screen and (max-width: 375px) {
-    width: 100px;
-    height: 96px;
-  } */
+
   @media screen and (max-width: 380px) {
     width: 105px;
     height: 100px;

@@ -22,7 +22,7 @@ function App() {
       <GlobalStyles />
       <Route path="/" component={Main} exact />
       <Route path="/category" component={Category} exact />
-      <Route path="/incategory" component={InCategory} exact />
+      <Route path="/category/:categoryName" component={InCategory} exact />
       <Route path="/search" component={Search} exact />
       <Route path="/login" component={Login} exact />
       <Route path="/edit/base" component={EditBase} exact />

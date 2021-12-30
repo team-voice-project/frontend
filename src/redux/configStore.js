@@ -5,6 +5,7 @@ import { connectRouter } from "connected-react-router";
 
 import EditTrack from "./modules/editTrack";
 import User from "./modules/user";
+import Post from "./modules/post";
 import Mypage from "./modules/mypage";
 import Comment from "./modules/comment";
 
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   comment: Comment,
   editTrack: EditTrack,
   user: User,
+  post: Post,
   mypage: Mypage,
   router: connectRouter(history),
 });

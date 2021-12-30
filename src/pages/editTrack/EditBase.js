@@ -15,6 +15,7 @@ const EditBase = ({ history }) => {
   const dispatch = useDispatch();
   const track_id = useParams()?.track_id;
   const [menu_info, setMenuInfo] = useState(null);
+  console.log(menu_info);
   const [modal_state, setModalState] = useState(null);
   const [selected_cate, setSelectedCate] = useState("");
   const [selected_tag, setSelectedTag] = useState([]);

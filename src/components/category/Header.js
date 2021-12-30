@@ -2,6 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
 
+import { HiOutlineSearch } from "react-icons/hi";
+import { HiUser } from "react-icons/hi";
+import { BsFillGridFill } from "react-icons/bs";
+
 const Header = (props) => {
   const { topMenu, noHeader } = props;
 
@@ -18,19 +22,33 @@ const Header = (props) => {
       <FlexSearchBar>
         <L></L>
         <FlexIcon>
-          <Temdiv
-            onClick={() => {
-              history.push("/search");
-            }}
-          >
-            검
+          <Temdiv>
+            <HiOutlineSearch
+              cursor="pointer"
+              size="28"
+              onClick={() => {
+                history.push("/search");
+              }}
+            />
           </Temdiv>
-          <Temdiv>마</Temdiv>
-          <Temdiv
-            onClick={() => {
-              history.push("/category");
-            }}
-          ></Temdiv>
+          <Temdiv>
+            <HiUser
+              cursor="pointer"
+              size="28"
+              onClick={() => {
+                history.push("/mypage");
+              }}
+            ></HiUser>
+          </Temdiv>
+          <Temdiv>
+            <BsFillGridFill
+              cursor="pointer"
+              size="28"
+              onClick={() => {
+                history.push("/category");
+              }}
+            ></BsFillGridFill>
+          </Temdiv>
         </FlexIcon>
       </FlexSearchBar>
     );
@@ -96,8 +114,9 @@ const FlexIcon = styled.div`
 const Temdiv = styled.div`
   width: 28px;
   height: 28px;
-  background-color: #ddd;
   margin-left: 22px;
+  align-items: center;
+  vertical-align: center;
 `;
 
 export default Header;

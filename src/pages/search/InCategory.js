@@ -1,27 +1,60 @@
 import React from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+
+import { actionCreators as postActions } from "../../redux/modules/post";
+import { actionCreators as searchActions } from "../../redux/modules/search";
 import CategoryModal from "../../components/category/CategoryModal";
 import Header from "../../components/category/Header";
 import Track from "../../components/mypage/Track";
-import { Text } from "../../elements/index";
+import { Font } from "../../elements/index";
 import Tag from "../../elements/Tag";
 
-const InCategory = () => {
+import { RiArrowRightSLine, RiLineHeight } from "react-icons/ri";
+import { RiArrowLeftSLine } from "react-icons/ri";
+import { BsFilterRight } from "react-icons/bs";
+
+const InCategory = (props) => {
+  const dispatch = useDispatch();
+  const name = props.match.params.categoryName;
+
+  const tag_list = useSelector((state) => state.post.tag_list);
+
   const [show_modal, setShowModal] = React.useState(false);
 
   const openModal = () => {
     setShowModal(true);
   };
 
+  React.useEffect(() => {
+    dispatch(postActions.loadImageDB());
+    // dispatch(searchActions.loadCategoryDB(name));
+  }, []);
+
   return (
     <>
       {/* <Header topMenu /> */}
-      {show_modal && <CategoryModal setShowModal={setShowModal} />}
+      {show_modal && (
+        <CategoryModal tagList={tag_list} setShowModal={setShowModal} />
+      )}
 
       <Wrap>
         <Flex style={{ justifyContent: "space-between" }}>
-          <Text>카테고리 나레이션</Text>
-          <IconTag onClick={openModal}></IconTag>
+          <Flex>
+            <RiArrowLeftSLine
+              cursor="pointer"
+              size="32"
+              onClick={() => {
+                props.history.push("/category");
+              }}
+            />
+            <Font title fontSize="22px" margin="18px 0px">
+              {name}
+            </Font>
+          </Flex>
+          <div>
+            <BsFilterRight cursor="pointer" size="32" onClick={openModal} />
+          </div>
         </Flex>
         <TagGrid>
           <Tag removable={"true"}>여성적인</Tag>
@@ -31,30 +64,7 @@ const InCategory = () => {
           <TrackDiv>
             <Track />
           </TrackDiv>
-          <TrackDiv>
-            <Track />
-          </TrackDiv>
-          <TrackDiv>
-            <Track />
-          </TrackDiv>
-          <TrackDiv>
-            <Track />
-          </TrackDiv>
         </TrackGrid>
-
-        {/* <VoiceBox>
-            <Circle></Circle>
-            <Grid>
-              <Title>깔끔한 목소리</Title>
-              <Name>김명자</Name>
-              <Count>
-                <Icon></Icon>
-                <CountText>132</CountText>
-                <Icon></Icon>
-                <CountText>20</CountText>
-              </Count>
-            </Grid>
-          </VoiceBox> */}
       </Wrap>
     </>
   );
@@ -74,10 +84,6 @@ const Flex = styled.div`
   padding: 0px 10px;
 `;
 
-const VoiveBoxGrid = styled.div`
-  margin: 10px 0px;
-`;
-
 const TrackGrid = styled.div`
   max-width: 425px;
   width: 100%;
@@ -90,72 +96,46 @@ const TrackDiv = styled.div`
   margin: 0px 10px;
 `;
 
-const VoiceBox = styled.div`
-  float: left;
-  margin-bottom: 20px;
-`;
-
-const IconTag = styled.div`
-  width: 28px;
-  height: 28px;
-  background-color: #ddd;
-`;
-
 const TagGrid = styled.div`
   margin: 10px 8px 0px 15px;
 `;
 
-const ButtonX = styled.button`
-  border: none;
-  width: 12px;
-  height: 15px;
-  background-color: #f1134e;
-  color: #fff;
-  margin-left: 4px;
-  cursor: pointer;
-  @media screen and (max-width: 360px) {
-    width: 7px;
-    height: 12px;
-    font-size: 9px;
-  }
-`;
+// const Circle = styled.div`
+//   width: 115px;
+//   height: 115px;
+//   background-color: #acabab;
+//   /* border: 5px solid #fce300; */
+//   border-radius: 120px;
+//   margin: 20px 10px 15px 10px;
+// `;
 
-const Circle = styled.div`
-  width: 115px;
-  height: 115px;
-  background-color: #acabab;
-  /* border: 5px solid #fce300; */
-  border-radius: 120px;
-  margin: 20px 10px 15px 10px;
-`;
+// const Grid = styled.div`
+//   padding: 0px 10px;
+// `;
 
-const Grid = styled.div`
-  padding: 0px 10px;
-`;
+// const Title = styled.div`
+//   font-size: 15px;
+// `;
 
-const Title = styled.div`
-  font-size: 15px;
-`;
+// const Name = styled.div`
+//   font-size: 12px;
+//   margin: 4px 0px;
+// `;
 
-const Name = styled.div`
-  font-size: 12px;
-  margin: 4px 0px;
-`;
+// const Count = styled.div`
+//   display: flex;
+// `;
 
-const Count = styled.div`
-  display: flex;
-`;
+// const Icon = styled.div`
+//   width: 18px;
+//   height: 18px;
+//   background-color: #ddd;
+//   margin: 4px 6px 0px 0px;
+// `;
 
-const Icon = styled.div`
-  width: 18px;
-  height: 18px;
-  background-color: #ddd;
-  margin: 4px 6px 0px 0px;
-`;
-
-const CountText = styled.div`
-  font-size: 12px;
-  margin: 4px 12px 0px 0px;
-`;
+// const CountText = styled.div`
+//   font-size: 12px;
+//   margin: 4px 12px 0px 0px;
+// `;
 
 export default InCategory;

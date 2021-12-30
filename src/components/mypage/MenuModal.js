@@ -14,6 +14,7 @@ import { history } from "../../redux/configStore";
 const MenuModal = (props) => {
   const { open, close } = props;
 
+
   return (
     <>
       <div className={open ? "openModal modal" : "modal"}>
