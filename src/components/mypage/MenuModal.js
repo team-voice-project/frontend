@@ -10,9 +10,12 @@ import CommentList from "./CommentList";
 import CommentWrite from "./CommentWrite";
 import DetailTag from "./DetailTag";
 import { history } from "../../redux/configStore";
+import { useSelector } from "react-redux";
+import { MdOutlineMoreVert } from "react-icons/md";
 
 const MenuModal = (props) => {
   const { open, close } = props;
+  const state = useSelector((state) => state.comment.comments);
 
   return (
     <>
@@ -27,6 +30,7 @@ const MenuModal = (props) => {
                   alignItems: "center",
                 }}
               >
+                <MdOutlineMoreVert />
                 <ImShare size="20px" />
                 <IoIosClose size="40px" color="white" onClick={close} />
               </div>
@@ -94,9 +98,13 @@ const MenuModal = (props) => {
                   overflowY: "scroll",
                 }}
               >
-                {props.props.Comments.map((p, idx) => {
-                  return <CommentList key={idx} {...p} />;
-                })}
+                {state === []
+                  ? props.props.Comments.map((p, idx) => {
+                      return <CommentList key={idx} {...p} />;
+                    })
+                  : state.map((p, idx) => {
+                      return <CommentList key={idx} {...p} />;
+                    })}
               </div>
               <CommentWrite {...props} />
             </Container>
