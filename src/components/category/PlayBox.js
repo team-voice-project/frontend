@@ -11,7 +11,6 @@ const PlayBox = (props) => {
   const Image = props.TrackThumbnail.trackThumbnailUrlFace;
   const [modalOpen, setModalOpen] = React.useState(false);
   const [playBtn, setPlayBtn] = React.useState(false);
-  console.log(props);
 
   const openModal = () => {
     setModalOpen(true);
