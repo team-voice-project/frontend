@@ -5,7 +5,7 @@ import { getCookie } from "./Cookie";
 const cookie = getCookie();
 
 const api = axios.create({
-  baseURL: "http://54.180.82.210",
+  baseURL: "http://13.125.215.6",
   headers: {
     authorization: "Bearer " + getCookie(),
     "X-Requested-With": "XMLHttpRequest",

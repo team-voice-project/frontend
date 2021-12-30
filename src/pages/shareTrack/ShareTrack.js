@@ -9,10 +9,9 @@ import SingleAudioPlayer from "../../shared/SingleAudioPlayer";
 const ShareTrack = ({ history }) => {
   const params = useParams();
   const [track_info, setTrackInfo] = useState(null);
-  console.log("트랙 정보", track_info);
+
   const getTrackInfo = async (id) => {
     const res = await apis.getTrackInfoDB(id);
-    console.log(res);
     setTrackInfo(res.data.track);
   };
 

@@ -14,7 +14,7 @@ const EditFinal = ({ history }) => {
   const [emo_list, setEmoList] = useState([]);
   const track_info = useSelector((state) => state.editTrack);
   const [send_track, setSendTrack] = useState(track_info);
-  const track_id = useLocation().state?.track_id;
+  const track_id = useLocation().state?.track_id; // history.push로 받아온 track_id
 
   useEffect(() => {
     initFinalPage();
