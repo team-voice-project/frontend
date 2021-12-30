@@ -160,18 +160,13 @@ const ImageCircle = styled.div`
   }
 `;
 
-const BackBtn = styled.button`
-  width: 24px;
-  height: 24px;
-  margin-bottom: 0px;
-`;
-
 const UpBtn = styled.button`
+  font-family: "Black Han Sans", serif;
+  font-weight: 300;
   width: 100%;
   height: 50px;
   margin-top: 20px;
   font-size: 20px;
-  font-weight: 900;
   border-radius: 10px;
   border: none;
   background: #f1134e;
