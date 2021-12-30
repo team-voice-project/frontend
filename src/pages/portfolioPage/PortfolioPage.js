@@ -12,7 +12,7 @@ const PortfolioPage = (props) => {
   const [checkedInputs, setCheckedInputs] = useState([]);
   const track = useSelector((state) => state.mypage.track);
   console.log(props);
-  const PROPS = props.location.props.props;
+  const PROPS = props.location.props?.props;
 
   const changeRadio = (e) => {
     if (e.target.checked) {

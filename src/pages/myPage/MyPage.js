@@ -5,10 +5,12 @@ import styled from "styled-components";
 import Track from "../../components/mypage/Track";
 import { RiPencilFill } from "react-icons/ri";
 import MusicPlayer from "../../components/mypage/MusicPlayer";
+import { history } from "../../redux/configStore";
 
 const MyPage = (props) => {
   const [checkedInputs, setCheckedInputs] = useState([]);
   const track = useSelector((state) => state.mypage.track);
+  console.log(props);
 
   const changeRadio = (e) => {
     if (e.target.checked) {
@@ -25,11 +27,23 @@ const MyPage = (props) => {
         }}
       >
         <Profile>
-          <ImageCircle src={props.user_image} />
+          <ImageCircle src={props?.user_image} />
           <div>
-            <div style={{ display: "flex" }}>
+            <div style={{ display: "flex", alignItems: "center" }}>
               <Name>김용성</Name>
-              <RiPencilFill style={{ color: "red", background: "black" }} />
+              <RiPencilFill
+                style={{
+                  fontSize: "20px",
+                  color: "#F1134E",
+                  marginBottom: "7px",
+                }}
+                onClick={() => {
+                  history.push({
+                    pathname: "/edit/profile",
+                    props,
+                  });
+                }}
+              />
             </div>
             <Link href="http://www.naver.com" target="_blank">
               sacoraa@naver.com
@@ -42,7 +56,13 @@ const MyPage = (props) => {
             </div>
           </div>
         </Profile>
-        <UpBtn>나의 목소리 올리기 </UpBtn>
+        <UpBtn
+          onClick={() => {
+            history.push("/edit/base");
+          }}
+        >
+          나의 목소리 올리기{" "}
+        </UpBtn>
       </div>
 
       <div
@@ -83,10 +103,10 @@ const MyPage = (props) => {
           margin: "0px",
         }}
       >
-        {track.track_info === undefined ? (
+        {track?.track_info === undefined ? (
           <Track />
         ) : (
-          track.track_info.map((p, idx) => {
+          track?.track_info.map((p, idx) => {
             return <Track key={idx} {...p} />;
           })
         )}
@@ -160,18 +180,13 @@ const ImageCircle = styled.div`
   }
 `;
 
-const BackBtn = styled.button`
-  width: 24px;
-  height: 24px;
-  margin-bottom: 0px;
-`;
-
 const UpBtn = styled.button`
+  font-family: "Black Han Sans", serif;
+  font-weight: 300;
   width: 100%;
   height: 50px;
   margin-top: 20px;
   font-size: 20px;
-  font-weight: 900;
   border-radius: 10px;
   border: none;
   background: #f1134e;
