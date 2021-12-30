@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { FcLike } from "react-icons/fc";
 import { FaPlay } from "react-icons/fa";
 import { BiPause } from "react-icons/bi";
-import { AiOutlineComment } from "react-icons/ai";
 import MenuModal from "./MenuModal";
 import { useDispatch } from "react-redux";
-import { actionCreators as trackCreators } from "../../redux/modules/mypage";
 import { RiChat4Fill } from "react-icons/ri";
 
 const Track = (props) => {
@@ -19,8 +17,6 @@ const Track = (props) => {
   const closeModal = () => {
     setModalOpen(false);
   };
-
-  // console.log(props.TrackThumbnail.trackThumbnailUrlFace);
 
   return (
     <>

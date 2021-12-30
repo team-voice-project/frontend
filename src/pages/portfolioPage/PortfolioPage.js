@@ -11,8 +11,9 @@ import { history } from "../../redux/configStore";
 const PortfolioPage = (props) => {
   const [checkedInputs, setCheckedInputs] = useState([]);
   const track = useSelector((state) => state.mypage.track);
-  console.log(props);
+  const user_info = useSelector((state) => state.mypage.user_info);
   const PROPS = props.location.props?.props;
+  console.log(user_info);
 
   const changeRadio = (e) => {
     if (e.target.checked) {
@@ -38,15 +39,12 @@ const PortfolioPage = (props) => {
         <Profile>
           <ImageCircle src={PROPS?.TrackThumbnail.trackThumbnailUrlFull} />
           <div>
-            <Name>{PROPS?.User.nickname}</Name>
+            <Name>{user_info.user_info?.nickname}</Name>
             <Link href="http://www.naver.com" target="_blank">
-              sacoraa@naver.com
+              {user_info.user_info?.snsId}
             </Link>
             <div style={{ width: "200px", wordBreak: "break-word" }}>
-              <Text>
-                안녕하세요. 저는 중후한 목소리를 가진 사람입니다. 자기소개란
-                입니다.
-              </Text>
+              <Text>{user_info.user_info.introduce}</Text>
             </div>
           </div>
         </Profile>

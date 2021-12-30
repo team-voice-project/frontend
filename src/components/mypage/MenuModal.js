@@ -14,13 +14,12 @@ import { useSelector } from "react-redux";
 import { MdOutlineMoreVert } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { actionCreators as trackCreators } from "../../redux/modules/mypage";
+import SingleAudioPlayer from "../../shared/SingleAudioPlayer";
 const MenuModal = (props) => {
   const { open, close } = props;
   const state = useSelector((state) => state.comment.comments);
   const dispatch = useDispatch();
-  const userId = props.props.trackId;
-  console.log(props);
-
+  const userId = props.props.userId;
   return (
     <>
       <div className={open ? "openModal modal" : "modal"}>
@@ -56,7 +55,7 @@ const MenuModal = (props) => {
               </Profile>
               <div style={{ textAlign: "center" }}>
                 <ImageCircle
-                  src={props.props.TrackThumbnail?.trackThumbnailUrlFace}
+                  src={props.props.TrackThumbnail?.trackThumbnailUrlFull}
                 />
               </div>
               <div
@@ -91,14 +90,12 @@ const MenuModal = (props) => {
                   return <DetailTag key={idx} {...p}></DetailTag>;
                 })}
               </div>
-              <div style={{ display: "flex", justifyContent: "center" }}>
-                <ReactAudioPlayer
-                  // autoPlay
-                  src={props.props.trackUrl}
-                  controls
-                  style={{ height: "20px", width: "100%" }}
-                />
-              </div>
+
+              <SingleAudioPlayer
+                // autoPlay
+                audio={props.props.trackUrl}
+              />
+
               <div
                 style={{
                   margin: "10px 0px",
@@ -111,7 +108,7 @@ const MenuModal = (props) => {
                 })}
                 {props.props.Comments.map((p, idx) => {
                   return <CommentList key={idx} {...p} />;
-                }).reverse()}
+                })}
               </div>
               <CommentWrite {...props} />
             </Container>
