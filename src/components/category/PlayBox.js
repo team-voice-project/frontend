@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { BiPause } from "react-icons/bi";
 import { FaPlay } from "react-icons/fa";
-
+import { FcLike } from "react-icons/fc";
 import MenuModal from "../mypage/MenuModal";
 import { HiHeart } from "react-icons/hi";
 import { RiChat4Fill } from "react-icons/ri";
@@ -11,6 +11,7 @@ const PlayBox = (props) => {
   const Image = props.TrackThumbnail.trackThumbnailUrlFace;
   const [modalOpen, setModalOpen] = React.useState(false);
   const [playBtn, setPlayBtn] = React.useState(false);
+  console.log(props);
 
   const openModal = () => {
     setModalOpen(true);
@@ -22,7 +23,12 @@ const PlayBox = (props) => {
   return (
     <div>
       <Flex>
-        <MenuModal open={modalOpen} close={closeModal} header={"123"} />
+        <MenuModal
+          props={props}
+          open={modalOpen}
+          close={closeModal}
+          header={"123"}
+        />
         <MarginDiv>
           {playBtn ? (
             <div style={{ display: "flex" }}>
@@ -65,22 +71,43 @@ const PlayBox = (props) => {
             </div>
           )}
 
-          <Title>{props.title}</Title>
-          <Name>{props.User.nickname}</Name>
-          <Count>
-            <Flex>
-              <IconDiv size="15" color="Red">
-                <HiHeart />
-              </IconDiv>
-              <LikeComment>132</LikeComment>
-            </Flex>
-            <Flex>
-              <IconDiv>
-                <RiChat4Fill size="15" />
-              </IconDiv>
-              <LikeComment>20</LikeComment>
-            </Flex>
-          </Count>
+          <div
+            onClick={() => {
+              openModal();
+            }}
+            style={{ cursor: "pointer" }}
+          >
+            <div
+              style={{ width: "100px", height: "15px", textAlign: "center" }}
+            >
+              <div style={{ display: "flex" }}>
+                <Title>{props.title}</Title>
+                <p style={{ color: "white" }}>...</p>
+              </div>
+            </div>
+            <Text>{props.category}</Text>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  marginRight: "15px",
+                  alignItems: "center",
+                }}
+              >
+                <FcLike style={{ marginRight: "5px" }} />
+                <Text>0</Text>
+              </div>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <RiChat4Fill style={{ marginRight: "5px", marginTop: "3px" }} />
+                <Text>0</Text>
+              </div>
+            </div>
+          </div>
         </MarginDiv>
       </Flex>
     </div>
@@ -95,6 +122,11 @@ const Flex = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
+`;
+const Text = styled.p`
+  margin-top: 03px;
+  font-size: 13px;
+  color: white;
 `;
 
 const MarginDiv = styled.div`

@@ -32,6 +32,7 @@ const addComment = createAction(ADD_COMMENT, (trackId, comment) => ({
 const addCommentDB = (trackId, comment) => {
   return function (dispatch, getState, { history }) {
     apis.commentTrack(trackId, comment).then((res) => {
+      console.log(res);
       dispatch(addComment(trackId, res.data.comment));
     });
   };
@@ -41,7 +42,8 @@ export default handleActions(
   {
     [ADD_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        draft.comments = [...action.payload.comment];
+        console.log(action.payload);
+        draft.comments = [action.payload.comment];
       }),
     // [DELETE_COMMENT]: (state, action) =>
     //   produce(state, (draft) => {

@@ -14,42 +14,26 @@ const CommentWrite = (props) => {
     setCotentText(e.target.value);
   };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    console.log(e.target[0].value);
-    e.target[0].value = "";
-    dispatch(commentCreators.addCommentDB(`${props.props.trackId}`, content));
-  };
   return (
     <List>
-      <form
-        onClick={(e) => {
-          console.log(e);
-        }}
-        style={{ display: "flex", width: "100%" }}
-        onSubmit={onSubmit}
-      >
-        <div style={{ width: "95%" }}>
-          <CommentInput
-            value=""
-            type="text"
-            placeholder="댓글 내용을 입력해주세요 :)"
-            onChange={onChange}
-          />
-        </div>
-        <div>
-          <IoIosSend
-            className="sendBtn"
-            type="submit"
-            style={{ width: "35px", height: "35px", color: "red" }}
-            onClick={(e) => {
-              dispatch(
-                commentCreators.addCommentDB(`${props.props.trackId}`, content)
-              );
-            }}
-          ></IoIosSend>
-        </div>
-      </form>
+      <div style={{ width: "95%" }}>
+        <CommentInput
+          type="text"
+          placeholder="댓글 내용을 입력해주세요 :)"
+          onChange={onChange}
+        />
+      </div>
+      <div>
+        <IoIosSend
+          type="submit"
+          style={{ width: "35px", height: "35px" }}
+          onClick={(e) => {
+            dispatch(
+              commentCreators.addCommentDB(`${props.props.trackId}`, content)
+            );
+          }}
+        ></IoIosSend>
+      </div>
     </List>
   );
 };
@@ -58,10 +42,6 @@ const List = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
-  .sendbtn: {
-    color: "red";
-    background: "red";
-  }
 `;
 
 const CommentInput = styled.input`

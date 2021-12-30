@@ -12,11 +12,14 @@ import DetailTag from "./DetailTag";
 import { history } from "../../redux/configStore";
 import { useSelector } from "react-redux";
 import { MdOutlineMoreVert } from "react-icons/md";
-
+import { useDispatch } from "react-redux";
+import { actionCreators as trackCreators } from "../../redux/modules/mypage";
 const MenuModal = (props) => {
   const { open, close } = props;
   const state = useSelector((state) => state.comment.comments);
-
+  const dispatch = useDispatch();
+  const userId = props.props.trackId;
+  console.log(props);
 
   return (
     <>
@@ -31,7 +34,10 @@ const MenuModal = (props) => {
                   alignItems: "center",
                 }}
               >
-                <MdOutlineMoreVert />
+                <MdOutlineMoreVert
+                  size="20px"
+                  style={{ margin: "10px 10px" }}
+                />
                 <ImShare size="20px" />
                 <IoIosClose size="40px" color="white" onClick={close} />
               </div>
@@ -41,6 +47,7 @@ const MenuModal = (props) => {
                     pathname: "/portfolio",
                     props,
                   });
+                  dispatch(trackCreators.setTrackDB(userId));
                   close();
                 }}
               >
@@ -99,13 +106,12 @@ const MenuModal = (props) => {
                   overflowY: "scroll",
                 }}
               >
-                {state === []
-                  ? props.props.Comments.map((p, idx) => {
-                      return <CommentList key={idx} {...p} />;
-                    })
-                  : state.map((p, idx) => {
-                      return <CommentList key={idx} {...p} />;
-                    })}
+                {state.map((p, idx) => {
+                  return <CommentList key={idx} {...p} />;
+                })}
+                {props.props.Comments.map((p, idx) => {
+                  return <CommentList key={idx} {...p} />;
+                }).reverse()}
               </div>
               <CommentWrite {...props} />
             </Container>
