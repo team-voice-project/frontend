@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 
 const CommentList = (props) => {
+  console.log(props);
   // const state = useSelector((state) => state.user.user);
   // const isMe = state?.email === props.email || state?.username === props.email;
   // const dispatch = useDispatch();
@@ -17,8 +18,8 @@ const CommentList = (props) => {
           <CommentStyle margin="10px 0px" width="100%">
             <CommentProfile>
               <ImageCircle src={props.user_image} />
-              <Text>{props.nickname} : </Text>
-              <Text>{props.content}</Text>
+              <Text>{props.userId} : </Text>
+              <Text>{props.comment}</Text>
             </CommentProfile>
             {/* {isMe && (
               <DeleteForeverIcon

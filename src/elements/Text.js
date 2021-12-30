@@ -19,6 +19,7 @@ Text.defaultProps = {
 
 const TitleText = styled.div`
   margin: 18px 0px;
+  font-family: "Black Han Sans", serif;
   font-size: 23px;
   font-weight: 900;
   @media screen and (max-width: 360px) {

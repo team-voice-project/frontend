@@ -27,10 +27,11 @@ const Font = (props) => {
 };
 
 Font.defaultProps = {
-  margin: "false",
-  color: "false",
-  fontSize: "false",
-  align: "false",
+
+  margin: false,
+  color: "inherit",
+  fontSize: "inherit",
+
 };
 
 const FontWrap = styled.div`

@@ -4,7 +4,7 @@ import { getCookie } from "./Cookie";
 // ******** Axios 인스턴스 생성 ******** //
 
 const api = axios.create({
-  baseURL: "http://54.180.82.210",
+  baseURL: "http://13.125.215.6",
   headers: {
     authorization: "Bearer " + getCookie(),
     "X-Requested-With": "XMLHttpRequest",
@@ -31,9 +31,9 @@ export const apis = {
 
   mainPage: () => api.get("/api/common"),
 
-  category: () =>
+  category: (category, tag1, tag2, tag3) =>
     api.get(
-      "/api/common/search?category=category&tag1=tag1&tag2=tag2&tag3=tag3"
+      `/api/common/search?category=${category}&tag1=${tag1}&tag2=${tag2}&tag3=${tag3}`
     ),
   search: (keyword) => api.get(`api/search?keyword=${keyword}`),
 
@@ -44,5 +44,10 @@ export const apis = {
   deleteComment: (tracksId, commentId) =>
     api.delete(`/api/tracks/${tracksId}/comment/${commentId}`),
 
-  categoryList: () => api.get(`/api/listinfo`),
+  // 트랙 업로드 관련 API
+  uploadTrack: (track) => api.post(`/api/tracks`, track),
+
+  // 공통 API
+  getMenuInfoDB: () => api.get("/api/tracks/listinfo"),
+  getShareInfoDB: (id) => api.get(`/api/tracks/${id}`),
 };

@@ -15,8 +15,9 @@ import { RiArrowRightSLine } from "react-icons/ri";
 
 const Main = (props) => {
   const dispatch = useDispatch();
-
   const [showModal, setShowModal] = React.useState(false);
+  const track_list = useSelector((state) => state.post.post_list);
+  // console.log("트랙리스트", track_list);
 
   const openModal = () => {
     setShowModal(true);
@@ -27,13 +28,10 @@ const Main = (props) => {
     dispatch(postActions.loadPostDB());
   }, []);
 
-  const track_list = useSelector((state) => state.post.post_list);
-  // console.log("트랙리스트", track_list);
-
   return (
     <>
       <Header topMenu props={props} />
-      {showModal && <OnBoarding setShowModal={setShowModal} />}
+      {/* {showModal && <OnBoarding setShowModal={setShowModal} />} */}
       <WrapDiv>
         <Wrap>
           <Button bg>나도 목소리 올리기</Button>
@@ -41,7 +39,7 @@ const Main = (props) => {
         </Wrap>
         {track_list &&
           track_list.map((list, idx) => {
-            console.log("여기", list);
+            // console.log("여기", list);
             return (
               <React.Fragment key={idx}>
                 <Wrap>
@@ -57,6 +55,7 @@ const Main = (props) => {
 
                 <Flex>
                   {list.map((l) => {
+                    // console.log("요기", l);
                     return (
                       <div key={l.trackId}>
                         <PlayBox {...l} />

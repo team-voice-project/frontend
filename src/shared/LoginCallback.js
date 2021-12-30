@@ -33,7 +33,7 @@ const LoginCallback = ({ history }) => {
     ignoreQueryPrefix: true,
   });
   axios
-    .get(`http://54.180.82.210/api/auth/${platform}/callback?code=${code}`)
+    .get(`http://13.125.215.6/api/auth/${platform}/callback?code=${code}`)
     .then((res) => {
       console.log("통신 완료", res);
       const user = res.data.user.nickname;

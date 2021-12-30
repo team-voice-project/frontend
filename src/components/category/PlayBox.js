@@ -8,7 +8,7 @@ import { HiHeart } from "react-icons/hi";
 import { RiChat4Fill } from "react-icons/ri";
 
 const PlayBox = (props) => {
-  // console.log("프롭스", props);
+  const Image = props.TrackThumbnail.trackThumbnailUrlFace;
   const [modalOpen, setModalOpen] = React.useState(false);
   const [playBtn, setPlayBtn] = React.useState(false);
 
@@ -25,12 +25,14 @@ const PlayBox = (props) => {
         <MenuModal open={modalOpen} close={closeModal} header={"123"} />
         <MarginDiv>
           {playBtn ? (
-            <Circle
-              style={{
-                border: "5px solid #f1134e ",
-                transition: "all 300ms ease-in",
-              }}
-            >
+            <div style={{ display: "flex" }}>
+              <Circle
+                src={Image}
+                style={{
+                  border: "5px solid #f1134e ",
+                  transition: "all 300ms ease-in",
+                }}
+              />
               <PlayButton
                 onClick={() => {
                   setPlayBtn(false);
@@ -43,9 +45,10 @@ const PlayBox = (props) => {
                   }}
                 />
               </PlayButton>
-            </Circle>
+            </div>
           ) : (
-            <Circle>
+            <div style={{ display: "flex" }}>
+              <Circle src={Image} />
               <PlayButton
                 onClick={() => {
                   setPlayBtn(true);
@@ -59,7 +62,7 @@ const PlayBox = (props) => {
                   }}
                 />
               </PlayButton>
-            </Circle>
+            </div>
           )}
 
           <Title>{props.title}</Title>
@@ -101,16 +104,13 @@ const MarginDiv = styled.div`
   }
 `;
 
-const Circle = styled.div`
+const Circle = styled.img`
   width: 118px;
   height: 118px;
   background-color: #ddd;
   /* border: 5px solid #ff00b3; */
   border-radius: 120px;
   margin: 0px 0px 12px 0px;
-  background-image: url("/assets/kimkong.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
   @media screen and (max-width: 360px) {
     width: 100px;
     height: 100px;
@@ -126,19 +126,16 @@ const PlayButton = styled.button`
   background-color: #f1134e;
   border: none;
   position: relative;
-  left: 90px;
-  top: 85px;
-  /* background-image: url("/assets/playButton.png");
-  background-repeat: no-repeat;
-  background-size: cover; */
+  right: 30px;
+  top: 80px;
   @media screen and (max-width: 360px) {
     width: 26px;
     height: 26px;
     border-radius: 28px;
     margin: 0px 0px 16px 0px;
     position: relative;
-    left: 76px;
-    top: 72px;
+    right: 25px;
+    top: 70px;
   }
 `;
 

@@ -2,16 +2,23 @@ import React from "react";
 import styled from "styled-components";
 
 const Button = (props) => {
-  const { bg, children, _onClick, _disabled, margin, border } = props;
+  const { bg, children, _onClick, _disabled, margin, border, _className } =
+    props;
 
   const styles = {
     bg,
     margin,
     border,
+    className: _className,
   };
 
   return (
-    <ButtonWrap {...styles} onClick={_onClick} disabled={_disabled}>
+    <ButtonWrap
+      type={"button"}
+      {...styles}
+      onClick={_onClick}
+      disabled={_disabled}
+    >
       {children}
     </ButtonWrap>
   );
@@ -32,8 +39,11 @@ const ButtonWrap = styled.button`
   border-radius: 10px;
   ${(props) => (props.bg ? "background:#F1134E;" : "background:black;")}
   ${(props) => (props.border ? "border: 3px solid #fff;" : "")}
-  opacity: ${(props) => (props._disabled ? "0.5" : "1")};
   margin: ${(props) => props.margin};
+
+  &:disabled {
+    opacity: 0.5;
+  }
 `;
 
 export default Button;
