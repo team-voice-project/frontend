@@ -229,7 +229,7 @@ const EditBase = ({ history }) => {
       {modal_state === "category" && (
         <OptModal>
           <CategoryList
-            initial_list={menu_info.category}
+            initial_list={menu_info?.category}
             selected_cate={selected_cate}
             setSelectedCate={setSelectedCate}
             setModalState={setModalState}
@@ -240,7 +240,7 @@ const EditBase = ({ history }) => {
       {modal_state === "tag" && (
         <OptModal>
           <TagList
-            initial_list={menu_info.tag}
+            initial_list={menu_info?.tag}
             selected_tag={selected_tag}
             setSelectedTag={setSelectedTag}
             setModalState={setModalState}
