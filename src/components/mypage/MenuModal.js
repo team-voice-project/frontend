@@ -19,7 +19,9 @@ const MenuModal = (props) => {
   const { open, close } = props;
   const state = useSelector((state) => state.comment.comments);
   const dispatch = useDispatch();
+
   const userId = props.props.userId;
+
   return (
     <>
       <div className={open ? "openModal modal" : "modal"}>

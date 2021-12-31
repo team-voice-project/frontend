@@ -7,8 +7,7 @@ import { actionCreators as searchActions } from "../../redux/modules/search";
 import CategoryModal from "../../components/category/CategoryModal";
 import Header from "../../components/category/Header";
 import Track from "../../components/mypage/Track";
-import { Font } from "../../elements/index";
-import Tag from "../../elements/Tag";
+import { Font, Tag, Container } from "../../elements/index";
 
 import { RiArrowRightSLine, RiLineHeight } from "react-icons/ri";
 import { RiArrowLeftSLine } from "react-icons/ri";
@@ -19,6 +18,22 @@ const InCategory = (props) => {
   const name = props.match.params.categoryName;
 
   const tag_list = useSelector((state) => state.post.tag_list);
+  const category = useSelector((state) => state.search.category_list);
+
+  const categoryList = () => {
+    if (category) {
+      const t = category.slice(0, category.length - 3);
+      return t;
+    }
+  };
+  console.log(categoryList());
+
+  const tags = () => {
+    if (category) {
+      const t = category.slice(category.length - 3);
+      return t;
+    }
+  };
 
   const [show_modal, setShowModal] = React.useState(false);
 
@@ -28,19 +43,23 @@ const InCategory = (props) => {
 
   React.useEffect(() => {
     dispatch(postActions.loadImageDB());
-    // dispatch(searchActions.loadCategoryDB(name));
+    dispatch(searchActions.loadCategoryDB(name));
   }, []);
 
   return (
     <>
-      {/* <Header topMenu /> */}
+      <Header topMenu />
       {show_modal && (
-        <CategoryModal tagList={tag_list} setShowModal={setShowModal} />
+        <CategoryModal
+          tagList={tag_list}
+          name={name}
+          setShowModal={setShowModal}
+        />
       )}
 
       <Wrap>
         <Flex style={{ justifyContent: "space-between" }}>
-          <Flex>
+          <FlexTitle>
             <RiArrowLeftSLine
               cursor="pointer"
               size="32"
@@ -48,23 +67,44 @@ const InCategory = (props) => {
                 props.history.push("/category");
               }}
             />
-            <Font title fontSize="22px" margin="18px 0px">
+            <Font title fontSize="22px" margin="5px 0px 0px 0px">
               {name}
             </Font>
-          </Flex>
+          </FlexTitle>
           <div>
             <BsFilterRight cursor="pointer" size="32" onClick={openModal} />
           </div>
         </Flex>
-        <TagGrid>
-          <Tag removable={"true"}>여성적인</Tag>
-        </TagGrid>
 
-        <TrackGrid>
-          <TrackDiv>
-            <Track />
-          </TrackDiv>
-        </TrackGrid>
+        {tags() &&
+          tags().map((l, idx) => {
+            if (!l == "") {
+              return (
+                <TagGrid key={idx}>
+                  <Tag removable={"true"}>{l}</Tag>
+                </TagGrid>
+              );
+            }
+          })}
+
+        {categoryList() && categoryList().length > 0 ? (
+          <TrackGrid>
+            {categoryList() &&
+              categoryList().map((l, i) => {
+                return (
+                  <TrackDiv key={l.trackId}>
+                    <Track {...l} />
+                  </TrackDiv>
+                );
+              })}
+          </TrackGrid>
+        ) : (
+          <OAODiv>
+            <OAOText>해당 카테고리의 게시물이 없습니다</OAOText>
+            <OAOText>다른 카테고리를 선택해보세요!</OAOText>
+            <OAO></OAO>
+          </OAODiv>
+        )}
       </Wrap>
     </>
   );
@@ -75,6 +115,14 @@ const Wrap = styled.div`
   max-width: 425px;
   margin: auto;
   padding: 10px;
+`;
+
+const FlexTitle = styled.div`
+  display: flex;
+  align-items: center;
+  vertical-align: center;
+  width: 150px;
+  height: 25px;
 `;
 
 const Flex = styled.div`
@@ -97,45 +145,49 @@ const TrackDiv = styled.div`
 `;
 
 const TagGrid = styled.div`
-  margin: 10px 8px 0px 15px;
+  margin: 10px 4px 0px 0px;
+  display: inline-block;
 `;
 
-// const Circle = styled.div`
-//   width: 115px;
-//   height: 115px;
-//   background-color: #acabab;
-//   /* border: 5px solid #fce300; */
-//   border-radius: 120px;
-//   margin: 20px 10px 15px 10px;
-// `;
+const Multiline = styled.input`
+  border: none;
+  background: none;
+  border-bottom: solid 3px #ddd;
+  padding: 12px 4px;
+  width: 100%;
+  color: #fff;
 
-// const Grid = styled.div`
-//   padding: 0px 10px;
-// `;
+  :focus {
+    border: none;
+    background: none;
+    border-bottom: solid 3px var(--point-color);
+  }
+`;
 
-// const Title = styled.div`
-//   font-size: 15px;
-// `;
+const Temp = styled.div`
+  width: 30px;
+  height: 30px;
+  background-color: #ddd;
+`;
 
-// const Name = styled.div`
-//   font-size: 12px;
-//   margin: 4px 0px;
-// `;
+const OAODiv = styled.div`
+  position: relative;
+  top: 160px;
+`;
 
-// const Count = styled.div`
-//   display: flex;
-// `;
+const OAOText = styled.p`
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 12px;
+`;
 
-// const Icon = styled.div`
-//   width: 18px;
-//   height: 18px;
-//   background-color: #ddd;
-//   margin: 4px 6px 0px 0px;
-// `;
+const OAO = styled.div`
+  width: 200px;
+  height: 210px;
+  margin: 55px auto 0px auto;
 
-// const CountText = styled.div`
-//   font-size: 12px;
-//   margin: 4px 12px 0px 0px;
-// `;
-
+  background-image: url("/assets/images/OAO.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+`;
 export default InCategory;

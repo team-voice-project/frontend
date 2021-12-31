@@ -138,7 +138,6 @@ const MarginDiv = styled.div`
 const Circle = styled.img`
   width: 118px;
   height: 118px;
-  background-color: #ddd;
   /* border: 5px solid #ff00b3; */
   border-radius: 120px;
   margin: 0px 0px 12px 0px;
