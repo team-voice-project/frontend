@@ -26,12 +26,14 @@ const Category = (props) => {
           <Flex>
             <RiArrowLeftSLine
               cursor="pointer"
-              size="32"
+              size="28"
               onClick={() => {
                 props.history.push("/");
               }}
             />
-            <Font>카테고리</Font>
+            <Font title fontSize="22px" margin="5px 0px 0px 0px">
+              카테고리
+            </Font>
           </Flex>
 
           <Desc>카테고리에서 태그 조정을 통해 원하는 목소리를 찾아보세요</Desc>
@@ -98,6 +100,9 @@ const Flex = styled.div`
   display: flex;
   align-items: center;
   vertical-align: center;
+  width: 150px;
+  height: 25px;
+  margin-bottom: 18px;
 `;
 
 const Icon = styled.div`

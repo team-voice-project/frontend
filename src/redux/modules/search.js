@@ -29,7 +29,11 @@ const loadCategoryDB = (category, tag1 = "", tag2 = "", tag3 = "") => {
     apis
       .category(category, tag1, tag2, tag3)
       .then((res) => {
-        dispatch(loadCategory(res.data));
+        const _tag = tag1 + ";" + tag2 + ";" + tag3;
+        const tag = _tag.split(";");
+        const addTagList = res.data.tracks.concat(tag);
+
+        dispatch(loadCategory(addTagList));
       })
       .catch((err) => {
         console.log(err.response);
@@ -51,8 +55,7 @@ export default handleActions(
       }),
     [LOAD_CATEGORY]: (state, action) =>
       produce(state, (draft) => {
-        console.log(action.payload);
-        draft.category_list = action.payload.category.tracks;
+        draft.category_list = action.payload.category;
       }),
   },
   initialState

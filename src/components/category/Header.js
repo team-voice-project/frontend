@@ -66,7 +66,7 @@ const Header = (props) => {
 const Div = styled.div`
   max-width: 425px;
   width: 100%;
-  height: 52px;
+  height: 20px;
 `;
 
 const Wrap = styled.div`
@@ -95,9 +95,9 @@ const FlexSearchBar = styled.div`
   max-width: 425px;
   width: 100%;
   margin: auto;
-  height: 83px;
+  height: 60px;
   position: relative;
-  top: 55px;
+  top: 20px;
 `;
 
 const L = styled.div`

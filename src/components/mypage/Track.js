@@ -30,7 +30,7 @@ const Track = (props) => {
         close={closeModal}
         header={"123"}
       />
-      <div style={{ position: "relative", margin: "0px auto" }}>
+      <div style={{ position: "relative" }}>
         {playBtn ? (
           <>
             <ImageCircle
@@ -55,7 +55,7 @@ const Track = (props) => {
             </PlayBtn>
           </>
         ) : (
-          <>
+          <TrackDiv>
             <ImageCircle src={props.TrackThumbnail?.trackThumbnailUrlFace} />
             <PlayBtn
               onClick={() => {
@@ -70,7 +70,7 @@ const Track = (props) => {
                 }}
               />
             </PlayBtn>
-          </>
+          </TrackDiv>
         )}
 
         <div
@@ -79,39 +79,49 @@ const Track = (props) => {
           }}
           style={{ cursor: "pointer" }}
         >
-          <div style={{ width: "100px", height: "15px", textAlign: "center" }}>
-            <div style={{ display: "flex" }}>
-              <Title>{props.title}</Title>
-              <p style={{ color: "white" }}>...</p>
+          <TextDiv>
+            <div style={{ width: "80px", height: "15px", textAlign: "center" }}>
+              <div style={{ display: "flex" }}>
+                <Title>{props.title}</Title>
+              </div>
             </div>
-          </div>
-          <Text>{props.category}</Text>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
+            <Text>{props.category}</Text>
             <div
               style={{
                 display: "flex",
-                marginRight: "15px",
                 alignItems: "center",
               }}
             >
-              <FcLike style={{ marginRight: "5px" }} />
-              <Text>0</Text>
+              <div
+                style={{
+                  display: "flex",
+                  marginRight: "15px",
+                  alignItems: "center",
+                }}
+              >
+                <FcLike style={{ marginRight: "5px" }} />
+                <Text>0</Text>
+              </div>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <RiChat4Fill style={{ marginRight: "5px", marginTop: "3px" }} />
+                <Text>0</Text>
+              </div>
             </div>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <RiChat4Fill style={{ marginRight: "5px", marginTop: "3px" }} />
-              <Text>0</Text>
-            </div>
-          </div>
+          </TextDiv>
         </div>
       </div>
     </>
   );
 };
+
+const TrackDiv = styled.div`
+  margin-right: 7px;
+  margin-left: 7px;
+  @media screen and (max-width: 365px) {
+    margin-right: 0px;
+    margin-left: 0px;
+  }
+`;
 
 const ImageCircle = styled.img`
   width: 100px;
@@ -130,8 +140,8 @@ const ImageCircle = styled.img`
 const PlayBtn = styled.div`
   cursor: pointer;
   position: absolute;
-  bottom: 60px;
-  left: 70px;
+  bottom: 78px;
+  left: 80px;
   border-radius: 50%;
   width: 30px;
   height: 30px;
@@ -140,21 +150,32 @@ const PlayBtn = styled.div`
   padding: 5px;
   @media screen and (max-width: 380px) {
     position: absolute;
-    bottom: 60px;
+    bottom: 80px;
     left: 55px;
+    width: 30px;
+    height: 30px;
   }
 `;
 
-const Title = styled.h1`
-  font-size: 16px;
+const TextDiv = styled.div`
+  margin-top: 20px;
+`;
+
+const Title = styled.div`
+  font-size: 14px;
   height: 20px;
-  overflow: hidden;
+  width: 80px;
   color: white;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
 `;
 
 const Text = styled.p`
   margin-top: 03px;
-  font-size: 13px;
+  font-size: 12px;
   color: white;
 `;
 export default Track;

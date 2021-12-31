@@ -19,7 +19,6 @@ const MenuModal = (props) => {
   const state = useSelector((state) => state.comment.comments);
   const dispatch = useDispatch();
   const userId = props.props.trackId;
-  console.log(props);
 
   return (
     <>

@@ -29,6 +29,7 @@ const GlobalStyles = createGlobalStyle`
   
   button {
     cursor: pointer;
+    border:0;
   }
   
   input {

@@ -11,7 +11,6 @@ const PlayBox = (props) => {
   const Image = props.TrackThumbnail.trackThumbnailUrlFace;
   const [modalOpen, setModalOpen] = React.useState(false);
   const [playBtn, setPlayBtn] = React.useState(false);
-  console.log(props);
 
   const openModal = () => {
     setModalOpen(true);
@@ -139,7 +138,6 @@ const MarginDiv = styled.div`
 const Circle = styled.img`
   width: 118px;
   height: 118px;
-  background-color: #ddd;
   /* border: 5px solid #ff00b3; */
   border-radius: 120px;
   margin: 0px 0px 12px 0px;
