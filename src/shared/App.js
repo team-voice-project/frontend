@@ -34,8 +34,8 @@ function App() {
       />
       <Route path="/edit/record" component={Auth(EditRecord, true)} exact />
       <Route path="/edit/final" component={Auth(EditFinal, true)} exact />
-      <Route path="/portfolio" component={PortfolioPage} exact />
-      <Route exact path="/mypage" component={MyPage} />
+      <Route path="/portfolio" component={Auth(PortfolioPage, true)} exact />
+      <Route exact path="/mypage" component={Auth(MyPage, true)} />
       <Route exact path="/edit/profile" component={EditProfile} />
       <Route path="/share/:track_id" component={ShareTrack} exact />
       <Route path="/api/auth/kakao/callback" component={LoginCallback} exact />

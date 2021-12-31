@@ -5,7 +5,6 @@ import { IoIosClose } from "react-icons/io";
 import { FcLike } from "react-icons/fc";
 import { ImShare } from "react-icons/im";
 import { AiOutlineComment } from "react-icons/ai";
-import ReactAudioPlayer from "react-audio-player";
 import CommentList from "./CommentList";
 import CommentWrite from "./CommentWrite";
 import DetailTag from "./DetailTag";
