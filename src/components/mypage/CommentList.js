@@ -1,10 +1,12 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 // import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 // import { actionCreators as commentActions } from "../redux/modules/comment";
 
 const CommentList = (props) => {
-  // const state = useSelector((state) => state.user.user);
+  const state = useSelector((state) => state.user.user);
+  console.log(props);
   // const isMe = state?.email === props.email || state?.username === props.email;
   // const dispatch = useDispatch();
   return (
@@ -14,7 +16,7 @@ const CommentList = (props) => {
           <CommentStyle margin="10px 0px" width="100%">
             <CommentProfile>
               <ImageCircle src={props.user_image} />
-              <Text>{props.nickname} : </Text>
+              <Text>{props.User.nickname} : </Text>
               <Text>{props.comment}</Text>
             </CommentProfile>
 
