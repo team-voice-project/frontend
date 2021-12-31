@@ -41,8 +41,8 @@ export const apis = {
     api.post(`/api/tracks/${trackId}/comment`, { comment }),
   editComment: (trackId, commentId, comment) =>
     api.put(`/api/tracks/${trackId}/comment/${commentId}`, comment),
-  deleteComment: (tracksId, commentId) =>
-    api.delete(`/api/tracks/${tracksId}/comment/${commentId}`),
+  deleteComment: (trackId, commentId) =>
+    api.delete(`/api/tracks/${trackId}/comment/${commentId}`),
 
   // 트랙 업로드 관련 API
   uploadTrack: (track) => api.post(`/api/tracks`, track),
