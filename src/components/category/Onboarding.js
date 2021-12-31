@@ -7,8 +7,10 @@ import SingleAudioPlayer from "../../shared/SingleAudioPlayer";
 import { HiHeart } from "react-icons/hi";
 import { RiChat4Fill } from "react-icons/ri";
 import { Button, Font } from "../../elements";
+import { useHistory } from "react-router-dom";
 
 const OnBoarding = ({ setShowModal }) => {
+  const history = useHistory();
   return (
     <Background>
       <Header />
@@ -42,7 +44,13 @@ const OnBoarding = ({ setShowModal }) => {
             </CountBox>
           </FlexCount>
         </BoxDiv>
-        <Button bg margin="0px 0px 15px 0px">
+        <Button
+          bg
+          margin="0px 0px 15px 0px"
+          _onClick={() => {
+            history.push("/edit/base");
+          }}
+        >
           나도 목소리 올리기
         </Button>
         <Button
