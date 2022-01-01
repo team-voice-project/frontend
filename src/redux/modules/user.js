@@ -1,9 +1,5 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-
-import { setCookie, deleteCookie } from "../../shared/Cookie";
-import { applyMiddleware } from "redux";
-
 import { apis } from "../../shared/api";
 
 const LOG_OUT = "LOG_OUT";

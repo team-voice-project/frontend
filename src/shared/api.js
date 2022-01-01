@@ -6,17 +6,20 @@ import { getCookie } from "./Cookie";
 const api = axios.create({
   baseURL: "http://13.125.215.6",
   headers: {
-    authorization: "Bearer " + getCookie(),
     "X-Requested-With": "XMLHttpRequest",
     "Content-type": "application/json; charset=UTF-8",
     accept: "application/json",
   },
 });
 
+api.interceptors.request.use((config) => {
+  config.headers.common["authorization"] = `Bearer ${getCookie()}`;
+  return config;
+});
+
 // ******** Export api ******** //
 export const apis = {
   changeNickname: (nickname) => api.post("/api/auth/nickname", nickname),
-  checkUser: () => api.get("/api/auth/me"),
   editProfileImage: (userId, profileImage) =>
     api.post(`/api/auth/${userId}`, { profileImage: "" }),
   trackUpload: (tracks) => api.post("/api/tracks", tracks),
@@ -43,6 +46,12 @@ export const apis = {
     api.put(`/api/tracks/${trackId}/comment/${commentId}`, comment),
   deleteComment: (tracksId, commentId) =>
     api.delete(`/api/tracks/${tracksId}/comment/${commentId}`),
+
+  // 프로필 조회 API
+  getProfile: () => api.get("/api/auth/me"),
+
+  // 프로필 변경 API
+  editProfile: (profile) => api.post("api/auth/profile", profile),
 
   // 트랙 업로드 관련 API
   uploadTrack: (track) => api.post(`/api/tracks`, track),

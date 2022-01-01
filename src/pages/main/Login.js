@@ -7,8 +7,6 @@ const NAVER_KEY = process.env.REACT_APP_NAVER_KEY;
 const KAKAO_KEY = process.env.REACT_APP_KAKAO_KEY;
 
 const Login = ({ history, location }) => {
-  console.log(NAVER_KEY);
-
   return (
     <>
       <Container>
