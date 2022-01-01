@@ -26,7 +26,7 @@ const CommentList = (props) => {
                 onClick={() => {
                   dispatch(
                     commentActions.deleteCommentDB(
-                      props.userId,
+                      props.props.trackId,
                       props.commentId
                     )
                   );
