@@ -14,6 +14,7 @@ import MyPage from "../pages/myPage/MyPage";
 import EditProfile from "../pages/editProfile/EditProfile";
 import ShareTrack from "../pages/shareTrack/ShareTrack";
 import Category from "../pages/search/Category";
+import Err from "../pages/main/Err";
 import LoginCallback from "../shared/LoginCallback";
 import Auth from "../shared/auth";
 
@@ -25,6 +26,7 @@ function App() {
       <Route path="/category" component={Category} exact />
       <Route path="/category/:categoryName" component={InCategory} exact />
       <Route path="/search" component={Search} exact />
+      <Route path="/err" component={Err} exact />
       <Route path="/login" component={Auth(Login, false)} exact />
       <Route path="/edit/base" component={Auth(EditBase, true)} exact />
       <Route

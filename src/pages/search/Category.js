@@ -68,6 +68,7 @@ const Wrap = styled.div`
 
 const BoxWrap = styled.div`
   padding: 0px 12px;
+  margin: 0px 4px;
 `;
 
 const Desc = styled.div`
@@ -86,7 +87,7 @@ const Rectangle = styled.img`
     height: 100px;
   }
   @media screen and (max-width: 320px) {
-    width: 85px;
+    width: 84px;
     height: 82px;
   }
 `;

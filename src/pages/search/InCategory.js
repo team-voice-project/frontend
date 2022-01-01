@@ -7,11 +7,12 @@ import { actionCreators as searchActions } from "../../redux/modules/search";
 import CategoryModal from "../../components/category/CategoryModal";
 import Header from "../../components/category/Header";
 import Track from "../../components/mypage/Track";
-import { Font, Tag, Container } from "../../elements/index";
+import { Font, Container } from "../../elements/index";
 
 import { RiArrowRightSLine, RiLineHeight } from "react-icons/ri";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { BsFilterRight } from "react-icons/bs";
+import { IoCloseSharp } from "react-icons/io5";
 
 const InCategory = (props) => {
   const dispatch = useDispatch();
@@ -20,19 +21,17 @@ const InCategory = (props) => {
   const tag_list = useSelector((state) => state.post.tag_list);
   const category = useSelector((state) => state.search.category_list);
 
-  const categoryList = () => {
-    if (category) {
-      const t = category.slice(0, category.length - 3);
-      return t;
-    }
-  };
-  console.log(categoryList());
+  //undefined일때 화면관리하기
 
-  const tags = () => {
-    if (category) {
-      const t = category.slice(category.length - 3);
-      return t;
-    }
+  const tag1 = localStorage.getItem("tag1");
+  const tag2 = localStorage.getItem("tag2");
+  const tag3 = localStorage.getItem("tag3");
+  console.log(tag1, tag2, tag3);
+
+  const tags = [tag1, tag2, tag3];
+
+  const removeTag = () => {
+    dispatch(searchActions.deleteTagSession(tags));
   };
 
   const [show_modal, setShowModal] = React.useState(false);
@@ -72,25 +71,59 @@ const InCategory = (props) => {
             </Font>
           </FlexTitle>
           <div>
-            <BsFilterRight cursor="pointer" size="32" onClick={openModal} />
+            {category && category.length > 0 ? (
+              <BsFilterRight cursor="pointer" size="32" onClick={openModal} />
+            ) : (
+              ""
+            )}
           </div>
         </Flex>
 
-        {tags() &&
-          tags().map((l, idx) => {
+        {tags &&
+          tags.map((l, idx) => {
             if (!l == "") {
               return (
-                <TagGrid key={idx}>
-                  <Tag removable={"true"}>{l}</Tag>
+                <TagGrid key={idx} onClick={removeTag}>
+                  <Tag>
+                    {l}
+                    <IoCloseSharp />
+                  </Tag>
                 </TagGrid>
               );
             }
           })}
 
-        {categoryList() && categoryList().length > 0 ? (
+        {/* {!tag1 == "" || !tag2 == "" || !tag3 == "" ? (
+          <>
+            <TagGrid>
+              <Tag>
+                {tag1}
+                <IoCloseSharp onClick={removeTag1} />
+              </Tag>
+            </TagGrid>
+
+            <TagGrid>
+              <Tag>
+                {tag2}
+                <IoCloseSharp onClick={removeTag2} />
+              </Tag>
+            </TagGrid>
+
+            <TagGrid>
+              <Tag>
+                {tag3}
+                <IoCloseSharp onClick={removeTag3} />
+              </Tag>
+            </TagGrid>
+          </>
+        ) : (
+          ""
+        )} */}
+
+        {category && category.length > 0 ? (
           <TrackGrid>
-            {categoryList() &&
-              categoryList().map((l, i) => {
+            {category &&
+              category.map((l, i) => {
                 return (
                   <TrackDiv key={l.trackId}>
                     <Track {...l} />
@@ -109,6 +142,28 @@ const InCategory = (props) => {
     </>
   );
 };
+
+const Tag = styled.div`
+  display: flex;
+  align-items: center;
+  font-family: "Pretendard Variable", serif;
+  font-weight: 400;
+  font-size: 12px;
+  border: 0;
+  padding: 10px 15px 11px 15px;
+  color: #fff;
+  background-color: var(--point-color);
+  margin: 5px;
+  margin-bottom: 16px;
+  border-radius: 20px;
+
+  svg {
+    position: relative;
+    top: 1px;
+    right: -3px;
+    margin-left: 3px;
+  }
+`;
 
 const Wrap = styled.div`
   width: 100%;
@@ -145,6 +200,7 @@ const TrackDiv = styled.div`
 `;
 
 const TagGrid = styled.div`
+  cursor: pointer;
   margin: 10px 4px 0px 0px;
   display: inline-block;
 `;

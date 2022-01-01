@@ -20,7 +20,11 @@ const Header = (props) => {
   if (topMenu) {
     return (
       <FlexSearchBar>
-        <L></L>
+        <L
+          onClick={() => {
+            history.push("/");
+          }}
+        ></L>
         <FlexIcon>
           <Temdiv>
             <HiOutlineSearch
@@ -104,6 +108,7 @@ const L = styled.div`
   width: 80px;
   height: 28px;
   background-color: #ddd;
+  cursor: pointer;
 `;
 
 const FlexIcon = styled.div`

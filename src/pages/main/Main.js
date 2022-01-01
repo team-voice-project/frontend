@@ -45,7 +45,6 @@ const Main = (props) => {
         </Wrap>
         {track_list &&
           track_list.map((list, idx) => {
-            console.log("ㄹㄹㄹ리스트", list);
             return (
               <React.Fragment key={idx}>
                 <Wrap>
@@ -86,17 +85,6 @@ const WrapDiv = styled.div`
 
 const Wrap = styled.div`
   padding: 0px 20px;
-`;
-
-const UploadBtn = styled.button`
-  width: 100%;
-  background-color: #f1134e;
-  height: 65px;
-  color: #fff;
-  font-size: 20px;
-  font-weight: 900;
-  border: #f1134e;
-  border-radius: 10px;
 `;
 
 const DivText = styled.div`
