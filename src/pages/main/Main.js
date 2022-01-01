@@ -17,6 +17,22 @@ const Main = (props) => {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = React.useState(false);
   const track_list = useSelector((state) => state.post.post_list);
+  console.log("여기", track_list);
+
+  const categoryName = () => {
+    const a =
+      track_list &&
+      track_list.map((list) => {
+        let b = list.map((l) => {
+          let c = l.Category.categoryText;
+          return c;
+        });
+        return b;
+      });
+    return a;
+  };
+
+  console.log("이름이 뭐닌", categoryName());
 
   const openModal = () => {
     setShowModal(true);
@@ -45,6 +61,7 @@ const Main = (props) => {
         </Wrap>
         {track_list &&
           track_list.map((list, idx) => {
+            console.log("dddddd", list);
             return (
               <React.Fragment key={idx}>
                 <Wrap>

@@ -65,7 +65,6 @@ export default handleActions(
       }),
     [LOAD_CATEGORY]: (state, action) =>
       produce(state, (draft) => {
-        console.log("어휴 증말", action.payload);
         draft.category_list = action.payload.category;
       }),
   },

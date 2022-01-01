@@ -13,6 +13,7 @@ import { RiArrowRightSLine, RiLineHeight } from "react-icons/ri";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { BsFilterRight } from "react-icons/bs";
 import { IoCloseSharp } from "react-icons/io5";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const InCategory = (props) => {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ const InCategory = (props) => {
 
   const tag_list = useSelector((state) => state.post.tag_list);
   const category = useSelector((state) => state.search.category_list);
-
+  console.log("카테고리", category);
   //undefined일때 화면관리하기
 
   const tag1 = localStorage.getItem("tag1");
@@ -120,6 +121,22 @@ const InCategory = (props) => {
           ""
         )} */}
 
+        {category != category ? (
+          <Font margin="50px auto">로딩중입니다</Font>
+        ) : (
+          <TrackGrid>
+            {category &&
+              category.map((l, i) => {
+                return (
+                  <TrackDiv key={l.trackId}>
+                    <Track {...l} />
+                  </TrackDiv>
+                );
+              })}
+          </TrackGrid>
+        )}
+
+        {/* 
         {category && category.length > 0 ? (
           <TrackGrid>
             {category &&
@@ -137,7 +154,7 @@ const InCategory = (props) => {
             <OAOText>다른 카테고리를 선택해보세요!</OAOText>
             <OAO></OAO>
           </OAODiv>
-        )}
+        )} */}
       </Wrap>
     </>
   );

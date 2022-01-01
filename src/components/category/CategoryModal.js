@@ -5,6 +5,8 @@ import { actionCreators as searchActions } from "../../redux/modules/search";
 
 import { Button, Container } from "../../elements";
 
+import { IoCloseSharp } from "react-icons/io5";
+
 const CategoryModal = ({ setShowModal, tagList, name }) => {
   const dispatch = useDispatch();
 
@@ -66,6 +68,10 @@ const CategoryModal = ({ setShowModal, tagList, name }) => {
       <BackGround>
         <Wrap>
           <Modal>
+            <Icon>
+              <IoCloseSharp size="20"></IoCloseSharp>
+            </Icon>
+
             <TagDiv>
               {tag_list.map((l, idx) => {
                 return (
@@ -126,9 +132,18 @@ const Modal = styled.div`
   border-top-right-radius: 12px;
 `;
 
+const Icon = styled.div`
+  position: absolute;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  margin-top: 8px;
+  margin-right: 16px;
+`;
+
 const TagDiv = styled.div`
-  padding: 20px;
-  margin-top: 20px;
+  padding: 0px 20px 20px 20px;
+  margin-top: 30px;
 `;
 
 const TagBtn = styled.button`

@@ -78,7 +78,7 @@ const Wrap = styled.div`
   max-width: 425px;
   width: 100%;
   margin: auto;
-  height: 100px;
+  height: 50px;
   /* background-color: #d4d1d1; */
 `;
 
@@ -88,7 +88,7 @@ const Logo = styled.div`
   border: none;
   background-color: #fff;
   position: absolute;
-  top: 50px;
+  top: 20px;
 `;
 
 const FlexSearchBar = styled.div`
