@@ -40,7 +40,6 @@ const MyPage = (props) => {
                 onClick={() => {
                   history.push({
                     pathname: "/edit/profile",
-                    props,
                   });
                 }}
               />
@@ -101,6 +100,7 @@ const MyPage = (props) => {
           display: "flex",
           flexWrap: "wrap",
           margin: "0px",
+          justifyContent: "space-between",
         }}
       >
         {track?.track_info === undefined ? (

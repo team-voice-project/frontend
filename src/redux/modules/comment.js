@@ -20,11 +20,10 @@ const deleteComment = createAction(DELETE_COMMENT, (tracksId, commentId) => ({
 
 const deleteCommentDB = (tracksId, commentId) => {
   return function (dispatch, getState, { history }) {
-    const tracksId = 1;
     apis.deleteComment(tracksId, commentId).then((res) => {
       dispatch(deleteComment(tracksId, commentId));
+      window.location.reload();
     });
-    window.location.reload();
   };
 };
 
