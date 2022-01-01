@@ -52,7 +52,6 @@ const CategoryList = ({
                 <img src={img_src} alt="" />
                 <HiCheck className={"icon-check"} />
               </div>
-              <div className={"cate-name"}>{cate_name}</div>
             </button>
           );
         })}
@@ -93,7 +92,7 @@ const CategoryWarp = styled.div`
   .cate-item {
     width: calc(33.33% - 20px);
     margin: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     background: none;
     border: 0;
     display: flex;
