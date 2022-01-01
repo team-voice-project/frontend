@@ -38,10 +38,19 @@ const LoginCallback = ({ history }) => {
       console.log("통신 완료", res);
       const user = res.data.user.nickname;
       const userToken = res.data.user.jwtToken;
-      setCookie("OAO", `__OAO-nick=${user}__OAO-token=${userToken}`, 3);
+      setCookie("OAO", `__OAO-nick=${user}__OAO-token=${userToken}`, 1);
 
       dispatch(userActions.setUser({ user: user, is_login: true }));
-      history.push("/edit/profile");
+
+      const is_join = res.data.user.firstLogin;
+      if (is_join) {
+        history.push({
+          pathname: "/edit/profile",
+          state: { first: is_join },
+        });
+      } else {
+        history.push("/");
+      }
     })
     .catch((err) => {
       console.log("통신 실패", err);
