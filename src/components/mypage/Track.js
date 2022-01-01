@@ -4,14 +4,13 @@ import { FcLike } from "react-icons/fc";
 import { FaPlay } from "react-icons/fa";
 import { BiPause } from "react-icons/bi";
 import MenuModal from "./MenuModal";
-import { useDispatch } from "react-redux";
+
 import { RiChat4Fill } from "react-icons/ri";
 
 const Track = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [playBtn, setPlayBtn] = useState(false);
-  const dispatch = useDispatch();
-  console.log(props);
+
   const openModal = () => {
     setModalOpen(true);
   };

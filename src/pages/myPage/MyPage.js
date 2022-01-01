@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Container from "../../elements/Container";
 import styled from "styled-components";
@@ -6,10 +6,12 @@ import Track from "../../components/mypage/Track";
 import { RiPencilFill } from "react-icons/ri";
 import MusicPlayer from "../../components/mypage/MusicPlayer";
 import { history } from "../../redux/configStore";
+import { apis } from "../../shared/api";
 
 const MyPage = (props) => {
   const [checkedInputs, setCheckedInputs] = useState([]);
   const track = useSelector((state) => state.mypage.track);
+
   console.log(props);
 
   const changeRadio = (e) => {
@@ -17,6 +19,13 @@ const MyPage = (props) => {
       setCheckedInputs(e.target.id);
     }
   };
+
+  useEffect(() => {
+    apis.getProfile().then((res) => {
+      console.log(res);
+    });
+  }, []);
+
   return (
     <Container>
       <div
