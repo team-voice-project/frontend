@@ -17,6 +17,7 @@ const Main = (props) => {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = React.useState(false);
   const track_list = useSelector((state) => state.post.post_list);
+  console.log(props);
 
   const openModal = () => {
     setShowModal(true);

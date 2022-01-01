@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "../../elements/Container";
 import styled from "styled-components";
 import Track from "../../components/mypage/Track";
@@ -7,19 +7,27 @@ import { useSelector } from "react-redux";
 import DefaultImg from "./profileIMG.png";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { history } from "../../redux/configStore";
+import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { actionCreators as trackCreators } from "../../redux/modules/mypage";
 
 const PortfolioPage = (props) => {
+  const dispatch = useDispatch();
   const [checkedInputs, setCheckedInputs] = useState([]);
   const track = useSelector((state) => state.mypage.track);
   const user_info = useSelector((state) => state.mypage.user_info);
   const PROPS = props.location.props?.props;
   console.log(user_info);
-
+  const userId = useParams()?.userId;
   const changeRadio = (e) => {
     if (e.target.checked) {
       setCheckedInputs(e.target.id);
     }
   };
+
+  useEffect(() => {
+    dispatch(trackCreators.setTrackDB(userId));
+  }, []);
 
   return (
     <Container>
@@ -82,6 +90,7 @@ const PortfolioPage = (props) => {
           display: "flex",
           flexWrap: "wrap",
           margin: "0px",
+          justifyContent: "space-between",
         }}
       >
         {track.track_info === undefined ? (
