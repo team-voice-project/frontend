@@ -8,6 +8,7 @@ import User from "./modules/user";
 import Post from "./modules/post";
 import Mypage from "./modules/mypage";
 import Comment from "./modules/comment";
+import Search from "./modules/search";
 
 export const history = createBrowserHistory();
 
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   user: User,
   post: Post,
   mypage: Mypage,
+  search: Search,
   router: connectRouter(history),
 });
 

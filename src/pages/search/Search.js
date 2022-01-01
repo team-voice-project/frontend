@@ -34,7 +34,6 @@ const Search = (props) => {
 
   const handleSearch = () => {
     const value = inputRef.current.value;
-    console.log(value);
     dispatch(searchActions.getSearchDB(value));
   };
 
@@ -60,8 +59,7 @@ const Search = (props) => {
       {show_modal && (
         <BackGround>
           <Container>
-            <div style={{ width: "100%", height: "58px" }}></div>
-            <Flex>
+            <FlexTitle>
               <RiArrowLeftSLine
                 size="32"
                 cursor="pointer"
@@ -69,10 +67,10 @@ const Search = (props) => {
                   props.history.push("/");
                 }}
               />
-              <Font title fontSize="22px" margin="18px 0px">
+              <Font title fontSize="22px" margin="5px 0px 0px 0px">
                 검색
               </Font>
-            </Flex>
+            </FlexTitle>
             <Flex>
               <Multiline
                 ref={inputRef}
@@ -145,6 +143,15 @@ const BackGround = styled.div`
   background-color: rgb(0, 0, 0);
   z-index: 9999;
   overflow-y: auto;
+`;
+
+const FlexTitle = styled.div`
+  display: flex;
+  align-items: center;
+  vertical-align: center;
+  width: 150px;
+  height: 25px;
+  margin: 18px 0px;
 `;
 
 const Flex = styled.div`

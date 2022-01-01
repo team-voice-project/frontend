@@ -17,7 +17,6 @@ const Main = (props) => {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = React.useState(false);
   const track_list = useSelector((state) => state.post.post_list);
-  // console.log("트랙리스트", track_list);
 
   const openModal = () => {
     setShowModal(true);
@@ -34,12 +33,19 @@ const Main = (props) => {
       {/* {showModal && <OnBoarding setShowModal={setShowModal} />} */}
       <WrapDiv>
         <Wrap>
-          <Button bg>나도 목소리 올리기</Button>
+          <Button
+            bg
+            _onClick={() => {
+              props.history.push("/edit/base");
+            }}
+          >
+            나도 목소리 올리기
+          </Button>
           <DivText>나의 목소리를 올려서 사람들에게 들려주세요!</DivText>
         </Wrap>
         {track_list &&
           track_list.map((list, idx) => {
-            // console.log("여기", list);
+            console.log("ㄹㄹㄹ리스트", list);
             return (
               <React.Fragment key={idx}>
                 <Wrap>
@@ -55,7 +61,6 @@ const Main = (props) => {
 
                 <Flex>
                   {list.map((l) => {
-                    // console.log("요기", l);
                     return (
                       <div key={l.trackId}>
                         <PlayBox {...l} />
@@ -76,7 +81,7 @@ const Main = (props) => {
 const WrapDiv = styled.div`
   max-width: 425px;
   width: 100%;
-  margin: 30px auto 0px auto;
+  margin: 20px auto 0px auto;
 `;
 
 const Wrap = styled.div`

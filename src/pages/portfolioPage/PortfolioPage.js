@@ -44,7 +44,7 @@ const PortfolioPage = (props) => {
               {user_info.user_info?.snsId}
             </Link>
             <div style={{ width: "200px", wordBreak: "break-word" }}>
-              <Text>{user_info.user_info.introduce}</Text>
+              <Text>{user_info.user_info?.introduce}</Text>
             </div>
           </div>
         </Profile>

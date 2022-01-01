@@ -1,14 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
-// import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-// import { actionCreators as commentActions } from "../redux/modules/comment";
+import { IoIosClose } from "react-icons/io";
+import { newGetCookie } from "../../shared/Cookie";
+import { useDispatch } from "react-redux";
+import { actionCreators as commentActions } from "../../redux/modules/comment";
 
 const CommentList = (props) => {
-  const state = useSelector((state) => state.user.user);
+  const nick = newGetCookie("nick");
+  const isMe = props.User?.nickname === nick;
+  const dispatch = useDispatch();
   console.log(props);
-  // const isMe = state?.email === props.email || state?.username === props.email;
-  // const dispatch = useDispatch();
   return (
     <React.Fragment>
       <List>
@@ -20,19 +21,19 @@ const CommentList = (props) => {
               <Text>{props.comment}</Text>
             </CommentProfile>
 
-            {/* {isMe && (
-              <DeleteForeverIcon
+            {isMe && (
+              <IoIosClose
                 onClick={() => {
                   dispatch(
                     commentActions.deleteCommentDB(
-                      props.postId,
+                      props.userId,
                       props.commentId
                     )
                   );
                 }}
                 sx={{ color: "red", cursor: "pointer" }}
               />
-            )} */}
+            )}
           </CommentStyle>
         </InnerList>
       </List>

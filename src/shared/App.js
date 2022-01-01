@@ -34,9 +34,9 @@ function App() {
       />
       <Route path="/edit/record" component={Auth(EditRecord, true)} exact />
       <Route path="/edit/final" component={Auth(EditFinal, true)} exact />
-      <Route path="/portfolio" component={PortfolioPage} exact />
-      <Route exact path="/mypage" component={MyPage} />
-      <Route exact path="/edit/profile" component={Auth(EditProfile, true)} />
+      <Route path="/portfolio" component={Auth(PortfolioPage, true)} exact />
+      <Route path="/mypage" component={Auth(MyPage, true)} exact />
+      <Route path="/edit/profile" component={Auth(EditProfile, true)} exact />
       <Route path="/share/:track_id" component={ShareTrack} exact />
       <Route path="/api/auth/kakao/callback" component={LoginCallback} exact />
       <Route path="/api/auth/naver/callback" component={LoginCallback} exact />
