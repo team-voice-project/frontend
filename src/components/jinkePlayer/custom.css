@@ -1,31 +1,104 @@
+
 /* 플레이어 배경 */
 .react-jinke-music-player-main .music-player-panel {
   height: 70px;
   background-color: #1D1D1D;
 }
 
+.react-jinke-music-player-main .music-player-panel .panel-content {
+  overflow: visible;
+}
+
 /* 재생 썸네일 이미지 */
 .react-jinke-music-player-main .music-player-panel .panel-content .img-content {
+  width: 40px;
+  height: 40px;
   background-size: cover;
   background-position: center;
 }
 
+
 /* 프로그레스바 핸들 아이콘 */
 .rc-slider-handle {
-  width: 10px;
-  height: 10px;
-  margin-top: -3.5px;
+  width: 8px;
+  height: 8px;
+  margin-top: -2px;
 }
 
 .react-jinke-music-player-main .music-player-panel .panel-content .rc-slider-handle {
   border: 0;
 }
 
+
+
 /* 재생시간 숨김 */
-.react-jinke-music-player-main .music-player-panel .panel-content .progress-bar-content .audio-main .current-time {
+.react-jinke-music-player-main .music-player-panel .panel-content .progress-bar-content .audio-main .current-time,
+.react-jinke-music-player-main .music-player-panel .panel-content .progress-bar-content .audio-main .duration{
   display: none;
 }
 
-.react-jinke-music-player-main .music-player-panel .panel-content .progress-bar-content .audio-main .duration {
-  display: none;
+/* 프로그레스바 위치 */
+.react-jinke-music-player-main .music-player-panel .panel-content .progress-bar-content .audio-main {
+  margin-top: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.react-jinke-music-player-main .music-player-panel .panel-content .progress-bar-content .progress-bar {
+  margin: 0;
+}
+
+.react-jinke-music-player-main .music-player-panel .panel-content .progress-bar-content .progress-bar .rc-slider-rail,
+.react-jinke-music-player-main .music-player-panel .panel-content .progress-bar-content .progress-bar .rc-slider-track {
+  border-radius: 0;
+  height: 3px;
+}
+
+.react-jinke-music-player-main .music-player-panel .panel-content .progress-bar-content .audio-main .rc-slider {
+  padding: 0;
+  height: 0;
+}
+
+.react-jinke-music-player-main .music-player-panel .panel-content .progress-bar .rc-slider-handle,
+.react-jinke-music-player-main .music-player-panel .panel-content .progress-bar .rc-slider-track {
+  background-color: #fff;
+}
+
+.audio-main .rc-slider-step {
+  background-color: #4A4A4A;
+  height: 3px;
+}
+
+/* 컨트롤 버튼 */
+.react-jinke-music-player-main .music-player-panel .panel-content .player-content .next-audio svg,
+.react-jinke-music-player-main .music-player-panel .panel-content .player-content .prev-audio svg {
+  font-size: 24px;
+}
+
+.react-jinke-music-player-main .music-player-panel .panel-content .player-content .play-btn svg {
+  font-size: 20px;
+}
+
+.react-jinke-music-player-main .music-player-panel .panel-content .player-content .play-sounds svg {
+  width: 18px;
+}
+
+.react-jinke-music-player-main .react-jinke-music-player-mode-icon {
+  width: 20px;
+}
+
+.react-jinke-music-player-main svg {
+  font-size: 18px;
+}
+
+.react-jinke-music-player-main .music-player-panel .panel-content .player-content .audio-lists-btn .audio-lists-num {
+  font-size: 12px;
+}
+
+.audio-lists-panel {
+  height: calc(100vh - 80px);
+  width: 100%;
+  max-width: 480px;
+  right: 0;
 }

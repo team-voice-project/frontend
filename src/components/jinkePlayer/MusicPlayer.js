@@ -40,6 +40,12 @@ const MusicPlayer = (props) => {
   ];
 
   const customLocale = {
+    playModeText: {
+      order: "순차재생",
+      orderLoop: "반복",
+      singleLoop: "한곡반복",
+      shufflePlay: "랜덤반복",
+    },
     playListsText: "재생목록",
   };
 
