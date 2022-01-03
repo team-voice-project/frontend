@@ -112,7 +112,6 @@ const PortfolioPage = (props) => {
           })}
         </div>
       )}
-      <MusicPlayer />
     </Container>
   );
 };
