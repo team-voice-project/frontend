@@ -235,13 +235,13 @@ const ImageCircle = styled.img`
 `;
 
 const Section = styled.div`
-  position: absolute;
+  position: fixed;
   z-index: 9900;
   right: 0;
   top: 0;
   left: 0;
   bottom: 0;
-  height: 130%;
+  overflow-y: auto;
   background-color: rgba(10, 10, 10, 0.86);
   backdrop-filter: blur(4px);
 `;
