@@ -46,22 +46,28 @@ const Main = (props) => {
         </Wrap>
         {track_list &&
           track_list.map((list, idx) => {
-            console.log("ㄹㄹㄹ리스트", list);
+            console.log("그만..", list);
             return (
               <React.Fragment key={idx}>
                 <Wrap>
                   <DivBoldText>
                     <Font title fontSize="22px" margin="18px 0px">
-                      최근에 올라온 목소리
+                      {list.category.categoryText}
                     </Font>
-                    <IconDiv>
+                    <IconDiv
+                      onClick={() => {
+                        props.history.push(
+                          `/category/${list.category.category}`
+                        );
+                      }}
+                    >
                       <RiArrowRightSLine size="28" cursor="pointer" />
                     </IconDiv>
                   </DivBoldText>
                 </Wrap>
 
                 <Flex>
-                  {list.map((l) => {
+                  {list.tracks.map((l) => {
                     return (
                       <div key={l.trackId}>
                         <PlayBox {...l} />
@@ -89,17 +95,6 @@ const Wrap = styled.div`
   padding: 0px 20px;
 `;
 
-const UploadBtn = styled.button`
-  width: 100%;
-  background-color: #f1134e;
-  height: 65px;
-  color: #fff;
-  font-size: 20px;
-  font-weight: 900;
-  border: #f1134e;
-  border-radius: 10px;
-`;
-
 const DivText = styled.div`
   font-size: 12px;
   padding: 15px 0px 10px 0px;
@@ -125,8 +120,16 @@ const Flex = styled.div`
   vertical-align: center;
   padding: 0px 20px;
   overflow-x: scroll;
-  ::-webkit-scrollbar {
-    display: none;
+  &::-webkit-scrollbar {
+    //스크롤바 전체
+    height: 4px;
+    border-radius: 6px;
+    background: #000;
+  }
+  &::-webkit-scrollbar-thumb {
+    //스크롤 막대
+    background: var(--point-color);
+    border-radius: 6px;
   }
 `;
 

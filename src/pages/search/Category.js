@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { useLocation } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 
 import Header from "../../components/category/Header";
@@ -13,7 +12,7 @@ const Category = (props) => {
   const dispatch = useDispatch();
 
   const category_list = useSelector((state) => state.post.Image_list);
-
+  console.log("전체가 없어", category_list);
   React.useEffect(() => {
     dispatch(postActions.loadImageDB());
   }, []);
@@ -68,6 +67,7 @@ const Wrap = styled.div`
 
 const BoxWrap = styled.div`
   padding: 0px 12px;
+  margin: 0px 4px;
 `;
 
 const Desc = styled.div`
@@ -86,7 +86,7 @@ const Rectangle = styled.img`
     height: 100px;
   }
   @media screen and (max-width: 320px) {
-    width: 85px;
+    width: 84px;
     height: 82px;
   }
 `;

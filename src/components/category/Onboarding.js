@@ -1,45 +1,91 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+
 import Header from "./Header";
 import Container from "../../elements/Container";
 import SingleAudioPlayer from "../../shared/SingleAudioPlayer";
+import { actionCreators as postActions } from "../../redux/modules/post";
 
 import { HiHeart } from "react-icons/hi";
 import { RiChat4Fill } from "react-icons/ri";
-import { Button, Font } from "../../elements";
+import { Button, Font, Tag } from "../../elements";
 import { useHistory } from "react-router-dom";
 
 const OnBoarding = ({ setShowModal }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  const track_list = useSelector((state) => state.post.onboarding);
+  console.log("여기", track_list);
+
+  const randomData = () => {
+    if (track_list) {
+      const random = Math.floor(Math.random() * track_list.length);
+      return track_list[random];
+    }
+  };
+  console.log("랜덤으로 나와?", randomData());
+
+  React.useEffect(() => {
+    dispatch(postActions.loadPostDB());
+  }, []);
+
   return (
     <Background>
-      <Header />
+      <Header noHeader />
       <Container>
         <BoxDiv>
           <Flex>
-            <SmallCircle></SmallCircle>
-            <Name>조은영</Name>
+            <SmallCircle
+              src={
+                randomData() &&
+                randomData().TrackThumbnail.trackThumbnailUrlFace
+              }
+            ></SmallCircle>
+            <div
+              style={{
+                width: "80px",
+                height: "20px",
+              }}
+            >
+              <Font title margin="2px 0px 0px 8px">
+                {randomData() && randomData().User.nickname}
+              </Font>
+            </div>
           </Flex>
-          <div>
-            <OAOImage></OAOImage>
-          </div>
-          <BoldFont>새벽에 어울리는 나레이션</BoldFont>
-
+          <ImgDiv>
+            <OAOImage
+              src={
+                randomData() &&
+                randomData().TrackThumbnail.trackThumbnailUrlFull
+              }
+            ></OAOImage>
+          </ImgDiv>
+          <BoldFont>{randomData() && randomData().title}</BoldFont>
           <FlexTag>
-            <TagBox>깔끔한</TagBox>
-            <TagBox>깔끔한</TagBox>
-            <TagBox>깔끔한</TagBox>
+            {randomData() &&
+              randomData().TrackTags.map((l, i) => {
+                console.log("맵돌려", l);
+                return (
+                  <div key={i} style={{ display: "inline-block" }}>
+                    <TagBox>{l.tag}</TagBox>
+                  </div>
+                );
+              })}
           </FlexTag>
 
-          <SingleAudioPlayer></SingleAudioPlayer>
+          <SingleAudioPlayer
+            audio={randomData() && randomData().trackUrl}
+          ></SingleAudioPlayer>
 
           <FlexCount>
             <CountBox>
-              <HiHeart size="23"></HiHeart>
+              <HiHeart size="20"></HiHeart>
               <CountText>132</CountText>
             </CountBox>
             <CountBox>
-              <RiChat4Fill size="20"></RiChat4Fill>
+              <RiChat4Fill size="18"></RiChat4Fill>
               <CountText>28</CountText>
             </CountBox>
           </FlexCount>
@@ -80,11 +126,11 @@ const Background = styled.div`
 
 const BoxDiv = styled.div`
   width: 100%;
-  height: 520px;
+  height: 480px;
   background-color: #252525;
   border-radius: 12px;
-  margin-bottom: 45px;
-  padding: 23px;
+  margin-bottom: 20px;
+  padding: 20px;
 `;
 
 const Flex = styled.div`
@@ -97,12 +143,12 @@ const CountBox = styled.div`
   display: flex;
   align-items: center;
   vertical-align: center;
-  margin-right: 18px;
+  margin-right: 16px;
 `;
 
 const FlexTag = styled.div`
   width: 100%;
-  margin: 0px auto 20px 0px;
+  margin: 4px auto 0px auto;
   text-align: center;
 `;
 
@@ -110,13 +156,20 @@ const FlexCount = styled.div`
   display: flex;
   align-items: center;
   vertical-align: right;
-  margin: 30px 0px 0px 220px;
+  margin: 4px 0px 0px 250px;
+
+  @media screen and (max-width: 380px) {
+    margin: 10px 0px 0px 200px;
+  }
+  @media screen and (max-width: 320px) {
+    margin: 10px 0px 0px 150px;
+  }
 `;
 
-const SmallCircle = styled.div`
-  width: 38px;
-  height: 38px;
-  border-radius: 40px;
+const SmallCircle = styled.img`
+  width: 35px;
+  height: 35px;
+  border-radius: 35px;
   background-color: #616161;
 `;
 
@@ -125,11 +178,15 @@ const Name = styled.div`
   margin-left: 12px;
 `;
 
-const OAOImage = styled.div`
-  width: 180px;
-  height: 180px;
-  background-color: #ddd;
+const ImgDiv = styled.div`
+  width: 160px;
+  height: 160px;
   margin: 48px auto 25px auto;
+`;
+
+const OAOImage = styled.img`
+  width: 160px;
+  height: 160px;
 `;
 
 const IconDiv = styled.div`
@@ -140,48 +197,31 @@ const IconDiv = styled.div`
 `;
 
 const CountText = styled.div`
-  font-size: 14px;
+  font-size: 12px;
   color: #c4c4c4;
   margin-left: 2px;
 `;
 
 const BoldFont = styled.div`
-  font-size: 20px;
+  font-size: 18px;
   color: #c4c4c4;
   font-weight: 550;
   text-align: center;
+  font-family: "Pretendard Variable", serif;
 `;
 
 const TagBox = styled.button`
-  width: 60px;
+  width: 75px;
   height: 32px;
   background-color: #000000;
   color: #fff;
   border-radius: 20px;
-  font-size: 13px;
+  font-size: 12px;
   text-align: center;
   align-items: center;
-  margin: 15px 10px 0px 0px;
+  margin: 4px 10px 8px 0px;
   border: none;
   display: inline-block;
-`;
-
-const PlayBar = styled.div`
-  width: 100%;
-  height: 30px;
-  background-color: #f5db6a;
-  margin-top: 30px;
-`;
-
-const Btn = styled.button`
-  width: 100%;
-  height: 62px;
-  border: none;
-  border-radius: 10px;
-  background-color: #f1134e;
-  margin-bottom: 15px;
-  font-size: 20px;
-  font-weight: 700;
 `;
 
 export default OnBoarding;

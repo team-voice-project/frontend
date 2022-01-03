@@ -1,14 +1,11 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import qs from "qs";
 import { useDispatch } from "react-redux";
 
 import Header from "../../components/category/Header";
 import { Container, Font } from "../../elements/index";
 import Track from "../../components/mypage/Track";
 import { actionCreators as searchActions } from "../../redux/modules/search";
-
-import { apis } from "../../shared/api";
 
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { HiOutlineSearch } from "react-icons/hi";
@@ -20,7 +17,8 @@ const Search = (props) => {
   const [seacrhTrack, setSearchTrack] = React.useState();
   const [show_modal, setShowmodal] = React.useState(true);
 
-  const search_list = useSelector((state) => state);
+  const search_list = useSelector((state) => state.search.searchList);
+  console.log("서치리서터", search_list);
 
   const inputRef = React.useRef();
 
@@ -35,6 +33,7 @@ const Search = (props) => {
   const handleSearch = () => {
     const value = inputRef.current.value;
     dispatch(searchActions.getSearchDB(value));
+    setShowmodal(false);
   };
 
   const onClick = () => {
@@ -48,7 +47,9 @@ const Search = (props) => {
   };
 
   useEffect(() => {
-    openModal();
+    if (!search_list) {
+      openModal();
+    }
   }, []);
 
   return (
@@ -89,24 +90,34 @@ const Search = (props) => {
       )}
 
       {/* 검색결과 나올때 */}
-      {search_list ? (
+      {search_list && search_list.length > 0 ? (
         <>
           <Header topMenu />
           <Container>
             <Flex>
-              <RiArrowLeftSLine size="30"></RiArrowLeftSLine>
-              <Multiline
+              <RiArrowLeftSLine
+                size="30"
+                cursor="pointer"
+                onClick={openModal}
+              ></RiArrowLeftSLine>
+              {/* <Multiline
                 style={{
                   margin: "20px 0px",
                 }}
                 type="text"
-              ></Multiline>
+              ></Multiline> */}
             </Flex>
 
             <TrackGrid>
-              <TrackDiv>
-                <Track />
-              </TrackDiv>
+              {search_list &&
+                search_list.map((l) => {
+                  console.log("리스트야", l);
+                  return (
+                    <TrackDiv key={l.trackId}>
+                      <Track {...l} />
+                    </TrackDiv>
+                  );
+                })}
             </TrackGrid>
           </Container>
         </>
@@ -115,7 +126,11 @@ const Search = (props) => {
           <Header topMenu />
           <Container>
             <Flex>
-              <Temp></Temp>
+              <RiArrowLeftSLine
+                size="30"
+                cursor="pointer"
+                onClick={openModal}
+              ></RiArrowLeftSLine>
               <Multiline
                 style={{
                   margin: "20px 0px",
@@ -215,10 +230,9 @@ const OAOText = styled.p`
 const OAO = styled.div`
   width: 200px;
   height: 210px;
-  background-color: #fff;
   margin: 55px auto 0px auto;
 
-  background-image: url("");
+  background-image: url("/assets/images/OAO.png");
   background-repeat: no-repeat;
   background-size: cover;
 `;

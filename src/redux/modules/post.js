@@ -18,7 +18,8 @@ const initialState = {};
 const loadPostDB = () => {
   return function (dispatch, getState, { history }) {
     apis.mainPage().then((res) => {
-      dispatch(loadPost(res.data.categoryTracks));
+      console.log("resres", res);
+      dispatch(loadPost(res.data.totalTracks));
     });
   };
 };
@@ -36,7 +37,9 @@ export default handleActions(
   {
     [LOAD_POST]: (state, action) =>
       produce(state, (draft) => {
+        console.log("페이로드야", action.payload.post[0].tracks);
         draft.post_list = action.payload.post;
+        draft.onboarding = action.payload.post[0].tracks;
       }),
     [SEARCH_LOADING]: (state, action) =>
       produce(state, (draft) => {

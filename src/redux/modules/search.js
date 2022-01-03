@@ -19,7 +19,7 @@ const getSearchDB = (keyword) => {
   return function (dispatch, getState, { history }) {
     apis.search(keyword).then((res) => {
       console.log(res);
-      dispatch(getSearch(res));
+      dispatch(getSearch(res.data.tracks));
     });
   };
 };
@@ -29,15 +29,13 @@ const loadCategoryDB = (category, tag1 = "", tag2 = "", tag3 = "") => {
     apis
       .category(category, tag1, tag2, tag3)
       .then((res) => {
-        const _tag = tag1 + ";" + tag2 + ";" + tag3;
-        const tag = _tag.split(";");
-        const addTagList = res.data.tracks.concat(tag);
-
-        dispatch(loadCategory(addTagList));
+        dispatch(loadCategory(res.data.tracks));
       })
       .catch((err) => {
-        console.log(err.response);
-        window.alert("검색결과가 없습니다!");
+        console.log("에러", err);
+        const errmsg = err.response.data;
+        console.log(errmsg);
+        history.push("/error");
       });
   };
 };
@@ -51,11 +49,12 @@ export default handleActions(
       }),
     [GET_SEARCH]: (state, action) =>
       produce(state, (draft) => {
-        // draft.keyword = action.payload.keyword;
+        draft.searchList = action.payload.search_list;
       }),
     [LOAD_CATEGORY]: (state, action) =>
       produce(state, (draft) => {
-        draft.category_list = action.payload.category;
+        draft.category_list = action.payload.category.tracks;
+        draft.tags = action.payload.category.categoryTags;
       }),
   },
   initialState

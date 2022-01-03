@@ -24,7 +24,7 @@ const MenuModal = (props) => {
   const trackId = props.props.trackId;
   const likeBtn = (trackId) => {
     apis.likeTrack(trackId).then((res) => {
-      console.log(res);
+      // console.log(res);
     });
   };
 
@@ -101,6 +101,7 @@ const MenuModal = (props) => {
                         likeBtn(trackId);
                         setLikeBtn(false);
                       }}
+
                       style={{
                         fontSize: "22px",
                         color: "red",
@@ -113,6 +114,7 @@ const MenuModal = (props) => {
                         likeBtn(trackId);
                         setLikeBtn(true);
                       }}
+
                       style={{
                         fontSize: "22px",
                         color: "white",
