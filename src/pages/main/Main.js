@@ -31,7 +31,7 @@ const Main = (props) => {
   return (
     <>
       <Header topMenu props={props} />
-      {/* {showModal && <OnBoarding setShowModal={setShowModal} />} */}
+      {showModal && <OnBoarding setShowModal={setShowModal} />}
       <WrapDiv>
         <Wrap>
           <Button
