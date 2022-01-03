@@ -22,12 +22,9 @@ const MenuModal = (props) => {
   const dispatch = useDispatch();
   const userId = props.props.userId;
   const trackId = props.props.trackId;
-  console.log(props.props.Comments);
-  console.log(state[0]);
+
   const likeBtn = (trackId) => {
-    apis.likeTrack(trackId).then((res) => {
-      console.log(res);
-    });
+    apis.likeTrack(trackId).then((res) => {});
   };
 
   return (

@@ -28,11 +28,7 @@ function App() {
         <Route path="/" component={Main} exact />
         <Route path="/category" component={Category} exact />
         <Route path="/category/:categoryName" component={InCategory} exact />
-        <Route
-          path="/tagcategory/:categoryName/:tag1/:tag2/:tag3"
-          component={TagCategory}
-          exact
-        />
+        <Route path="/tagcategory" component={TagCategory} exact />
         <Route path="/error" component={Error} exact />
         <Route path="/search" component={Search} exact />
         <Route path="/login" component={Auth(Login, false)} exact />

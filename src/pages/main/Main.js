@@ -46,7 +46,6 @@ const Main = (props) => {
         </Wrap>
         {track_list &&
           track_list.map((list, idx) => {
-            console.log("그만..", list);
             return (
               <React.Fragment key={idx}>
                 <Wrap>

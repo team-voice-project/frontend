@@ -29,7 +29,13 @@ const loadCategoryDB = (category, tag1 = "", tag2 = "", tag3 = "") => {
     apis
       .category(category, tag1, tag2, tag3)
       .then((res) => {
+        const tags = [`${tag1}`, `${tag2}`, `${tag3}`];
+        const a = { category: category, tag: tags };
         dispatch(loadCategory(res.data.tracks));
+        history.push({
+          pathname: "/tagCategory",
+          state: { category: category, tag: tags },
+        });
       })
       .catch((err) => {
         console.log("에러", err);
