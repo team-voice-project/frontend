@@ -10,7 +10,6 @@ import DetailTag from "./DetailTag";
 import { history } from "../../redux/configStore";
 import { useSelector } from "react-redux";
 import { MdOutlineMoreVert } from "react-icons/md";
-import { useDispatch } from "react-redux";
 import SingleAudioPlayer from "../../shared/SingleAudioPlayer";
 import { apis } from "../../shared/api";
 import { RiChat4Fill } from "react-icons/ri";
@@ -19,11 +18,9 @@ const MenuModal = (props) => {
   const { open, close } = props;
   const state = useSelector((state) => state.comment.comments);
   const [LikeBtn, setLikeBtn] = React.useState(false);
-  const dispatch = useDispatch();
   const userId = props.props.userId;
   const trackId = props.props.trackId;
-  console.log(props.props.Comments);
-  console.log(state[0]);
+
   const likeBtn = (trackId) => {
     apis.likeTrack(trackId).then((res) => {
       console.log(res);

@@ -11,7 +11,7 @@ const PlayBox = (props) => {
   const Image = props.TrackThumbnail.trackThumbnailUrlFace;
   const [modalOpen, setModalOpen] = React.useState(false);
   const [playBtn, setPlayBtn] = React.useState(false);
-  console.log(props.Likes.likeCnt);
+
   const openModal = () => {
     setModalOpen(true);
   };
@@ -76,12 +76,12 @@ const PlayBox = (props) => {
             }}
             style={{ cursor: "pointer" }}
           >
-            <div
-              style={{ width: "100px", height: "15px", textAlign: "center" }}
-            >
+            <div style={{ width: "100px", height: "15px", textAlign: "left" }}>
               <div style={{ display: "flex" }}>
                 <Title>{props.title}</Title>
-                <p style={{ color: "white" }}>...</p>
+                <p style={{ width: "40px", color: "white", fontSize: "8px" }}>
+                  더보기
+                </p>
               </div>
             </div>
             <Text>{props.category}</Text>

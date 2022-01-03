@@ -4,7 +4,6 @@ import { apis } from "../../shared/api";
 
 const ADD_COMMENT = "ADD_COMMENT";
 const DELETE_COMMENT = "DELETE_COMMENT";
-const SET_COMMENT = "SET_COMMENT";
 
 const initialState = {
   comment: null,
@@ -18,17 +17,6 @@ const deleteComment = createAction(DELETE_COMMENT, (tracksId, commentId) => ({
   tracksId,
   commentId,
 }));
-const setComment = createAction(SET_COMMENT, (tracksId) => ({
-  tracksId,
-}));
-
-const setCommentDB = (tracksId) => {
-  return function (dispatch, getState, { history }) {
-    apis.detailTrack(tracksId).then((res) => {
-      dispatch(setComment(tracksId));
-    });
-  };
-};
 
 const deleteCommentDB = (tracksId, commentId) => {
   return function (dispatch, getState, { history }) {
@@ -72,7 +60,6 @@ export default handleActions(
 const actionCreators = {
   addCommentDB,
   deleteCommentDB,
-  setCommentDB,
 };
 
 export { actionCreators };
