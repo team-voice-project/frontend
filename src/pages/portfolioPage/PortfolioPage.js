@@ -43,7 +43,9 @@ const PortfolioPage = (props) => {
           size="30px"
         />
         <Profile>
-          <ImageCircle src={user_info.user_info?.profileImage} />
+          <div style={{ width: "150px", height: "150px", marginRight: "10px" }}>
+            <ImageCircle src={user_info.user_info?.profileImage} />
+          </div>
           <div>
             <Name>{user_info.user_info?.nickname}</Name>
             <Link href="http://www.naver.com" target="_blank">
@@ -83,22 +85,34 @@ const PortfolioPage = (props) => {
           <FormCheckText>좋아요 목록</FormCheckText>
         </label>
       </div>
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          margin: "0px",
-          justifyContent: "space-between",
-        }}
-      >
-        {track.track_info === undefined ? (
-          <Track />
-        ) : (
-          track.track_info.map((p, idx) => {
+      {track?.track_info === undefined || track?.track_info.length < 1 ? (
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+        >
+          <OAODiv>
+            <OAOText>등록된 목소리가 없어요!</OAOText>
+            <OAOText>목소리를 등록해 주세요!</OAOText>
+            <OAO></OAO>
+          </OAODiv>
+        </div>
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            justifyItems: "left",
+          }}
+        >
+          {track?.track_info.map((p, idx) => {
             return <Track key={idx} {...p} />;
-          })
-        )}
-      </div>
+          })}
+        </div>
+      )}
       <MusicPlayer />
     </Container>
   );
@@ -107,6 +121,27 @@ const PortfolioPage = (props) => {
 PortfolioPage.defaultProps = {
   user_image: DefaultImg,
 };
+
+const OAODiv = styled.div`
+  position: relative;
+  top: 50px;
+`;
+
+const OAOText = styled.p`
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 12px;
+`;
+
+const OAO = styled.div`
+  width: 200px;
+  height: 210px;
+  margin: 55px auto 0px auto;
+
+  background-image: url("/assets/images/OAO.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+`;
 const FormCheckText = styled.span`
   font-size: 15px;
   font-weight: 900;
@@ -149,8 +184,8 @@ const Profile = styled.div`
 `;
 
 const ImageCircle = styled.div`
-  width: 150px;
-  height: 150px;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   margin-right: 20px;
   border: none;
@@ -158,11 +193,6 @@ const ImageCircle = styled.div`
   background-size: 100%;
   background-position: center;
   background-repeat: no-repeat;
-  @media screen and (max-width: 380px) {
-    margin-bottom: 20px;
-    width: 100px;
-    height: 100px;
-  }
 `;
 
 const Name = styled.h1`

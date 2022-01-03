@@ -6,11 +6,15 @@ import Track from "../../components/mypage/Track";
 import { RiPencilFill } from "react-icons/ri";
 import MusicPlayer from "../../components/mypage/MusicPlayer";
 import { history } from "../../redux/configStore";
+import { useDispatch } from "react-redux";
+import { actionCreators } from "../../redux/modules/mypage";
 import { apis } from "../../shared/api";
 
 const MyPage = (props) => {
   const [checkedInputs, setCheckedInputs] = useState([]);
   const track = useSelector((state) => state.mypage.track);
+  const user_info = useSelector((state) => state.mypage.user_info);
+  const dispatch = useDispatch();
 
   const changeRadio = (e) => {
     if (e.target.checked) {
@@ -20,11 +24,8 @@ const MyPage = (props) => {
 
   useEffect(() => {
     apis.getProfile().then((res) => {
-      console.log(res);
       const userId = res.data.user.userId;
-      apis.myPage(userId).then((res) => {
-        console.log(res);
-      });
+      dispatch(actionCreators.setTrackDB(userId));
     });
   }, []);
 
@@ -38,10 +39,12 @@ const MyPage = (props) => {
         }}
       >
         <Profile>
-          <ImageCircle src={props?.user_image} />
+          <div style={{ width: "150px", height: "150px", marginRight: "10px" }}>
+            <ImageCircle src={user_info.user_info?.profileImage} />
+          </div>
           <div>
             <div style={{ display: "flex", alignItems: "center" }}>
-              <Name>김용성</Name>
+              <Name>{user_info.user_info?.nickname}</Name>
               <RiPencilFill
                 style={{
                   fontSize: "20px",
@@ -56,13 +59,10 @@ const MyPage = (props) => {
               />
             </div>
             <Link href="http://www.naver.com" target="_blank">
-              sacoraa@naver.com
+              {user_info.user_info?.contact}
             </Link>
             <div style={{ width: "200px", wordBreak: "break-word" }}>
-              <Text>
-                안녕하세요. 저는 중후한 목소리를 가진 사람입니다. 자기소개란
-                입니다.
-              </Text>
+              <Text>{user_info.user_info?.introduce}</Text>
             </div>
           </div>
         </Profile>
@@ -106,22 +106,35 @@ const MyPage = (props) => {
           <FormCheckText>좋아요 목록</FormCheckText>
         </label>
       </div>
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          margin: "0px",
-          justifyContent: "space-between",
-        }}
-      >
-        {track?.track_info === undefined ? (
-          <Track />
-        ) : (
-          track?.track_info.map((p, idx) => {
+      {track?.track_info === undefined || track?.track_info.length < 1 ? (
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+        >
+          <OAODiv>
+            <OAOText>등록된 목소리가 없어요!</OAOText>
+            <OAOText>목소리를 등록해 주세요!</OAOText>
+            <OAO></OAO>
+          </OAODiv>
+        </div>
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            justifyItems: "left",
+          }}
+        >
+          {track?.track_info.map((p, idx) => {
             return <Track key={idx} {...p} />;
-          })
-        )}
-      </div>
+          })}
+        </div>
+      )}
+
       <MusicPlayer />
     </Container>
   );
@@ -131,6 +144,27 @@ MyPage.defaultProps = {
   user_image:
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgXaZTRs1NC8dvfYkOxERlkyi-nEMnP15bag&usqp=CAU",
 };
+
+const OAODiv = styled.div`
+  position: relative;
+  top: 50px;
+`;
+
+const OAOText = styled.p`
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 12px;
+`;
+
+const OAO = styled.div`
+  width: 200px;
+  height: 210px;
+  margin: 55px auto 0px auto;
+
+  background-image: url("/assets/images/OAO.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+`;
 
 const FormCheckText = styled.span`
   font-size: 15px;
@@ -175,20 +209,15 @@ const Profile = styled.div`
 `;
 
 const ImageCircle = styled.div`
-  width: 150px;
-  height: 150px;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   margin-right: 20px;
-  border: 1px solid black;
+  border: none;
   background: url("${(props) => props.src}");
   background-size: 100%;
   background-position: center;
   background-repeat: no-repeat;
-  @media screen and (max-width: 380px) {
-    margin-bottom: 20px;
-    width: 100px;
-    height: 100px;
-  }
 `;
 
 const UpBtn = styled.button`

@@ -76,9 +76,12 @@ const Track = (props) => {
           style={{ cursor: "pointer" }}
         >
           <TextDiv>
-            <div style={{ width: "80px", height: "15px", textAlign: "center" }}>
+            <div style={{ width: "100px", height: "15px", textAlign: "left" }}>
               <div style={{ display: "flex" }}>
                 <Title>{props.title}</Title>
+                <p style={{ width: "30px", color: "white", fontSize: "8px" }}>
+                  더보기
+                </p>
               </div>
             </div>
             <Text>{props.category}</Text>
