@@ -26,7 +26,9 @@ const MenuModal = (props) => {
   const isMe = props.props.User.nickname === nick;
 
   const likeBtn = (trackId) => {
-    apis.likeTrack(trackId).then((res) => {});
+    apis.likeTrack(trackId).then((res) => {
+      console.log(res);
+    });
   };
   const [modalOpen, setModalOpen] = React.useState(false);
 
@@ -100,7 +102,7 @@ const MenuModal = (props) => {
               <Title>{props.props.title}</Title>
               <div style={{ display: "flex", justifyContent: "center" }}>
                 {props.props.TrackTags.map((p, idx) => {
-                  return <DetailTag key={idx} {...p}></DetailTag>;
+                  return <DetailTag bg="black" key={idx} {...p}></DetailTag>;
                 })}
               </div>
               <SingleAudioPlayer

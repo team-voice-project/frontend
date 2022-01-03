@@ -2,22 +2,32 @@ import React from "react";
 import styled from "styled-components";
 
 const DetailTag = (props) => {
+  const { bg } = props;
+
+  const styles = {
+    bg,
+  };
+
   return (
     <div>
-      <Tag>{props.tag}</Tag>
+      <Tag {...styles}>{props.tag}</Tag>
     </div>
   );
 };
-
+DetailTag.defaultProps = {
+  bg: "",
+};
 export default DetailTag;
 
 const Tag = styled.button`
   margin: 10px 5px;
+  font-family: "Pretendard Variable", serif;
+  height: 28px;
   font-size: 12px;
   color: white;
   padding: 5px;
   border-radius: 10px;
   border: none;
-  background: black;
+  background: ${(props) => props.bg};
   cursor: Default;
 `;
