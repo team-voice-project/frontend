@@ -16,6 +16,13 @@ export const AUDIO_TYPE_LIST = [
   "audio/webm",
 ];
 
+// 글로벌 뮤직플레이어 숨김 페이지 리스트
+export const GLOBAL_PLAYER_ESCAPE_LIST = [
+  "/edit/base",
+  "/edit/record",
+  "/edit/final",
+];
+
 // 기본 프로필 경로
 export const DEFAULT_PROFILE_URL = "/assets/images/default_profile.png";
 

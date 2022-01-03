@@ -1,41 +1,62 @@
+import styled from "styled-components";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { GLOBAL_PLAYER_ESCAPE_LIST } from "../../shared/utils";
+
 import "react-jinke-music-player/assets/index.css";
 import "./custom.css";
 import ReactJkMusicPlayer from "react-jinke-music-player";
-import styled from "styled-components";
-import TestMusic from "./Testplay.mp3";
-import React from "react";
 
 const MusicPlayer = (props) => {
+  console.log(props);
+  const { pathname } = useLocation();
+  const [render, setRender] = useState(true);
+
+  useEffect(() => {
+    checkRenderState();
+  }, []);
+
+  const checkRenderState = () => {
+    const is_correct = GLOBAL_PLAYER_ESCAPE_LIST.some(
+      (url) => url === pathname
+    );
+    if (is_correct) {
+      setRender(false);
+    } else {
+      setRender(true);
+    }
+  };
+
   const audioLists = [
     {
       name: "새벽에 듣기 좋은 나래이션",
-      singer: "용용자",
-      cover: `${props.user_image}`,
-      musicSrc: `${TestMusic}`,
+      singer: "용용자1",
+      cover: `http://13.209.43.160/trackThumbnail/OAO1_face.png`,
+      musicSrc: `http://13.209.43.160/olryqo19mzk1641044909620.ogg`,
     },
     {
       name: "새벽에 듣기 좋은 나래이션",
-      singer: "용용자",
-      cover: `${props.user_image}`,
-      musicSrc: `${TestMusic}`,
+      singer: "용용자2",
+      cover: `http://13.209.43.160/trackThumbnail/OAO2_face.png`,
+      musicSrc: `http://13.209.43.160/olryqo19mzk1641044909620.ogg`,
     },
     {
       name: "새벽에 듣기 좋은 나래이션",
-      singer: "용용자",
-      cover: `${props.user_image}`,
-      musicSrc: `${TestMusic}`,
+      singer: "용용자3",
+      cover: `http://13.209.43.160/trackThumbnail/OAO3_face.png`,
+      musicSrc: `http://13.209.43.160/olryqo19mzk1641044909620.ogg`,
     },
     {
       name: "새벽에 듣기 좋은 나래이션",
-      singer: "용용자",
-      cover: `${props.user_image}`,
-      musicSrc: `${TestMusic}`,
+      singer: "용용자4",
+      cover: `http://13.209.43.160/trackThumbnail/OAO4_face.png`,
+      musicSrc: `http://13.209.43.160/olryqo19mzk1641044909620.ogg`,
     },
     {
       name: "새벽에 듣기 좋은 나래이션",
-      singer: "용용자",
-      cover: `${props.user_image}`,
-      musicSrc: `${TestMusic}`,
+      singer: "용용자5",
+      cover: `http://13.209.43.160/trackThumbnail/OAO5_face.png`,
+      musicSrc: `http://13.209.43.160/olryqo19mzk1641044909620.ogg`,
     },
   ];
 
@@ -50,20 +71,25 @@ const MusicPlayer = (props) => {
   };
 
   return (
-    <PlayerWrap>
-      <ReactJkMusicPlayer
-        audioLists={audioLists}
-        mode="full"
-        autoPlay={false}
-        showMediaSession
-        showDownload={false}
-        showThemeSwitch={false}
-        showReload={false}
-        toggleMode={false}
-        mobileMediaQuery="(max-width: 360px)"
-        locale={customLocale}
-      />
-    </PlayerWrap>
+    <>
+      {render && (
+        <PlayerWrap>
+          <ReactJkMusicPlayer
+            audioLists={audioLists}
+            mode="full"
+            autoPlay={false}
+            // showMediaSession={true}
+            showDownload={false}
+            showThemeSwitch={false}
+            showReload={false}
+            toggleMode={false}
+            mobileMediaQuery="(max-width: 360px)"
+            locale={customLocale}
+            icon={{ delete: "비우기" }}
+          />
+        </PlayerWrap>
+      )}
+    </>
   );
 };
 

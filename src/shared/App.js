@@ -19,11 +19,13 @@ import Error from "../pages/main/Error";
 import LoginCallback from "../shared/LoginCallback";
 import Auth from "../shared/auth";
 import ErrorHandlePage from "./ErrorHandlePage";
+import MusicPlayer from "../components/jinkePlayer/MusicPlayer";
 
 function App() {
   return (
     <>
       <GlobalStyles />
+      <MusicPlayer />
       <Switch>
         <Route path="/" component={Main} exact />
         <Route path="/category" component={Category} exact />

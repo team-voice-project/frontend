@@ -139,8 +139,6 @@ const MyPage = (props) => {
             })}
           </div>
         )}
-
-        <MusicPlayer />
       </Container>
     </>
   );

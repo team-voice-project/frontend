@@ -1,3 +1,28 @@
+/* 재생목록 */
+.audio-lists-panel {
+  border-radius: 0;
+}
+
+.audio-lists-panel-header {
+  border-bottom: 0;
+  box-shadow: none;
+}
+
+/* 재생목록 -> 비우기 버튼 */
+.audio-lists-panel-header-delete-btn {
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 3px;
+  border: 1px solid #adadad;
+}
+
+.audio-lists-panel-header-delete-btn:hover {
+  border-color: #fff;
+}
+
+.audio-lists-panel-header-line {
+  background: none;
+}
 
 /* 플레이어 배경 */
 .react-jinke-music-player-main .music-player-panel {
@@ -97,8 +122,45 @@
 }
 
 .audio-lists-panel {
-  height: calc(100vh - 80px);
+  height: calc(100vh - 70px);
   width: 100%;
   max-width: 480px;
   right: 0;
+  top: 0;
 }
+
+.player-content .group.play-sounds {
+  position: relative;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.player-content .group.play-sounds .sounds-icon {
+  margin-right: 0 !important;
+}
+
+.player-content .group.play-sounds .rc-slider.sound-operation {
+  display: none;
+  position: absolute;
+  bottom: 60px;
+  left: -40px;
+}
+
+.player-content .group.play-sounds .rc-slider.sound-operation::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: -10px;
+  left: -20px;
+  right: -20px;
+  bottom: -10px;
+  border: 1px solid #000;
+  border-radius: 3px;
+  background-color: #3f3f3f;
+  z-index: -1;
+}
+
+.player-content .group.play-sounds:hover .sound-operation {
+  display: block !important;
+}
+

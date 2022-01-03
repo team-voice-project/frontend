@@ -77,8 +77,6 @@ const Main = (props) => {
               </React.Fragment>
             );
           })}
-
-        <MusicPlayer />
       </WrapDiv>
     </>
   );
