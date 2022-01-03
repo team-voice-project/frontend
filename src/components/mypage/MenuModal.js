@@ -4,7 +4,6 @@ import Container from "../../elements/Container";
 import { IoIosClose } from "react-icons/io";
 import { BsFillHeartFill } from "react-icons/bs";
 import { ImShare } from "react-icons/im";
-import { AiOutlineComment } from "react-icons/ai";
 import CommentList from "./CommentList";
 import CommentWrite from "./CommentWrite";
 import DetailTag from "./DetailTag";
@@ -12,9 +11,10 @@ import { history } from "../../redux/configStore";
 import { useSelector } from "react-redux";
 import { MdOutlineMoreVert } from "react-icons/md";
 import { useDispatch } from "react-redux";
-import { actionCreators as trackCreators } from "../../redux/modules/mypage";
 import SingleAudioPlayer from "../../shared/SingleAudioPlayer";
 import { apis } from "../../shared/api";
+import { RiChat4Fill } from "react-icons/ri";
+
 const MenuModal = (props) => {
   const { open, close } = props;
   const state = useSelector((state) => state.comment.comments);
@@ -27,7 +27,6 @@ const MenuModal = (props) => {
       // console.log(res);
     });
   };
-  // console.log(props);
 
   return (
     <>
@@ -44,10 +43,15 @@ const MenuModal = (props) => {
               >
                 <MdOutlineMoreVert
                   size="20px"
-                  style={{ margin: "10px 10px" }}
+                  style={{ margin: "13px 10px 0 0px" }}
                 />
-                <ImShare size="20px" />
-                <IoIosClose size="40px" color="white" onClick={close} />
+                <ImShare style={{ margin: "10px 0px 0 0px" }} size="20px" />
+                <IoIosClose
+                  style={{ margin: "13px 0px 0 0px" }}
+                  size="40px"
+                  color="white"
+                  onClick={close}
+                />
               </div>
               <Profile
                 onClick={() => {
@@ -65,11 +69,22 @@ const MenuModal = (props) => {
                   src={props.props.TrackThumbnail?.trackThumbnailUrlFull}
                 />
               </div>
+
+              <Title>{props.props.title}</Title>
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                {props.props.TrackTags.map((p, idx) => {
+                  return <DetailTag key={idx} {...p}></DetailTag>;
+                })}
+              </div>
+              <SingleAudioPlayer
+                // autoPlay
+                audio={props.props.trackUrl}
+              />
               <div
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  justifyContent: "center",
+                  justifyContent: "left",
                   marginTop: "20px",
                 }}
               >
@@ -86,7 +101,12 @@ const MenuModal = (props) => {
                         likeBtn(trackId);
                         setLikeBtn(false);
                       }}
-                      style={{ color: "red", marginRight: "5px" }}
+
+                      style={{
+                        fontSize: "22px",
+                        color: "red",
+                        marginRight: "5px",
+                      }}
                     />
                   ) : (
                     <BsFillHeartFill
@@ -94,32 +114,35 @@ const MenuModal = (props) => {
                         likeBtn(trackId);
                         setLikeBtn(true);
                       }}
-                      style={{ color: "white", marginRight: "5px" }}
+
+                      style={{
+                        fontSize: "22px",
+                        color: "white",
+                        marginRight: "5px",
+                      }}
                     />
                   )}
 
                   <Text>{props.props.Likes.length}</Text>
                 </div>
-                <div style={{ display: "flex", lineHeight: "50%" }}>
-                  <AiOutlineComment
+                <div
+                  style={{
+                    display: "flex",
+                    marginBottom: "2px",
+                    lineHeight: "80%",
+                  }}
+                >
+                  <RiChat4Fill
                     color="white"
-                    style={{ marginRight: "5px" }}
+                    style={{
+                      fontSize: "22px",
+                      color: "#545454",
+                      marginRight: "5px",
+                    }}
                   />
                   <Text>{props.props.Comments.length}</Text>
                 </div>
               </div>
-              <Title>{props.props.title}</Title>
-              <div style={{ display: "flex", justifyContent: "center" }}>
-                {props.props.TrackTags.map((p, idx) => {
-                  return <DetailTag key={idx} {...p}></DetailTag>;
-                })}
-              </div>
-
-              <SingleAudioPlayer
-                // autoPlay
-                audio={props.props.trackUrl}
-              />
-
               <div
                 style={{
                   margin: "10px 0px",
@@ -205,7 +228,7 @@ const Title = styled.h1`
 
 const Text = styled.p`
   margin-top: 5px;
-  font-size: 13px;
+  font-size: 17px;
   color: white;
 `;
 export default MenuModal;
