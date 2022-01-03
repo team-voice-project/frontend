@@ -22,6 +22,8 @@ const MenuModal = (props) => {
   const dispatch = useDispatch();
   const userId = props.props.userId;
   const trackId = props.props.trackId;
+  console.log(props.props.Comments);
+  console.log(state[0]);
   const likeBtn = (trackId) => {
     apis.likeTrack(trackId).then((res) => {
       console.log(res);
@@ -148,12 +150,13 @@ const MenuModal = (props) => {
                   overflowY: "scroll",
                 }}
               >
-                {state.map((p, idx) => {
-                  return <CommentList key={idx} {...p} />;
-                })}
-                {props.props.Comments.map((p, idx) => {
-                  return <CommentList {...props} key={idx} {...p} />;
-                })}
+                {state[0] === undefined
+                  ? props.props.Comments.map((p, idx) => {
+                      return <CommentList {...props} key={idx} {...p} />;
+                    })
+                  : state[0]?.map((p, idx) => {
+                      return <CommentList {...props} key={idx} {...p} />;
+                    })}
               </div>
               <CommentWrite {...props} />
             </Container>
@@ -163,6 +166,7 @@ const MenuModal = (props) => {
     </>
   );
 };
+
 MenuModal.defaultProps = {
   user_image:
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgXaZTRs1NC8dvfYkOxERlkyi-nEMnP15bag&usqp=CAU",

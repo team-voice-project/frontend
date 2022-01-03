@@ -40,7 +40,7 @@ const CommentList = (props) => {
               <ImageCircle src={props.user_image} />
               <div>
                 <div style={{ display: "flex", alignItems: "center" }}>
-                  <NickName>{props.User.nickname}</NickName>
+                  <NickName>{props.User?.nickname}</NickName>
                   <TimeName>{displayedAt(createdAt)}</TimeName>
                 </div>
                 <Text>{props.comment}</Text>
@@ -65,13 +65,6 @@ const CommentList = (props) => {
       </List>
     </React.Fragment>
   );
-};
-
-CommentList.defaultProps = {
-  nickname: "YYZA",
-  content: "목소리가 너무 좋다...",
-  user_image:
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgXaZTRs1NC8dvfYkOxERlkyi-nEMnP15bag&usqp=CAU",
 };
 
 const CommentStyle = styled.div`
