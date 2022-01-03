@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Button = (props) => {
-  const { bg, children, _onClick, _disabled, margin, border, _className } =
+  const { bg, children, _onClick, _disabled, margin, border, _className, _id } =
     props;
 
   const styles = {
@@ -10,6 +10,7 @@ const Button = (props) => {
     margin,
     border,
     className: _className,
+    id: _id,
   };
 
   return (

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { apis } from "../../shared/api";
+import { createKakaoButton } from "../../shared/social";
 
 import { Container, Font, Button } from "../../elements";
 import SingleAudioPlayer from "../../shared/SingleAudioPlayer";
@@ -13,12 +14,14 @@ const ShareTrack = ({ history }) => {
   const getTrackInfo = async (id) => {
     const res = await apis.getTrackInfoDB(id);
     setTrackInfo(res.data.track);
+    return res.data.track;
   };
 
-  useEffect(() => {
+  useEffect(async () => {
     const { track_id } = params;
     if (track_id) {
-      getTrackInfo(track_id);
+      const track_data = await getTrackInfo(track_id);
+      createKakaoButton(track_data);
     } else {
       alert("공유 정보를 불러올 수 없습니다.");
     }
@@ -72,7 +75,9 @@ const ShareTrack = ({ history }) => {
         </div>
 
         <div className={"btn-group"}>
-          <Button _className={"share-btn"}>공유하기</Button>
+          <Button _className={"share-btn"} _id={"kakao-link-btn"}>
+            공유하기
+          </Button>
           <Button _className={"mypage-btn"} _onClick={handleClickGoMypage}>
             마이페이지로 가기
           </Button>

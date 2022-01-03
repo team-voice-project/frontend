@@ -38,7 +38,6 @@ const sendTrackData = (track) => {
         const { trackId } = res.data;
         history.push(`/share/${trackId}`);
       } catch (err) {
-        // TODO: 업로드 실패 시 error 페이지 리다이렉팅 처리 할것
         console.log("[업로드 실패]", err.response);
       }
     } else if (track.mode === "update") {
@@ -55,7 +54,6 @@ const sendTrackData = (track) => {
         const res = await apis.updateTrack(track.track_id, update_date);
         history.push(`/share/${track.track_id}`);
       } catch (err) {
-        // TODO: 업데이트 실패 시 error 페이지 리다이렉팅 처리 할것
         console.log("[업데이트 실패]", err.response);
       }
     } else {
