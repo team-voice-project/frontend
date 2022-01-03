@@ -37,7 +37,7 @@ export const apis = {
     api.post(`/api/auth/${userId}`, { profileImage: "" }),
   trackUpload: (tracks) => api.post("/api/tracks", tracks),
   //
-  trackDelete: (trackID) => api.post(`/api/tracks/${trackID}`),
+  trackDelete: (trackId) => api.delete(`/api/tracks/${trackId}`),
   likeTrack: (trackId, like) => api.post(`/api/tracks/${trackId}/like`, like),
 
   myPage: (userId, userInfo, myTracks, likeTracks) =>

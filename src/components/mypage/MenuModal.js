@@ -13,6 +13,7 @@ import { MdOutlineMoreVert } from "react-icons/md";
 import SingleAudioPlayer from "../../shared/SingleAudioPlayer";
 import { apis } from "../../shared/api";
 import { RiChat4Fill } from "react-icons/ri";
+import DeleteModal from "./DeleteModal";
 
 const MenuModal = (props) => {
   const { open, close } = props;
@@ -26,10 +27,24 @@ const MenuModal = (props) => {
       console.log(res);
     });
   };
+  const [modalOpen, setModalOpen] = React.useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
   return (
     <>
       <div className={open ? "openModal modal" : "modal"}>
+        <DeleteModal
+          props={props}
+          open={modalOpen}
+          close={closeModal}
+          header={"123"}
+        />
         {open ? (
           <Section>
             <Container>
@@ -43,8 +58,17 @@ const MenuModal = (props) => {
                 <MdOutlineMoreVert
                   size="20px"
                   style={{ margin: "13px 10px 0 0px" }}
+                  onClick={() => {
+                    openModal();
+                  }}
                 />
-                <ImShare style={{ margin: "10px 0px 0 0px" }} size="20px" />
+                <ImShare
+                  onClick={() => {
+                    history.push(`/share/${trackId}`);
+                  }}
+                  style={{ margin: "10px 0px 0 0px" }}
+                  size="20px"
+                />
                 <IoIosClose
                   style={{ margin: "13px 0px 0 0px" }}
                   size="40px"
