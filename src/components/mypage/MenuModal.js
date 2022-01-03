@@ -23,9 +23,7 @@ const MenuModal = (props) => {
   const trackId = props.props.trackId;
 
   const likeBtn = (trackId) => {
-    apis.likeTrack(trackId).then((res) => {
-      console.log(res);
-    });
+    apis.likeTrack(trackId).then((res) => {});
   };
   const [modalOpen, setModalOpen] = React.useState(false);
 

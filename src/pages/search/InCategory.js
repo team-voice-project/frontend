@@ -23,8 +23,7 @@ const InCategory = (props) => {
   const track_list = useSelector((state) => state.post.post_list);
   const category = useSelector((state) => state.search.category_list);
   const tags = useSelector((state) => state.search.tags);
-  console.log("카테고리", track_list);
-  console.log("태그", tags);
+
   //undefined일때 화면관리하기
 
   const [show_modal, setShowModal] = React.useState(false);
