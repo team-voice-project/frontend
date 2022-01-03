@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
-import { actionCreators as postActions } from "../../redux/modules/post";
 import { actionCreators as searchActions } from "../../redux/modules/search";
 import CategoryModal from "../../components/category/CategoryModal";
 import Header from "../../components/category/Header";

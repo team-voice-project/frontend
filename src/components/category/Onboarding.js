@@ -11,6 +11,7 @@ import { HiHeart } from "react-icons/hi";
 import { RiChat4Fill } from "react-icons/ri";
 import { Button, Font, Tag } from "../../elements";
 import { useHistory } from "react-router-dom";
+import DetailTag from "../mypage/DetailTag";
 
 const OnBoarding = ({ setShowModal }) => {
   const history = useHistory();
@@ -211,17 +212,23 @@ const BoldFont = styled.div`
 `;
 
 const TagBox = styled.button`
-  width: 75px;
-  height: 32px;
-  background-color: #000000;
-  color: #fff;
-  border-radius: 20px;
-  font-size: 12px;
-  text-align: center;
+  /* text-align: center;
   align-items: center;
   margin: 4px 10px 8px 0px;
   border: none;
-  display: inline-block;
+  display: inline-block; */
+
+  margin: 10px 5px;
+  font-family: "Pretendard Variable", serif;
+  width: 54px;
+  height: 28px;
+  font-size: 12px;
+  color: white;
+  padding: 5px;
+  border-radius: 10px;
+  border: none;
+  background-color: #000;
+  cursor: Default;
 `;
 
 export default OnBoarding;

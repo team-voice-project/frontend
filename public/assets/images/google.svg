@@ -1,17 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="385" height="60" viewBox="0 0 385 60">
+<svg xmlns="http://www.w3.org/2000/svg" width="385" height="55" viewBox="0 0 385 55">
   <g id="그룹_5" data-name="그룹 5" transform="translate(-833 -2396)">
     <g id="사각형_5" data-name="사각형 5" transform="translate(833 2396)" fill="#fff" stroke="#707070" stroke-width="1">
-      <rect width="385" height="60" rx="11" stroke="none"/>
-      <rect x="0.5" y="0.5" width="384" height="59" rx="10.5" fill="none"/>
+      <rect width="385" height="55" rx="11" stroke="none"/>
+      <rect x="0.5" y="0.5" width="384" height="54" rx="10.5" fill="none"/>
     </g>
-    <g id="Google-Button" transform="translate(844 2411.03)">
-      <g id="btn_google_light_normal" transform="translate(3 2.97)">
+    <g id="Google-Button" transform="translate(847 2411.428)">
+      <g id="btn_google_light_normal" transform="translate(0 0)">
         <g id="button" transform="translate(0 0)">
           <g id="button-bg" transform="translate(0 0)">
-            <rect id="사각형_1" data-name="사각형 1" width="30" height="25" rx="2" transform="translate(0 0)" fill="#fff"/>
-            <rect id="사각형_2" data-name="사각형 2" width="30" height="25" rx="2" transform="translate(0 0)" fill="rgba(0,0,0,0)"/>
-            <rect id="사각형_3" data-name="사각형 3" width="30" height="25" rx="2" transform="translate(0 0)" fill="rgba(0,0,0,0)"/>
-            <rect id="사각형_4" data-name="사각형 4" width="30" height="25" rx="2" transform="translate(0 0)" fill="rgba(0,0,0,0)"/>
+            <rect id="사각형_1" data-name="사각형 1" width="30" height="25" rx="2" fill="#fff"/>
+            <rect id="사각형_2" data-name="사각형 2" width="30" height="25" rx="2" fill="rgba(0,0,0,0)"/>
+            <rect id="사각형_3" data-name="사각형 3" width="30" height="25" rx="2" fill="rgba(0,0,0,0)"/>
+            <rect id="사각형_4" data-name="사각형 4" width="30" height="25" rx="2" fill="rgba(0,0,0,0)"/>
           </g>
         </g>
         <g id="logo_googleg_48dp" transform="translate(3.89 0.783)">

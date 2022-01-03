@@ -79,7 +79,6 @@ const Wrap = styled.div`
   width: 100%;
   margin: auto;
   height: 50px;
-  /* background-color: #d4d1d1; */
 `;
 
 const Logo = styled.div`

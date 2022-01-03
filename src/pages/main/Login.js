@@ -26,8 +26,12 @@ const Login = ({ history, location }) => {
           </Flex>
         </SearchBar>
 
-        <LoginText>3초 로그인 후,</LoginText>
-        <LoginText>다시 만나요 OAO</LoginText>
+        <Font title fontSize="28px">
+          3초 로그인 후,
+        </Font>
+        <Font title fontSize="28px">
+          다시 만나요 OAO
+        </Font>
 
         <OAOImage></OAOImage>
 
@@ -83,8 +87,8 @@ const LoginText = styled.div`
 
 const OAOImage = styled.div`
   width: 180px;
-  height: 180px;
-  margin: 90px auto 35px auto;
+  height: 200px;
+  margin: 85px auto 35px auto;
 
   background-image: url("/assets/images/OAOoriginal.png");
   background-repeat: no-repeat;

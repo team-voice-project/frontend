@@ -14,20 +14,14 @@ import { useSelector } from "react-redux";
 const Search = (props) => {
   const dispatch = useDispatch();
 
-  const [seacrhTrack, setSearchTrack] = React.useState();
   const [show_modal, setShowmodal] = React.useState(true);
 
   const search_list = useSelector((state) => state.search.searchList);
-  console.log("서치리서터", search_list);
 
   const inputRef = React.useRef();
 
   const openModal = () => {
     setShowmodal(true);
-  };
-
-  const closeModal = () => {
-    setShowmodal(false);
   };
 
   const handleSearch = () => {
@@ -100,12 +94,12 @@ const Search = (props) => {
                 cursor="pointer"
                 onClick={openModal}
               ></RiArrowLeftSLine>
-              {/* <Multiline
+              <Multiline
                 style={{
                   margin: "20px 0px",
                 }}
                 type="text"
-              ></Multiline> */}
+              ></Multiline>
             </Flex>
 
             <TrackGrid>
