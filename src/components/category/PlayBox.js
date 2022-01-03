@@ -11,7 +11,7 @@ const PlayBox = (props) => {
   const Image = props.TrackThumbnail.trackThumbnailUrlFace;
   const [modalOpen, setModalOpen] = React.useState(false);
   const [playBtn, setPlayBtn] = React.useState(false);
-
+  console.log(props.Likes.likeCnt);
   const openModal = () => {
     setModalOpen(true);
   };
@@ -99,7 +99,7 @@ const PlayBox = (props) => {
                 }}
               >
                 <FcLike style={{ marginRight: "5px" }} />
-                <Text>{props.Likes.length}</Text>
+                <Text>{props.Likes.likeCnt}</Text>
               </div>
               <div style={{ display: "flex", alignItems: "center" }}>
                 <RiChat4Fill style={{ marginRight: "5px", marginTop: "3px" }} />
