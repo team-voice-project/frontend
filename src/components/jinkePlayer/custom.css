@@ -1,0 +1,31 @@
+/* 플레이어 배경 */
+.react-jinke-music-player-main .music-player-panel {
+  height: 70px;
+  background-color: #1D1D1D;
+}
+
+/* 재생 썸네일 이미지 */
+.react-jinke-music-player-main .music-player-panel .panel-content .img-content {
+  background-size: cover;
+  background-position: center;
+}
+
+/* 프로그레스바 핸들 아이콘 */
+.rc-slider-handle {
+  width: 10px;
+  height: 10px;
+  margin-top: -3.5px;
+}
+
+.react-jinke-music-player-main .music-player-panel .panel-content .rc-slider-handle {
+  border: 0;
+}
+
+/* 재생시간 숨김 */
+.react-jinke-music-player-main .music-player-panel .panel-content .progress-bar-content .audio-main .current-time {
+  display: none;
+}
+
+.react-jinke-music-player-main .music-player-panel .panel-content .progress-bar-content .audio-main .duration {
+  display: none;
+}

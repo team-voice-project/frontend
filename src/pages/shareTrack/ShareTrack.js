@@ -70,7 +70,7 @@ const ShareTrack = ({ history }) => {
           </div>
         </div>
 
-        <div className={"player-widget"}>
+        <div className={"jinkePlayer-widget"}>
           <SingleAudioPlayer audio={track_info?.trackUrl} />
         </div>
 

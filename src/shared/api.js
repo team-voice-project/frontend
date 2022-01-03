@@ -25,8 +25,13 @@ api.interceptors.response.use(
   },
   (error) => {
     const code = error.response.status;
-    console.log("API 인터셉터 -> ", code);
-    return history.push(`/error/${code}`);
+    if (error.response.data === "사용중인 닉네임입니다") {
+      // 프로필 수정 시 이미 존재하는 닉네임으로 수정 할 경우 예외처리
+      alert(error.response.data);
+      return;
+    } else {
+      return history.push(`/error/${code}`);
+    }
   }
 );
 
