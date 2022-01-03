@@ -6,6 +6,7 @@ import { createKakaoButton } from "../../shared/social";
 
 import { Container, Font, Button } from "../../elements";
 import SingleAudioPlayer from "../../shared/SingleAudioPlayer";
+import DetailTag from "../../components/mypage/DetailTag";
 
 const ShareTrack = ({ history }) => {
   const params = useParams();
@@ -52,13 +53,11 @@ const ShareTrack = ({ history }) => {
           <div className={"track-tags"}>
             {track_info?.TrackTags.map((item, idx) => {
               return (
-                <button
+                <DetailTag
                   key={`tag-id-${idx}`}
-                  type={"button"}
-                  className={"tag-item"}
-                >
-                  {item.tag}
-                </button>
+                  tag={item.tag}
+                  bg={"#2c2b2b"}
+                />
               );
             })}
           </div>
@@ -138,23 +137,25 @@ const ShareWrap = styled.article`
     }
 
     .track-tags {
+      display: flex;
       margin-bottom: 12px;
+      justify-content: center;
 
-      .tag-item {
-        font-size: 13px;
-        border: 0;
-        color: #fff;
-        border-radius: 30px;
-        padding: 9px 11px;
-        background-color: #2c2b2b;
-        margin-right: 8px;
-        min-width: 60px;
-        font-family: "Pretendard Variable", serif;
-
-        &:last-child {
-          margin-right: 0;
-        }
-      }
+      //.tag-item {
+      //  font-size: 13px;
+      //  border: 0;
+      //  color: #fff;
+      //  border-radius: 30px;
+      //  padding: 9px 11px;
+      //  background-color: #2c2b2b;
+      //  margin-right: 8px;
+      //  min-width: 60px;
+      //  font-family: "Pretendard Variable", serif;
+      //
+      //  &:last-child {
+      //    margin-right: 0;
+      //  }
+      //}
     }
   }
 
