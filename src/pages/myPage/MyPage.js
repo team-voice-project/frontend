@@ -12,8 +12,6 @@ const MyPage = (props) => {
   const [checkedInputs, setCheckedInputs] = useState([]);
   const track = useSelector((state) => state.mypage.track);
 
-  console.log(props);
-
   const changeRadio = (e) => {
     if (e.target.checked) {
       setCheckedInputs(e.target.id);
@@ -23,6 +21,10 @@ const MyPage = (props) => {
   useEffect(() => {
     apis.getProfile().then((res) => {
       console.log(res);
+      const userId = res.data.user.userId;
+      apis.myPage(userId).then((res) => {
+        console.log(res);
+      });
     });
   }, []);
 

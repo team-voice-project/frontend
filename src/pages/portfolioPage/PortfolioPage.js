@@ -16,8 +16,6 @@ const PortfolioPage = (props) => {
   const [checkedInputs, setCheckedInputs] = useState([]);
   const track = useSelector((state) => state.mypage.track);
   const user_info = useSelector((state) => state.mypage.user_info);
-  const PROPS = props.location.props?.props;
-  console.log(user_info);
   const userId = useParams()?.userId;
   const changeRadio = (e) => {
     if (e.target.checked) {
@@ -45,11 +43,11 @@ const PortfolioPage = (props) => {
           size="30px"
         />
         <Profile>
-          <ImageCircle src={PROPS?.TrackThumbnail.trackThumbnailUrlFull} />
+          <ImageCircle src={user_info.user_info?.profileImage} />
           <div>
             <Name>{user_info.user_info?.nickname}</Name>
             <Link href="http://www.naver.com" target="_blank">
-              {user_info.user_info?.snsId}
+              {user_info.user_info?.contact}
             </Link>
             <div style={{ width: "200px", wordBreak: "break-word" }}>
               <Text>{user_info.user_info?.introduce}</Text>

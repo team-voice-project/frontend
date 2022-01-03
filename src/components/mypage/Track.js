@@ -10,7 +10,6 @@ import { RiChat4Fill } from "react-icons/ri";
 const Track = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [playBtn, setPlayBtn] = useState(false);
-  console.log(props?.Likes?.length);
 
   const openModal = () => {
     setModalOpen(true);
@@ -97,7 +96,7 @@ const Track = (props) => {
                 }}
               >
                 <FcLike style={{ marginRight: "5px" }} />
-                <Text>{props.Likes.likeCnt}</Text>
+                <Text>{props?.Likes?.likeCnt}</Text>
               </div>
               <div style={{ display: "flex", alignItems: "center" }}>
                 <RiChat4Fill style={{ marginRight: "5px", marginTop: "3px" }} />

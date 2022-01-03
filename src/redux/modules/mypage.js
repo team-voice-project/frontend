@@ -18,8 +18,8 @@ const setTrackDB = (userId) => {
   return (dispatch, getState, { history }) => {
     apis.myPage(userId).then((res) => {
       console.log(res);
-      dispatch(setTrack(res.data.tracks));
-      dispatch(setUser(res.data.userData));
+      dispatch(setTrack(res.data.results));
+      dispatch(setUser(res.data.userDate));
     });
   };
 };
