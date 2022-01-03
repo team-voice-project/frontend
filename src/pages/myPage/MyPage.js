@@ -9,6 +9,7 @@ import { history } from "../../redux/configStore";
 import { useDispatch } from "react-redux";
 import { actionCreators } from "../../redux/modules/mypage";
 import { apis } from "../../shared/api";
+import Header from "../../components/category/Header";
 
 const MyPage = (props) => {
   const [checkedInputs, setCheckedInputs] = useState([]);
@@ -30,113 +31,118 @@ const MyPage = (props) => {
   }, []);
 
   return (
-    <Container>
-      <div
-        style={{
-          background: "white",
-          padding: "50px 10px 10px 10px",
-          height: "100%",
-        }}
-      >
-        <Profile>
-          <div style={{ width: "150px", height: "150px", marginRight: "10px" }}>
-            <ImageCircle src={user_info.user_info?.profileImage} />
-          </div>
-          <div>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <Name>{user_info.user_info?.nickname}</Name>
-              <RiPencilFill
-                style={{
-                  fontSize: "20px",
-                  color: "#F1134E",
-                  marginBottom: "7px",
-                }}
-                onClick={() => {
-                  history.push({
-                    pathname: "/edit/profile",
-                  });
-                }}
-              />
-            </div>
-            <Link href="http://www.naver.com" target="_blank">
-              {user_info.user_info?.contact}
-            </Link>
-            <div style={{ width: "200px", wordBreak: "break-word" }}>
-              <Text>{user_info.user_info?.introduce}</Text>
-            </div>
-          </div>
-        </Profile>
-        <UpBtn
-          onClick={() => {
-            history.push("/edit/base");
+    <>
+      <Header topMenu props={props} />
+      <Container>
+        <div
+          style={{
+            background: "white",
+            padding: "50px 10px 10px 10px",
+            height: "100%",
           }}
         >
-          나의 목소리 올리기{" "}
-        </UpBtn>
-      </div>
+          <Profile>
+            <div
+              style={{ width: "150px", height: "150px", marginRight: "10px" }}
+            >
+              <ImageCircle src={user_info.user_info?.profileImage} />
+            </div>
+            <div>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Name>{user_info.user_info?.nickname}</Name>
+                <RiPencilFill
+                  style={{
+                    fontSize: "20px",
+                    color: "#F1134E",
+                    marginBottom: "7px",
+                  }}
+                  onClick={() => {
+                    history.push({
+                      pathname: "/edit/profile",
+                    });
+                  }}
+                />
+              </div>
+              <Link href="http://www.naver.com" target="_blank">
+                {user_info.user_info?.contact}
+              </Link>
+              <div style={{ width: "200px", wordBreak: "break-word" }}>
+                <Text>{user_info.user_info?.introduce}</Text>
+              </div>
+            </div>
+          </Profile>
+          <UpBtn
+            onClick={() => {
+              history.push("/edit/base");
+            }}
+          >
+            나의 목소리 올리기{" "}
+          </UpBtn>
+        </div>
 
-      <div
-        style={{
-          display: "flex",
-          textAlign: "center",
-          justifyContent: "center",
-          margin: "20px 0 0 0",
-        }}
-      >
-        <label style={{ marginRight: "10px" }}>
-          <FormCheckLeft
-            type="radio"
-            {...props}
-            id={props.id}
-            name="radioButton"
-            onChange={changeRadio}
-            value={checkedInputs}
-          />
-          <FormCheckText>트랙 리스트</FormCheckText>
-        </label>
-        <label>
-          <FormCheckLeft
-            type="radio"
-            {...props}
-            id={props.id}
-            name="radioButton"
-            onChange={changeRadio}
-            value={checkedInputs}
-          />
-          <FormCheckText>좋아요 목록</FormCheckText>
-        </label>
-      </div>
-      {track?.track_info === undefined || track?.track_info.length < 1 ? (
         <div
           style={{
             display: "flex",
-            flexWrap: "wrap",
+            textAlign: "center",
             justifyContent: "center",
+            margin: "20px 0 0 0",
           }}
         >
-          <OAODiv>
-            <OAOText>등록된 목소리가 없어요!</OAOText>
-            <OAOText>목소리를 등록해 주세요!</OAOText>
-            <OAO></OAO>
-          </OAODiv>
+          <label style={{ marginRight: "10px" }}>
+            <FormCheckLeft
+              type="radio"
+              {...props}
+              id={props.id}
+              name="radioButton"
+              onChange={changeRadio}
+              value={checkedInputs}
+            />
+            <FormCheckText>트랙 리스트</FormCheckText>
+          </label>
+          <label>
+            <FormCheckLeft
+              type="radio"
+              {...props}
+              id={props.id}
+              name="radioButton"
+              onChange={changeRadio}
+              value={checkedInputs}
+            />
+            <FormCheckText>좋아요 목록</FormCheckText>
+          </label>
         </div>
-      ) : (
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-            justifyItems: "left",
-          }}
-        >
-          {track?.track_info.map((p, idx) => {
-            return <Track key={idx} {...p} />;
-          })}
-        </div>
-      )}
+        {track?.track_info === undefined || track?.track_info.length < 1 ? (
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+            }}
+          >
+            <OAODiv>
+              <OAOText>등록된 목소리가 없어요!</OAOText>
+              <OAOText>목소리를 등록해 주세요!</OAOText>
+              <OAO></OAO>
+            </OAODiv>
+          </div>
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "space-between",
+              justifyItems: "left",
+            }}
+          >
+            {track?.track_info.map((p, idx) => {
+              return <Track key={idx} {...p} />;
+            })}
+          </div>
+        )}
 
-      <MusicPlayer />
-    </Container>
+        <MusicPlayer />
+      </Container>
+    </>
   );
 };
 
