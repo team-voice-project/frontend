@@ -41,157 +41,159 @@ const MenuModal = (props) => {
 
   return (
     <>
-      <div className={open ? "openModal modal" : "modal"}>
-        <DeleteModal
-          props={props}
-          open={modalOpen}
-          close={closeModal}
-          header={"123"}
-        />
-        {open ? (
-          <Section>
-            <Container>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "right",
-                  alignItems: "center",
-                }}
-              >
-                {isMe && (
-                  <MdOutlineMoreVert
-                    size="20px"
-                    style={{ margin: "13px 10px 0 0px", cursor: "pointer" }}
-                    onClick={() => {
-                      openModal();
-                    }}
-                  />
-                )}
-
-                <ImShare
-                  onClick={() => {
-                    history.push(`/share/${trackId}`);
-                  }}
-                  style={{ margin: "10px 0px 0 0px", cursor: "pointer" }}
-                  size="20px"
-                />
-                <IoIosClose
-                  style={{ margin: "13px 0px 0 0px", cursor: "pointer" }}
-                  size="40px"
-                  color="white"
-                  onClick={close}
-                />
-              </div>
-              <Profile
-                onClick={() => {
-                  history.push({
-                    pathname: `/portfolio/${userId}`,
-                  });
-                  close();
-                }}
-              >
-                <ProfileCircle src={props.user_image} />
-                <Name>{props.props.User.nickname}</Name>
-              </Profile>
-              <div style={{ textAlign: "center" }}>
-                <ImageCircle
-                  src={props.props.TrackThumbnail?.trackThumbnailUrlFull}
-                />
-              </div>
-
-              <Title>{props.props.title}</Title>
-              <div style={{ display: "flex", justifyContent: "center" }}>
-                {props.props.TrackTags.map((p, idx) => {
-                  return <DetailTag bg="black" key={idx} {...p}></DetailTag>;
-                })}
-              </div>
-              <SingleAudioPlayer
-                // autoPlay
-                audio={props.props.trackUrl}
-              />
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "left",
-                  marginTop: "20px",
-                }}
-              >
+      {open && (
+        <div className={"openModal modal"}>
+          <DeleteModal
+            props={props}
+            open={modalOpen}
+            close={closeModal}
+            header={"123"}
+          />
+          {open ? (
+            <Section>
+              <Container>
                 <div
                   style={{
                     display: "flex",
-                    marginRight: "15px",
-                    lineHeight: "50%",
+                    justifyContent: "right",
+                    alignItems: "center",
                   }}
                 >
-                  {LikeBtn ? (
-                    <BsFillHeartFill
+                  {isMe && (
+                    <MdOutlineMoreVert
+                      size="20px"
+                      style={{ margin: "13px 10px 0 0px", cursor: "pointer" }}
                       onClick={() => {
-                        likeBtn(trackId);
-                        setLikeBtn(false);
-                      }}
-                      style={{
-                        fontSize: "22px",
-                        color: "red",
-                        marginRight: "5px",
-                        cursor: "pointer",
-                      }}
-                    />
-                  ) : (
-                    <BsFillHeartFill
-                      onClick={() => {
-                        likeBtn(trackId);
-                        setLikeBtn(true);
-                      }}
-                      style={{
-                        fontSize: "22px",
-                        color: "white",
-                        marginRight: "5px",
-                        cursor: "pointer",
+                        openModal();
                       }}
                     />
                   )}
 
-                  <Text>{props.props.Likes.likeCnt}</Text>
+                  <ImShare
+                    onClick={() => {
+                      history.push(`/share/${trackId}`);
+                    }}
+                    style={{ margin: "10px 0px 0 0px", cursor: "pointer" }}
+                    size="20px"
+                  />
+                  <IoIosClose
+                    style={{ margin: "13px 0px 0 0px", cursor: "pointer" }}
+                    size="40px"
+                    color="white"
+                    onClick={close}
+                  />
                 </div>
+                <Profile
+                  onClick={() => {
+                    history.push({
+                      pathname: `/portfolio/${userId}`,
+                    });
+                    close();
+                  }}
+                >
+                  <ProfileCircle src={props.user_image} />
+                  <Name>{props.props.User.nickname}</Name>
+                </Profile>
+                <div style={{ textAlign: "center" }}>
+                  <ImageCircle
+                    src={props.props.TrackThumbnail?.trackThumbnailUrlFull}
+                  />
+                </div>
+
+                <Title>{props.props.title}</Title>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  {props.props.TrackTags.map((p, idx) => {
+                    return <DetailTag bg="black" key={idx} {...p}></DetailTag>;
+                  })}
+                </div>
+                <SingleAudioPlayer
+                  // autoPlay
+                  audio={props.props.trackUrl}
+                />
                 <div
                   style={{
                     display: "flex",
-                    marginBottom: "2px",
-                    lineHeight: "80%",
+                    alignItems: "center",
+                    justifyContent: "left",
+                    marginTop: "20px",
                   }}
                 >
-                  <RiChat4Fill
-                    color="white"
+                  <div
                     style={{
-                      fontSize: "22px",
-                      color: "#545454",
-                      marginRight: "5px",
+                      display: "flex",
+                      marginRight: "15px",
+                      lineHeight: "50%",
                     }}
-                  />
-                  <Text>{props.props.Comments.length}</Text>
+                  >
+                    {LikeBtn ? (
+                      <BsFillHeartFill
+                        onClick={() => {
+                          likeBtn(trackId);
+                          setLikeBtn(false);
+                        }}
+                        style={{
+                          fontSize: "22px",
+                          color: "red",
+                          marginRight: "5px",
+                          cursor: "pointer",
+                        }}
+                      />
+                    ) : (
+                      <BsFillHeartFill
+                        onClick={() => {
+                          likeBtn(trackId);
+                          setLikeBtn(true);
+                        }}
+                        style={{
+                          fontSize: "22px",
+                          color: "white",
+                          marginRight: "5px",
+                          cursor: "pointer",
+                        }}
+                      />
+                    )}
+
+                    <Text>{props.props.Likes.likeCnt}</Text>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      marginBottom: "2px",
+                      lineHeight: "80%",
+                    }}
+                  >
+                    <RiChat4Fill
+                      color="white"
+                      style={{
+                        fontSize: "22px",
+                        color: "#545454",
+                        marginRight: "5px",
+                      }}
+                    />
+                    <Text>{props.props.Comments.length}</Text>
+                  </div>
                 </div>
-              </div>
-              <div
-                style={{
-                  margin: "10px 0px",
-                  height: "410px",
-                  overflowY: "scroll",
-                }}
-              >
-                {state[0] === undefined
-                  ? props.props.Comments.map((p, idx) => {
-                      return <CommentList {...props} key={idx} {...p} />;
-                    })
-                  : state[0]?.map((p, idx) => {
-                      return <CommentList {...props} key={idx} {...p} />;
-                    })}
-              </div>
-              <CommentWrite {...props} />
-            </Container>
-          </Section>
-        ) : null}
-      </div>
+                <div
+                  style={{
+                    margin: "10px 0px",
+                    height: "410px",
+                    overflowY: "scroll",
+                  }}
+                >
+                  {state[0] === undefined
+                    ? props.props.Comments.map((p, idx) => {
+                        return <CommentList {...props} key={idx} {...p} />;
+                      })
+                    : state[0]?.map((p, idx) => {
+                        return <CommentList {...props} key={idx} {...p} />;
+                      })}
+                </div>
+                <CommentWrite {...props} />
+              </Container>
+            </Section>
+          ) : null}
+        </div>
+      )}
     </>
   );
 };
