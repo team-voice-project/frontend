@@ -25,7 +25,7 @@ export default (Page, checkAuth) => {
       // 로그인을 하지 않았는데 로그인 필요한 페이지에 있을 경우
       if (!is_login && checkAuth) {
         alert("로그인이 필요한 페이지 입니다.");
-        props.history.push("/login");
+        props.history.replace("/login");
       }
 
       // 이미 로그인하여 현재 페이지에 있을 필요가 없는 경우
