@@ -41,9 +41,8 @@ const EditBase = ({ history }) => {
       setMenuInfo(menu_info);
     } else {
       alert(
-        "목소리 업로드 페이지를 이용 할 수 없습니다 :( \n 관리자에게 문의하세요."
+        "목소리 업로드 페이지를 이용 할 수 없습니다 :(\n관리자에게 문의하세요."
       );
-      history.replace("/");
     }
 
     //  수정 시 기존 데이터 불러오기

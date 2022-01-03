@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { useLocation } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 
 import Header from "../../components/category/Header";
@@ -13,7 +12,7 @@ const Category = (props) => {
   const dispatch = useDispatch();
 
   const category_list = useSelector((state) => state.post.Image_list);
-
+  console.log("전체가 없어", category_list);
   React.useEffect(() => {
     dispatch(postActions.loadImageDB());
   }, []);

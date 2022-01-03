@@ -99,11 +99,11 @@ const PlayBox = (props) => {
                 }}
               >
                 <FcLike style={{ marginRight: "5px" }} />
-                <Text>0</Text>
+                <Text>{props.Likes.length}</Text>
               </div>
               <div style={{ display: "flex", alignItems: "center" }}>
                 <RiChat4Fill style={{ marginRight: "5px", marginTop: "3px" }} />
-                <Text>0</Text>
+                <Text>{props.Comments.length}</Text>
               </div>
             </div>
           </div>

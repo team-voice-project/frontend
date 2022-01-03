@@ -24,11 +24,7 @@ const EditFinal = ({ history }) => {
         "작성중인 목소리 정보를 찾을 수 없습니다. 다시 처음부터 시도하세요."
       );
 
-      if (track_id) {
-        history.push(`/edit/base/${track_id}`);
-      } else {
-        history.push(`/edit/base`);
-      }
+      history.goBack();
     }
 
     return () => {};

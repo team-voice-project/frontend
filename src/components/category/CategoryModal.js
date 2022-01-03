@@ -1,18 +1,24 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as searchActions } from "../../redux/modules/search";
 
 import { Button, Container } from "../../elements";
 
 import { IoCloseSharp } from "react-icons/io5";
+import { useHistory } from "react-router-dom";
 
 const CategoryModal = ({ setShowModal, tagList, name }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const category = name;
   const [tag_list, setTagList] = React.useState([]);
   const [is_disabled, setIsDisabled] = React.useState(true);
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
   useEffect(() => {
     const trueActive = tag_list.filter((tag, idx) => {
@@ -42,6 +48,7 @@ const CategoryModal = ({ setShowModal, tagList, name }) => {
     const trueActive = tag_list.filter((tag, idx) => {
       return tag.active === true;
     });
+    console.log("trueActive", trueActive);
     if (!tag_list[idx].active && trueActive.length > 2) {
       return window.alert("이미 3가지를 선택하셨어요.");
     }
@@ -59,7 +66,15 @@ const CategoryModal = ({ setShowModal, tagList, name }) => {
     const tags = trueActiveList[0].map((list, idx) => {
       return list.tag;
     });
+    console.log("tags", tags);
+    const tag1 = tags[0];
+    const tag2 = tags[1];
+    const tag3 = tags[2];
+
+    console.log("태그들아", tag1, tag2, tag3);
+
     dispatch(searchActions.loadCategoryDB(category, ...tags));
+    history.push(`/tagcategory/${name}/${tag1}/${tag2}/${tag3}`);
     setShowModal(false);
   };
 
@@ -68,8 +83,8 @@ const CategoryModal = ({ setShowModal, tagList, name }) => {
       <BackGround>
         <Wrap>
           <Modal>
-            <Icon>
-              <IoCloseSharp size="20"></IoCloseSharp>
+            <Icon onClick={closeModal}>
+              <IoCloseSharp size="20" cursor="pointer"></IoCloseSharp>
             </Icon>
 
             <TagDiv>
@@ -120,7 +135,6 @@ const Wrap = styled.div`
 `;
 
 const Modal = styled.div`
-  cursor: pointer;
   position: absolute;
   bottom: 0;
   max-width: 425px;

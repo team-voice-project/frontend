@@ -11,6 +11,7 @@ const Track = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [playBtn, setPlayBtn] = useState(false);
   const dispatch = useDispatch();
+  console.log("프롭스", props);
   const openModal = () => {
     setModalOpen(true);
   };
@@ -96,11 +97,11 @@ const Track = (props) => {
                 }}
               >
                 <FcLike style={{ marginRight: "5px" }} />
-                <Text>0</Text>
+                <Text>{props?.Likes?.length}</Text>
               </div>
               <div style={{ display: "flex", alignItems: "center" }}>
                 <RiChat4Fill style={{ marginRight: "5px", marginTop: "3px" }} />
-                <Text>0</Text>
+                <Text>{props?.Comments?.length}</Text>
               </div>
             </div>
           </TextDiv>

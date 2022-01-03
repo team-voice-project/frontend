@@ -16,8 +16,16 @@ const OnBoarding = ({ setShowModal }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const track_list = useSelector((state) => state.post.post_list);
+  const track_list = useSelector((state) => state.post.onboarding);
   console.log("여기", track_list);
+
+  const randomData = () => {
+    if (track_list) {
+      const random = Math.floor(Math.random() * track_list.length);
+      return track_list[random];
+    }
+  };
+  console.log("랜덤으로 나와?", randomData());
 
   React.useEffect(() => {
     dispatch(postActions.loadPostDB());
@@ -29,7 +37,12 @@ const OnBoarding = ({ setShowModal }) => {
       <Container>
         <BoxDiv>
           <Flex>
-            <SmallCircle></SmallCircle>
+            <SmallCircle
+              src={
+                randomData() &&
+                randomData().TrackThumbnail.trackThumbnailUrlFace
+              }
+            ></SmallCircle>
             <div
               style={{
                 width: "80px",
@@ -37,22 +50,34 @@ const OnBoarding = ({ setShowModal }) => {
               }}
             >
               <Font title margin="2px 0px 0px 8px">
-                조은영
+                {randomData() && randomData().User.nickname}
               </Font>
             </div>
           </Flex>
-          <div>
-            <OAOImage></OAOImage>
-          </div>
-          <BoldFont>새벽에 어울리는 나레이션</BoldFont>
-
+          <ImgDiv>
+            <OAOImage
+              src={
+                randomData() &&
+                randomData().TrackThumbnail.trackThumbnailUrlFull
+              }
+            ></OAOImage>
+          </ImgDiv>
+          <BoldFont>{randomData() && randomData().title}</BoldFont>
           <FlexTag>
-            <Tag>깔끔한</Tag>
-            <Tag>깔끔한</Tag>
-            <Tag>깔끔한</Tag>
+            {randomData() &&
+              randomData().TrackTags.map((l, i) => {
+                console.log("맵돌려", l);
+                return (
+                  <div key={i} style={{ display: "inline-block" }}>
+                    <TagBox>{l.tag}</TagBox>
+                  </div>
+                );
+              })}
           </FlexTag>
 
-          <SingleAudioPlayer></SingleAudioPlayer>
+          <SingleAudioPlayer
+            audio={randomData() && randomData().trackUrl}
+          ></SingleAudioPlayer>
 
           <FlexCount>
             <CountBox>
@@ -123,7 +148,7 @@ const CountBox = styled.div`
 
 const FlexTag = styled.div`
   width: 100%;
-  margin: 4px auto 0px 0px;
+  margin: 4px auto 0px auto;
   text-align: center;
 `;
 
@@ -141,7 +166,7 @@ const FlexCount = styled.div`
   }
 `;
 
-const SmallCircle = styled.div`
+const SmallCircle = styled.img`
   width: 35px;
   height: 35px;
   border-radius: 35px;
@@ -153,11 +178,15 @@ const Name = styled.div`
   margin-left: 12px;
 `;
 
-const OAOImage = styled.div`
+const ImgDiv = styled.div`
   width: 160px;
   height: 160px;
-  background-color: #ddd;
   margin: 48px auto 25px auto;
+`;
+
+const OAOImage = styled.img`
+  width: 160px;
+  height: 160px;
 `;
 
 const IconDiv = styled.div`
@@ -182,7 +211,7 @@ const BoldFont = styled.div`
 `;
 
 const TagBox = styled.button`
-  width: 60px;
+  width: 75px;
   height: 32px;
   background-color: #000000;
   color: #fff;
@@ -190,7 +219,7 @@ const TagBox = styled.button`
   font-size: 12px;
   text-align: center;
   align-items: center;
-  margin: 15px 10px 0px 0px;
+  margin: 4px 10px 8px 0px;
   border: none;
   display: inline-block;
 `;

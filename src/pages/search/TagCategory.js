@@ -17,26 +17,66 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const InCategory = (props) => {
   const dispatch = useDispatch();
+
   const name = props.match.params.categoryName;
+  const tag1 = props.match.params.tag1;
+  const tag2 = props.match.params.tag2;
+  const tag3 = props.match.params.tag3;
+
+  const tags = [tag1, tag2, tag3];
 
   const tag_list = useSelector((state) => state.post.tag_list);
-  const track_list = useSelector((state) => state.post.post_list);
   const category = useSelector((state) => state.search.category_list);
-  const tags = useSelector((state) => state.search.tags);
-  console.log("카테고리", track_list);
-  console.log("태그", tags);
+  // const tags = useSelector((state) => state.search.tags);
+  // console.log("카테고리", tags);
   //undefined일때 화면관리하기
-
+  const [tag, setTag] = React.useState([]);
   const [show_modal, setShowModal] = React.useState(false);
 
   const openModal = () => {
-    setShowModal(true);
+    if (!category.categoryTags) {
+      setShowModal(true);
+    }
   };
 
-  React.useEffect(() => {
-    dispatch(postActions.loadImageDB());
-    dispatch(searchActions.loadCategoryDB(name));
+  useEffect(() => {
+    const newList = tags.map((list, idx) => {
+      const obj = {
+        tag: list,
+        active: true,
+      };
+      return obj;
+    });
+    console.log(newList);
+
+    setTag(newList);
   }, []);
+
+  console.log("tag", tag);
+
+  const deleteTag = (idx) => {
+    const a = tag.map((l, i) => {
+      console.log(l, i);
+      if (idx === i) {
+        return {
+          tag: l.tag,
+          active: false,
+        };
+      }
+    });
+    console.log("a", a);
+  };
+  console.log(deleteTag());
+
+  // const handleClickTag = (idx) => {
+  //   const trueActive = tag.filter((t, idx) => {
+  //     return t.active === true;
+  //   });
+  //   console.log("trueActive", trueActive);
+
+  //   tag[idx].active = !tag[idx].active;
+  //   setTag([...tag]);
+  // };
 
   return (
     <>
@@ -56,7 +96,7 @@ const InCategory = (props) => {
               cursor="pointer"
               size="32"
               onClick={() => {
-                props.history.push("/category");
+                props.history.push(`/category/${name}`);
               }}
             />
             <Font title fontSize="22px" margin="5px 0px 0px 0px">
@@ -68,19 +108,19 @@ const InCategory = (props) => {
           </div>
         </Flex>
 
-        {/* {tags &&
+        {tags &&
           tags.map((l, i) => {
-            if (!l == "") {
+            if (l !== "undefined") {
               return (
                 <TagGrid key={i}>
-                  <Tag>
+                  <Tag onClick={deleteTag}>
                     {l}
                     <IoCloseSharp />
                   </Tag>
                 </TagGrid>
               );
             }
-          })} */}
+          })}
 
         {category && category.length > 0 ? (
           <TrackGrid>

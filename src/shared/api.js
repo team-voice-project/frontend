@@ -1,10 +1,10 @@
 import axios from "axios";
 import { getCookie } from "./Cookie";
+import { history } from "../redux/configStore";
 
-// ******** Axios 인스턴스 생성 ******** //
-
+// API 인스턴스 생성
 const api = axios.create({
-  baseURL: "http://13.125.215.6",
+  baseURL: "http://13.209.43.160",
   headers: {
     "X-Requested-With": "XMLHttpRequest",
     "Content-type": "application/json; charset=UTF-8",
@@ -12,12 +12,25 @@ const api = axios.create({
   },
 });
 
+// 토큰정보 인터셉트
 api.interceptors.request.use((config) => {
   config.headers.common["authorization"] = `Bearer ${getCookie()}`;
   return config;
 });
 
-// ******** Export api ******** //
+// API 호출 에러 발생 시 에러 핸들링 페이지로 연결
+api.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    const code = error.response.status;
+    console.log("API 인터셉터 -> ", code);
+    return history.push(`/error/${code}`);
+  }
+);
+
+// export api list
 export const apis = {
   changeNickname: (nickname) => api.post("/api/auth/nickname", nickname),
   editProfileImage: (userId, profileImage) =>

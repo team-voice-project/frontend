@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Container from "../../elements/Container";
 import { IoIosClose } from "react-icons/io";
-import { FcLike } from "react-icons/fc";
+import { BsFillHeartFill } from "react-icons/bs";
 import { ImShare } from "react-icons/im";
 import { AiOutlineComment } from "react-icons/ai";
 import CommentList from "./CommentList";
@@ -14,12 +14,20 @@ import { MdOutlineMoreVert } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { actionCreators as trackCreators } from "../../redux/modules/mypage";
 import SingleAudioPlayer from "../../shared/SingleAudioPlayer";
+import { apis } from "../../shared/api";
 const MenuModal = (props) => {
   const { open, close } = props;
   const state = useSelector((state) => state.comment.comments);
+  const [LikeBtn, setLikeBtn] = React.useState(false);
   const dispatch = useDispatch();
-
   const userId = props.props.userId;
+  const trackId = props.props.trackId;
+  const likeBtn = (trackId) => {
+    apis.likeTrack(trackId).then((res) => {
+      // console.log(res);
+    });
+  };
+  // console.log(props);
 
   return (
     <>
@@ -44,10 +52,8 @@ const MenuModal = (props) => {
               <Profile
                 onClick={() => {
                   history.push({
-                    pathname: "/portfolio",
-                    props,
+                    pathname: `/portfolio/${userId}`,
                   });
-                  dispatch(trackCreators.setTrackDB(userId));
                   close();
                 }}
               >
@@ -74,7 +80,24 @@ const MenuModal = (props) => {
                     lineHeight: "50%",
                   }}
                 >
-                  <FcLike style={{ marginRight: "5px" }} />
+                  {LikeBtn ? (
+                    <BsFillHeartFill
+                      onClick={() => {
+                        likeBtn(trackId);
+                        setLikeBtn(false);
+                      }}
+                      style={{ color: "red", marginRight: "5px" }}
+                    />
+                  ) : (
+                    <BsFillHeartFill
+                      onClick={() => {
+                        likeBtn(trackId);
+                        setLikeBtn(true);
+                      }}
+                      style={{ color: "white", marginRight: "5px" }}
+                    />
+                  )}
+
                   <Text>{props.props.Likes.length}</Text>
                 </div>
                 <div style={{ display: "flex", lineHeight: "50%" }}>
@@ -108,7 +131,7 @@ const MenuModal = (props) => {
                   return <CommentList key={idx} {...p} />;
                 })}
                 {props.props.Comments.map((p, idx) => {
-                  return <CommentList key={idx} {...p} />;
+                  return <CommentList {...props} key={idx} {...p} />;
                 })}
               </div>
               <CommentWrite {...props} />
