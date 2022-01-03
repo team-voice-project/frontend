@@ -26,7 +26,7 @@ const CommentWrite = (props) => {
       <div>
         <IoIosSend
           type="submit"
-          style={{ width: "35px", height: "35px" }}
+          style={{ width: "35px", height: "35px", cursor: "pointer" }}
           onClick={(e) => {
             dispatch(
               commentCreators.addCommentDB(`${props.props.trackId}`, content)

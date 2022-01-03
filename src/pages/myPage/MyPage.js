@@ -55,6 +55,7 @@ const MyPage = (props) => {
                     fontSize: "20px",
                     color: "#F1134E",
                     marginBottom: "7px",
+                    cursor: "pointer",
                   }}
                   onClick={() => {
                     history.push({
@@ -63,9 +64,7 @@ const MyPage = (props) => {
                   }}
                 />
               </div>
-              <Link href="http://www.naver.com" target="_blank">
-                {user_info.user_info?.contact}
-              </Link>
+              <Link>{user_info.user_info?.contact}</Link>
               <div style={{ width: "200px", wordBreak: "break-word" }}>
                 <Text>{user_info.user_info?.introduce}</Text>
               </div>
@@ -248,15 +247,17 @@ const Name = styled.h1`
   margin-right: 5px;
 `;
 
-const Link = styled.a`
+const Link = styled.p`
   font-size: 15px;
   color: black;
+  font-weight: 600;
 `;
 
 const Text = styled.p`
   margin-top: 10px;
   color: black;
   font-size: 13px;
+  font-weight: 600;
 `;
 
 export default MyPage;

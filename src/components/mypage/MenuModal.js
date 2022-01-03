@@ -59,7 +59,7 @@ const MenuModal = (props) => {
                 {isMe && (
                   <MdOutlineMoreVert
                     size="20px"
-                    style={{ margin: "13px 10px 0 0px" }}
+                    style={{ margin: "13px 10px 0 0px", cursor: "pointer" }}
                     onClick={() => {
                       openModal();
                     }}
@@ -70,11 +70,11 @@ const MenuModal = (props) => {
                   onClick={() => {
                     history.push(`/share/${trackId}`);
                   }}
-                  style={{ margin: "10px 0px 0 0px" }}
+                  style={{ margin: "10px 0px 0 0px", cursor: "pointer" }}
                   size="20px"
                 />
                 <IoIosClose
-                  style={{ margin: "13px 0px 0 0px" }}
+                  style={{ margin: "13px 0px 0 0px", cursor: "pointer" }}
                   size="40px"
                   color="white"
                   onClick={close}
@@ -132,6 +132,7 @@ const MenuModal = (props) => {
                         fontSize: "22px",
                         color: "red",
                         marginRight: "5px",
+                        cursor: "pointer",
                       }}
                     />
                   ) : (
@@ -144,6 +145,7 @@ const MenuModal = (props) => {
                         fontSize: "22px",
                         color: "white",
                         marginRight: "5px",
+                        cursor: "pointer",
                       }}
                     />
                   )}
@@ -200,6 +202,7 @@ MenuModal.defaultProps = {
 const Profile = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 const ProfileCircle = styled.div`
@@ -215,7 +218,6 @@ const ProfileCircle = styled.div`
 `;
 
 const ImageCircle = styled.img`
-  cursor: pointer;
   width: 190px;
   height: 190px;
   border-radius: 50%;

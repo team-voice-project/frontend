@@ -41,6 +41,7 @@ const PortfolioPage = (props) => {
             history.goBack();
           }}
           size="30px"
+          style={{ cursor: "pointer" }}
         />
         <Profile>
           <div style={{ width: "150px", height: "150px", marginRight: "10px" }}>
@@ -48,9 +49,7 @@ const PortfolioPage = (props) => {
           </div>
           <div>
             <Name>{user_info.user_info?.nickname}</Name>
-            <Link href="http://www.naver.com" target="_blank">
-              {user_info.user_info?.contact}
-            </Link>
+            <Link>{user_info.user_info?.contact}</Link>
             <div style={{ width: "200px", wordBreak: "break-word" }}>
               <Text>{user_info.user_info?.introduce}</Text>
             </div>
@@ -203,15 +202,17 @@ const Name = styled.h1`
   color: white;
 `;
 
-const Link = styled.a`
+const Link = styled.p`
   font-size: 15px;
   color: white;
+  font-weight: 600;
 `;
 
 const Text = styled.p`
   margin-top: 10px;
   font-size: 13px;
   color: white;
+  font-weight: 600;
 `;
 
 export default PortfolioPage;
