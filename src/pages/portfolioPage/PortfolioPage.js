@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Container from "../../elements/Container";
 import styled from "styled-components";
 import Track from "../../components/mypage/Track";
-import MusicPlayer from "../../components/mypage/MusicPlayer";
+import MusicPlayer from "../../components/jinkePlayer/MusicPlayer";
 import { useSelector } from "react-redux";
 import DefaultImg from "./profileIMG.png";
 import { RiArrowLeftSLine } from "react-icons/ri";
