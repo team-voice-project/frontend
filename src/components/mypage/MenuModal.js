@@ -14,6 +14,7 @@ import SingleAudioPlayer from "../../shared/SingleAudioPlayer";
 import { apis } from "../../shared/api";
 import { RiChat4Fill } from "react-icons/ri";
 import DeleteModal from "./DeleteModal";
+import { newGetCookie } from "../../shared/Cookie";
 
 const MenuModal = (props) => {
   const { open, close } = props;
@@ -21,6 +22,8 @@ const MenuModal = (props) => {
   const [LikeBtn, setLikeBtn] = React.useState(false);
   const userId = props.props.userId;
   const trackId = props.props.trackId;
+  const nick = newGetCookie("nick");
+  const isMe = props.props.User.nickname === nick;
 
   const likeBtn = (trackId) => {
     apis.likeTrack(trackId).then((res) => {});
@@ -53,13 +56,16 @@ const MenuModal = (props) => {
                   alignItems: "center",
                 }}
               >
-                <MdOutlineMoreVert
-                  size="20px"
-                  style={{ margin: "13px 10px 0 0px" }}
-                  onClick={() => {
-                    openModal();
-                  }}
-                />
+                {isMe && (
+                  <MdOutlineMoreVert
+                    size="20px"
+                    style={{ margin: "13px 10px 0 0px" }}
+                    onClick={() => {
+                      openModal();
+                    }}
+                  />
+                )}
+
                 <ImShare
                   onClick={() => {
                     history.push(`/share/${trackId}`);

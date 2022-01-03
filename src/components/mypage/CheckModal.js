@@ -5,8 +5,7 @@ import { apis } from "../../shared/api";
 
 const CheckModal = (props) => {
   const { open, close } = props;
-  const history = useHistory();
-  console.log(props.props.props.props.trackId);
+
   const trackId = props.props.props.props.trackId;
   const deleteTrack = (trackId) => {
     apis.trackDelete(trackId).then((res) => {
