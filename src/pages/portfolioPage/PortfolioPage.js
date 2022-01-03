@@ -66,21 +66,11 @@ const PortfolioPage = (props) => {
         }}
       >
         <label style={{ marginRight: "10px" }}>
-          <FormCheckLeft
-            type="radio"
-            name="radioButton"
-            onChange={changeRadio}
-            value={checkedInputs}
-          />
+          <FormCheckLeft type="radio" name="radioButton" />
           <FormCheckText>트랙 리스트</FormCheckText>
         </label>
         <label>
-          <FormCheckLeft
-            type="radio"
-            name="radioButton"
-            onChange={changeRadio}
-            value={checkedInputs}
-          />
+          <FormCheckLeft type="radio" name="radioButton" />
           <FormCheckText>좋아요 목록</FormCheckText>
         </label>
       </div>
@@ -156,16 +146,6 @@ const FormCheckText = styled.span`
 `;
 
 const FormCheckLeft = styled.input.attrs({ type: "radio" })`
-  &:checked {
-    display: inline-block;
-    background: none;
-    padding: 0px 10px;
-    text-align: center;
-    height: 35px;
-    line-height: 33px;
-    font-weight: 500;
-    display: none;
-  }
   &:checked + ${FormCheckText} {
     background: white;
     color: black;
