@@ -48,7 +48,6 @@ const CategoryModal = ({ setShowModal, tagList, name }) => {
     const trueActive = tag_list.filter((tag, idx) => {
       return tag.active === true;
     });
-    console.log("trueActive", trueActive);
     if (!tag_list[idx].active && trueActive.length > 2) {
       return window.alert("이미 3가지를 선택하셨어요.");
     }
@@ -66,15 +65,13 @@ const CategoryModal = ({ setShowModal, tagList, name }) => {
     const tags = trueActiveList[0].map((list, idx) => {
       return list.tag;
     });
-    console.log("tags", tags);
-    const tag1 = tags[0];
-    const tag2 = tags[1];
-    const tag3 = tags[2];
 
-    console.log("태그들아", tag1, tag2, tag3);
-
+    //state를 push로 넘기는 방법
     dispatch(searchActions.loadCategoryDB(category, ...tags));
-    history.push(`/tagcategory/${name}/${tag1}/${tag2}/${tag3}`);
+    history.push({
+      pathname: "/tagCategory",
+      state: { category: category, tag: tags },
+    });
     setShowModal(false);
   };
 
@@ -200,7 +197,7 @@ const TagButton = styled.div`
   max-width: 425px;
   width: 100%;
   margin: 0px auto 30px auto;
-  height: 7.5vh;
+
   background-color: #ff1953;
   border: none;
   z-index: 9999;

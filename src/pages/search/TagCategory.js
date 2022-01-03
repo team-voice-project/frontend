@@ -1,37 +1,32 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 import { actionCreators as postActions } from "../../redux/modules/post";
 import { actionCreators as searchActions } from "../../redux/modules/search";
 import CategoryModal from "../../components/category/CategoryModal";
 import Header from "../../components/category/Header";
 import Track from "../../components/mypage/Track";
-import { Font, Container } from "../../elements/index";
+import { Font } from "../../elements/index";
 
-import { RiArrowRightSLine, RiLineHeight } from "react-icons/ri";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { BsFilterRight } from "react-icons/bs";
 import { IoCloseSharp } from "react-icons/io5";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const InCategory = (props) => {
   const dispatch = useDispatch();
+  const location = useLocation();
 
-  const name = props.match.params.categoryName;
-  const tag1 = props.match.params.tag1;
-  const tag2 = props.match.params.tag2;
-  const tag3 = props.match.params.tag3;
-
-  const tags = [tag1, tag2, tag3];
+  const tags = location.state.tag;
+  const name = location.state.category;
 
   const tag_list = useSelector((state) => state.post.tag_list);
   const category = useSelector((state) => state.search.category_list);
-  // const tags = useSelector((state) => state.search.tags);
-  // console.log("카테고리", tags);
   //undefined일때 화면관리하기
-  const [tag, setTag] = React.useState([]);
+
   const [show_modal, setShowModal] = React.useState(false);
+  const [tag, setTag] = React.useState([]);
 
   const openModal = () => {
     if (!category.categoryTags) {
@@ -39,44 +34,21 @@ const InCategory = (props) => {
     }
   };
 
-  useEffect(() => {
-    const newList = tags.map((list, idx) => {
-      const obj = {
-        tag: list,
-        active: true,
-      };
-      return obj;
-    });
-    console.log(newList);
-
-    setTag(newList);
-  }, []);
-
-  console.log("tag", tag);
-
-  const deleteTag = (idx) => {
-    const a = tag.map((l, i) => {
-      console.log(l, i);
-      if (idx === i) {
-        return {
-          tag: l.tag,
-          active: false,
-        };
-      }
-    });
-    console.log("a", a);
+  const handleClick = (idx) => {
+    const a = tags.filter((l, i) => idx !== i);
+    setTag(a);
   };
-  console.log(deleteTag());
 
-  // const handleClickTag = (idx) => {
-  //   const trueActive = tag.filter((t, idx) => {
-  //     return t.active === true;
-  //   });
-  //   console.log("trueActive", trueActive);
+  const mounted = React.useRef(false);
 
-  //   tag[idx].active = !tag[idx].active;
-  //   setTag([...tag]);
-  // };
+  //업데이트 될 때만 실행
+  useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+    } else {
+      dispatch(searchActions.loadCategoryDB(name, ...tag));
+    }
+  }, [tag]);
 
   return (
     <>
@@ -96,7 +68,7 @@ const InCategory = (props) => {
               cursor="pointer"
               size="32"
               onClick={() => {
-                props.history.push(`/category/${name}`);
+                props.history.push(`/category`);
               }}
             />
             <Font title fontSize="22px" margin="5px 0px 0px 0px">
@@ -109,11 +81,15 @@ const InCategory = (props) => {
         </Flex>
 
         {tags &&
-          tags.map((l, i) => {
-            if (l !== "undefined") {
+          tags.map((l, idx) => {
+            if (l !== "") {
               return (
-                <TagGrid key={i}>
-                  <Tag onClick={deleteTag}>
+                <TagGrid key={idx}>
+                  <Tag
+                    onClick={() => {
+                      handleClick(idx);
+                    }}
+                  >
                     {l}
                     <IoCloseSharp />
                   </Tag>
