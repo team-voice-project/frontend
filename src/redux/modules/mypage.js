@@ -17,7 +17,6 @@ const setUser = createAction(SET_PROFILE, (user_info) => ({ user_info }));
 const setTrackDB = (userId) => {
   return (dispatch, getState, { history }) => {
     apis.myPage(userId).then((res) => {
-      console.log(res);
       dispatch(setTrack(res.data.results));
       dispatch(setUser(res.data.userDate));
     });
