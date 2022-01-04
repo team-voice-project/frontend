@@ -121,12 +121,15 @@ const Flex = styled.div`
     //스크롤바 전체
     height: 4px;
     border-radius: 6px;
-    background: #000;
+    overflow: auto;
   }
   &::-webkit-scrollbar-thumb {
     //스크롤 막대
     background: var(--point-color);
     border-radius: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #000; /*스크롤바 트랙 색상*/
   }
 `;
 

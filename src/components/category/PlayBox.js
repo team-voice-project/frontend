@@ -79,12 +79,9 @@ const PlayBox = (props) => {
             <div style={{ width: "100px", height: "15px", textAlign: "left" }}>
               <div style={{ display: "flex" }}>
                 <Title>{props.title}</Title>
-                <p style={{ width: "40px", color: "white", fontSize: "8px" }}>
-                  더보기
-                </p>
               </div>
             </div>
-            <Text>{props.category}</Text>
+            <Text>{props.User.nickname}</Text>
             <div
               style={{
                 display: "flex",

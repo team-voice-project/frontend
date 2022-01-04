@@ -11,13 +11,14 @@ import { HiHeart } from "react-icons/hi";
 import { RiChat4Fill } from "react-icons/ri";
 import { Button, Font, Tag } from "../../elements";
 import { useHistory } from "react-router-dom";
+import DetailTag from "../mypage/DetailTag";
 
 const OnBoarding = ({ setShowModal }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
   const track_list = useSelector((state) => state.post.onboarding);
-  console.log("여기", track_list);
+  console.log("track_list", track_list);
 
   const randomData = () => {
     if (track_list) {
@@ -25,7 +26,10 @@ const OnBoarding = ({ setShowModal }) => {
       return track_list[random];
     }
   };
-  console.log("랜덤으로 나와?", randomData());
+
+  console.log(randomData());
+  const random = randomData();
+  console.log(random);
 
   React.useEffect(() => {
     dispatch(postActions.loadPostDB());
@@ -38,10 +42,7 @@ const OnBoarding = ({ setShowModal }) => {
         <BoxDiv>
           <Flex>
             <SmallCircle
-              src={
-                randomData() &&
-                randomData().TrackThumbnail.trackThumbnailUrlFace
-              }
+              src={random && random.TrackThumbnail.trackThumbnailUrlFace}
             ></SmallCircle>
             <div
               style={{
@@ -50,23 +51,19 @@ const OnBoarding = ({ setShowModal }) => {
               }}
             >
               <Font title margin="2px 0px 0px 8px">
-                {randomData() && randomData().User.nickname}
+                {random && random.User.nickname}
               </Font>
             </div>
           </Flex>
           <ImgDiv>
             <OAOImage
-              src={
-                randomData() &&
-                randomData().TrackThumbnail.trackThumbnailUrlFull
-              }
+              src={random && random.TrackThumbnail.trackThumbnailUrlFull}
             ></OAOImage>
           </ImgDiv>
-          <BoldFont>{randomData() && randomData().title}</BoldFont>
+
           <FlexTag>
-            {randomData() &&
-              randomData().TrackTags.map((l, i) => {
-                console.log("맵돌려", l);
+            {random &&
+              random.TrackTags.map((l, i) => {
                 return (
                   <div key={i} style={{ display: "inline-block" }}>
                     <TagBox>{l.tag}</TagBox>
@@ -75,8 +72,10 @@ const OnBoarding = ({ setShowModal }) => {
               })}
           </FlexTag>
 
+          <BoldFont>{random && random.title}</BoldFont>
+
           <SingleAudioPlayer
-            audio={randomData() && randomData().trackUrl}
+            audio={random && random.trackUrl}
           ></SingleAudioPlayer>
 
           <FlexCount>
@@ -208,20 +207,21 @@ const BoldFont = styled.div`
   font-weight: 550;
   text-align: center;
   font-family: "Pretendard Variable", serif;
+  margin-bottom: 16px;
 `;
 
 const TagBox = styled.button`
-  width: 75px;
-  height: 32px;
-  background-color: #000000;
-  color: #fff;
-  border-radius: 20px;
+  margin: 10px 5px;
+  font-family: "Pretendard Variable", serif;
+  max-width: 70px;
+  height: 28px;
   font-size: 12px;
-  text-align: center;
-  align-items: center;
-  margin: 4px 10px 8px 0px;
+  color: white;
+  padding: 5px;
+  border-radius: 10px;
   border: none;
-  display: inline-block;
+  background-color: #000;
+  cursor: Default;
 `;
 
 export default OnBoarding;

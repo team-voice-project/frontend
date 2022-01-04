@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -112,10 +112,9 @@ const Icon = styled.div`
 `;
 
 const Box = styled.div`
-  margin-bottom: 50px;
   text-align: center;
   float: left;
-  margin: 0px 6px 34px 6px;
+  margin: 0px 6px 10px 6px;
 `;
 
 export default Category;

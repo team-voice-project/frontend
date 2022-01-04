@@ -37,7 +37,6 @@ export default handleActions(
   {
     [LOAD_POST]: (state, action) =>
       produce(state, (draft) => {
-        console.log("페이로드야", action.payload.post[0].tracks);
         draft.post_list = action.payload.post;
         draft.onboarding = action.payload.post[0].tracks;
       }),

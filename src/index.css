@@ -1,13 +1,49 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+@font-face {
+  font-family: "Black Han Sans", sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  src: url("font/BlackHanSans-Regular.ttf") format("woff2"),
+    url("font/BlackHanSans-Regular.ttf") format("woff"),
+    url("font/BlackHanSans-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Pretendard Variable", serif;
+  font-style: normal;
+  font-weight: 400;
+  src: url("font/Pretendard-Regular.ttf") format("woff2"),
+    url("font/Pretendard-Regular.ttf") format("woff"),
+    url("font/Pretendard-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Pretendard Variable", serif;
+  font-style: normal;
+  font-weight: 500;
+  src: url("font/Pretendard-Medium.ttf") format("woff2"),
+    url("font/Pretendard-Medium.ttf") format("woff"),
+    url("font/Pretendard-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Pretendard Variable", serif;
+  font-style: normal;
+  font-weight: 700;
+  src: url("font/Pretendard-Bold.ttf") format("woff2"),
+    url("font/Pretendard-Bold.ttf") format("woff"),
+    url("font/Pretendard-Bold.ttf") format("truetype");
 }
