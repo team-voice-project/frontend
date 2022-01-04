@@ -12,16 +12,9 @@ import { apis } from "../../shared/api";
 import Header from "../../components/category/Header";
 
 const MyPage = (props) => {
-  const [checkedInputs, setCheckedInputs] = useState([]);
   const track = useSelector((state) => state.mypage.track);
   const user_info = useSelector((state) => state.mypage.user_info);
   const dispatch = useDispatch();
-
-  const changeRadio = (e) => {
-    if (e.target.checked) {
-      setCheckedInputs(e.target.id);
-    }
-  };
 
   useEffect(() => {
     apis.getProfile().then((res) => {
@@ -88,25 +81,11 @@ const MyPage = (props) => {
           }}
         >
           <label style={{ marginRight: "10px" }}>
-            <FormCheckLeft
-              type="radio"
-              {...props}
-              id={props.id}
-              name="radioButton"
-              onChange={changeRadio}
-              value={checkedInputs}
-            />
+            <FormCheckLeft type="radio" name="radioButton" />
             <FormCheckText>트랙 리스트</FormCheckText>
           </label>
           <label>
-            <FormCheckLeft
-              type="radio"
-              {...props}
-              id={props.id}
-              name="radioButton"
-              onChange={changeRadio}
-              value={checkedInputs}
-            />
+            <FormCheckLeft type="radio" name="radioButton" />
             <FormCheckText>좋아요 목록</FormCheckText>
           </label>
         </div>
@@ -185,16 +164,6 @@ const FormCheckText = styled.span`
 `;
 
 const FormCheckLeft = styled.input.attrs({ type: "radio" })`
-  &:checked {
-    display: inline-block;
-    background: none;
-    padding: 0px 10px;
-    text-align: center;
-    height: 35px;
-    line-height: 33px;
-    font-weight: 500;
-    display: none;
-  }
   &:checked + ${FormCheckText} {
     background: white;
     color: black;

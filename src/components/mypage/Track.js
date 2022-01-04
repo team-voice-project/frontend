@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { FcLike } from "react-icons/fc";
-import { FaPlay } from "react-icons/fa";
-import { BiPause } from "react-icons/bi";
 import MenuModal from "./MenuModal";
+import PlayButton from "./playButton.png";
+import PauseBtn from "./pauseBtn.png";
 
 import { RiChat4Fill } from "react-icons/ri";
 
 const Track = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [playBtn, setPlayBtn] = useState(false);
+
   const openModal = () => {
     setModalOpen(true);
   };
@@ -19,54 +19,20 @@ const Track = (props) => {
 
   return (
     <>
-      <MenuModal
-        props={props}
-        open={modalOpen}
-        close={closeModal}
-        header={"123"}
-      />
+      <MenuModal props={props} open={modalOpen} close={closeModal} />
       <div style={{ position: "relative" }}>
-        {playBtn ? (
-          <>
-            <ImageCircle
-              style={{
-                border: "3px solid #f1134e ",
-                transition: "all 300ms ease-in",
-              }}
-              src={props.TrackThumbnail?.trackThumbnailUrlFace}
-            />
-
-            <PlayBtn
-              onClick={() => {
-                setPlayBtn(false);
-              }}
-            >
-              <BiPause
-                style={{
-                  color: "white",
-                  fontSize: "20px",
-                }}
+        <TrackDiv>
+          <label>
+            <PlayBtn type="radio" name="radioButton"></PlayBtn>
+            <DIV>
+              <ImageCircle
+                className="circle"
+                src={props.TrackThumbnail?.trackThumbnailUrlFace}
               />
-            </PlayBtn>
-          </>
-        ) : (
-          <TrackDiv>
-            <ImageCircle src={props.TrackThumbnail?.trackThumbnailUrlFace} />
-            <PlayBtn
-              onClick={() => {
-                setPlayBtn(true);
-              }}
-            >
-              <FaPlay
-                style={{
-                  color: "white",
-                  marginLeft: "4px",
-                  marginTop: "2px",
-                }}
-              />
-            </PlayBtn>
-          </TrackDiv>
-        )}
+              <PlayImg className="play"></PlayImg>
+            </DIV>
+          </label>
+        </TrackDiv>
 
         <div
           onClick={() => {
@@ -118,6 +84,26 @@ const TrackDiv = styled.div`
   }
 `;
 
+const PlayImg = styled.div`
+  position: absolute;
+  bottom: 70px;
+  right: 5px;
+  background: url(${PlayButton});
+  background-color: #f1134e;
+  background-size: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+`;
+const DIV = styled.div`
+  cursor: pointer;
+  .circle {
+    border: none;
+  }
+`;
+
 const ImageCircle = styled.img`
   width: 100px;
   height: 100px;
@@ -132,23 +118,26 @@ const ImageCircle = styled.img`
     height: 80px;
   }
 `;
-const PlayBtn = styled.div`
-  cursor: pointer;
-  position: absolute;
-  bottom: 78px;
-  left: 80px;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  justify-content: center;
-  background: #f1134e;
-  padding: 5px;
-  @media screen and (max-width: 380px) {
-    position: absolute;
-    bottom: 80px;
-    left: 55px;
-    width: 30px;
-    height: 30px;
+const PlayBtn = styled.input.attrs({ type: "radio" })`
+  display: none;
+  &:checked + ${DIV} {
+    .circle {
+      border: 5px solid #f1134e;
+      transition: all 300ms ease-in;
+    }
+    .play {
+      position: absolute;
+      bottom: 70px;
+      right: 5px;
+      background: url(${PauseBtn});
+      background-color: #f1134e;
+      background-size: 50%;
+      background-position: center;
+      background-repeat: no-repeat;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+    }
   }
 `;
 
