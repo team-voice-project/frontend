@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Container from "../../elements/Container";
 import { IoIosClose } from "react-icons/io";
@@ -20,6 +20,7 @@ const MenuModal = (props) => {
   const { open, close } = props;
   const state = useSelector((state) => state.comment.comments);
   const [LikeBtn, setLikeBtn] = React.useState(false);
+  const [LikeCnt, setLikeCnt] = React.useState();
   const userId = props.props.userId;
   const trackId = props.props.trackId;
   const nick = newGetCookie("nick");
@@ -27,9 +28,16 @@ const MenuModal = (props) => {
 
   const likeBtn = (trackId) => {
     apis.likeTrack(trackId).then((res) => {
-      console.log(res);
+      const boolean = res.data.result.like;
+      const likeCnt = res.data.result.likeCnt;
+      localStorage.setItem("key", boolean);
+      setLikeBtn(boolean);
+      setLikeCnt(likeCnt);
     });
   };
+  const local = localStorage.getItem("key");
+  console.log(LikeCnt);
+
   const [modalOpen, setModalOpen] = React.useState(false);
 
   const openModal = () => {
@@ -125,11 +133,10 @@ const MenuModal = (props) => {
                       lineHeight: "50%",
                     }}
                   >
-                    {LikeBtn ? (
+                    {local === "true" || LikeBtn ? (
                       <BsFillHeartFill
                         onClick={() => {
                           likeBtn(trackId);
-                          setLikeBtn(false);
                         }}
                         style={{
                           fontSize: "22px",
@@ -142,7 +149,6 @@ const MenuModal = (props) => {
                       <BsFillHeartFill
                         onClick={() => {
                           likeBtn(trackId);
-                          setLikeBtn(true);
                         }}
                         style={{
                           fontSize: "22px",
@@ -152,8 +158,11 @@ const MenuModal = (props) => {
                         }}
                       />
                     )}
-
-                    <Text>{props.props.Likes.likeCnt}</Text>
+                    {LikeCnt === undefined ? (
+                      <Text>{props.props.Likes.likeCnt}</Text>
+                    ) : (
+                      <Text>{LikeCnt}</Text>
+                    )}
                   </div>
                   <div
                     style={{
