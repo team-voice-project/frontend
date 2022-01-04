@@ -25,8 +25,8 @@ const Tag = styled.button`
   height: 28px;
   font-size: 12px;
   color: white;
-  padding: 5px;
-  border-radius: 10px;
+  padding: 5px 10px;
+  border-radius: 14px;
   border: none;
   background: ${(props) => props.bg};
   cursor: Default;
