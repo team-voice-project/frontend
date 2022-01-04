@@ -29,7 +29,7 @@ const Header = (props) => {
           <Temdiv>
             <HiOutlineSearch
               cursor="pointer"
-              size="28"
+              size="24"
               onClick={() => {
                 history.push("/search");
               }}
@@ -38,7 +38,7 @@ const Header = (props) => {
           <Temdiv>
             <HiUser
               cursor="pointer"
-              size="28"
+              size="24"
               onClick={() => {
                 history.push("/mypage");
               }}
@@ -47,7 +47,7 @@ const Header = (props) => {
           <Temdiv>
             <BsFillGridFill
               cursor="pointer"
-              size="28"
+              size="24"
               onClick={() => {
                 history.push("/category");
               }}
@@ -118,7 +118,7 @@ const FlexIcon = styled.div`
 const Temdiv = styled.div`
   width: 28px;
   height: 28px;
-  margin-left: 22px;
+  margin-left: 18px;
   align-items: center;
   vertical-align: center;
 `;

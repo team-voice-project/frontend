@@ -125,7 +125,7 @@ const Tag = styled.div`
   align-items: center;
   font-family: "Pretendard Variable", serif;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 14px;
   border: 0;
   padding: 10px 15px 11px 15px;
   color: #fff;
@@ -180,27 +180,6 @@ const TagGrid = styled.div`
   cursor: pointer;
   margin: 10px 4px 0px 0px;
   display: inline-block;
-`;
-
-const Multiline = styled.input`
-  border: none;
-  background: none;
-  border-bottom: solid 3px #ddd;
-  padding: 12px 4px;
-  width: 100%;
-  color: #fff;
-
-  :focus {
-    border: none;
-    background: none;
-    border-bottom: solid 3px var(--point-color);
-  }
-`;
-
-const Temp = styled.div`
-  width: 30px;
-  height: 30px;
-  background-color: #ddd;
 `;
 
 const OAODiv = styled.div`

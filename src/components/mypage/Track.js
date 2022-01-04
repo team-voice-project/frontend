@@ -10,7 +10,6 @@ import { RiChat4Fill } from "react-icons/ri";
 const Track = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [playBtn, setPlayBtn] = useState(false);
-
   const openModal = () => {
     setModalOpen(true);
   };
@@ -79,12 +78,9 @@ const Track = (props) => {
             <div style={{ width: "100px", height: "15px", textAlign: "left" }}>
               <div style={{ display: "flex" }}>
                 <Title>{props.title}</Title>
-                <p style={{ width: "30px", color: "white", fontSize: "8px" }}>
-                  더보기
-                </p>
               </div>
             </div>
-            <Text>{props.category}</Text>
+            <Text>{props.User.nickname}</Text>
             <div
               style={{
                 display: "flex",
@@ -173,7 +169,8 @@ const Title = styled.div`
 `;
 
 const Text = styled.p`
-  margin-top: 3px;
+  margin-top: 6px;
+  margin-bottom: 1px;
   font-size: 12px;
   color: white;
 `;

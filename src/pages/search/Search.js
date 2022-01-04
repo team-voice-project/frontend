@@ -207,7 +207,7 @@ const TrackGrid = styled.div`
 `;
 
 const TrackDiv = styled.div`
-  margin: 0px 10px;
+  margin: 0px 7px;
 `;
 
 const OAODiv = styled.div`
