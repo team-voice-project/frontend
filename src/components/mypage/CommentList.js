@@ -38,7 +38,7 @@ const CommentList = (props) => {
           <CommentStyle margin="10px 0px" width="100%">
             <CommentProfile>
               <ImageCircle src={props.User?.profileImage} />
-              <div style={{ width: "330px", wordBreak: "break-all" }}>
+              <div style={{ width: "300px", wordBreak: "break-all" }}>
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <NickName>{props.User?.nickname}</NickName>
                   <TimeName>{displayedAt(createdAt)}</TimeName>

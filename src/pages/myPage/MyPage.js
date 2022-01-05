@@ -18,7 +18,6 @@ const MyPage = (props) => {
   const like_track = useSelector((state) => state.mypage.like_track);
   const like = useParams()?.like;
   const dispatch = useDispatch();
-  console.log(like_track);
 
   useEffect(() => {
     apis.getProfile().then((res) => {

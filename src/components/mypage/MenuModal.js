@@ -14,6 +14,7 @@ import SingleAudioPlayer from "../../shared/SingleAudioPlayer";
 import { apis } from "../../shared/api";
 import { RiChat4Fill } from "react-icons/ri";
 import DeleteModal from "./DeleteModal";
+
 import { newGetCookie } from "../../shared/Cookie";
 
 const MenuModal = (props) => {
@@ -22,7 +23,7 @@ const MenuModal = (props) => {
   const [LikeBtn, setLikeBtn] = React.useState(false);
   const [LikeCnt, setLikeCnt] = React.useState();
   const userId = props.props.userId;
-  const trackId = props.props.trackId;
+  const trackId = props.props?.trackId;
   const nick = newGetCookie("nick");
   const isMe = props.props.User.nickname === nick;
 
@@ -35,6 +36,8 @@ const MenuModal = (props) => {
       setLikeCnt(likeCnt);
     });
   };
+  console.log(props);
+
   const local = localStorage.getItem(trackId);
 
   const [modalOpen, setModalOpen] = React.useState(false);
@@ -87,7 +90,10 @@ const MenuModal = (props) => {
                     style={{ margin: "13px 0px 0 0px", cursor: "pointer" }}
                     size="40px"
                     color="white"
-                    onClick={close}
+                    onClick={() => {
+                      close();
+                      window.location.reload();
+                    }}
                   />
                 </div>
                 <Profile
@@ -98,7 +104,7 @@ const MenuModal = (props) => {
                     close();
                   }}
                 >
-                  <ProfileCircle src={props.user_image} />
+                  <ProfileCircle src={props.props.User.profileImage} />
                   <Name>{props.props.User.nickname}</Name>
                 </Profile>
                 <div style={{ textAlign: "center" }}>
@@ -188,11 +194,11 @@ const MenuModal = (props) => {
                     overflowY: "scroll",
                   }}
                 >
-                  {state[0] === undefined
-                    ? props.props.Comments.map((p, idx) => {
+                  {state.length !== 0
+                    ? state.map((p, idx) => {
                         return <CommentList {...props} key={idx} {...p} />;
                       })
-                    : state[0]?.map((p, idx) => {
+                    : props.props.Comments.map((p, idx) => {
                         return <CommentList {...props} key={idx} {...p} />;
                       })}
                 </div>
@@ -222,7 +228,7 @@ const ProfileCircle = styled.div`
   height: 30px;
   border-radius: 50%;
   margin-right: 10px;
-  border: 1px solid black;
+  border: none;
   background: url("${(props) => props.src}");
   background-size: 100%;
   background-position: center;

@@ -7,20 +7,8 @@ import PauseBtn from "./pauseBtn.png";
 
 import { RiChat4Fill } from "react-icons/ri";
 
-function setCheckBoxAsRadio(targetObj, inObj) {
-  var len = targetObj;
-
-  if (len > 1) {
-    // 객체가 배열이라면. 배열이 아니면 그냥 체크박스로 작동
-    for (var i = 0; i < len; i++) {
-      if (targetObj[i] != inObj) targetObj[i].checked = false;
-    }
-  }
-}
-
 const Track = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const ele = document.getElementsByName("radioButton");
 
   const openModal = () => {
     setModalOpen(true);
@@ -35,12 +23,7 @@ const Track = (props) => {
       <div style={{ position: "relative", margin: "0px" }}>
         <TrackDiv>
           <label>
-            <PlayBtn
-              type="checkbox"
-              className="radioButton"
-              value="a"
-              onClick={setCheckBoxAsRadio(ele, this)}
-            ></PlayBtn>
+            <PlayBtn type="checkbox" className="radioButton"></PlayBtn>
             <DIV>
               <ImageCircle
                 className="circle"

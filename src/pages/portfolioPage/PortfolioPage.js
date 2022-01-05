@@ -93,9 +93,15 @@ const PortfolioPage = (props) => {
             justifyItems: "left",
           }}
         >
-          {track?.track_info.map((p, idx) => {
-            return <Track key={idx} {...p} />;
-          })}
+          <TrackGrid>
+            {track?.track_info.map((p, idx) => {
+              return (
+                <TrackDiv key={p.trackId}>
+                  <Track {...p} />
+                </TrackDiv>
+              );
+            })}
+          </TrackGrid>
         </div>
       )}
     </Container>
@@ -105,7 +111,17 @@ const PortfolioPage = (props) => {
 PortfolioPage.defaultProps = {
   user_image: DefaultImg,
 };
+const TrackGrid = styled.div`
+  max-width: 425px;
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+`;
 
+const TrackDiv = styled.div`
+  margin: 0px 5px;
+`;
 const OAODiv = styled.div`
   position: relative;
   top: 50px;
