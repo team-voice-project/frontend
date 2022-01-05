@@ -3,11 +3,10 @@ import styled from "styled-components";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { Text, Button, Font } from "../../elements/index";
+import { Button, Font } from "../../elements/index";
 import OnBoarding from "../../components/category/Onboarding";
 import Header from "../../components/category/Header";
 import PlayBox from "../../components/category/PlayBox";
-import MusicPlayer from "../../components/jinkePlayer/MusicPlayer";
 
 import { actionCreators as postActions } from "../../redux/modules/post";
 
