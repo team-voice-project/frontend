@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
+import { apis } from "../shared/api";
 
 import GlobalStyles from "./GlobalStyles";
 import Main from "../pages/main/Main";
@@ -19,13 +20,32 @@ import Error from "../pages/main/Error";
 import LoginCallback from "../shared/LoginCallback";
 import Auth from "../shared/auth";
 import ErrorHandlePage from "./ErrorHandlePage";
-import MusicPlayer from "../components/jinkePlayer/MusicPlayer";
+import GlobalPlayer from "../components/player/GlobalPlayer";
 
 function App() {
+  useEffect(() => {
+    fetchPlayList();
+  });
+
+  const fetchPlayList = async () => {
+    // const res = await apis.getPlayList();
+    // console.log(res);
+    return {
+      playlist: [
+        {
+          name: "새벽에 듣기 좋은 나래이션",
+          singer: "용용자1",
+          cover: `http://13.209.43.160/trackThumbnail/OAO1_face.png`,
+          musicSrc: `http://13.209.43.160/olryqo19mzk1641044909620.ogg`,
+        },
+      ],
+    };
+  };
+
   return (
     <>
       <GlobalStyles />
-      <MusicPlayer />
+      <GlobalPlayer />
       <Switch>
         <Route path="/" component={Main} exact />
         <Route path="/category" component={Category} exact />

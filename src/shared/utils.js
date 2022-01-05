@@ -21,7 +21,27 @@ export const GLOBAL_PLAYER_ESCAPE_LIST = [
   "/edit/base",
   "/edit/record",
   "/edit/final",
+  "/login",
+  "/category",
+  "/edit/profile",
 ];
+
+export const PLAY_LIST_KEY = "OAO::playlist";
+
+// 세션스토리지 플레이리스트 관련
+export const getSessionPlaylist = () => {
+  const data = sessionStorage.getItem(PLAY_LIST_KEY);
+  return JSON.parse(data);
+};
+
+export const setSessionPlaylist = (playlist) => {
+  console.log("세션에 저장될 리스트", playlist);
+  sessionStorage.setItem(PLAY_LIST_KEY, JSON.stringify(playlist));
+};
+
+export const clearSessionPlaylist = () => {
+  sessionStorage.removeItem(PLAY_LIST_KEY);
+};
 
 // 기본 프로필 경로
 export const DEFAULT_PROFILE_URL = "/assets/images/default_profile.png";

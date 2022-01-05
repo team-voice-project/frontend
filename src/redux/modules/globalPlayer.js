@@ -1,0 +1,130 @@
+import { createAction, handleActions } from "redux-actions";
+import { produce } from "immer";
+import _ from "lodash";
+import { apis } from "../../shared/api";
+import {
+  setSessionPlaylist,
+  getSessionPlaylist,
+  clearSessionPlaylist,
+} from "../../shared/utils";
+
+const SET_PLAYER = "SET_PLAYER";
+const ADD_TRACK = "ADD_TRACK";
+const DELETE_TRACK = "DELETE_TRACK";
+const NOW_TRACK = "NOW_TRACK";
+const SET_PLAY_LIST = "SET_PLAY_LIST";
+const CLEAR_PLAY_LIST = "CLEAR_PLAY_LIST";
+
+const initialState = {
+  playerInstance: null,
+  play_list: [],
+  now_track: {},
+  mode: "stop",
+};
+
+const setPlayer = createAction(SET_PLAYER, (instance) => ({ instance }));
+const addTrack = createAction(ADD_TRACK, (track) => ({ track }));
+const deleteTrack = createAction(DELETE_TRACK, (track_src) => ({ track_src }));
+const nowTrack = createAction(NOW_TRACK, (track) => ({ track }));
+const setPlayList = createAction(SET_PLAY_LIST, (play_list) => ({
+  play_list,
+}));
+
+const clearPlayList = createAction(CLEAR_PLAY_LIST, () => ({}));
+
+// middlewares
+const play = (track) => {
+  return async (dispatch, getState, { history }) => {
+    dispatch(addTrack(track));
+    dispatch(nowTrack(track));
+  };
+};
+
+const loadPlayList = () => {
+  return async (dispatch, getState, { history }) => {
+    const session_playlist = getSessionPlaylist();
+    if (session_playlist) {
+      console.log("세션 먼저 불러오기");
+      dispatch(setPlayList(session_playlist));
+    } else {
+      console.log("DB에서 먼저 불러오기");
+      try {
+        const res = await apis.getPlayList();
+        dispatch(setPlayList(res.data.playlist));
+
+        console.log("플레이 리스트 불러오기 성공", res);
+      } catch (err) {
+        console.log("플레이 리스트 불러오기 실패", err.response);
+      }
+    }
+  };
+};
+
+// reducer
+export default handleActions(
+  {
+    [SET_PLAYER]: (state, action) =>
+      produce(state, (draft) => {
+        if (draft.playerInstance) {
+          return;
+        }
+
+        draft.playerInstance = action.payload.instance;
+      }),
+
+    [ADD_TRACK]: (state, action) =>
+      produce(state, (draft) => {
+        const combine_list = [...draft.play_list, action.payload.track];
+        const uniq_list = _.uniqBy(combine_list, "musicSrc");
+
+        if (uniq_list.length > 20) {
+          uniq_list.shift();
+        }
+
+        setSessionPlaylist(uniq_list);
+        draft.play_list = uniq_list;
+      }),
+
+    [DELETE_TRACK]: (state, action) =>
+      produce(state, (draft) => {
+        console.log("[DELETE_TRACK]", action.payload.track_src);
+        const filtered_list = draft.play_list.filter((track) => {
+          return track.musicSrc !== action.payload.track_src;
+        });
+
+        setSessionPlaylist(filtered_list);
+        draft.play_list = filtered_list;
+      }),
+
+    [NOW_TRACK]: (state, action) =>
+      produce(state, (draft) => {
+        draft.now_track = action.payload.track;
+      }),
+
+    [SET_PLAY_LIST]: (state, action) =>
+      produce(state, (draft) => {
+        setSessionPlaylist(action.payload.play_list);
+        draft.play_list = action.payload.play_list;
+      }),
+
+    [CLEAR_PLAY_LIST]: (state, action) =>
+      produce(state, (draft) => {
+        clearSessionPlaylist();
+        draft.play_list = [];
+        draft.now_track = {};
+      }),
+  },
+  initialState
+);
+
+const actionCreators = {
+  setPlayer,
+  addTrack,
+  deleteTrack,
+  nowTrack,
+  play,
+  loadPlayList,
+  clearPlayList,
+};
+
+export { actionCreators };

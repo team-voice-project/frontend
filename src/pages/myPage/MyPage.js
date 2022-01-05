@@ -4,7 +4,7 @@ import Container from "../../elements/Container";
 import styled from "styled-components";
 import Track from "../../components/mypage/Track";
 import { RiPencilFill } from "react-icons/ri";
-import MusicPlayer from "../../components/jinkePlayer/MusicPlayer";
+import GlobalPlayer from "../../components/player/GlobalPlayer";
 import { history } from "../../redux/configStore";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";

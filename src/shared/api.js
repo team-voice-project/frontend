@@ -75,6 +75,11 @@ export const apis = {
   uploadTrack: (track) => api.post(`/api/tracks`, track),
   updateTrack: (id, track) => api.put(`/api/tracks/${id}`, track),
 
+  // 플레이리스트 관련 API
+  getPlayList: () => api.get(`/api/playlist`),
+  savePlayList: (play_id_list) =>
+    api.post(`/api/playlist`, { trackId: play_id_list }),
+
   // 공통 API
   getMenuInfoDB: () => api.get("/api/tracks/listinfo"),
   getTrackInfoDB: (id) => api.get(`/api/tracks/${id}`),
