@@ -1,13 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { Text, Button, Font } from "../../elements/index";
+import { Button, Font } from "../../elements/index";
 import OnBoarding from "../../components/category/Onboarding";
 import Header from "../../components/category/Header";
 import PlayBox from "../../components/category/PlayBox";
-import MusicPlayer from "../../components/jinkePlayer/MusicPlayer";
 
 import { actionCreators as postActions } from "../../redux/modules/post";
 
@@ -16,22 +15,79 @@ import { RiArrowRightSLine } from "react-icons/ri";
 const Main = (props) => {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = React.useState(false);
+  const [all_list, setAllList] = React.useState([]);
   const track_list = useSelector((state) => state.post.post_list);
-  console.log(props);
 
-  const openModal = () => {
-    setShowModal(true);
-  };
+  useEffect(() => {
+    if (track_list) {
+      // 각 카테고리의 트랙정보 고유 아이디를 만들기 위한 인덱스 값
+      let idx = 0;
+      const _list = track_list.map((list) => {
+        const new_list = list.tracks.map((l) => {
+          const obj = {
+            uniq: `track-id-${idx}`,
+            CommentCnt: l.CommentCnt,
+            Comments: l.Comments,
+            Likes: l.Likes,
+            TrackTags: l.TrackTags,
+            TrackThumbnail: l.TrackThumbnail,
+            User: l.User,
+            category: l.category,
+            createdAt: l.createdAt,
+            title: l.title,
+            trackId: l.trackId,
+            trackUrl: l.trackUrl,
+            userId: l.userId,
+            active: false,
+          };
 
-  React.useEffect(() => {
-    openModal();
+          // uniq 인덱스 증가
+          idx++;
+
+          return obj;
+        });
+        const categoryObj = {
+          category: list.category,
+          tracks: new_list,
+        };
+        return categoryObj;
+      });
+      setAllList(_list);
+    }
+  }, [track_list]);
+
+  useEffect(() => {
     dispatch(postActions.loadPostDB());
   }, []);
+
+  //모달 하루동안 열지 않기
+  const HAS_VISITED_BEFORE = localStorage.getItem("hasVisitedBefore");
+
+  useEffect(() => {
+    const handleShowModal = () => {
+      if (HAS_VISITED_BEFORE && HAS_VISITED_BEFORE > new Date()) {
+        return;
+      }
+
+      if (!HAS_VISITED_BEFORE) {
+        setShowModal(true);
+        let expires = new Date();
+        expires = expires.setHours(expires.getHours() + 24);
+        localStorage.setItem("hasVisitedBefore", expires);
+      } else {
+        setShowModal(false);
+      }
+    };
+
+    window.setTimeout(handleShowModal, 2000);
+  }, [HAS_VISITED_BEFORE]);
+
+  const handleClose = () => setShowModal(false);
 
   return (
     <>
       <Header topMenu props={props} />
-      {showModal && <OnBoarding setShowModal={setShowModal} />}
+      {showModal && <OnBoarding onClose={handleClose} />}
       <WrapDiv>
         <Wrap>
           <Button
@@ -44,8 +100,8 @@ const Main = (props) => {
           </Button>
           <DivText>나의 목소리를 올려서 사람들에게 들려주세요!</DivText>
         </Wrap>
-        {track_list &&
-          track_list.map((list, idx) => {
+        {all_list &&
+          all_list.map((list, idx) => {
             return (
               <React.Fragment key={idx}>
                 <Wrap>
@@ -68,8 +124,13 @@ const Main = (props) => {
                 <Flex>
                   {list.tracks.map((l) => {
                     return (
-                      <div key={l.trackId}>
-                        <PlayBox {...l} />
+                      <div key={`track-id-${l.uniq}`}>
+                        <PlayBox
+                          {...l}
+                          setAllListData={setAllList}
+                          all_list={all_list}
+                          target_uniq={l.uniq}
+                        />
                       </div>
                     );
                   })}

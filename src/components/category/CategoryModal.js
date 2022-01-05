@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { actionCreators as searchActions } from "../../redux/modules/search";
 
-import { Button, Container } from "../../elements";
+import { Button } from "../../elements";
 
-import { IoCloseSharp } from "react-icons/io5";
 import { useHistory } from "react-router-dom";
 
 const CategoryModal = ({ setShowModal, tagList, name }) => {
@@ -15,10 +14,6 @@ const CategoryModal = ({ setShowModal, tagList, name }) => {
   const category = name;
   const [tag_list, setTagList] = React.useState([]);
   const [is_disabled, setIsDisabled] = React.useState(true);
-
-  const closeModal = () => {
-    setShowModal(false);
-  };
 
   useEffect(() => {
     const trueActive = tag_list.filter((tag, idx) => {
@@ -137,15 +132,6 @@ const Modal = styled.div`
   background-color: #2c2b2b;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
-`;
-
-const Icon = styled.div`
-  position: absolute;
-  right: 0;
-  width: 20px;
-  height: 20px;
-  margin-top: 8px;
-  margin-right: 16px;
 `;
 
 const TagDiv = styled.div`

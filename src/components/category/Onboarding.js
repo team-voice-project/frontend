@@ -6,20 +6,18 @@ import Header from "./Header";
 import Container from "../../elements/Container";
 import SingleAudioPlayer from "../../shared/SingleAudioPlayer";
 import { actionCreators as postActions } from "../../redux/modules/post";
+import { setCookie, getcookie, newGetCookie } from "../../shared/Cookie";
 
 import { HiHeart } from "react-icons/hi";
 import { RiChat4Fill } from "react-icons/ri";
-import { Button, Font, Tag } from "../../elements";
+import { Button, Font } from "../../elements";
 import { useHistory } from "react-router-dom";
-import DetailTag from "../mypage/DetailTag";
 
-const OnBoarding = ({ setShowModal }) => {
+const OnBoarding = ({ onClose }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
   const track_list = useSelector((state) => state.post.onboarding);
-  console.log("track_list", track_list);
-
   const randomData = () => {
     if (track_list) {
       const random = Math.floor(Math.random() * track_list.length);
@@ -27,7 +25,6 @@ const OnBoarding = ({ setShowModal }) => {
     }
   };
 
-  console.log(randomData());
   const random = randomData();
   console.log(random);
 
@@ -35,15 +32,15 @@ const OnBoarding = ({ setShowModal }) => {
     dispatch(postActions.loadPostDB());
   }, []);
 
+  const onModalNotShot = () => {};
+
   return (
     <Background>
       <Header noHeader />
       <Container>
         <BoxDiv>
           <Flex>
-            <SmallCircle
-              src={random && random.TrackThumbnail.trackThumbnailUrlFace}
-            ></SmallCircle>
+            <SmallCircle src={random && random.User.profileImage}></SmallCircle>
             <div
               style={{
                 width: "80px",
@@ -98,13 +95,7 @@ const OnBoarding = ({ setShowModal }) => {
         >
           나도 목소리 올리기
         </Button>
-        <Button
-          border
-          margin="0px 0px 25px 0px"
-          _onClick={() => {
-            setShowModal(false);
-          }}
-        >
+        <Button border margin="0px 0px 25px 0px" _onClick={onClose}>
           다른 목소리 듣기
         </Button>
       </Container>

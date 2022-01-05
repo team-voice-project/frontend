@@ -36,7 +36,7 @@ const MenuModal = (props) => {
     });
   };
   const local = localStorage.getItem("key");
-  console.log(LikeCnt);
+  // console.log(LikeCnt);
 
   const [modalOpen, setModalOpen] = React.useState(false);
 

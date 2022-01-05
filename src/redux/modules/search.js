@@ -18,7 +18,6 @@ const loadCategory = createAction(LOAD_CATEGORY, (category) => ({ category }));
 const getSearchDB = (keyword) => {
   return function (dispatch, getState, { history }) {
     apis.search(keyword).then((res) => {
-      console.log(res);
       dispatch(getSearch(res.data.tracks));
     });
   };
