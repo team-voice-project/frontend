@@ -37,7 +37,7 @@ const CommentList = (props) => {
         <InnerList>
           <CommentStyle margin="10px 0px" width="100%">
             <CommentProfile>
-              <ImageCircle src={props.user_image} />
+              <ImageCircle src={props.User?.profileImage} />
               <div style={{ width: "330px", wordBreak: "break-all" }}>
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <NickName>{props.User?.nickname}</NickName>

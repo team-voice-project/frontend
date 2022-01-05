@@ -66,12 +66,8 @@ const PortfolioPage = (props) => {
         }}
       >
         <label style={{ marginRight: "10px" }}>
-          <FormCheckLeft type="radio" name="radioButton" />
+          <FormCheckLeft type="radio" name="radioBtn" checked />
           <FormCheckText>트랙 리스트</FormCheckText>
-        </label>
-        <label>
-          <FormCheckLeft type="radio" name="radioButton" />
-          <FormCheckText>좋아요 목록</FormCheckText>
         </label>
       </div>
       {track?.track_info === undefined || track?.track_info.length < 1 ? (

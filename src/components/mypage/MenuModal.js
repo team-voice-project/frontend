@@ -30,13 +30,12 @@ const MenuModal = (props) => {
     apis.likeTrack(trackId).then((res) => {
       const boolean = res.data.result.like;
       const likeCnt = res.data.result.likeCnt;
-      localStorage.setItem("key", boolean);
+      localStorage.setItem(trackId, boolean);
       setLikeBtn(boolean);
       setLikeCnt(likeCnt);
     });
   };
-  const local = localStorage.getItem("key");
-  console.log(LikeCnt);
+  const local = localStorage.getItem(trackId);
 
   const [modalOpen, setModalOpen] = React.useState(false);
 
