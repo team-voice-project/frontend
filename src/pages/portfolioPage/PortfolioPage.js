@@ -89,8 +89,7 @@ const PortfolioPage = (props) => {
           style={{
             display: "flex",
             flexWrap: "wrap",
-            justifyContent: "space-between",
-            justifyItems: "left",
+            justifyContent: "center",
           }}
         >
           <TrackGrid>
@@ -114,13 +113,13 @@ PortfolioPage.defaultProps = {
 const TrackGrid = styled.div`
   max-width: 425px;
   width: 100%;
-  margin: auto;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 `;
 
 const TrackDiv = styled.div`
-  margin: 0px 5px;
+  margin: auto;
 `;
 const OAODiv = styled.div`
   position: relative;
