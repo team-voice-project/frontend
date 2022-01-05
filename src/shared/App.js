@@ -67,7 +67,8 @@ function App() {
           component={Auth(PortfolioPage, true)}
           exact
         />
-        <Route path="/mypage" component={Auth(MyPage, true)} exact />
+        <Route path="/mypage/" component={Auth(MyPage, true)} exact />
+        <Route path="/mypage/:like" component={Auth(MyPage, true)} exact />
         <Route path="/edit/profile" component={Auth(EditProfile, true)} exact />
         <Route path="/share/:track_id" component={ShareTrack} exact />
         <Route

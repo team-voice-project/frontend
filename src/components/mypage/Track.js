@@ -20,10 +20,10 @@ const Track = (props) => {
   return (
     <>
       <MenuModal props={props} open={modalOpen} close={closeModal} />
-      <div style={{ position: "relative" }}>
+      <div style={{ position: "relative", margin: "0px" }}>
         <TrackDiv>
           <label>
-            <PlayBtn type="radio" name="radioButton"></PlayBtn>
+            <PlayBtn type="checkbox" className="radioButton"></PlayBtn>
             <DIV>
               <ImageCircle
                 className="circle"
@@ -118,7 +118,7 @@ const ImageCircle = styled.img`
     height: 80px;
   }
 `;
-const PlayBtn = styled.input.attrs({ type: "radio" })`
+const PlayBtn = styled.input.attrs({ type: "checkbox" })`
   display: none;
   &:checked + ${DIV} {
     .circle {
