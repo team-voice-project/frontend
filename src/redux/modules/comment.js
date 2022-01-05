@@ -6,7 +6,7 @@ const ADD_COMMENT = "ADD_COMMENT";
 const DELETE_COMMENT = "DELETE_COMMENT";
 
 const initialState = {
-  comment: null,
+  trackId: null,
   comments: [],
 };
 const addComment = createAction(ADD_COMMENT, (trackId, comment) => ({
@@ -31,7 +31,7 @@ const addCommentDB = (trackId, comment) => {
   return function (dispatch, getState, { history }) {
     apis.commentTrack(trackId, comment).then((res) => {
       console.log(res);
-      dispatch(addComment(trackId, res.data.comment));
+      dispatch(addComment(trackId, res.data.comments));
     });
   };
 };
@@ -41,7 +41,8 @@ export default handleActions(
     [ADD_COMMENT]: (state, action) =>
       produce(state, (draft) => {
         console.log(action.payload);
-        draft.comments = [action.payload.comment];
+        draft.comments = action.payload.comment;
+        draft.trackId = action.payload.trackId;
       }),
     [DELETE_COMMENT]: (state, action) =>
       produce(state, (draft) => {

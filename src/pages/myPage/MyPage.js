@@ -4,9 +4,10 @@ import Container from "../../elements/Container";
 import styled from "styled-components";
 import Track from "../../components/mypage/Track";
 import { RiPencilFill } from "react-icons/ri";
-import MusicPlayer from "../../components/jinkePlayer/MusicPlayer";
+import GlobalPlayer from "../../components/player/GlobalPlayer";
 import { history } from "../../redux/configStore";
 import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import { actionCreators } from "../../redux/modules/mypage";
 import { apis } from "../../shared/api";
 import Header from "../../components/category/Header";
@@ -14,6 +15,8 @@ import Header from "../../components/category/Header";
 const MyPage = (props) => {
   const track = useSelector((state) => state.mypage.track);
   const user_info = useSelector((state) => state.mypage.user_info);
+  const like_track = useSelector((state) => state.mypage.like_track);
+  const like = useParams()?.like;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -80,14 +83,57 @@ const MyPage = (props) => {
             margin: "20px 0 0 0",
           }}
         >
-          <label style={{ marginRight: "10px" }}>
-            <FormCheckLeft type="radio" name="radioButton" />
-            <FormCheckText>트랙 리스트</FormCheckText>
-          </label>
-          <label>
-            <FormCheckLeft type="radio" name="radioButton" />
-            <FormCheckText>좋아요 목록</FormCheckText>
-          </label>
+          {like === "1" ? (
+            <>
+              <label style={{ marginRight: "10px" }}>
+                <FormCheckLeft
+                  type="radio"
+                  value={"a" || ""}
+                  name="radioBtn"
+                  onClick={() => {
+                    history.push("/mypage");
+                  }}
+                />
+                <FormCheckText>트랙 리스트</FormCheckText>
+              </label>
+              <label>
+                <FormCheckLeft
+                  type="radio"
+                  name="radioBtn"
+                  defaultChecked
+                  onClick={() => {
+                    history.push("/mypage/1");
+                  }}
+                />
+                <FormCheckText>좋아요 목록</FormCheckText>
+              </label>
+            </>
+          ) : (
+            <>
+              <label style={{ marginRight: "10px" }}>
+                <FormCheckLeft
+                  type="radio"
+                  value={"a" || ""}
+                  name="radioBtn"
+                  defaultChecked
+                  onClick={() => {
+                    history.push("/mypage");
+                  }}
+                />
+                <FormCheckText>트랙 리스트</FormCheckText>
+              </label>
+              <label>
+                <FormCheckLeft
+                  type="radio"
+                  name="radioBtn"
+                  onClick={() => {
+                    history.push("/mypage/1");
+                  }}
+                />
+                <FormCheckText>좋아요 목록</FormCheckText>
+              </label>
+            </>
+          )}
         </div>
         {track?.track_info === undefined || track?.track_info.length < 1 ? (
           <div
@@ -104,18 +150,23 @@ const MyPage = (props) => {
             </OAODiv>
           </div>
         ) : (
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "space-between",
-              justifyItems: "left",
-            }}
-          >
-            {track?.track_info.map((p, idx) => {
-              return <Track key={idx} {...p} />;
-            })}
-          </div>
+          <TrackGrid>
+            {like === "1"
+              ? like_track.like_track?.map((p, idx) => {
+                  return (
+                    <TrackDiv key={p.trackId}>
+                      <Track {...p} />
+                    </TrackDiv>
+                  );
+                })
+              : track?.track_info.map((p, idx) => {
+                  return (
+                    <TrackDiv key={p.trackId}>
+                      <Track {...p} />
+                    </TrackDiv>
+                  );
+                })}
+          </TrackGrid>
         )}
       </Container>
     </>
@@ -126,6 +177,18 @@ MyPage.defaultProps = {
   user_image:
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgXaZTRs1NC8dvfYkOxERlkyi-nEMnP15bag&usqp=CAU",
 };
+
+const TrackGrid = styled.div`
+  max-width: 425px;
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const TrackDiv = styled.div`
+  margin: 0px 5px;
+`;
 
 const OAODiv = styled.div`
   position: relative;

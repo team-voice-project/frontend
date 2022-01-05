@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Container from "../../elements/Container";
 import styled from "styled-components";
 import Track from "../../components/mypage/Track";
-import MusicPlayer from "../../components/jinkePlayer/MusicPlayer";
+import GlobalPlayer from "../../components/player/GlobalPlayer";
 import { useSelector } from "react-redux";
 import DefaultImg from "./profileIMG.png";
 import { RiArrowLeftSLine } from "react-icons/ri";
@@ -66,12 +66,8 @@ const PortfolioPage = (props) => {
         }}
       >
         <label style={{ marginRight: "10px" }}>
-          <FormCheckLeft type="radio" name="radioButton" />
+          <FormCheckLeft type="radio" name="radioBtn" checked />
           <FormCheckText>트랙 리스트</FormCheckText>
-        </label>
-        <label>
-          <FormCheckLeft type="radio" name="radioButton" />
-          <FormCheckText>좋아요 목록</FormCheckText>
         </label>
       </div>
       {track?.track_info === undefined || track?.track_info.length < 1 ? (
@@ -97,9 +93,15 @@ const PortfolioPage = (props) => {
             justifyItems: "left",
           }}
         >
-          {track?.track_info.map((p, idx) => {
-            return <Track key={idx} {...p} />;
-          })}
+          <TrackGrid>
+            {track?.track_info.map((p, idx) => {
+              return (
+                <TrackDiv key={p.trackId}>
+                  <Track {...p} />
+                </TrackDiv>
+              );
+            })}
+          </TrackGrid>
         </div>
       )}
     </Container>
@@ -109,7 +111,17 @@ const PortfolioPage = (props) => {
 PortfolioPage.defaultProps = {
   user_image: DefaultImg,
 };
+const TrackGrid = styled.div`
+  max-width: 425px;
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+`;
 
+const TrackDiv = styled.div`
+  margin: 0px 5px;
+`;
 const OAODiv = styled.div`
   position: relative;
   top: 50px;

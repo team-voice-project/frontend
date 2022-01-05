@@ -9,6 +9,7 @@ import Post from "./modules/post";
 import Mypage from "./modules/mypage";
 import Comment from "./modules/comment";
 import Search from "./modules/search";
+import GlobalPlayer from "./modules/globalPlayer";
 
 export const history = createBrowserHistory();
 
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   post: Post,
   mypage: Mypage,
   search: Search,
+  globalPlayer: GlobalPlayer,
   router: connectRouter(history),
 });
 

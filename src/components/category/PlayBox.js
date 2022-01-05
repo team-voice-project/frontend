@@ -1,21 +1,47 @@
 import React from "react";
 import styled from "styled-components";
+import { actionCreators as playerActions } from "../../redux/modules/globalPlayer";
+
 import { BiPause } from "react-icons/bi";
 import { FaPlay } from "react-icons/fa";
 import { FcLike } from "react-icons/fc";
 import MenuModal from "../mypage/MenuModal";
-import { HiHeart } from "react-icons/hi";
 import { RiChat4Fill } from "react-icons/ri";
+import { useDispatch, useSelector } from "react-redux";
 
-const PlayBox = (props) => {
+const PlayBox = React.memo((props) => {
+  const dispatch = useDispatch();
   const Image = props.TrackThumbnail.trackThumbnailUrlFace;
   const [modalOpen, setModalOpen] = React.useState(false);
+  const globalPlayer = useSelector(
+    (state) => state.globalPlayer.playerInstance
+  );
 
   const openModal = () => {
     setModalOpen(true);
   };
   const closeModal = () => {
     setModalOpen(false);
+  };
+
+  const handlePlayTargetVoice = async () => {
+    setPlayBtn(true);
+
+    const now_track = {
+      trackId: props.trackId,
+      name: props.title,
+      singer: props.User.nickname,
+      cover: props.TrackThumbnail.trackThumbnailUrlFace,
+      musicSrc: props.trackUrl,
+    };
+
+    await dispatch(playerActions.play(now_track));
+    globalPlayer.play();
+  };
+
+  const handlePauseTargetVoice = () => {
+    setPlayBtn(false);
+    globalPlayer.pause();
   };
 
   return (
@@ -51,7 +77,8 @@ const PlayBox = (props) => {
                   transition: "all 300ms ease-in",
                 }}
               />
-              <PlayButton>
+
+              <PlayButton onClick={handlePauseTargetVoice}>
                 <BiPause
                   style={{
                     color: "white",
@@ -82,7 +109,8 @@ const PlayBox = (props) => {
               }}
             >
               <Circle src={Image} />
-              <PlayButton>
+
+              <PlayButton onClick={handlePlayTargetVoice}>
                 <FaPlay
                   style={{
                     color: "white",
@@ -132,7 +160,7 @@ const PlayBox = (props) => {
       </Flex>
     </div>
   );
-};
+});
 
 const Flex = styled.div`
   display: flex;
