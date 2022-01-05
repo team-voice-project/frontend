@@ -44,12 +44,9 @@ const LoginCallback = ({ history }) => {
 
       const is_join = res.data.user.firstLogin;
       if (is_join) {
-        history.push({
-          pathname: "/edit/profile",
-          state: { first: is_join },
-        });
+        window.location.href = "/edit/profile/first";
       } else {
-        history.push("/");
+        window.location.href = "/";
       }
     })
     .catch((err) => {

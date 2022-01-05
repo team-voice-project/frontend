@@ -1,15 +1,21 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { actionCreators as playerActions } from "../../redux/modules/globalPlayer";
+
 import { BiPause } from "react-icons/bi";
 import { FaPlay } from "react-icons/fa";
 import { FcLike } from "react-icons/fc";
 import MenuModal from "../mypage/MenuModal";
-import { HiHeart } from "react-icons/hi";
 import { RiChat4Fill } from "react-icons/ri";
 
 const PlayBox = (props) => {
+  const dispatch = useDispatch();
   const Image = props.TrackThumbnail.trackThumbnailUrlFace;
   const [modalOpen, setModalOpen] = React.useState(false);
+  const globalPlayer = useSelector(
+    (state) => state.globalPlayer.playerInstance
+  );
 
   const openModal = () => {
     setModalOpen(true);
@@ -18,6 +24,25 @@ const PlayBox = (props) => {
     setModalOpen(false);
   };
 
+  const PlayTargetTrack = async () => {
+    const now_track = {
+      trackId: props.trackId,
+      name: props.title,
+      singer: props.User.nickname,
+      cover: props.TrackThumbnail.trackThumbnailUrlFace,
+      musicSrc: props.trackUrl,
+    };
+
+    console.log("원본 정보", props);
+    console.log("재생할 트랙", now_track);
+
+    await dispatch(playerActions.play(now_track));
+    globalPlayer.play();
+  };
+
+  const PauseTargetTrack = () => {
+    globalPlayer.pause();
+  };
   return (
     <div>
       <Flex>
@@ -42,6 +67,9 @@ const PlayBox = (props) => {
                 });
 
                 props.setAllListData(changed_list);
+
+                // global player pause
+                PauseTargetTrack();
               }}
             >
               <Circle
@@ -79,6 +107,9 @@ const PlayBox = (props) => {
                 });
 
                 props.setAllListData(changed_list);
+
+                // global player play
+                PlayTargetTrack();
               }}
             >
               <Circle src={Image} />
