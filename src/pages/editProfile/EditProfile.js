@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { apis } from "../../shared/api";
 import { useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { actionCreators as userActions } from "../../redux/modules/user";
 import {
   DEFAULT_PROFILE_URL,
@@ -20,6 +20,7 @@ const EditProfile = ({ history }) => {
   const dispatch = useDispatch();
   const skipBtnRef = useRef(null);
   const location = useLocation();
+  const params = useParams();
   const [next_btn_disabled, setNextBtnDisabeld] = useState(false);
   const [nick_value, setNickValue] = useState("");
   const [email_value, setEmailValue] = useState("");
@@ -28,7 +29,7 @@ const EditProfile = ({ history }) => {
   const [email_alert, setEmailAlert] = useState(false);
   const [photo_url, setPhotoUrl] = useState();
   const [photo_obj, setPhotoObj] = useState(null);
-  const is_first = location.state?.first;
+  const is_first = params?.is_first == "first";
 
   const fetchProfileData = async () => {
     try {
