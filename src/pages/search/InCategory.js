@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -7,22 +7,17 @@ import { actionCreators as searchActions } from "../../redux/modules/search";
 import CategoryModal from "../../components/category/CategoryModal";
 import Header from "../../components/category/Header";
 import Track from "../../components/mypage/Track";
-import { Font, Container } from "../../elements/index";
+import { Font } from "../../elements/index";
 
-import { RiArrowRightSLine, RiLineHeight } from "react-icons/ri";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { BsFilterRight } from "react-icons/bs";
-import { IoCloseSharp } from "react-icons/io5";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const InCategory = (props) => {
   const dispatch = useDispatch();
   const name = props.match.params.categoryName;
 
   const tag_list = useSelector((state) => state.post.tag_list);
-  const track_list = useSelector((state) => state.post.post_list);
   const category = useSelector((state) => state.search.category_list);
-  const tags = useSelector((state) => state.search.tags);
 
   //undefined일때 화면관리하기
 
@@ -67,20 +62,6 @@ const InCategory = (props) => {
           </div>
         </Flex>
 
-        {/* {tags &&
-          tags.map((l, i) => {
-            if (!l == "") {
-              return (
-                <TagGrid key={i}>
-                  <Tag>
-                    {l}
-                    <IoCloseSharp />
-                  </Tag>
-                </TagGrid>
-              );
-            }
-          })} */}
-
         {category && category.length > 0 ? (
           <TrackGrid>
             {category &&
@@ -103,28 +84,6 @@ const InCategory = (props) => {
     </>
   );
 };
-
-const Tag = styled.div`
-  display: flex;
-  align-items: center;
-  font-family: "Pretendard Variable", serif;
-  font-weight: 400;
-  font-size: 12px;
-  border: 0;
-  padding: 10px 15px 11px 15px;
-  color: #fff;
-  background-color: var(--point-color);
-  margin: 5px;
-  margin-bottom: 16px;
-  border-radius: 20px;
-
-  svg {
-    position: relative;
-    top: 1px;
-    right: -3px;
-    margin-left: 3px;
-  }
-`;
 
 const Wrap = styled.div`
   width: 100%;
@@ -158,33 +117,6 @@ const TrackGrid = styled.div`
 
 const TrackDiv = styled.div`
   margin: 0px 10px;
-`;
-
-const TagGrid = styled.div`
-  cursor: pointer;
-  margin: 10px 4px 0px 0px;
-  display: inline-block;
-`;
-
-const Multiline = styled.input`
-  border: none;
-  background: none;
-  border-bottom: solid 3px #ddd;
-  padding: 12px 4px;
-  width: 100%;
-  color: #fff;
-
-  :focus {
-    border: none;
-    background: none;
-    border-bottom: solid 3px var(--point-color);
-  }
-`;
-
-const Temp = styled.div`
-  width: 30px;
-  height: 30px;
-  background-color: #ddd;
 `;
 
 const OAODiv = styled.div`

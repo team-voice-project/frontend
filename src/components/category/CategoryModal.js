@@ -80,10 +80,6 @@ const CategoryModal = ({ setShowModal, tagList, name }) => {
       <BackGround>
         <Wrap>
           <Modal>
-            <Icon onClick={closeModal}>
-              <IoCloseSharp size="20" cursor="pointer"></IoCloseSharp>
-            </Icon>
-
             <TagDiv>
               {tag_list.map((l, idx) => {
                 return (
@@ -160,7 +156,6 @@ const TagDiv = styled.div`
 const TagBtn = styled.button`
   font-family: "Pretendard Variable", serif;
   font-weight: 400;
-  font-size: 12px;
   border: 0;
   padding: 10px 15px 11px 15px;
   color: #fff;
