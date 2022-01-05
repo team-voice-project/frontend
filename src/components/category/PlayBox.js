@@ -1,48 +1,21 @@
 import React from "react";
 import styled from "styled-components";
-import { actionCreators as playerActions } from "../../redux/modules/globalPlayer";
-
 import { BiPause } from "react-icons/bi";
 import { FaPlay } from "react-icons/fa";
 import { FcLike } from "react-icons/fc";
 import MenuModal from "../mypage/MenuModal";
+import { HiHeart } from "react-icons/hi";
 import { RiChat4Fill } from "react-icons/ri";
-import { useDispatch, useSelector } from "react-redux";
 
-const PlayBox = React.memo((props) => {
-  const dispatch = useDispatch();
+const PlayBox = (props) => {
   const Image = props.TrackThumbnail.trackThumbnailUrlFace;
   const [modalOpen, setModalOpen] = React.useState(false);
-  const [playBtn, setPlayBtn] = React.useState(false);
-  const globalPlayer = useSelector(
-    (state) => state.globalPlayer.playerInstance
-  );
 
   const openModal = () => {
     setModalOpen(true);
   };
   const closeModal = () => {
     setModalOpen(false);
-  };
-
-  const handlePlayTargetVoice = async () => {
-    setPlayBtn(true);
-
-    const now_track = {
-      trackId: props.trackId,
-      name: props.title,
-      singer: props.User.nickname,
-      cover: props.TrackThumbnail.trackThumbnailUrlFace,
-      musicSrc: props.trackUrl,
-    };
-
-    await dispatch(playerActions.play(now_track));
-    globalPlayer.play();
-  };
-
-  const handlePauseTargetVoice = () => {
-    setPlayBtn(false);
-    globalPlayer.pause();
   };
 
   return (
@@ -55,8 +28,22 @@ const PlayBox = React.memo((props) => {
           header={"123"}
         />
         <MarginDiv>
-          {playBtn ? (
-            <div style={{ display: "flex" }}>
+          {props.active === true ? (
+            <CircleDiv
+              onClick={() => {
+                const changed_list = props.all_list.map((article) => {
+                  return {
+                    category: article.category,
+                    tracks: article.tracks.map((track) => {
+                      track.active = false;
+                      return track;
+                    }),
+                  };
+                });
+
+                props.setAllListData(changed_list);
+              }}
+            >
               <Circle
                 src={Image}
                 style={{
@@ -64,7 +51,7 @@ const PlayBox = React.memo((props) => {
                   transition: "all 300ms ease-in",
                 }}
               />
-              <PlayButton onClick={handlePauseTargetVoice}>
+              <PlayButton>
                 <BiPause
                   style={{
                     color: "white",
@@ -72,11 +59,30 @@ const PlayBox = React.memo((props) => {
                   }}
                 />
               </PlayButton>
-            </div>
+            </CircleDiv>
           ) : (
-            <div style={{ display: "flex" }}>
+            <CircleDiv
+              onClick={() => {
+                const changed_list = props.all_list.map((article) => {
+                  return {
+                    category: article.category,
+                    tracks: article.tracks.map((track) => {
+                      if (track.uniq === props.target_uniq) {
+                        track.active = true;
+                        return track;
+                      } else {
+                        track.active = false;
+                        return track;
+                      }
+                    }),
+                  };
+                });
+
+                props.setAllListData(changed_list);
+              }}
+            >
               <Circle src={Image} />
-              <PlayButton onClick={handlePlayTargetVoice}>
+              <PlayButton>
                 <FaPlay
                   style={{
                     color: "white",
@@ -85,7 +91,7 @@ const PlayBox = React.memo((props) => {
                   }}
                 />
               </PlayButton>
-            </div>
+            </CircleDiv>
           )}
 
           <div
@@ -126,7 +132,7 @@ const PlayBox = React.memo((props) => {
       </Flex>
     </div>
   );
-});
+};
 
 const Flex = styled.div`
   display: flex;
@@ -144,16 +150,30 @@ const Text = styled.p`
 `;
 
 const MarginDiv = styled.div`
-  margin: 0px 16px 20px 0px;
+  margin: 0px 0px 20px 0px;
   @media screen and (max-width: 360px) {
     margin: 0px 10px 20px 0px;
+  }
+`;
+
+const CircleDiv = styled.div`
+  width: 150px;
+  height: 118px;
+  /* background-color: #ddd; */
+  border-radius: 120px;
+  display: flex;
+  cursor: pointer;
+  margin: 0px 4px 12px 0px;
+  @media screen and (max-width: 360px) {
+    width: 126px;
+    height: 100px;
+    border-radius: 100px;
   }
 `;
 
 const Circle = styled.img`
   width: 118px;
   height: 118px;
-  /* border: 5px solid #ff00b3; */
   border-radius: 120px;
   margin: 0px 0px 12px 0px;
   @media screen and (max-width: 360px) {
@@ -161,6 +181,11 @@ const Circle = styled.img`
     height: 100px;
     border-radius: 100px;
     margin: 0px 0px 12px 0px;
+  }
+
+  &.on{
+    border: "5px solid #f1134e ",
+                  transition: "all 300ms ease-in",
   }
 `;
 

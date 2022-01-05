@@ -105,7 +105,6 @@ const Search = (props) => {
             <TrackGrid>
               {search_list &&
                 search_list.map((l) => {
-                  console.log("리스트야", l);
                   return (
                     <TrackDiv key={l.trackId}>
                       <Track {...l} />

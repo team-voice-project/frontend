@@ -104,10 +104,14 @@ const FlexSearchBar = styled.div`
 `;
 
 const L = styled.div`
-  width: 80px;
+  width: 60px;
   height: 28px;
   background-color: #ddd;
   cursor: pointer;
+
+  background-image: url("/assets/images/logo.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
 
 const FlexIcon = styled.div`

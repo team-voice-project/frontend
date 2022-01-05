@@ -18,7 +18,6 @@ const initialState = {};
 const loadPostDB = () => {
   return function (dispatch, getState, { history }) {
     apis.mainPage().then((res) => {
-      console.log("resres", res);
       dispatch(loadPost(res.data.totalTracks));
     });
   };
