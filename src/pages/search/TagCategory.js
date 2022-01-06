@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
@@ -31,6 +31,8 @@ const TagCategory = (props) => {
 
   const [show_modal, setShowModal] = React.useState(false);
   const [tag, setTag] = React.useState([]);
+  const trackWrapRef = useRef(null);
+  console.log("트랙 Wrapper", trackWrapRef);
 
   const openModal = () => {
     setShowModal(true);
@@ -102,12 +104,12 @@ const TagCategory = (props) => {
           })}
 
         {category && category.length > 0 ? (
-          <TrackGrid>
+          <TrackGrid ref={trackWrapRef}>
             {category &&
               category.map((l, i) => {
                 return (
                   <TrackDiv key={l.trackId}>
-                    <Track {...l} />
+                    <Track {...l} trackWrapRef={trackWrapRef.current} />
                   </TrackDiv>
                 );
               })}

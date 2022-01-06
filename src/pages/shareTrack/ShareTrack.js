@@ -69,7 +69,7 @@ const ShareTrack = ({ history }) => {
           </div>
         </div>
 
-        <div className={"jinkePlayer-widget"}>
+        <div className={"player-widget"}>
           <SingleAudioPlayer audio={track_info?.trackUrl} />
         </div>
 
@@ -106,11 +106,11 @@ const ShareWrap = styled.article`
   .greetings {
     margin-top: 30px;
     line-height: 1.62;
+    margin-bottom: 40px;
   }
 
   .player-widget {
-    position: relative;
-    margin-bottom: 20px;
+    flex: 1;
   }
 
   .track-info {
@@ -138,24 +138,7 @@ const ShareWrap = styled.article`
 
     .track-tags {
       display: flex;
-      margin-bottom: 12px;
       justify-content: center;
-
-      //.tag-item {
-      //  font-size: 13px;
-      //  border: 0;
-      //  color: #fff;
-      //  border-radius: 30px;
-      //  padding: 9px 11px;
-      //  background-color: #2c2b2b;
-      //  margin-right: 8px;
-      //  min-width: 60px;
-      //  font-family: "Pretendard Variable", serif;
-      //
-      //  &:last-child {
-      //    margin-right: 0;
-      //  }
-      //}
     }
   }
 

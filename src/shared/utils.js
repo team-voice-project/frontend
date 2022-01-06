@@ -22,7 +22,7 @@ export const GLOBAL_PLAYER_ESCAPE_LIST = [
   "/edit/record",
   "/edit/final",
   "/login",
-  "/category",
+  // "/category",
   "/edit/profile",
   "/share/",
 ];
@@ -36,7 +36,6 @@ export const getSessionPlaylist = () => {
 };
 
 export const setSessionPlaylist = (playlist) => {
-  console.log("세션에 저장될 리스트", playlist);
   sessionStorage.setItem(PLAY_LIST_KEY, JSON.stringify(playlist));
 };
 

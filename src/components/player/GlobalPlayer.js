@@ -195,6 +195,7 @@ const GlobalPlayer = () => {
   const handleClearPlayList = async () => {
     await dispatch(playerActions.clearPlayList());
     resetPlayerDisplay();
+    globalPlayer.pause();
   };
 
   const handleDeleteTrack = async (track_src) => {
@@ -525,7 +526,7 @@ const PlayListWidget = styled.article`
       background: none;
       padding: 2px 8px;
       border: 1px solid #666;
-      border-radius: 3px;
+      border-radius: 10px;
       margin-left: auto;
 
       &:hover {

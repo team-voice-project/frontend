@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -18,6 +18,8 @@ const InCategory = (props) => {
 
   const tag_list = useSelector((state) => state.post.tag_list);
   const category = useSelector((state) => state.search.category_list);
+  const trackWrapRef = useRef(null);
+  console.log("카테고리에서 ref", trackWrapRef);
 
   //undefined일때 화면관리하기
 
@@ -67,12 +69,12 @@ const InCategory = (props) => {
         </Flex>
 
         {category && category.length > 0 ? (
-          <TrackGrid>
+          <TrackGrid ref={trackWrapRef}>
             {category &&
               category.map((l, i) => {
                 return (
                   <TrackDiv key={l.trackId}>
-                    <Track {...l} />
+                    <Track {...l} trackWrapRef={trackWrapRef.current} />
                   </TrackDiv>
                 );
               })}
