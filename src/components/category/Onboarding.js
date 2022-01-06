@@ -6,7 +6,6 @@ import Header from "./Header";
 import Container from "../../elements/Container";
 import SingleAudioPlayer from "../../shared/SingleAudioPlayer";
 import { actionCreators as postActions } from "../../redux/modules/post";
-import { setCookie, getcookie, newGetCookie } from "../../shared/Cookie";
 
 import { HiHeart } from "react-icons/hi";
 import { RiChat4Fill } from "react-icons/ri";
@@ -161,11 +160,6 @@ const SmallCircle = styled.img`
   background-color: #616161;
 `;
 
-const Name = styled.div`
-  font-size: 16px;
-  margin-left: 12px;
-`;
-
 const ImgDiv = styled.div`
   width: 160px;
   height: 160px;
@@ -175,13 +169,6 @@ const ImgDiv = styled.div`
 const OAOImage = styled.img`
   width: 160px;
   height: 160px;
-`;
-
-const IconDiv = styled.div`
-  width: 20px;
-  height: 20px;
-  background-color: #ddd;
-  margin-right: 8px;
 `;
 
 const CountText = styled.div`
@@ -202,12 +189,11 @@ const BoldFont = styled.div`
 const TagBox = styled.button`
   margin: 10px 5px;
   font-family: "Pretendard Variable", serif;
-  max-width: 70px;
   height: 28px;
   font-size: 12px;
   color: white;
-  padding: 5px;
-  border-radius: 10px;
+  padding: 5px 10px;
+  border-radius: 14px;
   border: none;
   background-color: #000;
   cursor: Default;
