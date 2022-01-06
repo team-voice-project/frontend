@@ -58,7 +58,11 @@ const InCategory = (props) => {
             </Font>
           </FlexTitle>
           <div>
-            <BsFilterRight cursor="pointer" size="32" onClick={openModal} />
+            {category && category.length > 0 ? (
+              <BsFilterRight cursor="pointer" size="32" onClick={openModal} />
+            ) : (
+              ""
+            )}
           </div>
         </Flex>
 

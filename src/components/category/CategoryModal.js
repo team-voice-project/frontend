@@ -7,13 +7,34 @@ import { Button } from "../../elements";
 
 import { useHistory } from "react-router-dom";
 
-const CategoryModal = ({ setShowModal, tagList, name }) => {
+const CategoryModal = ({ selectedTag, setShowModal, tagList, name }) => {
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const selected_tag = selectedTag;
 
   const category = name;
   const [tag_list, setTagList] = React.useState([]);
   const [is_disabled, setIsDisabled] = React.useState(true);
+  // console.log("tag_list:::", tag_list);
+
+  useEffect(() => {
+    // console.log("selected_tag:::", selected_tag);
+    // console.log("tag_list:::", tag_list);
+
+    if (tag_list && selected_tag) {
+      const a = tag_list.map((l) => {
+        console.log("tag_list:::", l.tag);
+        return l.tag;
+      });
+      const b = selected_tag.map((l) => {
+        console.log("selected_tag:::", l);
+        return l;
+      });
+      const c = tag_list.filter((t) => a === b);
+      console.log("결과는????", c);
+    }
+  }, []);
 
   useEffect(() => {
     const trueActive = tag_list.filter((tag, idx) => {
@@ -81,9 +102,13 @@ const CategoryModal = ({ setShowModal, tagList, name }) => {
           <Modal>
             <TagDiv>
               {tag_list.map((l, idx) => {
+                // console.log("llll:::", l);
                 return (
                   <div key={idx} style={{ display: "inline-block" }}>
                     <TagBtn
+                      //selted_tag가 있으면
+                      // selted_tag와 같은 l.tag.active를 true로
+
                       className={l.active === true ? "on" : ""}
                       onClick={() => handleClickTag(idx)}
                     >

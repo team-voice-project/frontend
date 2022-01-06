@@ -24,7 +24,6 @@ const TagCategory = (props) => {
   const tag_list = useSelector((state) => state.post.tag_list);
   const category = useSelector((state) => state.search.category_list);
   //undefined일때 화면관리하기
-  console.log(tag_list);
 
   useEffect(() => {
     dispatch(searchActions.loadTagDB(name, ...tags));
@@ -61,6 +60,7 @@ const TagCategory = (props) => {
           tagList={tag_list}
           name={name}
           setShowModal={setShowModal}
+          selectedTag={tags}
         />
       )}
 

@@ -11,6 +11,7 @@ import EditFinal from "../pages/editTrack/EditFinal";
 import Login from "../pages/main/Login";
 import PortfolioPage from "../pages/portfolioPage/PortfolioPage";
 import Search from "../pages/search/Search";
+import SearchKeyword from "../pages/search/SearchKeyword";
 import MyPage from "../pages/myPage/MyPage";
 import EditProfile from "../pages/editProfile/EditProfile";
 import ShareTrack from "../pages/shareTrack/ShareTrack";
@@ -33,6 +34,7 @@ function App() {
         <Route path="/category/:categoryName" component={InCategory} exact />
         <Route path="/tagcategory" component={TagCategory} exact />
         <Route path="/error" component={Error} exact />
+        <Route path="/searchkeyword" component={SearchKeyword} exact />
         <Route path="/search" component={Search} exact />
         <Route path="/login" component={Auth(Login, false)} exact />
         <Route path="/edit/base" component={Auth(EditBase, true)} exact />
