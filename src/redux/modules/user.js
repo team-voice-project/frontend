@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { apis } from "../../shared/api";
+import { deleteCookie } from "../../shared/Cookie";
 
 const LOG_OUT = "LOG_OUT";
 const GET_USER = "GET_USER";
@@ -90,21 +91,12 @@ const registerKakaoDB = () => {
 //   };
 // };
 
-// const logOutDB = () => {
-//   return function (dispatch, getState, { history }) {
-//     deleteCookie("token");
-//     localStorage.removeItem("id");
-//     localStorage.removeItem("nickname");
-//     dispatch(logOut());
-//     // .then(() => {
-//     history.replace("/");
-//     // })
-//     // .catch((err) => {
-//     //   console.log(err)
-//     // })
-
-//     window.location.reload();
-//   };
+const logOutDB = () => {
+  return function (dispatch, getState, { history }) {
+    dispatch(logOut(deleteCookie("OAO")));
+    history.push("/");
+  };
+};
 // };
 
 // const loginCheckDB = () => {
@@ -127,6 +119,11 @@ export default handleActions(
         draft.user = action.payload.user.user;
         draft.is_login = action.payload.user.is_login;
       }),
+    [LOG_OUT]: (state, action) =>
+      produce(state, (draft) => {
+        draft.user = "";
+        draft.is_login = false;
+      }),
   },
   initialState
 );
@@ -135,6 +132,7 @@ const actionCreators = {
   setUser,
   logOut,
   getUser,
+  logOutDB,
   registerGoogleDB,
   registerNaverDB,
   registerKakaoDB,

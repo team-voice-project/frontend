@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom";
 import { actionCreators } from "../../redux/modules/mypage";
 import { apis } from "../../shared/api";
 import Header from "../../components/category/Header";
-import { deleteCookie } from "../../shared/Cookie";
+import { actionCreators as userActions } from "../../redux/modules/user";
 
 const MyPage = (props) => {
   const track = useSelector((state) => state.mypage.track);
@@ -63,8 +63,7 @@ const MyPage = (props) => {
                 />
                 <button
                   onClick={() => {
-                    deleteCookie(name);
-                    history.push("/");
+                    dispatch(userActions.logOutDB());
                   }}
                 >
                   로그아웃
