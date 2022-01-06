@@ -21,6 +21,7 @@ const GlobalStyles = createGlobalStyle`
     color: #fff;
     font-family: 'Pretendard Variable',serif;
     font-weight: 400;
+    padding-bottom: 80px;
   }
 
   ol, ul, li {

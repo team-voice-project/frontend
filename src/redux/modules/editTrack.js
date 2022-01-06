@@ -5,6 +5,7 @@ import { apis } from "../../shared/api";
 const SAVE_BASE = "SAVE_BASE";
 const SAVE_AUDIO = "SAVE_AUDIO";
 const RESET_TRACK = "RESET_TRACK";
+const SET_LOADING = "SET_LOADING";
 
 const initialState = {
   category: "",
@@ -14,11 +15,13 @@ const initialState = {
   audio_url: "",
   audio_runtime: "00:00:00",
   cover_url: null,
+  is_loading: false,
 };
 
 const saveBase = createAction(SAVE_BASE, (base_info) => ({ base_info }));
 const saveAudio = createAction(SAVE_AUDIO, (audio_info) => ({ audio_info }));
 const resetTrack = createAction(RESET_TRACK, () => ({}));
+const setLoading = createAction(SET_LOADING, (loading) => ({ loading }));
 
 // middlewares
 const sendTrackData = (track) => {
@@ -34,10 +37,16 @@ const sendTrackData = (track) => {
 
     if (track.mode === "upload") {
       try {
+        dispatch(setLoading(true));
+
         const res = await apis.uploadTrack(trackData);
         const { trackId } = res.data;
+
+        dispatch(setLoading(false));
+
         history.push(`/share/${trackId}`);
       } catch (err) {
+        dispatch(setLoading(false));
         console.log("[업로드 실패]", err.response);
       }
     } else if (track.mode === "update") {
@@ -85,6 +94,11 @@ export default handleActions(
         console.log("[SAVE_AUDIO]", action.payload.audio_info);
         draft.audio_file = action.payload.audio_info.file;
         draft.audio_url = action.payload.audio_info.url;
+      }),
+
+    [SET_LOADING]: (state, action) =>
+      produce(state, (draft) => {
+        draft.is_loading = action.payload.loading;
       }),
   },
   initialState

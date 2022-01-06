@@ -8,11 +8,13 @@ import { apis } from "../../shared/api";
 import { Container, Button } from "../../elements";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { HiCheck } from "react-icons/hi";
+import ScaleLoader from "react-spinners/ScaleLoader";
 
 const EditFinal = ({ history }) => {
   const dispatch = useDispatch();
   const [emo_list, setEmoList] = useState([]);
   const track_info = useSelector((state) => state.editTrack);
+  const { is_loading } = track_info;
   const [send_track, setSendTrack] = useState(track_info);
   const track_id = useLocation().state?.track_id; // history.push로 받아온 track_id
 
@@ -179,11 +181,65 @@ const EditFinal = ({ history }) => {
           업로드하기
         </Button>
       </Container>
+
+      {is_loading && (
+        <LoadingSpinModal>
+          <div className={"spinner-box"}>
+            <p className={"guide-text"}>
+              <b>업로드 중입니다.</b>
+              <br />
+              잠시만 기다려주세요.
+            </p>
+
+            <ScaleLoader color={"var(--point-color)"} height={18} />
+          </div>
+        </LoadingSpinModal>
+      )}
     </EditWrap>
   );
 };
 
 export default EditFinal;
+
+const LoadingSpinModal = styled.article`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+
+  .spinner-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 180px;
+    color: #000;
+    background-color: #fff;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+
+    .guide-text {
+      color: #666;
+      font-size: 13px;
+      margin-bottom: 20px;
+
+      b {
+        color: #333;
+        font-size: 15px;
+      }
+    }
+  }
+`;
 
 const EditWrap = styled.section`
   .edit-header {

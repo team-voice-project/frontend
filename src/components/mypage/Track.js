@@ -36,7 +36,6 @@ const Track = (props) => {
       ).length;
 
       if (checkedLength >= 1) {
-        console.log("플레이");
         inputs.forEach((input) => (input.checked = false));
         currentInput.checked = true;
 
@@ -51,7 +50,6 @@ const Track = (props) => {
         await dispatch(playerActions.play(now_track));
         globalPlayer.play();
       } else {
-        console.log("스탑");
         globalPlayer.pause();
       }
     }
