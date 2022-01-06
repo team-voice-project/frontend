@@ -81,7 +81,9 @@ const PlayBox = (props) => {
                 <BiPause
                   style={{
                     color: "white",
-                    fontSize: "20px",
+                    fontSize: "30px",
+                    lineHeight: "32px",
+                    marginTop: "1px",
                   }}
                 />
               </PlayButton>
