@@ -23,31 +23,12 @@ import ErrorHandlePage from "./ErrorHandlePage";
 import GlobalPlayer from "../components/player/GlobalPlayer";
 
 function App() {
-  useEffect(() => {
-    fetchPlayList();
-  });
-
-  const fetchPlayList = async () => {
-    // const res = await apis.getPlayList();
-    // console.log(res);
-    return {
-      playlist: [
-        {
-          name: "새벽에 듣기 좋은 나래이션",
-          singer: "용용자1",
-          cover: `http://52.79.253.64/trackThumbnail/OAO1_face.png`,
-          musicSrc: `http://52.79.253.64/olryqo19mzk1641044909620.ogg`,
-        },
-      ],
-    };
-  };
-
   return (
     <>
       <GlobalStyles />
       <GlobalPlayer />
       <Switch>
-        <Route path="/" component={Main} exact />
+        <Route path="/" component={Auth(Main, false)} exact />
         <Route path="/category" component={Category} exact />
         <Route path="/category/:categoryName" component={InCategory} exact />
         <Route path="/tagcategory" component={TagCategory} exact />
@@ -70,6 +51,11 @@ function App() {
         <Route path="/mypage/" component={Auth(MyPage, true)} exact />
         <Route path="/mypage/:like" component={Auth(MyPage, true)} exact />
         <Route path="/edit/profile" component={Auth(EditProfile, true)} exact />
+        <Route
+          path="/edit/profile/:is_first"
+          component={Auth(EditProfile, true)}
+          exact
+        />
         <Route path="/share/:track_id" component={ShareTrack} exact />
         <Route
           path="/api/auth/kakao/callback"

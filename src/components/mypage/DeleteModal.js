@@ -11,6 +11,7 @@ const DeleteModal = (props) => {
 
   const openModal = () => {
     setModalOpen(true);
+    document.body.style.overflowY("hidden");
   };
   const closeModal = () => {
     setModalOpen(false);
@@ -67,7 +68,7 @@ const BackGround = styled.div`
   bottom: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
+  z-index: 9998;
   overflow-y: auto;
 `;
 

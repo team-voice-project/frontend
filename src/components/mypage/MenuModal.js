@@ -40,8 +40,13 @@ const MenuModal = (props) => {
   const local = localStorage.getItem(trackId);
   const [modalOpen, setModalOpen] = React.useState(false);
 
+  // const resetRedux = () => {
+  //   state
+  // }
+
   const openModal = () => {
     setModalOpen(true);
+    document.body.style.overflowY("hidden");
   };
   const closeModal = () => {
     setModalOpen(false);
@@ -110,13 +115,13 @@ const MenuModal = (props) => {
                     src={props.props.TrackThumbnail?.trackThumbnailUrlFull}
                   />
                 </div>
-
-                <Title>{props.props.title}</Title>
                 <div style={{ display: "flex", justifyContent: "center" }}>
                   {props.props.TrackTags.map((p, idx) => {
                     return <DetailTag bg="black" key={idx} {...p}></DetailTag>;
                   })}
                 </div>
+                <Title>{props.props.title}</Title>
+
                 <SingleAudioPlayer
                   // autoPlay
                   audio={props.props.trackUrl}
@@ -188,8 +193,9 @@ const MenuModal = (props) => {
                 <div
                   style={{
                     margin: "10px 0px",
-                    height: "410px",
+                    maxHeight: "150px",
                     overflowY: "scroll",
+                    overflowX: "hidden",
                   }}
                 >
                   {state.length !== 0
@@ -234,8 +240,8 @@ const ProfileCircle = styled.div`
 `;
 
 const ImageCircle = styled.img`
-  width: 190px;
-  height: 190px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   margin: 30px 0px 0px 0px;
   background: url("${(props) => props.src}");
@@ -265,7 +271,7 @@ const Name = styled.p`
   color: white;
 `;
 const Title = styled.h1`
-  margin-top: 10px;
+  margin: 0 0 10px 0px;
   font-size: 18px;
   color: white;
   text-align: center;

@@ -33,6 +33,7 @@ const GlobalPlayer = ({ audio }) => {
   const displayRef = useRef(null);
   const PlayerRef = useRef(null);
   const playListRef = useRef(null);
+  const store_play_list = useSelector((state) => state.globalPlayer.play_list);
   const now_track = useSelector((state) => state.globalPlayer.now_track);
   const globalPlayer = useSelector(
     (state) => state.globalPlayer.playerInstance
@@ -51,7 +52,7 @@ const GlobalPlayer = ({ audio }) => {
   useEffect(() => {
     const playlist = getSessionPlaylist();
     setMyList(playlist);
-  }, [now_track]);
+  }, [store_play_list]);
 
   const initPlayList = () => {
     dispatch(playerActions.loadPlayList());
@@ -207,9 +208,9 @@ const GlobalPlayer = ({ audio }) => {
   const sendMyPlayList = async () => {
     const play_list = getSessionPlaylist();
     if (!play_list) {
-      alert("플레이 리스트가 비어있어요!");
+      alert("저장할 플레이 리스트가 없습니다 :(");
+      return;
     }
-    console.log(play_list);
 
     const play_id_list = play_list.map((track) => track.trackId);
     console.log("서버로 저장될 플레이 리스트", play_id_list);

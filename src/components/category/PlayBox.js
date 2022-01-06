@@ -1,6 +1,6 @@
 import React from "react";
-import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
 import { actionCreators as playerActions } from "../../redux/modules/globalPlayer";
 
 import { BiPause } from "react-icons/bi";
@@ -16,6 +16,7 @@ const PlayBox = (props) => {
   const globalPlayer = useSelector(
     (state) => state.globalPlayer.playerInstance
   );
+
   const openModal = () => {
     setModalOpen(true);
   };
@@ -23,7 +24,7 @@ const PlayBox = (props) => {
     setModalOpen(false);
   };
 
-  const handlePlayTargetVoice = async () => {
+  const PlayTargetTrack = async () => {
     const now_track = {
       trackId: props.trackId,
       name: props.title,
@@ -36,10 +37,9 @@ const PlayBox = (props) => {
     globalPlayer.play();
   };
 
-  const handlePauseTargetVoice = () => {
+  const PauseTargetTrack = () => {
     globalPlayer.pause();
   };
-
   return (
     <div>
       <Flex>
@@ -64,7 +64,9 @@ const PlayBox = (props) => {
                 });
 
                 props.setAllListData(changed_list);
-                handlePauseTargetVoice();
+
+                // global player pause
+                PauseTargetTrack();
               }}
             >
               <Circle
@@ -102,7 +104,9 @@ const PlayBox = (props) => {
                 });
 
                 props.setAllListData(changed_list);
-                handlePlayTargetVoice();
+
+                // global player play
+                PlayTargetTrack();
               }}
             >
               <Circle src={Image} />
@@ -174,9 +178,9 @@ const Text = styled.p`
 `;
 
 const MarginDiv = styled.div`
-  margin: 0px 0px 20px 0px;
+  margin: 0 0 20px 0;
   @media screen and (max-width: 360px) {
-    margin: 0px 10px 20px 0px;
+    margin: 0 10px 20px 0;
   }
 `;
 
@@ -187,7 +191,7 @@ const CircleDiv = styled.div`
   border-radius: 120px;
   display: flex;
   cursor: pointer;
-  margin: 0px 4px 12px 0px;
+  margin: 0 4px 12px 0;
   @media screen and (max-width: 360px) {
     width: 126px;
     height: 100px;
@@ -199,17 +203,17 @@ const Circle = styled.img`
   width: 118px;
   height: 118px;
   border-radius: 120px;
-  margin: 0px 0px 12px 0px;
+  margin: 0 0 12px 0;
   @media screen and (max-width: 360px) {
     width: 100px;
     height: 100px;
     border-radius: 100px;
-    margin: 0px 0px 12px 0px;
+    margin: 0 0 12px 0;
   }
 
-  &.on{
-    border: "5px solid #f1134e ",
-                  transition: "all 300ms ease-in",
+  &.on {
+    border: 5px solid #f1134e;
+    transition: all 300ms ease-in;
   }
 `;
 
@@ -226,7 +230,7 @@ const PlayButton = styled.button`
     width: 26px;
     height: 26px;
     border-radius: 28px;
-    margin: 0px 0px 16px 0px;
+    margin: 0 0 16px 0;
     position: relative;
     right: 25px;
     top: 70px;
@@ -235,7 +239,7 @@ const PlayButton = styled.button`
 
 const Title = styled.div`
   font-size: 13px;
-  margin: 0px 0px 2px 0px;
+  margin: 0 0 2px 0;
   overflow: hidden;
   width: 100px;
   text-overflow: ellipsis;
@@ -245,7 +249,7 @@ const Title = styled.div`
 
   @media screen and (max-width: 360px) {
     font-size: 12px;
-    margin: 0px 0px 2px 0px;
+    margin: 0 0 2px 0;
     overflow: hidden;
   }
 `;
