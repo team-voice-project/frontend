@@ -46,7 +46,7 @@ const MenuModal = (props) => {
 
   const openModal = () => {
     setModalOpen(true);
-    document.body.style.overflowY("hidden");
+    document.body.style.overflowY = "hidden";
   };
   const closeModal = () => {
     setModalOpen(false);
@@ -193,7 +193,8 @@ const MenuModal = (props) => {
                 <div
                   style={{
                     margin: "10px 0px",
-                    maxHeight: "150px",
+                    minHeight: "120px",
+                    maxHeight: "120px",
                     overflowY: "scroll",
                     overflowX: "hidden",
                   }}
