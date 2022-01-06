@@ -24,6 +24,7 @@ export const GLOBAL_PLAYER_ESCAPE_LIST = [
   "/login",
   "/category",
   "/edit/profile",
+  "/share/",
 ];
 
 export const PLAY_LIST_KEY = "OAO::playlist";

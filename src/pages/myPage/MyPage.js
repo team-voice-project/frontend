@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import Container from "../../elements/Container";
 import styled from "styled-components";
@@ -18,6 +18,7 @@ const MyPage = (props) => {
   const like_track = useSelector((state) => state.mypage.like_track);
   const like = useParams()?.like;
   const dispatch = useDispatch();
+  const trackWrapRef = useRef(null);
 
   useEffect(() => {
     apis.getProfile().then((res) => {
@@ -159,7 +160,7 @@ const MyPage = (props) => {
             </OAODiv>
           </div>
         ) : (
-          <TrackGrid>
+          <TrackGrid ref={trackWrapRef}>
             {like === "like_list"
               ? like_track.like_track?.map((p, idx) => {
                   return (
@@ -171,7 +172,7 @@ const MyPage = (props) => {
               : track?.track_info.map((p, idx) => {
                   return (
                     <TrackDiv key={p.trackId}>
-                      <Track {...p} />
+                      <Track {...p} trackWrapRef={trackWrapRef.current} />
                     </TrackDiv>
                   );
                 })}

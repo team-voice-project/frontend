@@ -63,8 +63,9 @@ const GlobalPlayer = () => {
 
   const checkRenderState = () => {
     const is_correct = GLOBAL_PLAYER_ESCAPE_LIST.some(
-      (url) => url === pathname
+      (url) => pathname.indexOf(url) > -1
     );
+
     if (is_correct) {
       setRender(false);
     } else {
@@ -446,6 +447,18 @@ const PlayerWrap = styled.article`
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
       padding: 10px 10px 12px 10px;
       display: none;
+    }
+  }
+
+  @media screen and (max-width: 425px) {
+    .rhap_volume-controls {
+      display: none;
+    }
+
+    .rhap_main-controls {
+      transform: none;
+      right: 10px;
+      transform: translateY(-50%);
     }
   }
 `;
