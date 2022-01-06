@@ -77,20 +77,26 @@ const Text = styled.p`
 `;
 
 const Wrap = styled.div`
+  display: flex;
   max-width: 425px;
   width: 100%;
   margin: auto;
+  justify-content: center;
 `;
 
 const Modal = styled.div`
   position: absolute;
   bottom: 350px;
-  max-width: 425px;
+  max-width: 330px;
   width: 100%;
   margin: auto;
   height: 300px;
   background-color: white;
   border-radius: 10px;
+  @media screen and (max-height: 812px) {
+    position: absolute;
+    bottom: 200px;
+  }
 `;
 
 const UpBtn = styled.button`
