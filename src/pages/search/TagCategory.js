@@ -32,7 +32,6 @@ const TagCategory = (props) => {
   const [show_modal, setShowModal] = React.useState(false);
   const [tag, setTag] = React.useState([]);
   const trackWrapRef = useRef(null);
-  console.log("트랙 Wrapper", trackWrapRef);
 
   const openModal = () => {
     setShowModal(true);

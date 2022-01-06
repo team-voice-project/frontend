@@ -12,6 +12,8 @@ const CategoryModal = ({ selectedTag, setShowModal, tagList, name }) => {
   const history = useHistory();
 
   const selected_tag = selectedTag;
+  const _sessionTag = sessionStorage.getItem("tag_list");
+  const sessionTag = JSON.parse(_sessionTag);
 
   const category = name;
   const [tag_list, setTagList] = React.useState([]);
@@ -114,7 +116,7 @@ const CategoryModal = ({ selectedTag, setShowModal, tagList, name }) => {
   }, []);
 
   useEffect(() => {
-    const newList = tagList.map((list, idx) => {
+    const newList = sessionTag.map((list, idx) => {
       const obj = {
         tag: list.tag,
         active: false,
@@ -155,6 +157,8 @@ const CategoryModal = ({ selectedTag, setShowModal, tagList, name }) => {
     });
     setShowModal(false);
   };
+
+  console.log("tag_list", tag_list);
 
   return (
     <>
