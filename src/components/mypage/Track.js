@@ -12,6 +12,7 @@ const Track = (props) => {
 
   const openModal = () => {
     setModalOpen(true);
+    document.body.style.overflowY("hidden");
   };
   const closeModal = () => {
     setModalOpen(false);

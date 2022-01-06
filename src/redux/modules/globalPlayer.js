@@ -2,6 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import _ from "lodash";
 import { apis } from "../../shared/api";
+import { newGetCookie } from "../../shared/Cookie";
 import {
   setSessionPlaylist,
   getSessionPlaylist,
@@ -42,20 +43,21 @@ const play = (track) => {
 
 const loadPlayList = () => {
   return async (dispatch, getState, { history }) => {
+    const nick = newGetCookie("nick");
+    const token = newGetCookie("token");
+    const is_login = Boolean(nick && token);
     const session_playlist = getSessionPlaylist();
-    if (session_playlist) {
-      console.log("세션 먼저 불러오기");
-      dispatch(setPlayList(session_playlist));
-    } else {
-      console.log("DB에서 먼저 불러오기");
+
+    if (is_login) {
       try {
         const res = await apis.getPlayList();
         dispatch(setPlayList(res.data.playlist));
-
         console.log("플레이 리스트 불러오기 성공", res);
       } catch (err) {
         console.log("플레이 리스트 불러오기 실패", err.response);
       }
+    } else if (session_playlist) {
+      dispatch(setPlayList(session_playlist));
     }
   };
 };

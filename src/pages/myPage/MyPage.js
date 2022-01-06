@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Container from "../../elements/Container";
 import styled from "styled-components";
 import Track from "../../components/mypage/Track";
 import { RiPencilFill } from "react-icons/ri";
-import GlobalPlayer from "../../components/player/GlobalPlayer";
 import { history } from "../../redux/configStore";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { actionCreators } from "../../redux/modules/mypage";
 import { apis } from "../../shared/api";
 import Header from "../../components/category/Header";
+import { deleteCookie } from "../../shared/Cookie";
 
 const MyPage = (props) => {
   const track = useSelector((state) => state.mypage.track);
@@ -25,6 +25,7 @@ const MyPage = (props) => {
       dispatch(actionCreators.setTrackDB(userId));
     });
   }, []);
+  const name = "OAO";
 
   return (
     <>
@@ -59,6 +60,14 @@ const MyPage = (props) => {
                     });
                   }}
                 />
+                <button
+                  onClick={() => {
+                    deleteCookie(name);
+                    history.push("/");
+                  }}
+                >
+                  로그아웃
+                </button>
               </div>
               <Link>{user_info.user_info?.contact}</Link>
               <div style={{ width: "200px", wordBreak: "break-word" }}>
@@ -83,7 +92,7 @@ const MyPage = (props) => {
             margin: "20px 0 0 0",
           }}
         >
-          {like === "1" ? (
+          {like === "like_list" ? (
             <>
               <label style={{ marginRight: "10px" }}>
                 <FormCheckLeft
@@ -102,7 +111,7 @@ const MyPage = (props) => {
                   name="radioBtn"
                   defaultChecked
                   onClick={() => {
-                    history.push("/mypage/1");
+                    history.push("/mypage/like_list");
                   }}
                 />
                 <FormCheckText>좋아요 목록</FormCheckText>
@@ -127,7 +136,7 @@ const MyPage = (props) => {
                   type="radio"
                   name="radioBtn"
                   onClick={() => {
-                    history.push("/mypage/1");
+                    history.push("/mypage/like_list");
                   }}
                 />
                 <FormCheckText>좋아요 목록</FormCheckText>
@@ -151,7 +160,7 @@ const MyPage = (props) => {
           </div>
         ) : (
           <TrackGrid>
-            {like === "1"
+            {like === "like_list"
               ? like_track.like_track?.map((p, idx) => {
                   return (
                     <TrackDiv key={p.trackId}>
@@ -181,13 +190,13 @@ MyPage.defaultProps = {
 const TrackGrid = styled.div`
   max-width: 425px;
   width: 100%;
-  margin: auto;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 `;
 
 const TrackDiv = styled.div`
-  margin: 0px 5px;
+  margin: auto;
 `;
 
 const OAODiv = styled.div`
