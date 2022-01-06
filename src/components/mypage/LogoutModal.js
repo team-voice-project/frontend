@@ -1,32 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import CheckModal from "./CheckModal";
+import { useDispatch } from "react-redux";
+import { actionCreators as userActions } from "../../redux/modules/user";
 
-const DeleteModal = (props) => {
+const LogoutModal = (props) => {
   const { open, close } = props;
+  const dispatch = useDispatch();
   const history = useHistory();
-  const trackId = props.props.props.trackId;
-  const [modalOpen, setModalOpen] = React.useState(false);
-
-  const openModal = () => {
-    setModalOpen(true);
-    document.body.style.overflowY = "hidden";
-  };
-  const closeModal = () => {
-    setModalOpen(false);
-    document.body.style.overflowY = "scroll";
-  };
 
   return (
     <>
       <div className={open ? "openModal modal" : "modal"}>
-        <CheckModal
-          props={props}
-          open={modalOpen}
-          close={closeModal}
-          header={"11123"}
-        />
         {open ? (
           <BackGround>
             <Wrap>
@@ -34,17 +19,18 @@ const DeleteModal = (props) => {
                 <div style={{ margin: "20px 20px 10px 20px" }}>
                   <UpBtn
                     onClick={() => {
-                      openModal();
-                      close();
+                      dispatch(userActions.logOutDB());
                     }}
                   >
-                    삭제하기
+                    로그아웃
                   </UpBtn>
                 </div>
                 <div style={{ margin: "0px 20px 40px 20px" }}>
                   <UpBtn
                     onClick={() => {
-                      history.push(`/edit/base/${trackId}`);
+                      history.push({
+                        pathname: "/edit/profile",
+                      });
                     }}
                   >
                     수정하기
@@ -114,4 +100,4 @@ const CancleBtn = styled.button`
   color: black;
 `;
 
-export default DeleteModal;
+export default LogoutModal;

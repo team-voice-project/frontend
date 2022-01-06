@@ -113,7 +113,7 @@ const FlexSearchBar = styled.div`
   justify-content: space-between;
   background: white;
   padding: 0px 20px;
-  max-width: 385px;
+  max-width: 425px;
   width: 100%;
   margin: auto;
   height: 60px;

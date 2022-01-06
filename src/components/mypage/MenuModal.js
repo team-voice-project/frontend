@@ -50,6 +50,7 @@ const MenuModal = (props) => {
   };
   const closeModal = () => {
     setModalOpen(false);
+    document.body.style.overflowY = "scroll";
   };
 
   return (
@@ -264,7 +265,7 @@ const Section = styled.div`
   bottom: 0;
   overflow-y: auto;
   background-color: rgba(10, 10, 10, 0.86);
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(10px);
 `;
 
 const Name = styled.p`

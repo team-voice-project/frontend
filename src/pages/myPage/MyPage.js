@@ -3,15 +3,15 @@ import { useSelector } from "react-redux";
 import Container from "../../elements/Container";
 import styled from "styled-components";
 import Track from "../../components/mypage/Track";
-import { RiPencilFill } from "react-icons/ri";
+import { BsFillGearFill } from "react-icons/bs";
 import { history } from "../../redux/configStore";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { actionCreators } from "../../redux/modules/mypage";
 import { apis } from "../../shared/api";
 
-import { actionCreators as userActions } from "../../redux/modules/user";
 import MypageHeader from "../../components/mypage/MypageHeader";
+import LogoutModal from "../../components/mypage/LogoutModal";
 
 const MyPage = (props) => {
   const track = useSelector((state) => state.mypage.track);
@@ -20,6 +20,16 @@ const MyPage = (props) => {
   const like = useParams()?.like;
   const dispatch = useDispatch();
   const trackWrapRef = useRef(null);
+  const [modalOpen, setModalOpen] = React.useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+    document.body.style.overflowY = "hidden";
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+    document.body.style.overflowY = "scroll";
+  };
 
   useEffect(() => {
     apis.getProfile().then((res) => {
@@ -31,7 +41,8 @@ const MyPage = (props) => {
   return (
     <>
       <MypageHeader topMenu props={props} />
-      <Container>
+      <LogoutModal open={modalOpen} close={closeModal} />
+      <Container padding={"0"}>
         <div
           style={{
             background: "white",
@@ -45,10 +56,10 @@ const MyPage = (props) => {
             >
               <ImageCircle src={user_info.user_info?.profileImage} />
             </div>
-            <div>
+            <div style={{ marginBottom: "50px" }}>
               <NameDiv style={{ display: "flex", alignItems: "center" }}>
                 <Name>{user_info.user_info?.nickname}</Name>
-                <RiPencilFill
+                <BsFillGearFill
                   style={{
                     fontSize: "20px",
                     color: "#F1134E",
@@ -56,18 +67,16 @@ const MyPage = (props) => {
                     cursor: "pointer",
                   }}
                   onClick={() => {
-                    history.push({
-                      pathname: "/edit/profile",
-                    });
+                    openModal();
                   }}
                 />
-                <button
+                {/* <button
                   onClick={() => {
                     dispatch(userActions.logOutDB());
                   }}
                 >
                   로그아웃
-                </button>
+                </button> */}
               </NameDiv>
               <Link>{user_info.user_info?.contact}</Link>
               <div style={{ width: "200px", wordBreak: "break-word" }}>
@@ -311,21 +320,20 @@ const Name = styled.h1`
   font-family: "Black Han Sans", serif;
   font-weight: 300;
   color: black;
-  font-size: 18px;
-  margin-bottom: 0px;
+  font-size: 24px;
   margin-right: 5px;
 `;
 
 const Link = styled.p`
-  font-size: 15px;
+  font-size: 12px;
   color: black;
   font-weight: 600;
 `;
 
 const Text = styled.p`
-  margin-top: 10px;
+  margin-top: 30px;
   color: black;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
 `;
 
