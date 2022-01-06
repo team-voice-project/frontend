@@ -26,13 +26,11 @@ const OnBoarding = ({ onClose }) => {
   };
 
   const random = randomData();
-  console.log(random);
+  console.log("random:", random);
 
   React.useEffect(() => {
     dispatch(postActions.loadPostDB());
   }, []);
-
-  const onModalNotShot = () => {};
 
   return (
     <Background>
@@ -78,11 +76,11 @@ const OnBoarding = ({ onClose }) => {
           <FlexCount>
             <CountBox>
               <HiHeart size="20"></HiHeart>
-              <CountText>132</CountText>
+              <CountText>{random && random.Likes.likeCnt}</CountText>
             </CountBox>
             <CountBox>
               <RiChat4Fill size="18"></RiChat4Fill>
-              <CountText>28</CountText>
+              <CountText>{random && random.CommentCnt.commentCnt}</CountText>
             </CountBox>
           </FlexCount>
         </BoxDiv>

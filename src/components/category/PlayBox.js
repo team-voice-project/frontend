@@ -119,7 +119,7 @@ const PlayBox = (props) => {
                   alignItems: "center",
                 }}
               >
-                <FcLike style={{ marginRight: "5px" }} />
+                <HiHeart style={{ marginRight: "5px", marginTop: "3px" }} />
                 <Text>{props.Likes.likeCnt}</Text>
               </div>
               <div style={{ display: "flex", alignItems: "center" }}>

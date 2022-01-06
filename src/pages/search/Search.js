@@ -17,6 +17,7 @@ const Search = (props) => {
   const [show_modal, setShowmodal] = React.useState(true);
 
   const search_list = useSelector((state) => state.search.searchList);
+  console.log("search_list", search_list);
 
   const inputRef = React.useRef();
 

@@ -28,6 +28,10 @@ const CategoryModal = ({ setShowModal, tagList, name }) => {
   }, [tag_list]);
 
   useEffect(() => {
+    dispatch(searchActions.loadCategoryDB(name));
+  }, []);
+
+  useEffect(() => {
     const newList = tagList.map((list, idx) => {
       const obj = {
         tag: list.tag,
@@ -62,9 +66,9 @@ const CategoryModal = ({ setShowModal, tagList, name }) => {
     });
 
     //state를 push로 넘기는 방법
-    dispatch(searchActions.loadCategoryDB(category, ...tags));
+    // dispatch(searchActions.loadTagDB(category, ...tags));
     history.push({
-      pathname: "/tagCategory",
+      pathname: `/tagcategory`,
       state: { category: category, tag: tags },
     });
     setShowModal(false);

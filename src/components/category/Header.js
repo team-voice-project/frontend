@@ -100,7 +100,7 @@ const FlexSearchBar = styled.div`
   margin: auto;
   height: 60px;
   position: relative;
-  top: 20px;
+  padding-top: 20px;
 `;
 
 const L = styled.div`
