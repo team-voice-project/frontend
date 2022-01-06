@@ -36,8 +36,23 @@ const Track = (props) => {
       ).length;
 
       if (checkedLength >= 1) {
+        console.log("플레이");
         inputs.forEach((input) => (input.checked = false));
         currentInput.checked = true;
+
+        const now_track = {
+          trackId: props.trackId,
+          name: props.title,
+          singer: props.User.nickname,
+          cover: props.TrackThumbnail.trackThumbnailUrlFace,
+          musicSrc: props.trackUrl,
+        };
+
+        await dispatch(playerActions.play(now_track));
+        globalPlayer.play();
+      } else {
+        console.log("스탑");
+        globalPlayer.pause();
       }
     }
   };
