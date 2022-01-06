@@ -35,8 +35,8 @@ function App() {
         {
           name: "새벽에 듣기 좋은 나래이션",
           singer: "용용자1",
-          cover: `http://13.209.43.160/trackThumbnail/OAO1_face.png`,
-          musicSrc: `http://13.209.43.160/olryqo19mzk1641044909620.ogg`,
+          cover: `http://52.79.253.64/trackThumbnail/OAO1_face.png`,
+          musicSrc: `http://52.79.253.64/olryqo19mzk1641044909620.ogg`,
         },
       ],
     };

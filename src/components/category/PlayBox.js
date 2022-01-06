@@ -1,21 +1,43 @@
 import React from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as playerActions } from "../../redux/modules/globalPlayer";
+
 import { BiPause } from "react-icons/bi";
 import { FaPlay } from "react-icons/fa";
 import { FcLike } from "react-icons/fc";
 import MenuModal from "../mypage/MenuModal";
-import { HiHeart } from "react-icons/hi";
 import { RiChat4Fill } from "react-icons/ri";
 
 const PlayBox = (props) => {
+  const dispatch = useDispatch();
   const Image = props.TrackThumbnail.trackThumbnailUrlFace;
   const [modalOpen, setModalOpen] = React.useState(false);
-
+  const globalPlayer = useSelector(
+    (state) => state.globalPlayer.playerInstance
+  );
   const openModal = () => {
     setModalOpen(true);
   };
   const closeModal = () => {
     setModalOpen(false);
+  };
+
+  const handlePlayTargetVoice = async () => {
+    const now_track = {
+      trackId: props.trackId,
+      name: props.title,
+      singer: props.User.nickname,
+      cover: props.TrackThumbnail.trackThumbnailUrlFace,
+      musicSrc: props.trackUrl,
+    };
+
+    await dispatch(playerActions.play(now_track));
+    globalPlayer.play();
+  };
+
+  const handlePauseTargetVoice = () => {
+    globalPlayer.pause();
   };
 
   return (
@@ -42,6 +64,7 @@ const PlayBox = (props) => {
                 });
 
                 props.setAllListData(changed_list);
+                handlePauseTargetVoice();
               }}
             >
               <Circle
@@ -79,6 +102,7 @@ const PlayBox = (props) => {
                 });
 
                 props.setAllListData(changed_list);
+                handlePlayTargetVoice();
               }}
             >
               <Circle src={Image} />

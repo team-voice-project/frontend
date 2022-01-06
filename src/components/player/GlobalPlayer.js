@@ -110,7 +110,7 @@ const GlobalPlayer = ({ audio }) => {
         title={"플레이 리스트"}
         onClick={() => {
           setPlayListModal(!play_list_modal);
-          console.log(globalPlayer);
+          console.log("플레이 상태", globalPlayer.paused);
         }}
       >
         <RiPlayList2Fill />
@@ -206,6 +206,11 @@ const GlobalPlayer = ({ audio }) => {
 
   const sendMyPlayList = async () => {
     const play_list = getSessionPlaylist();
+    if (!play_list) {
+      alert("플레이 리스트가 비어있어요!");
+    }
+    console.log(play_list);
+
     const play_id_list = play_list.map((track) => track.trackId);
     console.log("서버로 저장될 플레이 리스트", play_id_list);
 
@@ -254,7 +259,10 @@ const GlobalPlayer = ({ audio }) => {
               >
                 비우기
               </button>
-              <FaRegWindowMinimize className={"close-btn"} />
+              <FaRegWindowMinimize
+                className={"close-btn"}
+                onClick={() => setPlayListModal(false)}
+              />
             </div>
             <div className={"playlist-body"}>
               <div className={"playlist-content"}>
@@ -266,11 +274,14 @@ const GlobalPlayer = ({ audio }) => {
                     </div>
                   ) : (
                     my_list.map((list, key) => {
-                      const active = list.trackId === now_track.trackId;
-                      console.log("나의 리스트 아이템: ", my_list);
+                      const active =
+                        list.trackId === now_track.trackId ? "active" : "";
+                      const paused =
+                        active && globalPlayer.paused ? "pause" : "";
+
                       return (
                         <li
-                          className={`list-item ${active ? "active" : ""}`}
+                          className={`list-item ${active} ${paused}`}
                           key={`play-list-id-${key}`}
                           data-id={list.musicSrc}
                         >

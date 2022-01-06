@@ -44,15 +44,11 @@ const loadPlayList = () => {
   return async (dispatch, getState, { history }) => {
     const session_playlist = getSessionPlaylist();
     if (session_playlist) {
-      console.log("세션 먼저 불러오기");
       dispatch(setPlayList(session_playlist));
     } else {
-      console.log("DB에서 먼저 불러오기");
       try {
         const res = await apis.getPlayList();
         dispatch(setPlayList(res.data.playlist));
-
-        console.log("플레이 리스트 불러오기 성공", res);
       } catch (err) {
         console.log("플레이 리스트 불러오기 실패", err.response);
       }
