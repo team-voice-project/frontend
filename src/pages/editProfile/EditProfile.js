@@ -19,7 +19,6 @@ import { newGetCookie, setCookie } from "../../shared/Cookie";
 const EditProfile = ({ history }) => {
   const dispatch = useDispatch();
   const skipBtnRef = useRef(null);
-  const location = useLocation();
   const params = useParams();
   const [next_btn_disabled, setNextBtnDisabeld] = useState(false);
   const [nick_value, setNickValue] = useState("");
@@ -167,7 +166,10 @@ const EditProfile = ({ history }) => {
 
       <Container>
         <nav className={"edit-header"}>
-          <RiArrowLeftSLine className={"back-btn"} />
+          <RiArrowLeftSLine
+            className={"back-btn"}
+            onClick={() => history.goBack()}
+          />
           <Font title fontSize={"22px"} _className={"edit-title"}>
             프로필 설정
           </Font>
