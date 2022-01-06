@@ -104,37 +104,39 @@ const Main = (props) => {
           all_list.map((list, idx) => {
             return (
               <React.Fragment key={idx}>
-                <Wrap>
-                  <DivBoldText>
-                    <Font title fontSize="22px" margin="18px 0px">
-                      {list.category.categoryText}
-                    </Font>
-                    <IconDiv
-                      onClick={() => {
-                        props.history.push(
-                          `/category/${list.category.category}`
-                        );
-                      }}
-                    >
-                      <RiArrowRightSLine size="28" cursor="pointer" />
-                    </IconDiv>
-                  </DivBoldText>
-                </Wrap>
+                <TrackWrap>
+                  <Wrap>
+                    <DivBoldText>
+                      <Font title fontSize="22px" margin="18px 0px">
+                        {list.category.categoryText}
+                      </Font>
+                      <IconDiv
+                        onClick={() => {
+                          props.history.push(
+                            `/category/${list.category.category}`
+                          );
+                        }}
+                      >
+                        <RiArrowRightSLine size="28" cursor="pointer" />
+                      </IconDiv>
+                    </DivBoldText>
+                  </Wrap>
 
-                <Flex>
-                  {list.tracks.map((l) => {
-                    return (
-                      <div key={`track-id-${l.uniq}`}>
-                        <PlayBox
-                          {...l}
-                          setAllListData={setAllList}
-                          all_list={all_list}
-                          target_uniq={l.uniq}
-                        />
-                      </div>
-                    );
-                  })}
-                </Flex>
+                  <Flex>
+                    {list.tracks.map((l) => {
+                      return (
+                        <div key={`track-id-${l.uniq}`}>
+                          <PlayBox
+                            {...l}
+                            setAllListData={setAllList}
+                            all_list={all_list}
+                            target_uniq={l.uniq}
+                          />
+                        </div>
+                      );
+                    })}
+                  </Flex>
+                </TrackWrap>
               </React.Fragment>
             );
           })}
@@ -147,6 +149,10 @@ const WrapDiv = styled.div`
   max-width: 425px;
   width: 100%;
   margin: 20px auto 0px auto;
+`;
+
+const TrackWrap = styled.div`
+  margin-bottom: 30px;
 `;
 
 const Wrap = styled.div`
