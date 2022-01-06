@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Container from "../../elements/Container";
 import styled from "styled-components";
 import Track from "../../components/mypage/Track";
@@ -17,11 +17,7 @@ const PortfolioPage = (props) => {
   const track = useSelector((state) => state.mypage.track);
   const user_info = useSelector((state) => state.mypage.user_info);
   const userId = useParams()?.userId;
-  const changeRadio = (e) => {
-    if (e.target.checked) {
-      setCheckedInputs(e.target.id);
-    }
-  };
+  const trackWrapRef = useRef(null);
 
   useEffect(() => {
     dispatch(trackCreators.setTrackDB(userId));
@@ -92,11 +88,11 @@ const PortfolioPage = (props) => {
             justifyContent: "center",
           }}
         >
-          <TrackGrid>
+          <TrackGrid ref={trackWrapRef}>
             {track?.track_info.map((p, idx) => {
               return (
                 <TrackDiv key={p.trackId}>
-                  <Track {...p} />
+                  <Track {...p} trackWrapRef={trackWrapRef.current} />
                 </TrackDiv>
               );
             })}

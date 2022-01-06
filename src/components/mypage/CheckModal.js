@@ -21,9 +21,11 @@ const CheckModal = (props) => {
           <BackGround>
             <Wrap>
               <Modal>
+
                 <div>
                   <LogoImage src="http://52.79.253.64/trackThumbnail/OAO2_face.png"></LogoImage>
                 </div>
+
                 <div style={{ textAlign: "center", marginTop: "70px" }}>
                   <Text>정말로 삭제하시겠어요?</Text>
                   <Text>정말요......?</Text>

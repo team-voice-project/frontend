@@ -19,12 +19,10 @@ import { FaPlay, FaRegWindowMinimize } from "react-icons/fa";
 
 /*
  * TODO:
- *  1) 플레이 리스트 위젯 닫기 기능 추가
  *  2) 일단 트랙 재생 시 플레이 리스트와 연동 되는 부분 더 테스트 할 것 (프로필 페이지)
  *  3) 플레이어 위젯 보이지 말아야 할곳 예외 처리 더 찾아 볼 것
- *  4) 저장 시 사용자에게 알림 UI 보여줄것
  * */
-const GlobalPlayer = ({ audio }) => {
+const GlobalPlayer = () => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const [render, setRender] = useState(true);
@@ -111,7 +109,7 @@ const GlobalPlayer = ({ audio }) => {
         title={"플레이 리스트"}
         onClick={() => {
           setPlayListModal(!play_list_modal);
-          console.log(globalPlayer);
+          console.log("플레이 상태", globalPlayer.paused);
         }}
       >
         <RiPlayList2Fill />
@@ -213,11 +211,10 @@ const GlobalPlayer = ({ audio }) => {
     }
 
     const play_id_list = play_list.map((track) => track.trackId);
-    console.log("서버로 저장될 플레이 리스트", play_id_list);
-
     try {
       const res = await apis.savePlayList(play_id_list);
       console.log("플레이 리스트 저장 완료", res);
+      alert("플레이 리스트가 저장되었습니다 :)");
     } catch (err) {
       console.log("플레이 리스트 저장 실패", err.response);
     }
@@ -260,7 +257,10 @@ const GlobalPlayer = ({ audio }) => {
               >
                 비우기
               </button>
-              <FaRegWindowMinimize className={"close-btn"} />
+              <FaRegWindowMinimize
+                className={"close-btn"}
+                onClick={() => setPlayListModal(false)}
+              />
             </div>
             <div className={"playlist-body"}>
               <div className={"playlist-content"}>
@@ -272,11 +272,14 @@ const GlobalPlayer = ({ audio }) => {
                     </div>
                   ) : (
                     my_list.map((list, key) => {
-                      const active = list.trackId === now_track.trackId;
-                      console.log("나의 리스트 아이템: ", my_list);
+                      const active =
+                        list.trackId === now_track.trackId ? "active" : "";
+                      const paused =
+                        active && globalPlayer.paused ? "pause" : "";
+
                       return (
                         <li
-                          className={`list-item ${active ? "active" : ""}`}
+                          className={`list-item ${active} ${paused}`}
                           key={`play-list-id-${key}`}
                           data-id={list.musicSrc}
                         >

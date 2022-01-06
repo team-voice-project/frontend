@@ -34,9 +34,6 @@ const PlayBox = (props) => {
       musicSrc: props.trackUrl,
     };
 
-    console.log("원본 정보", props);
-    console.log("재생할 트랙", now_track);
-
     await dispatch(playerActions.play(now_track));
     globalPlayer.play();
   };
@@ -182,9 +179,9 @@ const Text = styled.p`
 `;
 
 const MarginDiv = styled.div`
-  margin: 0px 0px 20px 0px;
+  margin: 0 0 20px 0;
   @media screen and (max-width: 360px) {
-    margin: 0px 10px 20px 0px;
+    margin: 0 10px 20px 0;
   }
 `;
 
@@ -195,7 +192,7 @@ const CircleDiv = styled.div`
   border-radius: 120px;
   display: flex;
   cursor: pointer;
-  margin: 0px 4px 12px 0px;
+  margin: 0 4px 12px 0;
   @media screen and (max-width: 360px) {
     width: 126px;
     height: 100px;
@@ -207,17 +204,17 @@ const Circle = styled.img`
   width: 118px;
   height: 118px;
   border-radius: 120px;
-  margin: 0px 0px 12px 0px;
+  margin: 0 0 12px 0;
   @media screen and (max-width: 360px) {
     width: 100px;
     height: 100px;
     border-radius: 100px;
-    margin: 0px 0px 12px 0px;
+    margin: 0 0 12px 0;
   }
 
-  &.on{
-    border: "5px solid #f1134e ",
-                  transition: "all 300ms ease-in",
+  &.on {
+    border: 5px solid #f1134e;
+    transition: all 300ms ease-in;
   }
 `;
 
@@ -234,7 +231,7 @@ const PlayButton = styled.button`
     width: 26px;
     height: 26px;
     border-radius: 28px;
-    margin: 0px 0px 16px 0px;
+    margin: 0 0 16px 0;
     position: relative;
     right: 25px;
     top: 70px;
@@ -243,7 +240,7 @@ const PlayButton = styled.button`
 
 const Title = styled.div`
   font-size: 13px;
-  margin: 0px 0px 2px 0px;
+  margin: 0 0 2px 0;
   overflow: hidden;
   width: 100px;
   text-overflow: ellipsis;
@@ -253,7 +250,7 @@ const Title = styled.div`
 
   @media screen and (max-width: 360px) {
     font-size: 12px;
-    margin: 0px 0px 2px 0px;
+    margin: 0 0 2px 0;
     overflow: hidden;
   }
 `;
