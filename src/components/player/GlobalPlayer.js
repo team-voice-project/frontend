@@ -213,11 +213,10 @@ const GlobalPlayer = ({ audio }) => {
     }
 
     const play_id_list = play_list.map((track) => track.trackId);
-    console.log("서버로 저장될 플레이 리스트", play_id_list);
-
     try {
       const res = await apis.savePlayList(play_id_list);
       console.log("플레이 리스트 저장 완료", res);
+      alert("플레이 리스트가 저장되었습니다 :)");
     } catch (err) {
       console.log("플레이 리스트 저장 실패", err.response);
     }
