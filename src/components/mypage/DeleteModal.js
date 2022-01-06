@@ -30,7 +30,7 @@ const DeleteModal = (props) => {
           <BackGround>
             <Wrap>
               <Modal>
-                <div style={{ margin: "30px 20px 10px 20px" }}>
+                <div style={{ margin: "20px 20px 10px 20px" }}>
                   <UpBtn
                     onClick={() => {
                       openModal();
@@ -40,7 +40,7 @@ const DeleteModal = (props) => {
                     삭제하기
                   </UpBtn>
                 </div>
-                <div style={{ margin: "0px 20px 10px 20px" }}>
+                <div style={{ margin: "0px 20px 40px 20px" }}>
                   <UpBtn
                     onClick={() => {
                       history.push(`/edit/base/${trackId}`);

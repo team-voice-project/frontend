@@ -1,9 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { FcLike } from "react-icons/fc";
+
 import MenuModal from "./MenuModal";
 import PlayButton from "./playButton.png";
 import PauseBtn from "./pauseBtn.png";
+import { HiHeart } from "react-icons/hi";
 
 import { RiChat4Fill } from "react-icons/ri";
 import { actionCreators as playerActions } from "../../redux/modules/globalPlayer";
@@ -18,7 +19,7 @@ const Track = (props) => {
 
   const openModal = () => {
     setModalOpen(true);
-    document.body.style.overflowY("hidden");
+    document.body.style.overflowY = "hidden";
   };
 
   const closeModal = () => {
@@ -98,7 +99,7 @@ const Track = (props) => {
                   alignItems: "center",
                 }}
               >
-                <FcLike style={{ marginRight: "5px" }} />
+                <HiHeart style={{ marginRight: "5px" }} />
                 <Text>{props?.Likes?.likeCnt}</Text>
               </div>
               <div style={{ display: "flex", alignItems: "center" }}>
@@ -134,6 +135,13 @@ const PlayImg = styled.div`
   width: 35px;
   height: 35px;
   border-radius: 50%;
+  @media screen and (max-width: 380px) {
+    position: absolute;
+    bottom: 70px;
+    right: 15px;
+    width: 25px;
+    height: 25px;
+  }
 `;
 const DIV = styled.div`
   cursor: pointer;

@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Container from "../../elements/Container";
 import styled from "styled-components";
 import Track from "../../components/mypage/Track";
-import GlobalPlayer from "../../components/player/GlobalPlayer";
+
 import { useSelector } from "react-redux";
 import DefaultImg from "./profileIMG.png";
 import { RiArrowLeftSLine } from "react-icons/ri";
@@ -13,7 +13,6 @@ import { actionCreators as trackCreators } from "../../redux/modules/mypage";
 
 const PortfolioPage = (props) => {
   const dispatch = useDispatch();
-  const [checkedInputs, setCheckedInputs] = useState([]);
   const track = useSelector((state) => state.mypage.track);
   const user_info = useSelector((state) => state.mypage.user_info);
   const userId = useParams()?.userId;
@@ -111,7 +110,7 @@ const TrackGrid = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-items: start;
 `;
 
 const TrackDiv = styled.div`

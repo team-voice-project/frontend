@@ -9,8 +9,9 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { actionCreators } from "../../redux/modules/mypage";
 import { apis } from "../../shared/api";
-import Header from "../../components/category/Header";
+
 import { actionCreators as userActions } from "../../redux/modules/user";
+import MypageHeader from "../../components/mypage/MypageHeader";
 
 const MyPage = (props) => {
   const track = useSelector((state) => state.mypage.track);
@@ -26,11 +27,10 @@ const MyPage = (props) => {
       dispatch(actionCreators.setTrackDB(userId));
     });
   }, []);
-  const name = "OAO";
 
   return (
     <>
-      <Header topMenu props={props} />
+      <MypageHeader topMenu props={props} />
       <Container>
         <div
           style={{
@@ -46,7 +46,7 @@ const MyPage = (props) => {
               <ImageCircle src={user_info.user_info?.profileImage} />
             </div>
             <div>
-              <div style={{ display: "flex", alignItems: "center" }}>
+              <NameDiv style={{ display: "flex", alignItems: "center" }}>
                 <Name>{user_info.user_info?.nickname}</Name>
                 <RiPencilFill
                   style={{
@@ -68,7 +68,7 @@ const MyPage = (props) => {
                 >
                   로그아웃
                 </button>
-              </div>
+              </NameDiv>
               <Link>{user_info.user_info?.contact}</Link>
               <div style={{ width: "200px", wordBreak: "break-word" }}>
                 <Text>{user_info.user_info?.introduce}</Text>
@@ -160,21 +160,39 @@ const MyPage = (props) => {
           </div>
         ) : (
           <TrackGrid ref={trackWrapRef}>
-            {like === "like_list"
-              ? like_track.like_track?.map((p, idx) => {
+            {like === "like_list" ? (
+              like_track.like_track?.length < 1 ? (
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                  }}
+                >
+                  <OAODiv>
+                    <OAOText>찜한 목소리가 없어요!</OAOText>
+                    <OAOText>좋아요를 눌러주세요!</OAOText>
+                    <OAO></OAO>
+                  </OAODiv>
+                </div>
+              ) : (
+                like_track.like_track?.map((p, idx) => {
                   return (
                     <TrackDiv key={p.trackId}>
                       <Track {...p} />
                     </TrackDiv>
                   );
                 })
-              : track?.track_info.map((p, idx) => {
-                  return (
-                    <TrackDiv key={p.trackId}>
-                      <Track {...p} trackWrapRef={trackWrapRef.current} />
-                    </TrackDiv>
-                  );
-                })}
+              )
+            ) : (
+              track?.track_info.map((p, idx) => {
+                return (
+                  <TrackDiv key={p.trackId}>
+                    <Track {...p} trackWrapRef={trackWrapRef.current} />
+                  </TrackDiv>
+                );
+              })
+            )}
           </TrackGrid>
         )}
       </Container>
@@ -186,17 +204,20 @@ MyPage.defaultProps = {
   user_image:
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgXaZTRs1NC8dvfYkOxERlkyi-nEMnP15bag&usqp=CAU",
 };
-
 const TrackGrid = styled.div`
   max-width: 425px;
   width: 100%;
+  margin: auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: left;
+  @media screen and (max-width: 425px) {
+    justify-content: center;
+  }
 `;
 
 const TrackDiv = styled.div`
-  margin: auto;
+  margin: 0px 7px;
 `;
 
 const OAODiv = styled.div`
@@ -249,6 +270,15 @@ const Profile = styled.div`
 
   @media screen and (max-width: 380px) {
     flex-direction: column;
+    text-align: center;
+  }
+`;
+const NameDiv = styled.div`
+  display: flex;
+  align-items: center;
+  @media screen and (max-width: 380px) {
+    justify-content: center;
+    margin-top: 10px;
   }
 `;
 

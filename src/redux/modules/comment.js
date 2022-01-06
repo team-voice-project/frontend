@@ -30,7 +30,6 @@ const deleteCommentDB = (tracksId, commentId) => {
 const addCommentDB = (trackId, comment) => {
   return function (dispatch, getState, { history }) {
     apis.commentTrack(trackId, comment).then((res) => {
-      console.log(res);
       dispatch(addComment(trackId, res.data.comments));
     });
   };
@@ -40,13 +39,11 @@ export default handleActions(
   {
     [ADD_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        console.log(action.payload);
         draft.comments = action.payload.comment;
         draft.trackId = action.payload.trackId;
       }),
     [DELETE_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        console.log(draft.comment);
         draft.comments.map((el) =>
           el.postId === parseInt(action.payload.postId)
             ? (el.commentList = el.commentList.filter(
