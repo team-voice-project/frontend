@@ -5,6 +5,7 @@ import { apis } from "../../shared/api";
 const SET_KEYWORD = "SET_KEYWORD";
 const GET_SEARCH = "GET_SEARCH";
 const LOAD_CATEGORY = "LOAD_CATEGORY";
+const LOAD_TAG = "LOAD_TAG";
 
 const initialState = {
   keyword: null,
@@ -24,6 +25,22 @@ const getSearchDB = (keyword) => {
 };
 
 const loadCategoryDB = (category, tag1 = "", tag2 = "", tag3 = "") => {
+  return function (dispatch, getState, { history }) {
+    apis
+      .category(category, tag1, tag2, tag3)
+      .then((res) => {
+        dispatch(loadCategory(res.data.tracks));
+      })
+      .catch((err) => {
+        console.log("에러", err);
+        const errmsg = err.response.data;
+        console.log(errmsg);
+        history.push("/error");
+      });
+  };
+};
+
+const loadTagDB = (category, tag1 = "", tag2 = "", tag3 = "") => {
   return function (dispatch, getState, { history }) {
     apis
       .category(category, tag1, tag2, tag3)
@@ -68,6 +85,7 @@ const actionCreators = {
   setKeyword,
   getSearchDB,
   loadCategoryDB,
+  loadTagDB,
 };
 
 export { actionCreators };

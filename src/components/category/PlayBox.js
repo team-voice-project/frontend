@@ -5,7 +5,7 @@ import { actionCreators as playerActions } from "../../redux/modules/globalPlaye
 
 import { BiPause } from "react-icons/bi";
 import { FaPlay } from "react-icons/fa";
-import { FcLike } from "react-icons/fc";
+import { HiHeart } from "react-icons/hi";
 import MenuModal from "../mypage/MenuModal";
 import { RiChat4Fill } from "react-icons/ri";
 
@@ -148,7 +148,7 @@ const PlayBox = (props) => {
                   alignItems: "center",
                 }}
               >
-                <FcLike style={{ marginRight: "5px" }} />
+                <HiHeart style={{ marginRight: "5px", marginTop: "3px" }} />
                 <Text>{props.Likes.likeCnt}</Text>
               </div>
               <div style={{ display: "flex", alignItems: "center" }}>

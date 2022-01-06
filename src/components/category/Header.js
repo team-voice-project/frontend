@@ -1,13 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
+import { useSelector } from "react-redux";
 
 import { HiOutlineSearch } from "react-icons/hi";
 import { HiUser } from "react-icons/hi";
 import { BsFillGridFill } from "react-icons/bs";
+import { MdLogin } from "react-icons/md";
 
 const Header = (props) => {
   const { topMenu, noHeader } = props;
+
+  const is_login = useSelector((state) => state.user.is_login);
 
   if (noHeader) {
     return (
@@ -31,19 +35,32 @@ const Header = (props) => {
               cursor="pointer"
               size="24"
               onClick={() => {
-                history.push("/search");
+                history.push("/searchkeyword");
               }}
             />
           </Temdiv>
-          <Temdiv>
-            <HiUser
-              cursor="pointer"
-              size="24"
-              onClick={() => {
-                history.push("/mypage");
-              }}
-            ></HiUser>
-          </Temdiv>
+          {is_login === true ? (
+            <Temdiv>
+              <HiUser
+                cursor="pointer"
+                size="24"
+                onClick={() => {
+                  history.push("/mypage");
+                }}
+              ></HiUser>
+            </Temdiv>
+          ) : (
+            <Temdiv>
+              <MdLogin
+                cursor="pointer"
+                size="24"
+                onClick={() => {
+                  history.push("/login");
+                }}
+              ></MdLogin>
+            </Temdiv>
+          )}
+
           <Temdiv>
             <BsFillGridFill
               cursor="pointer"
@@ -100,7 +117,7 @@ const FlexSearchBar = styled.div`
   margin: auto;
   height: 60px;
   position: relative;
-  top: 20px;
+  padding-top: 20px;
 `;
 
 const L = styled.div`

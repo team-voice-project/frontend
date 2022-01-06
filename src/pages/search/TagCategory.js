@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
 import { actionCreators as searchActions } from "../../redux/modules/search";
+import { actionCreators as postActions } from "../../redux/modules/post";
 import CategoryModal from "../../components/category/CategoryModal";
 import Header from "../../components/category/Header";
 import Track from "../../components/mypage/Track";
@@ -13,7 +14,7 @@ import { RiArrowLeftSLine } from "react-icons/ri";
 import { BsFilterRight } from "react-icons/bs";
 import { IoCloseSharp } from "react-icons/io5";
 
-const InCategory = (props) => {
+const TagCategory = (props) => {
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -24,13 +25,15 @@ const InCategory = (props) => {
   const category = useSelector((state) => state.search.category_list);
   //undefined일때 화면관리하기
 
+  useEffect(() => {
+    dispatch(searchActions.loadTagDB(name, ...tags));
+  }, []);
+
   const [show_modal, setShowModal] = React.useState(false);
   const [tag, setTag] = React.useState([]);
 
   const openModal = () => {
-    if (!category.categoryTags) {
-      setShowModal(true);
-    }
+    setShowModal(true);
   };
 
   const handleClick = (idx) => {
@@ -45,7 +48,7 @@ const InCategory = (props) => {
     if (!mounted.current) {
       mounted.current = true;
     } else {
-      dispatch(searchActions.loadCategoryDB(name, ...tag));
+      dispatch(searchActions.loadTagDB(name, ...tag));
     }
   }, [tag]);
 
@@ -57,6 +60,7 @@ const InCategory = (props) => {
           tagList={tag_list}
           name={name}
           setShowModal={setShowModal}
+          selectedTag={tags}
         />
       )}
 
@@ -202,4 +206,4 @@ const OAO = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
 `;
-export default InCategory;
+export default TagCategory;
