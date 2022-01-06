@@ -123,7 +123,7 @@ const FlexSearchBar = styled.div`
 const L = styled.div`
   width: 60px;
   height: 28px;
-  background-color: #ddd;
+  background-color: black;
   cursor: pointer;
 
   background-image: url("/assets/images/logo.png");

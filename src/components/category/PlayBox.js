@@ -23,6 +23,7 @@ const PlayBox = (props) => {
   };
   const closeModal = () => {
     setModalOpen(false);
+    document.body.style.overflowY = "scroll";
   };
 
   const PlayTargetTrack = async () => {

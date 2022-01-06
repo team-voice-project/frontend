@@ -23,7 +23,7 @@ const PortfolioPage = (props) => {
   }, []);
 
   return (
-    <Container>
+    <Container padding={"0"}>
       <div
         style={{
           background: "#2C2B2B",
@@ -42,7 +42,7 @@ const PortfolioPage = (props) => {
           <div style={{ width: "150px", height: "150px", marginRight: "10px" }}>
             <ImageCircle src={user_info.user_info?.profileImage} />
           </div>
-          <div>
+          <div style={{ marginBottom: "40px" }}>
             <Name>{user_info.user_info?.nickname}</Name>
             <Link>{user_info.user_info?.contact}</Link>
             <div style={{ width: "200px", wordBreak: "break-word" }}>
@@ -108,14 +108,19 @@ PortfolioPage.defaultProps = {
 const TrackGrid = styled.div`
   max-width: 425px;
   width: 100%;
+  margin: auto;
   display: flex;
   flex-wrap: wrap;
-  justify-items: start;
+  justify-content: left;
+  @media screen and (max-width: 425px) {
+    justify-content: center;
+  }
 `;
 
 const TrackDiv = styled.div`
-  margin: auto;
+  margin: 0px 7px;
 `;
+
 const OAODiv = styled.div`
   position: relative;
   top: 50px;
@@ -162,8 +167,10 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 const Profile = styled.div`
   display: flex;
   align-items: center;
+
   @media screen and (max-width: 380px) {
     flex-direction: column;
+    text-align: center;
   }
 `;
 
@@ -181,22 +188,22 @@ const ImageCircle = styled.div`
 
 const Name = styled.h1`
   font-family: "Black Han Sans", serif;
-  font-size: 18px;
   font-weight: 300;
-  margin-bottom: 5px;
   color: white;
+  font-size: 24px;
+  margin-right: 5px;
 `;
 
 const Link = styled.p`
-  font-size: 15px;
+  font-size: 12px;
   color: white;
   font-weight: 600;
 `;
 
 const Text = styled.p`
-  margin-top: 10px;
-  font-size: 13px;
+  margin-top: 30px;
   color: white;
+  font-size: 12px;
   font-weight: 600;
 `;
 
