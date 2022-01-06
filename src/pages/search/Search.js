@@ -27,7 +27,11 @@ const Search = (props) => {
 
   const handleSearch = () => {
     const value = inputRef.current.value;
-    dispatch(searchActions.getSearchDB(value));
+    if (value.length < 2) {
+      window.alert("검색어를 두 글자 이상 입력해주세요OAO!");
+    } else {
+      dispatch(searchActions.getSearchDB(value));
+    }
   };
 
   useEffect(() => {
@@ -52,7 +56,14 @@ const Search = (props) => {
           <Header topMenu />
           <Container>
             <Flex>
-              <RiArrowLeftSLine size="30" cursor="pointer"></RiArrowLeftSLine>
+              <Flex
+                onClick={() => {
+                  props.history.push("/");
+                }}
+              >
+                <RiArrowLeftSLine size="30" cursor="pointer"></RiArrowLeftSLine>
+              </Flex>
+
               <Multiline
                 ref={inputRef}
                 onKeyPress={onKeyPress}
@@ -84,11 +95,17 @@ const Search = (props) => {
           <Header topMenu />
           <Container>
             <Flex>
-              <RiArrowLeftSLine size="30" cursor="pointer"></RiArrowLeftSLine>
+              <Flex
+                onClick={() => {
+                  props.history.push("/");
+                }}
+              >
+                <RiArrowLeftSLine size="30" cursor="pointer"></RiArrowLeftSLine>
+              </Flex>
               <Multiline
                 ref={inputRef}
                 onKeyPress={onKeyPress}
-                placeholder="검색어를 입력해주세요."
+                placeholder="검색어를 두글자 이상 입력해주세요."
                 type="text"
                 defaultValue={keyword}
               ></Multiline>
@@ -124,11 +141,11 @@ const Multiline = styled.input`
   width: 100%;
   color: #fff;
 
-  /* :focus {
+  :focus {
     border: none;
     background: none;
     border-bottom: solid 3px var(--point-color);
-  } */
+  }
 `;
 
 const TrackGrid = styled.div`
@@ -145,7 +162,7 @@ const TrackDiv = styled.div`
 
 const OAODiv = styled.div`
   position: relative;
-  top: 160px;
+  top: 150px;
 `;
 
 const OAOText = styled.p`
@@ -155,9 +172,9 @@ const OAOText = styled.p`
 `;
 
 const OAO = styled.div`
-  width: 200px;
-  height: 210px;
-  margin: 55px auto 0px auto;
+  width: 156px;
+  height: 156px;
+  margin: 40px auto 0px auto;
 
   background-image: url("/assets/images/OAO.png");
   background-repeat: no-repeat;
