@@ -21,7 +21,6 @@ const setLikelist = createAction(SET_LIKELIST, (like_track) => ({
 const setTrackDB = (userId) => {
   return (dispatch, getState, { history }) => {
     apis.myPage(userId).then((res) => {
-      console.log(res);
       dispatch(setTrack(res.data.results));
       dispatch(setUser(res.data.userDate));
       dispatch(setLikelist(res.data.likesArray));

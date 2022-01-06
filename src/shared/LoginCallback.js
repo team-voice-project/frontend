@@ -33,9 +33,8 @@ const LoginCallback = ({ history }) => {
     ignoreQueryPrefix: true,
   });
   axios
-    .get(`http://13.209.43.160/api/auth/${platform}/callback?code=${code}`)
+    .get(`http://52.79.253.64/api/auth/${platform}/callback?code=${code}`)
     .then((res) => {
-      console.log("통신 완료", res);
       const user = res.data.user.nickname;
       const userToken = res.data.user.jwtToken;
       setCookie("OAO", `__OAO-nick=${user}__OAO-token=${userToken}`, 1);
@@ -54,7 +53,7 @@ const LoginCallback = ({ history }) => {
       window.alert("로그인을 다시 시도해주세요!");
       history.push("/login");
     });
-  return <div>테스트</div>;
+  return null;
 };
 
 export default LoginCallback;
