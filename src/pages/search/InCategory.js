@@ -19,7 +19,6 @@ const InCategory = (props) => {
   const tag_list = useSelector((state) => state.post.tag_list);
   const category = useSelector((state) => state.search.category_list);
   const trackWrapRef = useRef(null);
-  console.log("카테고리에서 ref", trackWrapRef);
 
   //undefined일때 화면관리하기
 
