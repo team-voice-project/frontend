@@ -113,7 +113,7 @@ const Background = styled.div`
 
 const BoxDiv = styled.div`
   width: 100%;
-  height: 480px;
+  height: 490px;
   background-color: #252525;
   border-radius: 12px;
   margin-bottom: 20px;
