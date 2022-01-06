@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { FcLike } from "react-icons/fc";
 import MenuModal from "./MenuModal";
@@ -6,24 +6,49 @@ import PlayButton from "./playButton.png";
 import PauseBtn from "./pauseBtn.png";
 
 import { RiChat4Fill } from "react-icons/ri";
+import { actionCreators as playerActions } from "../../redux/modules/globalPlayer";
+import { useDispatch, useSelector } from "react-redux";
 
 const Track = (props) => {
+  const dispatch = useDispatch();
   const [modalOpen, setModalOpen] = useState(false);
+  const globalPlayer = useSelector(
+    (state) => state.globalPlayer.playerInstance
+  );
 
   const openModal = () => {
     setModalOpen(true);
     document.body.style.overflowY("hidden");
   };
+
   const closeModal = () => {
     setModalOpen(false);
+  };
+
+  const handleChangeActiveTrack = async (e) => {
+    if (e.target.tagName === "INPUT") {
+      // img, input 태그 중첩 클릭 방지
+      const currentInput = e.currentTarget.querySelector(".radioButton");
+      const wrapper = props.trackWrapRef;
+      const inputs = wrapper.querySelectorAll(".radioButton");
+      const checkedLength = wrapper.querySelectorAll(
+        ".radioButton:checked"
+      ).length;
+
+      if (checkedLength >= 1) {
+        inputs.forEach((input) => (input.checked = false));
+        currentInput.checked = true;
+      }
+    }
   };
 
   return (
     <>
       <MenuModal props={props} open={modalOpen} close={closeModal} />
       <div style={{ position: "relative", margin: "0px" }}>
-        <TrackDiv>
+        <TrackDiv onClick={handleChangeActiveTrack}>
           <label>
+            {/* PlayBtn -> input element */}
             <PlayBtn type="checkbox" className="radioButton"></PlayBtn>
             <DIV>
               <ImageCircle
@@ -34,7 +59,6 @@ const Track = (props) => {
             </DIV>
           </label>
         </TrackDiv>
-
         <div
           onClick={() => {
             openModal();

@@ -19,12 +19,10 @@ import { FaPlay, FaRegWindowMinimize } from "react-icons/fa";
 
 /*
  * TODO:
- *  1) 플레이 리스트 위젯 닫기 기능 추가
  *  2) 일단 트랙 재생 시 플레이 리스트와 연동 되는 부분 더 테스트 할 것 (프로필 페이지)
  *  3) 플레이어 위젯 보이지 말아야 할곳 예외 처리 더 찾아 볼 것
- *  4) 저장 시 사용자에게 알림 UI 보여줄것
  * */
-const GlobalPlayer = ({ audio }) => {
+const GlobalPlayer = () => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const [render, setRender] = useState(true);
