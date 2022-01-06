@@ -159,7 +159,7 @@ const EditProfile = ({ history }) => {
             ref={skipBtnRef}
             onClick={handleClickSkipBtn}
           >
-            <Font m>건너뛰기</Font>
+            {is_first && <Font m>건너뛰기</Font>}
           </button>
         </Container>
       </div>
