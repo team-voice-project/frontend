@@ -47,7 +47,6 @@ const loadPlayList = () => {
     const token = newGetCookie("token");
     const is_login = Boolean(nick && token);
     const session_playlist = getSessionPlaylist();
-
     if (is_login) {
       try {
         const res = await apis.getPlayList();
