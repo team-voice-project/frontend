@@ -72,10 +72,19 @@ const EditBase = ({ history }) => {
     }
   };
 
+  const filterTotalCategory = (data) => {
+    return {
+      ...data,
+      category: data.category.filter((item) => item.category !== "전체"),
+    };
+  };
+
   const getMenuData = async () => {
     try {
       const res = await apis.getMenuInfoDB();
-      return res.data;
+      const menu_data = filterTotalCategory(res.data);
+      console.log("메뉴 정보", menu_data);
+      return menu_data;
     } catch (err) {
       console.error("[getMenuData] 카테고리, 태그 정보를 가져올 수 없습니다.");
       return null;
@@ -318,7 +327,7 @@ const EditWrap = styled.section`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-top: 1px solid #f4f4f4;
+    border-top: 1px solid #2c2b2b;
 
     .category {
       .default {
