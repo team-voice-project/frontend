@@ -2,14 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { actionCreators as commentCreators } from "../../redux/modules/comment";
 import { IoIosSend } from "react-icons/io";
-import { useDispatch, useSelector } from "react-redux";
-
-// import { actionCreators as commentCreators } from "../redux/modules/comment";
+import { useDispatch } from "react-redux";
 
 const CommentWrite = (props) => {
   const [content, setCotentText] = React.useState();
   const dispatch = useDispatch();
-  // const user = useSelector((state) => state.user.user);
   const onChange = (e) => {
     setCotentText(e.target.value);
   };

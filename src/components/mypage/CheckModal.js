@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
 import { apis } from "../../shared/api";
 
 const CheckModal = (props) => {
@@ -9,7 +8,6 @@ const CheckModal = (props) => {
   const trackId = props.props.props.props.trackId;
   const deleteTrack = (trackId) => {
     apis.trackDelete(trackId).then((res) => {
-      console.log(res);
       window.location.reload();
     });
   };
@@ -21,7 +19,6 @@ const CheckModal = (props) => {
           <BackGround>
             <Wrap>
               <Modal>
-
                 <div>
                   <LogoImage src="http://52.79.253.64/trackThumbnail/OAO2_face.png"></LogoImage>
                 </div>

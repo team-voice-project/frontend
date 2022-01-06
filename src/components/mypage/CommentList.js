@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { IoIosClose } from "react-icons/io";
 import { newGetCookie } from "../../shared/Cookie";
 import { useDispatch } from "react-redux";
 import { actionCreators as commentActions } from "../../redux/modules/comment";
-import moment from "moment";
 
 const CommentList = (props) => {
   const nick = newGetCookie("nick");
