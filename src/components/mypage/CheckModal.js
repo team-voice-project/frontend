@@ -21,7 +21,11 @@ const CheckModal = (props) => {
           <BackGround>
             <Wrap>
               <Modal>
-                <LogoImage src="http://52.79.253.64/trackThumbnail/OAO2_face.png"></LogoImage>
+
+                <div>
+                  <LogoImage src="http://52.79.253.64/trackThumbnail/OAO2_face.png"></LogoImage>
+                </div>
+
                 <div style={{ textAlign: "center", marginTop: "70px" }}>
                   <Text>정말로 삭제하시겠어요?</Text>
                   <Text>정말요......?</Text>
@@ -56,16 +60,18 @@ const BackGround = styled.div`
   bottom: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
+  z-index: 9998;
   overflow-y: auto;
 `;
 
 const LogoImage = styled.img`
   position: absolute;
-  left: 160px;
-  bottom: 240px;
+  left: 35%;
+  right: 35%;
+  bottom: 80%;
   width: 120px;
   height: 120px;
+  z-index: 9999;
 `;
 const Text = styled.p`
   font-family: "Black Han Sans", serif;

@@ -11,7 +11,7 @@ const DeleteModal = (props) => {
 
   const openModal = () => {
     setModalOpen(true);
-    document.body.style.overflowY("hidden");
+    document.body.style.overflowY = "hidden";
   };
   const closeModal = () => {
     setModalOpen(false);
@@ -90,14 +90,6 @@ const Modal = styled.div`
   border-top-right-radius: 12px;
 `;
 
-const Icon = styled.div`
-  position: absolute;
-  right: 0;
-  width: 20px;
-  height: 20px;
-  margin-top: 8px;
-  margin-right: 16px;
-`;
 const UpBtn = styled.button`
   font-family: "Black Han Sans", serif;
   font-weight: 300;
