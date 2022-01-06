@@ -519,9 +519,14 @@ const RecorderWrap = styled.div`
       }
 
       &.play {
-        font-size: 20px;
+        font-size: 35px;
         background: #fff;
         color: var(--point-color);
+
+        svg {
+          position: relative;
+          left: 3px;
+        }
       }
     }
 

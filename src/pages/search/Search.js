@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 
@@ -15,11 +15,9 @@ import { useLocation } from "react-router-dom";
 const Search = (props) => {
   const dispatch = useDispatch();
   const location = useLocation();
-  console.log("location", location);
   const keyword = location.state.value;
-
   const search_list = useSelector((state) => state.search.searchList);
-  console.log("search_list", search_list);
+  const trackWrapRef = useRef(null);
 
   useEffect(() => {
     dispatch(searchActions.getSearchDB(keyword));
@@ -69,12 +67,12 @@ const Search = (props) => {
               ></HiOutlineSearch>
             </Flex>
 
-            <TrackGrid>
+            <TrackGrid ref={trackWrapRef}>
               {search_list &&
                 search_list.map((l) => {
                   return (
                     <TrackDiv key={l.trackId}>
-                      <Track {...l} />
+                      <Track {...l} trackWrapRef={trackWrapRef.current} />
                     </TrackDiv>
                   );
                 })}

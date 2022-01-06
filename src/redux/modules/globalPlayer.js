@@ -51,7 +51,7 @@ const loadPlayList = () => {
       try {
         const res = await apis.getPlayList();
         dispatch(setPlayList(res.data.playlist));
-        console.log("플레이 리스트 불러오기 성공", res);
+        // console.log("플레이 리스트 불러오기 성공", res);
       } catch (err) {
         console.log("플레이 리스트 불러오기 실패", err.response);
       }
@@ -88,7 +88,7 @@ export default handleActions(
 
     [DELETE_TRACK]: (state, action) =>
       produce(state, (draft) => {
-        console.log("[DELETE_TRACK]", action.payload.track_src);
+        // console.log("[DELETE_TRACK]", action.payload.track_src);
         const filtered_list = draft.play_list.filter((track) => {
           return track.musicSrc !== action.payload.track_src;
         });
