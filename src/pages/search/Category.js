@@ -82,8 +82,8 @@ const Rectangle = styled.img`
   border-radius: 10px;
 
   @media screen and (max-width: 380px) {
-    width: 105px;
-    height: 100px;
+    width: 102px;
+    height: 97px;
   }
   @media screen and (max-width: 320px) {
     width: 84px;
