@@ -302,9 +302,9 @@ const ImageCircle = styled.div`
   margin-right: 20px;
   border: none;
   background: url("${(props) => props.src}");
-  background-size: 100%;
+  background-size: cover;
   background-position: center;
-  background-repeat: cover;
+  background-repeat: no-repeat;
 `;
 
 const UpBtn = styled.button`
