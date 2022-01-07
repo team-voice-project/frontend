@@ -6,14 +6,12 @@ import Header from "../components/Header";
 import { Container, Text } from "../elements/index";
 
 const Search = ({ location }) => {
-  console.log(location);
   const query = qs.parse(location.search, {
     ignoreQueryPrefix: true, //물음표 빼기->값은 문자열
   });
 
   const detail = query.detail === "true";
 
-  console.log(query);
   return (
     <div>
       <Header />
