@@ -56,7 +56,7 @@ const CommentList = (props) => {
                     )
                   );
                 }}
-                sx={{ color: "red", cursor: "pointer" }}
+                style={{ cursor: "pointer" }}
               />
             )}
           </CommentStyle>
@@ -82,7 +82,9 @@ const ImageCircle = styled.div`
   height: 30px;
   border-radius: 20px;
   background-image: url("${(props) => props.src}");
-  background-size: cover;
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
   margin: 4px;
   margin-right: 10px;
 `;

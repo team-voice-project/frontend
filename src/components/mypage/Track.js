@@ -184,6 +184,13 @@ const PlayBtn = styled.input.attrs({ type: "checkbox" })`
       width: 35px;
       height: 35px;
       border-radius: 50%;
+      @media screen and (max-width: 380px) {
+        position: absolute;
+        bottom: 70px;
+        right: 15px;
+        width: 25px;
+        height: 25px;
+      }
     }
   }
 `;

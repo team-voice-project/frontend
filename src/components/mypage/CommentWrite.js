@@ -10,11 +10,18 @@ const CommentWrite = (props) => {
   const onChange = (e) => {
     setCotentText(e.target.value);
   };
+  const comment = document.querySelectorAll(".commentInput");
+  const commetReset = () => {
+    Array.from(comment).map((p) => {
+      p.value = "";
+    });
+  };
 
   return (
     <List>
       <div style={{ width: "95%" }}>
         <CommentInput
+          className="commentInput"
           type="text"
           placeholder="댓글 내용을 입력해주세요 :)"
           onChange={onChange}
@@ -28,6 +35,7 @@ const CommentWrite = (props) => {
             dispatch(
               commentCreators.addCommentDB(`${props.props.trackId}`, content)
             );
+            commetReset();
           }}
         ></IoIosSend>
       </div>
