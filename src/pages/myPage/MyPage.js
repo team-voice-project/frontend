@@ -219,16 +219,18 @@ const TrackGrid = styled.div`
   margin: auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: left;
-  padding-left: 15px;
-  @media screen and (max-width: 355px) {
-    justify-content: center;
-  }
 `;
 
 const TrackDiv = styled.div`
-  margin: 0 7px;
-  padding: 0px;
+  max-width: 120px;
+  margin: 0px auto;
+  @media screen and (max-width: 422px) {
+    margin: 0 0 0 20px;
+    flex: 1;
+  }
+  @media screen and (max-width: 344px) {
+    margin: 0 0 0 0 20px;
+  }
 `;
 
 const OAODiv = styled.div`
