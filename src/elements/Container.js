@@ -17,7 +17,6 @@ const ContainerBox = styled.div`
   max-width: 425px;
   width: 100%;
   margin: 0 auto;
-  overflow-y: scroll;
 `;
 
 export default Container;
