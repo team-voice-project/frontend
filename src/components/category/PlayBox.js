@@ -11,7 +11,7 @@ import { RiChat4Fill } from "react-icons/ri";
 
 const PlayBox = (props) => {
   const dispatch = useDispatch();
-  const Image = props.TrackThumbnail;
+  const Image = props.TrackThumbnail.trackThumbnailUrlFace;
   const [modalOpen, setModalOpen] = React.useState(false);
   const globalPlayer = useSelector(
     (state) => state.globalPlayer.playerInstance
