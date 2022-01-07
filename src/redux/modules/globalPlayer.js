@@ -20,7 +20,6 @@ const initialState = {
   playerInstance: null,
   play_list: [],
   now_track: {},
-  mode: "stop",
 };
 
 const setPlayer = createAction(SET_PLAYER, (instance) => ({ instance }));

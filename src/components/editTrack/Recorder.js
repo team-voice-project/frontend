@@ -59,7 +59,7 @@ const Recorder = ({
     // 녹음 시 버튼 효과음 재생
     systemAudioRef.current.play();
 
-    // 녹음& 정지 버튼 반복 동작 방지
+    // 녹음&정지 버튼 반복 동작 방지
     mainControlRef.current.classList.add("prevent");
     setTimeout(() => {
       mainControlRef.current.classList.remove("prevent");
@@ -187,15 +187,15 @@ const Recorder = ({
 
     const file_size = e.target.files[0].size;
     const limit = 20 * 1024 * 1024;
-    // if (file_size > limit) {
-    //   alert(
-    //     "20MB 이하 파일만 등록할 수 있습니다.\n\n" +
-    //       "현재파일 용량 : " +
-    //       byteToMegaByte(file_size) +
-    //       "MB"
-    //   );
-    //   return;
-    // }
+    if (file_size > limit) {
+      alert(
+        "20MB 이하 파일만 등록할 수 있습니다.\n\n" +
+          "현재파일 용량 : " +
+          byteToMegaByte(file_size) +
+          "MB"
+      );
+      return;
+    }
 
     setUploadStateBubble({ state: true, text: "파일이 읽어들이는중.." });
     setStopWatchMode("reset");
@@ -212,14 +212,11 @@ const Recorder = ({
     reader.readAsDataURL(file);
 
     playerRef.current.onloadedmetadata = function () {
-      console.log("현재 입력될 파일의 재생시간", playerRef.current.duration);
-
       // 업로드 파일 재생시간이 Infinity 미만 일 경우에만 제한시간을 설정
       if (String(playerRef.current.duration) !== "Infinity") {
         let runtime = Math.floor(playerRef.current.duration * 1000);
         const timer_str = moment(runtime).format("mm:ss:SS");
 
-        console.log("저장된 제한시간", timer_str);
         setRuntimeMemory(timer_str);
       }
     };

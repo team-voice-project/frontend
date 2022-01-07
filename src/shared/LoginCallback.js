@@ -2,7 +2,7 @@ import qs from "qs";
 import axios from "axios";
 import { setCookie } from "./Cookie";
 import { useDispatch } from "react-redux";
-import user, { actionCreators as userActions } from "../redux/modules/user";
+import { actionCreators as userActions } from "../redux/modules/user";
 // url 도메인 값 알아보는 방법
 // https://accounts.google.com -> const platform = 'google'
 // https://nid.naver.com -> const platform = 'naver'
@@ -33,7 +33,7 @@ const LoginCallback = ({ history }) => {
     ignoreQueryPrefix: true,
   });
   axios
-    .get(`http://52.79.253.64/api/auth/${platform}/callback?code=${code}`)
+    .get(`https://www.engcv.xyz/api/auth/${platform}/callback?code=${code}`)
     .then((res) => {
       const user = res.data.user.nickname;
       const userToken = res.data.user.jwtToken;
