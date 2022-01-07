@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
 import { actionCreators as searchActions } from "../../redux/modules/search";
-import { actionCreators as postActions } from "../../redux/modules/post";
 import CategoryModal from "../../components/category/CategoryModal";
 import Header from "../../components/category/Header";
 import Track from "../../components/mypage/Track";
@@ -138,6 +137,9 @@ const Tag = styled.div`
   margin: 5px;
   margin-bottom: 16px;
   border-radius: 20px;
+  @media screen and (max-width: 320px) {
+    padding: 8px;
+  }
 
   svg {
     position: relative;
@@ -179,6 +181,12 @@ const TrackGrid = styled.div`
 
 const TrackDiv = styled.div`
   margin: 0px 10px;
+  @media screen and (max-width: 375px) {
+    margin: 0 5px;
+  }
+  @media screen and (max-width: 320px) {
+    margin: 0 1px;
+  }
 `;
 
 const TagGrid = styled.div`
@@ -189,7 +197,7 @@ const TagGrid = styled.div`
 
 const OAODiv = styled.div`
   position: relative;
-  top: 160px;
+  top: 130px;
 `;
 
 const OAOText = styled.p`
@@ -199,9 +207,9 @@ const OAOText = styled.p`
 `;
 
 const OAO = styled.div`
-  width: 200px;
-  height: 210px;
-  margin: 55px auto 0px auto;
+  width: 156px;
+  height: 156px;
+  margin: 40px auto 0px auto;
 
   background-image: url("/assets/images/OAO.png");
   background-repeat: no-repeat;

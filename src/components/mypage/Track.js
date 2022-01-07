@@ -60,7 +60,7 @@ const Track = (props) => {
   return (
     <>
       <MenuModal props={props} open={modalOpen} close={closeModal} />
-      <div style={{ position: "relative", margin: "0px" }}>
+      <DivWrap>
         <TrackDiv onClick={handleChangeActiveTrack}>
           <label>
             {/* PlayBtn -> input element */}
@@ -81,11 +81,11 @@ const Track = (props) => {
           style={{ cursor: "pointer" }}
         >
           <TextDiv>
-            <div style={{ width: "100px", height: "15px", textAlign: "left" }}>
+            <TextSize>
               <div style={{ display: "flex" }}>
                 <Title>{props.title}</Title>
               </div>
-            </div>
+            </TextSize>
             <Text>{props.User.nickname}</Text>
             <div
               style={{
@@ -110,10 +110,14 @@ const Track = (props) => {
             </div>
           </TextDiv>
         </div>
-      </div>
+      </DivWrap>
     </>
   );
 };
+
+const DivWrap = styled.div`
+  position: relative;
+`;
 
 const TrackDiv = styled.div`
   margin-right: 7px;
@@ -174,7 +178,7 @@ const PlayBtn = styled.input.attrs({ type: "checkbox" })`
     }
     .play {
       position: absolute;
-      bottom: 70px;
+      top: 70px;
       right: 5px;
       background: url(${PauseBtn});
       background-color: #f1134e;
@@ -190,6 +194,14 @@ const PlayBtn = styled.input.attrs({ type: "checkbox" })`
 
 const TextDiv = styled.div`
   margin-top: 20px;
+`;
+
+const TextSize = styled.div`
+  width: 98px;
+  height: 15px;
+  text-align: left;
+
+  }
 `;
 
 const Title = styled.div`
@@ -209,5 +221,6 @@ const Text = styled.p`
   margin-bottom: 1px;
   font-size: 12px;
   color: white;
+  max-width: 96px;
 `;
 export default Track;
