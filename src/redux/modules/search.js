@@ -29,7 +29,6 @@ const loadCategoryDB = (category, tag1 = "", tag2 = "", tag3 = "") => {
     apis
       .category(category, tag1, tag2, tag3)
       .then((res) => {
-        console.log("에에에데이터", res);
         dispatch(loadCategory(res.data.tracks));
       })
       .catch((err) => {

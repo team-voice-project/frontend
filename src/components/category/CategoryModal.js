@@ -7,14 +7,12 @@ import { Button } from "../../elements";
 
 import { useHistory } from "react-router-dom";
 
-const CategoryModal = ({ selectedTag, setShowModal, name }) => {
+const CategoryModal = ({ setShowModal, name }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const selected_tag = selectedTag;
   const _sessionTag = sessionStorage.getItem("tag_list");
   const sessionTag = JSON.parse(_sessionTag);
-  console.log("sessionTag", sessionTag);
 
   const category = name;
   const [tag_list, setTagList] = React.useState([]);

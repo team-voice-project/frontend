@@ -72,7 +72,7 @@ const PlayBox = (props) => {
               }}
             >
               <Circle
-                src={Image}
+                src={Image ? Image : "/assets/images/OAOgray.png"}
                 style={{
                   border: "5px solid #f1134e ",
                   transition: "all 300ms ease-in",
@@ -113,7 +113,7 @@ const PlayBox = (props) => {
                 PlayTargetTrack();
               }}
             >
-              <Circle src={Image} />
+              <Circle src={Image ? Image : "/assets/images/OAOgray.png"} />
               <PlayButton>
                 <FaPlay
                   style={{

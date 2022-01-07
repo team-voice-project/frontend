@@ -52,44 +52,8 @@ const registerNaverDB = () => {
 const registerKakaoDB = () => {
   return function (dispatch, getState, { history }) {
     window.location.href = "http://54.180.82.210/api/auth/kakao";
-    // apis
-    //   .kakao() //유저가 입력한 유저정보를 api로 넘겨줘야함
-    //   .then((res) => {
-    //     //완료되면 res가 넘어오고
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     //오류나면 이리로
-    //     console.log(err);
-    //   });
   };
 };
-
-// const logInDB = (email, password) => {
-//   return function (dispatch, getState, { history }) {
-//     console.log(email);
-//     console.log(password);
-//     apis
-//       .login(email, password)
-//       .then((res) => {
-//         console.log(res);
-//         console.log(res.data);
-//         setCookie("token", res.data.token, 3);
-//         localStorage.setItem("id", res.data.user.id);
-//         localStorage.setItem("nickname", res.data.user.nickname);
-//         dispatch(
-//           setUser({ email: email.email, nickname: res.data.user.nickname })
-//         );
-//         history.replace("/");
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//         window.alert(
-//           "잘못된 아이디나 비밀번호 입니다. 다시 확인해주세요!(*⁰▿⁰*)"
-//         );
-//       });
-//   };
-// };
 
 const logOutDB = () => {
   return function (dispatch, getState, { history }) {
@@ -97,19 +61,6 @@ const logOutDB = () => {
     history.push("/");
   };
 };
-// };
-
-// const loginCheckDB = () => {
-//   return function (dispatch, getState, { history }) {
-//     const userId = localStorage.getItem("id");
-//     const tokenCheck = document.cookie;
-//     if (tokenCheck) {
-//       dispatch(setUser({ userId: userId }));
-//     } else {
-//       dispatch(logOut());
-//     }
-//   };
-// };
 
 //reducer
 export default handleActions(
