@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="385" height="55" viewBox="0 0 385 55">
+  <g id="그룹_5" data-name="그룹 5" transform="translate(-833 -2396)">
+    <g id="사각형_5" data-name="사각형 5" transform="translate(833 2396)" fill="#fff" stroke="#707070" stroke-width="1">
+      <rect width="385" height="55" rx="11" stroke="none"/>
+      <rect x="0.5" y="0.5" width="384" height="54" rx="10.5" fill="none"/>
+    </g>
+    <g id="Google-Button" transform="translate(847 2411.428)">
+      <g id="btn_google_light_normal" transform="translate(0 0)">
+        <g id="button" transform="translate(0 0)">
+          <g id="button-bg" transform="translate(0 0)">
+            <rect id="사각형_1" data-name="사각형 1" width="30" height="25" rx="2" fill="#fff"/>
+            <rect id="사각형_2" data-name="사각형 2" width="30" height="25" rx="2" fill="rgba(0,0,0,0)"/>
+            <rect id="사각형_3" data-name="사각형 3" width="30" height="25" rx="2" fill="rgba(0,0,0,0)"/>
+            <rect id="사각형_4" data-name="사각형 4" width="30" height="25" rx="2" fill="rgba(0,0,0,0)"/>
+          </g>
+        </g>
+        <g id="logo_googleg_48dp" transform="translate(3.89 0.783)">
+          <path id="Shape" d="M20.205,9.751a13.419,13.419,0,0,0-.212-2.387H9v4.515h6.282A5.369,5.369,0,0,1,12.953,15.4V18.33h3.772a11.383,11.383,0,0,0,3.48-8.579Z" transform="translate(1.672 2.186)" fill="#4285f4" fill-rule="evenodd"/>
+          <path id="Shape-2" data-name="Shape" d="M11.388,20.164a11.143,11.143,0,0,0,7.725-2.828L15.34,14.408a7.042,7.042,0,0,1-10.484-3.7H.957v3.024a11.668,11.668,0,0,0,10.431,6.43Z" transform="translate(0.284 3.18)" fill="#34a853" fill-rule="evenodd"/>
+          <path id="Shape-3" data-name="Shape" d="M5.141,12.418a6.9,6.9,0,0,1,0-4.435V4.958h-3.9a11.687,11.687,0,0,0,0,10.484l3.9-3.024Z" transform="translate(0 1.472)" fill="#fbbc05" fill-rule="evenodd"/>
+          <path id="Shape-4" data-name="Shape" d="M11.388,4.642A6.306,6.306,0,0,1,15.85,6.388L19.2,3.04A11.217,11.217,0,0,0,11.388,0,11.668,11.668,0,0,0,.957,6.43l3.9,3.024a6.956,6.956,0,0,1,6.531-4.812Z" transform="translate(0.284 0)" fill="#ea4335" fill-rule="evenodd"/>
+          <path id="Shape-5" data-name="Shape" d="M0,0H22.344V23.344H0Z" transform="translate(0 0)" fill="rgba(0,0,0,0)" fill-rule="evenodd"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
