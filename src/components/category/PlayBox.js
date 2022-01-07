@@ -11,7 +11,7 @@ import { RiChat4Fill } from "react-icons/ri";
 
 const PlayBox = (props) => {
   const dispatch = useDispatch();
-  const Image = props.TrackThumbnail.trackThumbnailUrlFace;
+  const Image = props.TrackThumbnail;
   const [modalOpen, setModalOpen] = React.useState(false);
   const globalPlayer = useSelector(
     (state) => state.globalPlayer.playerInstance
@@ -31,7 +31,7 @@ const PlayBox = (props) => {
       trackId: props.trackId,
       name: props.title,
       singer: props.User.nickname,
-      cover: props.TrackThumbnail.trackThumbnailUrlFace,
+      cover: props.TrackThumbnail,
       musicSrc: props.trackUrl,
     };
 
