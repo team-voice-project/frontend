@@ -96,7 +96,7 @@ const EditBase = ({ history }) => {
   };
 
   const handleClickBackBtn = () => {
-    history.replace("/mypage");
+    history.goBack();
   };
 
   const handleClickNextBtn = () => {

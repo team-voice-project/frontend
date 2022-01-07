@@ -48,6 +48,8 @@ const Track = (props) => {
           musicSrc: props.trackUrl,
         };
 
+        console.log("지금트랙", now_track);
+
         await dispatch(playerActions.play(now_track));
         globalPlayer.play();
       } else {
