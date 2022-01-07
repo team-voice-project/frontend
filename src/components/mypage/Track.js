@@ -144,8 +144,8 @@ const PlayImg = styled.div`
   border-radius: 50%;
   @media screen and (max-width: 380px) {
     position: absolute;
-    bottom: 70px;
-    right: 15px;
+    bottom: 80px;
+    right: 10px;
     width: 25px;
     height: 25px;
   }
@@ -180,7 +180,7 @@ const PlayBtn = styled.input.attrs({ type: "checkbox" })`
     }
     .play {
       position: absolute;
-      top: 70px;
+      top: 106px;
       right: 5px;
       background: url(${PauseBtn});
       background-color: #f1134e;
@@ -192,8 +192,8 @@ const PlayBtn = styled.input.attrs({ type: "checkbox" })`
       border-radius: 50%;
       @media screen and (max-width: 380px) {
         position: absolute;
-        bottom: 70px;
-        right: 15px;
+        top: 86px;
+        right: 10px;
         width: 25px;
         height: 25px;
       }
