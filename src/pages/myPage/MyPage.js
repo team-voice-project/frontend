@@ -302,10 +302,6 @@ const Profile = styled.div`
 const NameDiv = styled.div`
   display: flex;
   align-items: center;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  max-width: 160px;
 
   @media screen and (max-width: 380px) {
     justify-content: center;
@@ -342,8 +338,12 @@ const Name = styled.h1`
   font-family: "GmarketSansBold", serif;
   font-weight: 300;
   color: black;
-  font-size: 20px;
+  font-size: 19px;
   margin-right: 5px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 120px;
 `;
 
 const Link = styled.p`
