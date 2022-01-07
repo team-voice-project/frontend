@@ -16,6 +16,7 @@ import { HiOutlineSave } from "react-icons/hi";
 import { IoCloseSharp, IoMusicalNotesSharp } from "react-icons/io5";
 import { RiPlayList2Fill } from "react-icons/ri";
 import { FaPlay, FaRegWindowMinimize } from "react-icons/fa";
+import { TiArrowSortedUp } from "react-icons/ti";
 
 /*
  * TODO:
@@ -106,14 +107,13 @@ const GlobalPlayer = () => {
     return (
       <button
         type={"button"}
-        className={"playlist-open-btn"}
+        className={`playlist-open-btn ${play_list_modal ? "open" : ""}`}
         title={"플레이 리스트"}
         onClick={() => {
           setPlayListModal(!play_list_modal);
-          console.log("플레이 상태", globalPlayer.paused);
         }}
       >
-        <RiPlayList2Fill />
+        <TiArrowSortedUp />
       </button>
     );
   };
@@ -215,7 +215,6 @@ const GlobalPlayer = () => {
     const play_id_list = play_list.map((track) => track.trackId);
     try {
       const res = await apis.savePlayList(play_id_list);
-      console.log("플레이 리스트 저장 완료", res);
       alert("플레이 리스트가 저장되었습니다 :)");
     } catch (err) {
       console.log("플레이 리스트 저장 실패", err.response);
@@ -246,99 +245,96 @@ const GlobalPlayer = () => {
           />
         </PlayerWidget>
 
-        {play_list_modal && (
-          <PlayListWidget>
-            <div className={"playlist-header"}>
-              <span className={"title"}>
-                플레이 리스트 ({my_list?.length ? my_list?.length : "0"})
-              </span>
+        <PlayListWidget className={play_list_modal ? "open" : ""}>
+          <div className={"playlist-header"}>
+            <span className={"title"}>
+              플레이 리스트 ({my_list?.length ? my_list?.length : "0"})
+            </span>
 
-              <button
-                type={"button"}
-                className={"clear-btn"}
-                onClick={handleClearPlayList}
-              >
-                비우기
-              </button>
-              <FaRegWindowMinimize
-                className={"close-btn"}
-                onClick={() => setPlayListModal(false)}
-              />
-            </div>
-            <div className={"playlist-body"}>
-              <div className={"playlist-content"}>
-                <ul className={"list-wrap"} ref={playListRef}>
-                  {!my_list?.length ? (
-                    <div className={"empty-list"}>
-                      <IoMusicalNotesSharp />
-                      <span>플레이리스트가 없습니다.</span>
-                    </div>
-                  ) : (
-                    my_list.map((list, key) => {
-                      const active =
-                        list.trackId === now_track.trackId ? "active" : "";
-                      const paused =
-                        active && globalPlayer.paused ? "pause" : "";
+            <button
+              type={"button"}
+              className={"clear-btn"}
+              onClick={handleClearPlayList}
+            >
+              비우기
+            </button>
+            <FaRegWindowMinimize
+              className={"close-btn"}
+              onClick={() => setPlayListModal(false)}
+            />
+          </div>
+          <div className={"playlist-body"}>
+            <div className={"playlist-content"}>
+              <ul className={"list-wrap"} ref={playListRef}>
+                {!my_list?.length ? (
+                  <div className={"empty-list"}>
+                    <IoMusicalNotesSharp />
+                    <span>플레이리스트가 없습니다.</span>
+                  </div>
+                ) : (
+                  my_list.map((list, key) => {
+                    const active =
+                      list.trackId === now_track.trackId ? "active" : "";
+                    const paused = active && globalPlayer.paused ? "pause" : "";
 
-                      return (
-                        <li
-                          className={`list-item ${active} ${paused}`}
-                          key={`play-list-id-${key}`}
-                          data-id={list.musicSrc}
-                        >
-                          <div className={"item-info"}>
-                            <div className={"cover"}>
-                              <img src={list.cover} alt="" />
-                              <div type={"button"} className={"btn-control"}>
-                                <button
-                                  type={"button"}
-                                  className={"icon-pause"}
-                                  onClick={handlePauseToPlayList}
-                                >
-                                  <BiPause />
-                                </button>
+                    return (
+                      <li
+                        className={`list-item ${active} ${paused}`}
+                        key={`play-list-id-${key}`}
+                        data-id={list.musicSrc}
+                      >
+                        <div className={"item-info"}>
+                          <div className={"cover"}>
+                            <img src={list.cover} alt="" />
+                            <div className={"btn-control"}>
+                              <button
+                                type={"button"}
+                                className={"icon-pause"}
+                                onClick={handlePauseToPlayList}
+                              >
+                                <BiPause />
+                              </button>
 
-                                <button
-                                  type={"button"}
-                                  className={"icon-play"}
-                                  onClick={() => handlePlayEvent(list)}
-                                >
-                                  <FaPlay />
-                                </button>
-                              </div>
-                            </div>
-                            <div className={"info"}>
-                              <span className={"title"}>{list.name}</span>
-                              <span className={"writer"}>{list.singer}</span>
+                              <button
+                                type={"button"}
+                                className={"icon-play"}
+                                onClick={() => handlePlayEvent(list)}
+                              >
+                                <FaPlay />
+                              </button>
                             </div>
                           </div>
-
-                          <div className={"btn-group"}>
-                            <button
-                              type={"button"}
-                              className={"delete-btn"}
-                              onClick={() => handleDeleteTrack(list.musicSrc)}
-                            >
-                              <IoCloseSharp />
-                            </button>
+                          <div className={"info"}>
+                            <span className={"title"}>{list.name}</span>
+                            <span className={"writer"}>{list.singer}</span>
                           </div>
-                        </li>
-                      );
-                    })
-                  )}
-                </ul>
-                <div className={"save-my-list"} onClick={handleSavePlayList}>
-                  <span>
-                    지금 플레이 리스트를 나중에 또 듣고 싶다면 Click! :)
-                  </span>
-                  <button type={"button"} className={"save-btn"}>
-                    <HiOutlineSave />
-                  </button>
-                </div>
+                        </div>
+
+                        <div className={"btn-group"}>
+                          <button
+                            type={"button"}
+                            className={"delete-btn"}
+                            onClick={() => handleDeleteTrack(list.musicSrc)}
+                          >
+                            <IoCloseSharp />
+                          </button>
+                        </div>
+                      </li>
+                    );
+                  })
+                )}
+              </ul>
+              <div className={"save-my-list"} onClick={handleSavePlayList}>
+                <span>
+                  지금 플레이 리스트를 나중에 또 듣고 싶다면 Click! :)
+                </span>
+                <button type={"button"} className={"save-btn"}>
+                  <HiOutlineSave />
+                </button>
               </div>
             </div>
-          </PlayListWidget>
-        )}
+          </div>
+        </PlayListWidget>
       </PlayerWrap>
     )
   );
@@ -452,11 +448,11 @@ const PlayerWrap = styled.article`
     }
   }
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     .rhap_volume-controls {
-      display: none;
+      //display: none;
       flex-grow: 0;
-      margin-left: 10px;
+      margin-left: 20px;
 
       .rhap_volume-container {
         display: none;
@@ -475,7 +471,7 @@ const PlayerWidget = styled.article`
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 1;
+  z-index: 2000;
 
   .play-display {
     font-size: 13px;
@@ -511,17 +507,40 @@ const PlayerWidget = styled.article`
       display: block;
     }
   }
+
+  .playlist-open-btn {
+    color: #fff;
+    background: none;
+    font-size: 24px;
+    margin-top: 5px;
+
+    svg {
+      transition: transform 0.2s;
+      transform: rotate(0);
+    }
+
+    &.open {
+      svg {
+        transform: rotate(-180deg);
+      }
+    }
+  }
 `;
 
 const PlayListWidget = styled.article`
   position: fixed;
-  bottom: 73px;
+  bottom: -100%;
   right: 0;
   background: #1d1d1d;
   border: 1px solid #2e2e2e;
   width: 100%;
   max-width: 360px;
   z-index: 1000;
+  transition: bottom 0.2s;
+
+  &.open {
+    bottom: 73px;
+  }
 
   .playlist-header {
     padding: 9px 24px;
@@ -632,7 +651,7 @@ const PlayListWidget = styled.article`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 10%;
+    height: 50px;
     padding: 0 24px;
     border-top: 1px solid #2e2e2e;
     font-size: 12px;
@@ -746,13 +765,26 @@ const PlayListWidget = styled.article`
     }
   }
 
-  @media screen and (max-width: 425px) {
-    //bottom: initial;
-    //top: 0;
-    //height: calc(100vh - 66px);
+  @media screen and (max-width: 426px) {
+    position: fixed;
+    top: 100%;
+    right: 0;
+    bottom: initial;
+    max-width: 100%;
+    height: calc(100vh - 66px);
+
+    transition: top 0.2s;
+
+    &.open {
+      top: 0;
+    }
+
+    .playlist-body {
+      height: calc(100% - 40px);
+    }
 
     .playlist-content {
-      //max-height: 320px;
+      height: 100%;
     }
   }
 `;

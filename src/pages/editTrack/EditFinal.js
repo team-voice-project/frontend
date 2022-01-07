@@ -260,7 +260,7 @@ const EditWrap = styled.section`
       color: #fff;
 
       svg {
-        font-size: 32px;
+        font-size: 30px;
       }
     }
   }

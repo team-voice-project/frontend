@@ -65,7 +65,7 @@ const StopWatch = ({
   };
 
   useEffect(() => {
-    console.log("런타임 메모리: ", runtime_memory);
+    // console.log("런타임 메모리: ", runtime_memory);
 
     // console.log("스톱워치 모드: ", mode);
     if (mode === "start") {

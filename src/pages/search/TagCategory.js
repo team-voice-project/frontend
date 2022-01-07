@@ -16,21 +16,17 @@ import { IoCloseSharp } from "react-icons/io5";
 const TagCategory = (props) => {
   const dispatch = useDispatch();
   const location = useLocation();
-
   const tags = location.state.tag;
   const name = location.state.category;
-
   const tag_list = useSelector((state) => state.post.tag_list);
   const category = useSelector((state) => state.search.category_list);
-  //undefined일때 화면관리하기
+  const [show_modal, setShowModal] = React.useState(false);
+  const [tag, setTag] = React.useState([]);
+  const trackWrapRef = useRef(null);
 
   useEffect(() => {
     dispatch(searchActions.loadTagDB(name, ...tags));
   }, []);
-
-  const [show_modal, setShowModal] = React.useState(false);
-  const [tag, setTag] = React.useState([]);
-  const trackWrapRef = useRef(null);
 
   const openModal = () => {
     setShowModal(true);
