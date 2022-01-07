@@ -69,7 +69,7 @@ const EditFinal = ({ history }) => {
   const getEmoList = async () => {
     try {
       const res = await apis.getMenuInfoDB();
-      return res.data.trackThumbnail;
+      return res.data.trackThumbnails;
     } catch (err) {
       console.error("[getMenuInfo] 이모티콘 정보를 가져올 수 없습니다.");
       return null;
@@ -112,12 +112,12 @@ const EditFinal = ({ history }) => {
     }
 
     const mode = track_id ? "update" : "upload";
-    const cover_url = emo_list.filter((item) => item.active)[0].emo_url;
+    const thumbnail_id = emo_list.filter((item) => item.active)[0].id;
     const send_data = {
       ...track_info,
-      cover_url,
       mode,
       track_id,
+      thumbnail_id,
     };
 
     dispatch(editTrackActions.sendTrackData(send_data));
@@ -248,7 +248,7 @@ const EditWrap = styled.section`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 40px;
+    height: 60px;
     padding: 8px 20px;
 
     .back-btn {
@@ -260,7 +260,7 @@ const EditWrap = styled.section`
       color: #fff;
 
       svg {
-        font-size: 24px;
+        font-size: 32px;
       }
     }
   }

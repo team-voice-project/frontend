@@ -83,6 +83,7 @@ const CategoryWarp = styled.div`
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
+    align-content: flex-start;
     overflow-y: auto;
     overflow-x: hidden;
     height: calc(100% - 56px);
@@ -92,7 +93,7 @@ const CategoryWarp = styled.div`
   .cate-item {
     width: calc(33.33% - 20px);
     margin: 10px;
-    margin-bottom: 18px;
+    margin-top: 0;
     background: none;
     border: 0;
     display: flex;
@@ -140,7 +141,6 @@ const CategoryWarp = styled.div`
       width: 100%;
       height: 100%;
       background-color: #858585;
-      margin-bottom: 10px;
       border-radius: 12px;
       overflow: hidden;
 

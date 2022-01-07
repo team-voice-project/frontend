@@ -75,13 +75,14 @@ const EditBase = ({ history }) => {
   const filterTotalCategory = (data) => {
     return {
       ...data,
-      category: data.category.filter((item) => item.category !== "전체"),
+      categories: data.categories.filter((item) => item.category !== "전체"),
     };
   };
 
   const getMenuData = async () => {
     try {
       const res = await apis.getMenuInfoDB();
+      console.log("테스트", res);
       const menu_data = filterTotalCategory(res.data);
       console.log("메뉴 정보", menu_data);
       return menu_data;
@@ -164,7 +165,9 @@ const EditBase = ({ history }) => {
             onClick={handleClickNextBtn}
             ref={nextBtnRef}
           >
-            <Font title={"true"}>다음</Font>
+            <Font title={"true"} margin={"5px 0 0 0"}>
+              다음
+            </Font>
             <RiArrowRightSLine />
           </button>
         </nav>
@@ -237,7 +240,7 @@ const EditBase = ({ history }) => {
       {modal_state === "category" && (
         <OptModal>
           <CategoryList
-            initial_list={menu_info?.category}
+            initial_list={menu_info?.categories}
             selected_cate={selected_cate}
             setSelectedCate={setSelectedCate}
             setModalState={setModalState}
@@ -248,7 +251,7 @@ const EditBase = ({ history }) => {
       {modal_state === "tag" && (
         <OptModal>
           <TagList
-            initial_list={menu_info?.tag}
+            initial_list={menu_info?.tags}
             selected_tag={selected_tag}
             setSelectedTag={setSelectedTag}
             setModalState={setModalState}
@@ -266,20 +269,22 @@ const EditWrap = styled.section`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 40px;
-    padding: 8px 20px;
+    height: 60px;
+    padding: 8px 0;
 
     .back-btn,
     .next-btn {
       border: 0;
+      font-size: 2px;
       height: inherit;
       background: none;
       display: flex;
       align-items: center;
       color: #fff;
+      font-size: 22px;
 
       svg {
-        font-size: 24px;
+        font-size: 32px;
       }
     }
 
