@@ -44,12 +44,14 @@ const Category = (props) => {
               const categoryName = l.category;
               return (
                 <Box key={idx}>
-                  <Rectangle
-                    src={l.categoryUrl}
-                    onClick={() => {
-                      props.history.push(`/category/${categoryName}`);
-                    }}
-                  ></Rectangle>
+                  <div className="img-box">
+                    <Rectangle
+                      src={l.categoryUrl}
+                      onClick={() => {
+                        props.history.push(`/category/${categoryName}`);
+                      }}
+                    ></Rectangle>
+                  </div>
                 </Box>
               );
             })}
@@ -62,15 +64,7 @@ const Category = (props) => {
 const Wrap = styled.div`
   max-width: 425px;
   width: 100%;
-  margin: auto;
-`;
-
-const BoxWrap = styled.div`
-  padding: 0px 10px;
-  margin: 0px 4px;
-  display: flex;
-
-  flex-wrap: wrap;
+  margin: 0 auto;
 `;
 
 const Desc = styled.div`
@@ -78,34 +72,34 @@ const Desc = styled.div`
   font-size: 13px;
 `;
 
-const Box = styled.div``;
+const BoxWrap = styled.div`
+  padding: 0px 10px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin: -5px;
+`;
+
+const Box = styled.div`
+  width: calc(33.33% - 10px);
+  margin: 5px;
+
+  .img-box {
+    padding-bottom: 100%;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+`;
 
 const Rectangle = styled.img`
   cursor: pointer;
-  width: 115px;
-  height: 112px;
   border-radius: 10px;
-  margin: 0px 6px 10px 6px;
-
-  @media screen and (max-width: 409px) {
-    width: 98px;
-    height: 97px;
-  }
-
-  @media screen and (max-width: 320px) {
-    width: 82px;
-    height: 80px;
-  }
-  @media screen and (max-width: 316px) {
-    width: 80px;
-    height: 78px;
-  }
-  @media screen and (max-width: 290px) {
-    width: 72px;
-    height: 70px;
-    border-radius: 8px;
-    margin: 0px 4px 10px 4px;
-  }
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 const Flex = styled.div`

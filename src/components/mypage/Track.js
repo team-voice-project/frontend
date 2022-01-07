@@ -118,9 +118,6 @@ const Track = (props) => {
 
 const DivWrap = styled.div`
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 `;
 
 const TrackDiv = styled.div`
@@ -144,10 +141,17 @@ const PlayImg = styled.div`
   width: 35px;
   height: 35px;
   border-radius: 50%;
-  @media screen and (max-width: 380px) {
+  @media screen and (max-width: 422px) {
     position: absolute;
-    bottom: 80px;
-    right: 10px;
+    bottom: 85px;
+    right: 30px;
+    width: 25px;
+    height: 25px;
+  }
+  @media screen and (max-width: 398px) {
+    position: absolute;
+    bottom: 85px;
+    right: 22px;
     width: 25px;
     height: 25px;
   }
@@ -168,9 +172,13 @@ const ImageCircle = styled.img`
   background-size: 100%;
   background-position: center;
   background-repeat: no-repeat;
-  @media screen and (max-width: 380px) {
+  @media screen and (max-width: 422px) {
     width: 80px;
     height: 80px;
+  }
+  @media screen and (max-width: 344px) {
+    width: 70px;
+    height: 70px;
   }
 `;
 const PlayBtn = styled.input.attrs({ type: "checkbox" })`
