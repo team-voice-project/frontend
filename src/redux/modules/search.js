@@ -29,6 +29,7 @@ const loadCategoryDB = (category, tag1 = "", tag2 = "", tag3 = "") => {
     apis
       .category(category, tag1, tag2, tag3)
       .then((res) => {
+        console.log("에에에데이터", res);
         dispatch(loadCategory(res.data.tracks));
       })
       .catch((err) => {
@@ -74,6 +75,7 @@ export default handleActions(
       }),
     [LOAD_CATEGORY]: (state, action) =>
       produce(state, (draft) => {
+        console.log("액션페이로드", action.payload);
         draft.category_list = action.payload.category.tracks;
         draft.tags = action.payload.category.categoryTags;
       }),

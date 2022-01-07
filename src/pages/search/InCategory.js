@@ -51,7 +51,7 @@ const InCategory = (props) => {
               cursor="pointer"
               size="32"
               onClick={() => {
-                props.history.push("/category");
+                props.history.goBack();
               }}
             />
             <Font title fontSize="22px" margin="5px 0px 0px 0px">

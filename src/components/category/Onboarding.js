@@ -25,7 +25,6 @@ const OnBoarding = ({ onClose }) => {
   };
 
   const random = randomData();
-  console.log("random:", random);
 
   React.useEffect(() => {
     dispatch(postActions.loadPostDB());

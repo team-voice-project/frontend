@@ -39,7 +39,7 @@ const SearchKeyword = (props) => {
             size="32"
             cursor="pointer"
             onClick={() => {
-              props.history.push("/");
+              props.history.goBack();
             }}
           />
           <Font title fontSize="22px" margin="5px 0px 0px 0px">
