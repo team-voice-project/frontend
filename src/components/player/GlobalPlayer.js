@@ -5,8 +5,8 @@ import "react-h5-audio-player/lib/styles.css";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  GLOBAL_PLAYER_ESCAPE_LIST,
   getSessionPlaylist,
+  GLOBAL_PLAYER_ESCAPE_LIST,
 } from "../../shared/utils";
 import { actionCreators as playerActions } from "../../redux/modules/globalPlayer";
 import { apis } from "../../shared/api";
@@ -14,7 +14,6 @@ import { apis } from "../../shared/api";
 import { BiPause } from "react-icons/bi";
 import { HiOutlineSave } from "react-icons/hi";
 import { IoCloseSharp, IoMusicalNotesSharp } from "react-icons/io5";
-import { RiPlayList2Fill } from "react-icons/ri";
 import { FaPlay, FaRegWindowMinimize } from "react-icons/fa";
 import { TiArrowSortedUp } from "react-icons/ti";
 
@@ -84,7 +83,7 @@ const GlobalPlayer = () => {
     const titleEl = displayEl.querySelector(".title");
     const writerEl = displayEl.querySelector(".writer");
 
-    coverImgEl.src = track?.cover;
+    coverImgEl.src = track?.cover.trackThumbnailUrlFace || track?.cover;
     titleEl.innerHTML = track?.name || "비어있음";
     writerEl.innerHTML = track?.singer || "비어있음";
   };
@@ -276,7 +275,6 @@ const GlobalPlayer = () => {
                     const active =
                       list.trackId === now_track.trackId ? "active" : "";
                     const paused = active && globalPlayer.paused ? "pause" : "";
-
                     return (
                       <li
                         className={`list-item ${active} ${paused}`}
@@ -285,7 +283,10 @@ const GlobalPlayer = () => {
                       >
                         <div className={"item-info"}>
                           <div className={"cover"}>
-                            <img src={list.cover} alt="" />
+                            <img
+                              src={list.cover.trackThumbnailUrlFace}
+                              alt=""
+                            />
                             <div className={"btn-control"}>
                               <button
                                 type={"button"}
