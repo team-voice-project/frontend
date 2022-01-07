@@ -197,7 +197,7 @@ const TagGrid = styled.div`
 
 const OAODiv = styled.div`
   position: relative;
-  top: 130px;
+  margin-top: 120px;
 `;
 
 const OAOText = styled.p`

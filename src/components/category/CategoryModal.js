@@ -18,7 +18,6 @@ const CategoryModal = ({ selectedTag, setShowModal, name }) => {
   const category = name;
   const [tag_list, setTagList] = React.useState([]);
   const [is_disabled, setIsDisabled] = React.useState(true);
-  console.log("tag_list:::", tag_list);
 
   useEffect(() => {
     const trueActive = tag_list.filter((tag, idx) => {

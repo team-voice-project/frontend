@@ -63,10 +63,11 @@ const Wrap = styled.div`
   max-width: 425px;
   width: 100%;
   margin: auto;
+  text-align: center;
 `;
 
 const BoxWrap = styled.div`
-  padding: 0px 12px;
+  padding: 0px 10px;
   margin: 0px 4px;
 `;
 
@@ -75,25 +76,40 @@ const Desc = styled.div`
   font-size: 13px;
 `;
 
+const Box = styled.div`
+  text-align: center;
+  display: inline-block;
+
+  /* margin: 0px 6px 10px 6px; */
+`;
+
 const Rectangle = styled.img`
   cursor: pointer;
   width: 115px;
   height: 112px;
-  border-radius: 10px;
 
-  @media screen and (max-width: 380px) {
-    width: 102px;
+  border-radius: 10px;
+  margin: 0px 6px 10px 6px;
+
+  @media screen and (max-width: 409px) {
+    width: 98px;
     height: 97px;
   }
-  @media screen and (max-width: 320px) {
-    width: 84px;
-    height: 82px;
-  }
-`;
 
-const CategoryName = styled.div`
-  font-size: 13px;
-  margin: 16px 10px 0px 0px;
+  @media screen and (max-width: 320px) {
+    width: 82px;
+    height: 80px;
+  }
+  @media screen and (max-width: 316px) {
+    width: 80px;
+    height: 78px;
+  }
+  @media screen and (max-width: 290px) {
+    width: 72px;
+    height: 70px;
+    border-radius: 8px;
+    margin: 0px 4px 10px 4px;
+  }
 `;
 
 const Flex = styled.div`
@@ -103,18 +119,6 @@ const Flex = styled.div`
   width: 150px;
   height: 25px;
   margin-bottom: 18px;
-`;
-
-const Icon = styled.div`
-  width: 24px;
-  height: 24px;
-  background-color: #fff;
-`;
-
-const Box = styled.div`
-  text-align: center;
-  float: left;
-  margin: 0px 6px 10px 6px;
 `;
 
 export default Category;
