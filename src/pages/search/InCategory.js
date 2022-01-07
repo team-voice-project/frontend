@@ -19,11 +19,6 @@ const InCategory = (props) => {
   const tag_list = useSelector((state) => state.post.tag_list);
   const category = useSelector((state) => state.search.category_list);
   const trackWrapRef = useRef(null);
-  console.log(
-    "###################################### trackWrapRef ->",
-    trackWrapRef
-  );
-  //undefined일때 화면관리하기
 
   const [show_modal, setShowModal] = React.useState(false);
 
@@ -125,10 +120,11 @@ const TrackGrid = styled.div`
 
 const TrackDiv = styled.div`
   margin: 0px 10px;
-  @media screen and (max-width: 375px) {
+  @media screen and (max-width: 422px) {
     margin: 0 5px;
+    flex: 1;
   }
-  @media screen and (max-width: 320px) {
+  @media screen and (max-width: 344px) {
     margin: 0 1px;
   }
 `;

@@ -37,6 +37,12 @@ const TagCategory = (props) => {
     setTag(a);
   };
 
+  useEffect(() => {
+    if (tag === []) {
+      window.location.reload();
+    }
+  }, []);
+
   const mounted = React.useRef(false);
 
   //업데이트 될 때만 실행
@@ -47,6 +53,7 @@ const TagCategory = (props) => {
       dispatch(searchActions.loadTagDB(name, ...tag));
     }
   }, [tag]);
+  console.log("tag", tag);
 
   return (
     <>
@@ -176,13 +183,7 @@ const TrackGrid = styled.div`
 `;
 
 const TrackDiv = styled.div`
-  margin: 0px 10px;
-  @media screen and (max-width: 375px) {
-    margin: 0 5px;
-  }
-  @media screen and (max-width: 320px) {
-    margin: 0 1px;
-  }
+  margin: 0 auto;
 `;
 
 const TagGrid = styled.div`
