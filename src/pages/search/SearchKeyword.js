@@ -11,10 +11,14 @@ const SearchKeyword = (props) => {
 
   const handleSearch = () => {
     const value = inputRef.current.value;
-    props.history.push({
-      pathname: `/Search`,
-      state: { value: value },
-    });
+    if (value.length < 2) {
+      window.alert("검색어를 두 글자 이상 입력해주세요OAO!");
+    } else {
+      props.history.push({
+        pathname: `/Search`,
+        state: { value: value },
+      });
+    }
   };
 
   const onClick = () => {

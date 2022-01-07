@@ -122,11 +122,17 @@ const TrackGrid = styled.div`
 
 const TrackDiv = styled.div`
   margin: 0px 10px;
+  @media screen and (max-width: 375px) {
+    margin: 0 5px;
+  }
+  @media screen and (max-width: 320px) {
+    margin: 0 1px;
+  }
 `;
 
 const OAODiv = styled.div`
   position: relative;
-  top: 160px;
+  top: 130px;
 `;
 
 const OAOText = styled.p`
@@ -136,9 +142,9 @@ const OAOText = styled.p`
 `;
 
 const OAO = styled.div`
-  width: 200px;
-  height: 210px;
-  margin: 55px auto 0px auto;
+  width: 156px;
+  height: 156px;
+  margin: 40px auto 0px auto;
 
   background-image: url("/assets/images/OAO.png");
   background-repeat: no-repeat;

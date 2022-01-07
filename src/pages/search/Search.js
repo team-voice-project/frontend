@@ -162,7 +162,7 @@ const TrackDiv = styled.div`
 
 const OAODiv = styled.div`
   position: relative;
-  top: 150px;
+  top: 130px;
 `;
 
 const OAOText = styled.p`
