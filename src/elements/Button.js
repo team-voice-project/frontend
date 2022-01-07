@@ -33,7 +33,7 @@ Button.defaultProps = {
 
 const ButtonWrap = styled.button`
   font-family: "GmarketSansBold", serif;
-  font-size: 20px;
+  font-size: 18px;
   width: 100%;
   height: 60px;
   color: white;

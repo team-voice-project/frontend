@@ -14,6 +14,7 @@ const CategoryModal = ({ selectedTag, setShowModal, name }) => {
   const selected_tag = selectedTag;
   const _sessionTag = sessionStorage.getItem("tag_list");
   const sessionTag = JSON.parse(_sessionTag);
+  console.log("sessionTag", sessionTag);
 
   const category = name;
   const [tag_list, setTagList] = React.useState([]);

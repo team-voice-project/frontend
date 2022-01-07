@@ -30,7 +30,7 @@ const Category = (props) => {
                 props.history.push("/");
               }}
             />
-            <Font title fontSize="22px" margin="5px 0px 0px 0px">
+            <Font title fontSize="18px" margin="5px 0px 0px 0px">
               카테고리
             </Font>
           </Flex>
@@ -63,13 +63,14 @@ const Wrap = styled.div`
   max-width: 425px;
   width: 100%;
   margin: auto;
-  text-align: center;
-  flex-wrap: wrap;
 `;
 
 const BoxWrap = styled.div`
   padding: 0px 10px;
   margin: 0px 4px;
+  display: flex;
+
+  flex-wrap: wrap;
 `;
 
 const Desc = styled.div`
@@ -77,17 +78,12 @@ const Desc = styled.div`
   font-size: 13px;
 `;
 
-const Box = styled.div`
-  /* flex-wrap: wrap; */
-
-  /* margin: 0px 6px 10px 6px; */
-`;
+const Box = styled.div``;
 
 const Rectangle = styled.img`
   cursor: pointer;
   width: 115px;
   height: 112px;
-
   border-radius: 10px;
   margin: 0px 6px 10px 6px;
 
