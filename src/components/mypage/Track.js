@@ -116,6 +116,7 @@ const Track = (props) => {
 
 const DivWrap = styled.div`
   position: relative;
+  max-width: 100px;
 `;
 
 const TrackDiv = styled.div`
@@ -142,7 +143,7 @@ const PlayImg = styled.div`
   @media screen and (max-width: 422px) {
     position: absolute;
     bottom: 85px;
-    right: 30px;
+    right: 11px;
     width: 25px;
     height: 25px;
   }
@@ -188,22 +189,30 @@ const PlayBtn = styled.input.attrs({ type: "checkbox" })`
     }
     .play {
       position: absolute;
-      top: 106px;
-      right: 5px;
-      background: url(${PauseBtn});
-      background-color: #f1134e;
-      background-size: 50%;
-      background-position: center;
-      background-repeat: no-repeat;
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
-      @media screen and (max-width: 380px) {
-        position: absolute;
-        top: 86px;
-        right: 10px;
-        width: 25px;
-        height: 25px;
+  bottom: 70px;
+  right: 5px;
+  background: url(${PauseBtn});
+  background-color: #f1134e;
+  background-size: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  @media screen and (max-width: 422px) {
+    position: absolute;
+    bottom: 85px;
+    right: 11px;
+    width: 25px;
+    height: 25px;
+  }
+  @media screen and (max-width: 398px) {
+    position: absolute;
+    bottom: 85px;
+    right: 22px;
+    width: 25px;
+    height: 25px;
+  }
       }
     }
   }
