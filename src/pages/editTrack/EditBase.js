@@ -164,7 +164,9 @@ const EditBase = ({ history }) => {
             onClick={handleClickNextBtn}
             ref={nextBtnRef}
           >
-            <Font title={"true"}>다음</Font>
+            <Font title={"true"} margin={"5px 0 0 0"}>
+              다음
+            </Font>
             <RiArrowRightSLine />
           </button>
         </nav>
@@ -266,20 +268,22 @@ const EditWrap = styled.section`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 40px;
-    padding: 8px 20px;
+    height: 60px;
+    padding: 8px 0;
 
     .back-btn,
     .next-btn {
       border: 0;
+      font-size: 2px;
       height: inherit;
       background: none;
       display: flex;
       align-items: center;
       color: #fff;
+      font-size: 22px;
 
       svg {
-        font-size: 24px;
+        font-size: 32px;
       }
     }
 
