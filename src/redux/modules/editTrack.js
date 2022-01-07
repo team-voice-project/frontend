@@ -27,7 +27,8 @@ const setLoading = createAction(SET_LOADING, (loading) => ({ loading }));
 const sendTrackData = (track) => {
   return async (dispatch, getState, { history }) => {
     const trackData = new FormData();
-    trackData.append("trackThumbnailUrlFace", track.cover_url);
+    console.log("넘길 트랙 정보", track);
+    trackData.append("trackThumbnailId", track.thumbnail_id + 1);
     trackData.append("title", track.subject);
     trackData.append("trackFile", track.audio_file);
     trackData.append("category", track.category);

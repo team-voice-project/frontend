@@ -75,13 +75,14 @@ const EditBase = ({ history }) => {
   const filterTotalCategory = (data) => {
     return {
       ...data,
-      category: data.category.filter((item) => item.category !== "전체"),
+      categories: data.categories.filter((item) => item.category !== "전체"),
     };
   };
 
   const getMenuData = async () => {
     try {
       const res = await apis.getMenuInfoDB();
+      console.log("테스트", res);
       const menu_data = filterTotalCategory(res.data);
       console.log("메뉴 정보", menu_data);
       return menu_data;
@@ -239,7 +240,7 @@ const EditBase = ({ history }) => {
       {modal_state === "category" && (
         <OptModal>
           <CategoryList
-            initial_list={menu_info?.category}
+            initial_list={menu_info?.categories}
             selected_cate={selected_cate}
             setSelectedCate={setSelectedCate}
             setModalState={setModalState}
@@ -250,7 +251,7 @@ const EditBase = ({ history }) => {
       {modal_state === "tag" && (
         <OptModal>
           <TagList
-            initial_list={menu_info?.tag}
+            initial_list={menu_info?.tags}
             selected_tag={selected_tag}
             setSelectedTag={setSelectedTag}
             setModalState={setModalState}

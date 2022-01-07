@@ -104,7 +104,7 @@ const LoginButtonG = styled.a`
   border: none;
   border-radius: 12px;
   color: #8f8e8e;
-  font-family: "Black Han Sans", serif;
+  font-family: "GmarketSansBold", serif;
   font-size: 18px;
   line-height: 55px;
   text-align: center;
@@ -125,7 +125,7 @@ const LoginButtonN = styled.a`
   margin-bottom: 12px;
   background-color: #ddd;
   color: #fff;
-  font-family: "Black Han Sans", serif;
+  font-family: "GmarketSansBold", serif;
   line-height: 55px;
   text-align: center;
   font-size: 18px;
@@ -150,7 +150,7 @@ const LoginButtonK = styled.a`
   border: none;
   border-radius: 12px;
   color: #fff;
-  font-family: "Black Han Sans", serif;
+  font-family: "GmarketSansBold", serif;
   font-size: 18px;
   line-height: 55px;
   text-align: center;
