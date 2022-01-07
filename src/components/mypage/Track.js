@@ -16,7 +16,6 @@ const Track = (props) => {
   const globalPlayer = useSelector(
     (state) => state.globalPlayer.playerInstance
   );
-
   const openModal = () => {
     setModalOpen(true);
     document.body.style.overflowY = "hidden";

@@ -33,7 +33,7 @@ const LoginCallback = ({ history }) => {
     ignoreQueryPrefix: true,
   });
   axios
-    .get(`http://52.79.253.64/api/auth/${platform}/callback?code=${code}`)
+    .get(`https://www.engcv.xyz/api/auth/${platform}/callback?code=${code}`)
     .then((res) => {
       const user = res.data.user.nickname;
       const userToken = res.data.user.jwtToken;

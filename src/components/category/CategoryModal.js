@@ -78,8 +78,6 @@ const CategoryModal = ({ selectedTag, setShowModal, name }) => {
     setShowModal(false);
   };
 
-  console.log("tag_list", tag_list);
-
   return (
     <>
       <BackGround>

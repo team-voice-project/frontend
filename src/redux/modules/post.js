@@ -47,7 +47,7 @@ export default handleActions(
       }),
     [LOAD_IMAGE]: (state, action) =>
       produce(state, (draft) => {
-        draft.Image_list = action.payload.listInfo.category;
+        draft.Image_list = action.payload.listInfo.categories;
         draft.tag_list = action.payload.listInfo.tag;
       }),
   },

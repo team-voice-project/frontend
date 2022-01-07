@@ -64,6 +64,7 @@ const Wrap = styled.div`
   width: 100%;
   margin: auto;
   text-align: center;
+  flex-wrap: wrap;
 `;
 
 const BoxWrap = styled.div`
@@ -77,8 +78,7 @@ const Desc = styled.div`
 `;
 
 const Box = styled.div`
-  text-align: center;
-  display: inline-block;
+  /* flex-wrap: wrap; */
 
   /* margin: 0px 6px 10px 6px; */
 `;
