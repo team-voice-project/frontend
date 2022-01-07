@@ -224,6 +224,15 @@ const GlobalPlayer = () => {
     sendMyPlayList();
   };
 
+  const handleTogglePlayItem = (li, track) => {
+    const is_active = li.classList.contains("active");
+    if (!is_active) {
+      handlePlayEvent(track);
+    } else {
+      handlePauseToPlayList();
+    }
+  };
+
   return (
     render && (
       <PlayerWrap>
@@ -281,7 +290,15 @@ const GlobalPlayer = () => {
                         key={`play-list-id-${key}`}
                         data-id={list.musicSrc}
                       >
-                        <div className={"item-info"}>
+                        <div
+                          className={"item-info"}
+                          onClick={(e) =>
+                            handleTogglePlayItem(
+                              e.currentTarget.parentElement,
+                              list
+                            )
+                          }
+                        >
                           <div className={"cover"}>
                             <img
                               src={list.cover.trackThumbnailUrlFace}
@@ -291,7 +308,7 @@ const GlobalPlayer = () => {
                               <button
                                 type={"button"}
                                 className={"icon-pause"}
-                                onClick={handlePauseToPlayList}
+                                // onClick={handlePauseToPlayList}
                               >
                                 <BiPause />
                               </button>
@@ -299,7 +316,7 @@ const GlobalPlayer = () => {
                               <button
                                 type={"button"}
                                 className={"icon-play"}
-                                onClick={() => handlePlayEvent(list)}
+                                // onClick={() => handlePlayEvent(list)}
                               >
                                 <FaPlay />
                               </button>
@@ -513,7 +530,7 @@ const PlayerWidget = styled.article`
     color: #fff;
     background: none;
     font-size: 24px;
-    margin-top: 5px;
+    margin-top: 10px;
 
     svg {
       transition: transform 0.2s;
@@ -554,9 +571,9 @@ const PlayListWidget = styled.article`
       color: #fff;
       font-size: 11px;
       background: none;
-      padding: 2px 8px;
+      padding: 5px 12px;
       border: 1px solid #666;
-      border-radius: 10px;
+      border-radius: 25px;
       margin-left: auto;
 
       &:hover {
@@ -580,7 +597,7 @@ const PlayListWidget = styled.article`
   }
 
   .list-wrap {
-    height: 90%;
+    height: calc(100% - 50px);
     overflow-x: hidden;
     overflow-y: auto;
 
