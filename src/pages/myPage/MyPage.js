@@ -52,7 +52,12 @@ const MyPage = (props) => {
         >
           <Profile>
             <div
-              style={{ width: "150px", height: "150px", marginRight: "10px" }}
+              style={{
+                width: "150px",
+                height: "150px",
+                marginRight: "10px",
+                flexShrink: 0,
+              }}
             >
               <ImageCircle src={user_info.user_info?.profileImage} />
             </div>
@@ -78,9 +83,17 @@ const MyPage = (props) => {
                   로그아웃
                 </button> */}
               </NameDiv>
-              <Link>{user_info.user_info?.contact}</Link>
+              <Link>
+                {user_info.user_info?.contact
+                  ? user_info.user_info?.contact
+                  : "이메일 정보가 없습니다."}
+              </Link>
               <div style={{ width: "200px", wordBreak: "break-word" }}>
-                <Text>{user_info.user_info?.introduce}</Text>
+                <Text>
+                  {user_info.user_info?.introduce
+                    ? user_info.user_info?.introduce
+                    : "자기소개가 비어있습니다."}
+                </Text>
               </div>
             </div>
           </Profile>
@@ -289,6 +302,11 @@ const Profile = styled.div`
 const NameDiv = styled.div`
   display: flex;
   align-items: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 160px;
+
   @media screen and (max-width: 380px) {
     justify-content: center;
     margin-top: 10px;
