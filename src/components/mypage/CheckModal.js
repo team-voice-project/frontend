@@ -73,7 +73,7 @@ const LogoImage = styled.img`
   z-index: 9999;
 `;
 const Text = styled.p`
-  font-family: "Black Han Sans", serif;
+  font-family: "GmarketSansBold", serif;
   color: black;
   font-size: 30px;
 `;
@@ -102,7 +102,7 @@ const Modal = styled.div`
 `;
 
 const UpBtn = styled.button`
-  font-family: "Black Han Sans", serif;
+  font-family: "GmarketSansBold", serif;
   font-weight: 300;
   width: 100%;
   height: 48px;
@@ -113,7 +113,7 @@ const UpBtn = styled.button`
   color: white;
 `;
 const CancleBtn = styled.button`
-  font-family: "Black Han Sans", serif;
+  font-family: "GmarketSansBold", serif;
   font-weight: 300;
   width: 100%;
   height: 48px;

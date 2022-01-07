@@ -189,7 +189,7 @@ const ImageCircle = styled.div`
 `;
 
 const Name = styled.h1`
-  font-family: "Black Han Sans", serif;
+  font-family: "GmarketSansBold", serif;
   font-weight: 300;
   color: white;
   font-size: 24px;

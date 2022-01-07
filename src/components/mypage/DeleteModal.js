@@ -92,7 +92,7 @@ const Modal = styled.div`
 `;
 
 const UpBtn = styled.button`
-  font-family: "Black Han Sans", serif;
+  font-family: "GmarketSansBold", serif;
   font-weight: 300;
   width: 100%;
   height: 60px;
@@ -103,7 +103,7 @@ const UpBtn = styled.button`
   color: white;
 `;
 const CancleBtn = styled.button`
-  font-family: "Black Han Sans", serif;
+  font-family: "GmarketSansBold", serif;
   font-weight: 300;
   width: 100%;
   height: 60px;

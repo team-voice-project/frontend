@@ -306,7 +306,7 @@ const ImageCircle = styled.div`
 `;
 
 const UpBtn = styled.button`
-  font-family: "Black Han Sans", serif;
+  font-family: "GmarketSansBold", serif;
   font-weight: 300;
   width: 100%;
   height: 50px;
@@ -319,7 +319,7 @@ const UpBtn = styled.button`
 `;
 
 const Name = styled.h1`
-  font-family: "Black Han Sans", serif;
+  font-family: "GmarketSansBold", serif;
   font-weight: 300;
   color: black;
   font-size: 24px;
