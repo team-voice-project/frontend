@@ -117,6 +117,9 @@ const Track = (props) => {
 
 const DivWrap = styled.div`
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const TrackDiv = styled.div`

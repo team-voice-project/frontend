@@ -67,7 +67,7 @@ const Search = (props) => {
               <Multiline
                 ref={inputRef}
                 onKeyPress={onKeyPress}
-                placeholder="검색어를 입력해주세요."
+                placeholder="검색어를 두글자 이상 입력해주세요."
                 type="text"
                 defaultValue={keyword}
               ></Multiline>
@@ -77,7 +77,8 @@ const Search = (props) => {
                 onClick={onClick}
               ></HiOutlineSearch>
             </Flex>
-
+          </Container>
+          <Grid>
             <TrackGrid ref={trackWrapRef}>
               {search_list &&
                 search_list.map((l) => {
@@ -88,7 +89,7 @@ const Search = (props) => {
                   );
                 })}
             </TrackGrid>
-          </Container>
+          </Grid>
         </>
       ) : (
         <>
@@ -148,6 +149,13 @@ const Multiline = styled.input`
   }
 `;
 
+const Grid = styled.div`
+  padding-left: 10px;
+  /* @media screen and (max-width: 375px) {
+    padding-left: 0px;
+  } */
+`;
+
 const TrackGrid = styled.div`
   max-width: 425px;
   width: 100%;
@@ -157,12 +165,18 @@ const TrackGrid = styled.div`
 `;
 
 const TrackDiv = styled.div`
-  margin: 0px 7px;
+  margin: 0px 10px;
+  @media screen and (max-width: 375px) {
+    margin: 0 5px;
+  }
+  @media screen and (max-width: 320px) {
+    margin: 0 1px;
+  }
 `;
 
 const OAODiv = styled.div`
   position: relative;
-  top: 130px;
+  margin-top: 120px;
 `;
 
 const OAOText = styled.p`

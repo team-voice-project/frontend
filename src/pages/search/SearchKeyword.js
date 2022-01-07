@@ -50,7 +50,7 @@ const SearchKeyword = (props) => {
           <Multiline
             ref={inputRef}
             onKeyPress={onKeyPress}
-            placeholder="검색어를 입력해주세요."
+            placeholder="검색어를 두글자 이상 입력해주세요."
             type="text"
           ></Multiline>
           <HiOutlineSearch
