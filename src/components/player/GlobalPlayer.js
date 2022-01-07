@@ -182,7 +182,7 @@ const GlobalPlayer = () => {
   };
 
   const resetPlayerDisplay = () => {
-    globalPlayer.pause();
+    globalPlayer.load();
     PlayerRef.current.currentTime = 0;
     setPlayerDisplay({
       name: "",
@@ -231,6 +231,7 @@ const GlobalPlayer = () => {
       <PlayerWrap>
         <PlayerWidget>
           <AudioPlayer
+            showJumpControls={false}
             ref={PlayerRef}
             autoPlay={true}
             className={"player-container"}
@@ -454,12 +455,17 @@ const PlayerWrap = styled.article`
   @media screen and (max-width: 425px) {
     .rhap_volume-controls {
       display: none;
+      flex-grow: 0;
+      margin-left: 10px;
+
+      .rhap_volume-container {
+        display: none;
+      }
     }
 
     .rhap_main-controls {
+      position: static;
       transform: none;
-      right: 10px;
-      transform: translateY(-50%);
     }
   }
 `;
@@ -494,6 +500,10 @@ const PlayerWidget = styled.article`
       display: block;
       font-size: 14px;
       margin-bottom: 5px;
+      max-width: 150px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
 
     .writer {
@@ -733,6 +743,16 @@ const PlayListWidget = styled.article`
       &:hover {
         color: #fff;
       }
+    }
+  }
+
+  @media screen and (max-width: 425px) {
+    //bottom: initial;
+    //top: 0;
+    //height: calc(100vh - 66px);
+
+    .playlist-content {
+      //max-height: 320px;
     }
   }
 `;
