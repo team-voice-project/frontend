@@ -19,7 +19,10 @@ const InCategory = (props) => {
   const tag_list = useSelector((state) => state.post.tag_list);
   const category = useSelector((state) => state.search.category_list);
   const trackWrapRef = useRef(null);
-
+  console.log(
+    "###################################### trackWrapRef ->",
+    trackWrapRef
+  );
   //undefined일때 화면관리하기
 
   const [show_modal, setShowModal] = React.useState(false);
@@ -44,7 +47,7 @@ const InCategory = (props) => {
         />
       )}
 
-      <Wrap>
+      <Wrap ref={trackWrapRef}>
         <Flex style={{ justifyContent: "space-between" }}>
           <FlexTitle>
             <RiArrowLeftSLine
@@ -68,7 +71,7 @@ const InCategory = (props) => {
         </Flex>
 
         {category && category.length > 0 ? (
-          <TrackGrid ref={trackWrapRef}>
+          <TrackGrid>
             {category &&
               category.map((l, i) => {
                 return (
