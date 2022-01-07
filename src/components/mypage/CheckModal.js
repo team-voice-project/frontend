@@ -20,7 +20,9 @@ const CheckModal = (props) => {
             <Wrap>
               <Modal>
                 <div>
-                  <LogoImage src="http://52.79.253.64/trackThumbnail/OAO2_face.png"></LogoImage>
+                  <LogoImage
+                    src={`https://www.engcv.xyz/trackThumbnail/OAO2_face.png`}
+                  ></LogoImage>
                 </div>
 
                 <div style={{ textAlign: "center", marginTop: "70px" }}>

@@ -112,13 +112,15 @@ const TrackGrid = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: left;
-  @media screen and (max-width: 425px) {
+  padding-left: 15px;
+  @media screen and (max-width: 355px) {
     justify-content: center;
   }
 `;
 
 const TrackDiv = styled.div`
-  margin: 0px 7px;
+  margin: 0 7px;
+  padding: 0px;
 `;
 
 const OAODiv = styled.div`
@@ -183,7 +185,7 @@ const ImageCircle = styled.div`
   background: url("${(props) => props.src}");
   background-size: 100%;
   background-position: center;
-  background-repeat: no-repeat;
+  background-repeat: cover;
 `;
 
 const Name = styled.h1`
@@ -192,6 +194,9 @@ const Name = styled.h1`
   color: white;
   font-size: 24px;
   margin-right: 5px;
+  @media screen and (max-width: 380px) {
+    margin-top: 10px;
+  }
 `;
 
 const Link = styled.p`
