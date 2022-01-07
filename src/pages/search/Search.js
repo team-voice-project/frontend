@@ -58,7 +58,7 @@ const Search = (props) => {
             <Flex>
               <Flex
                 onClick={() => {
-                  props.history.push("/");
+                  props.history.goBack();
                 }}
               >
                 <RiArrowLeftSLine size="30" cursor="pointer"></RiArrowLeftSLine>
