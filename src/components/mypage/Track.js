@@ -44,11 +44,9 @@ const Track = (props) => {
           trackId: props.trackId,
           name: props.title,
           singer: props.User.nickname,
-          cover: props.TrackThumbnail.trackThumbnailUrlFace,
+          cover: props.TrackThumbnail,
           musicSrc: props.trackUrl,
         };
-
-        console.log("지금트랙", now_track);
 
         await dispatch(playerActions.play(now_track));
         globalPlayer.play();

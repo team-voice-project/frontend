@@ -10,6 +10,7 @@ import {
 } from "../../shared/utils";
 import { actionCreators as playerActions } from "../../redux/modules/globalPlayer";
 import { apis } from "../../shared/api";
+import { newGetCookie } from "../../shared/Cookie";
 
 import { BiPause } from "react-icons/bi";
 import { HiOutlineSave } from "react-icons/hi";
@@ -83,7 +84,7 @@ const GlobalPlayer = () => {
     const titleEl = displayEl.querySelector(".title");
     const writerEl = displayEl.querySelector(".writer");
 
-    coverImgEl.src = track?.cover.trackThumbnailUrlFace || track?.cover;
+    coverImgEl.src = track?.cover.trackThumbnailUrlFace;
     titleEl.innerHTML = track?.name || "비어있음";
     writerEl.innerHTML = track?.singer || "비어있음";
   };
@@ -221,14 +222,17 @@ const GlobalPlayer = () => {
   };
 
   const handleSavePlayList = () => {
+    const is_login = newGetCookie("token");
+    if (!is_login) {
+      alert("로그인 후 저장하실수 있습니다 :(");
+      return;
+    }
     sendMyPlayList();
   };
 
   const handleTogglePlayItem = (li, track) => {
     const is_active = li.classList.contains("active");
     const is_paused = li.classList.contains("pause");
-    console.log(li);
-    console.log("active", is_active, "pause", is_paused);
 
     if (is_active && is_paused) {
       handlePlayEvent(track);
