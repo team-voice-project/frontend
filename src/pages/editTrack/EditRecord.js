@@ -122,10 +122,10 @@ const EditWrap = styled.section`
       display: flex;
       align-items: center;
       color: #fff;
-      font-size: 22px;
+      font-size: 18px;
 
       svg {
-        font-size: 32px;
+        font-size: 29px;
       }
     }
 
