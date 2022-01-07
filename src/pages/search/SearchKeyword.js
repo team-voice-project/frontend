@@ -42,7 +42,7 @@ const SearchKeyword = (props) => {
               props.history.goBack();
             }}
           />
-          <Font title fontSize="22px" margin="5px 0px 0px 0px">
+          <Font title fontSize="18px" margin="5px 0px 0px 0px">
             검색
           </Font>
         </FlexTitle>

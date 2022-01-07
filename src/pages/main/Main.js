@@ -17,7 +17,7 @@ const Main = (props) => {
   const [showModal, setShowModal] = React.useState(false);
   const [all_list, setAllList] = React.useState([]);
   const track_list = useSelector((state) => state.post.post_list);
-  console.log("track_list", track_list);
+
   useEffect(() => {
     if (track_list) {
       // 각 카테고리의 트랙정보 고유 아이디를 만들기 위한 인덱스 값
@@ -107,7 +107,7 @@ const Main = (props) => {
                 <TrackWrap>
                   <Wrap>
                     <DivBoldText>
-                      <Font title fontSize="22px" margin="18px 0px">
+                      <Font title fontSize="18px" margin="18px 0px">
                         {list.category.categoryText}
                       </Font>
                       <IconDiv

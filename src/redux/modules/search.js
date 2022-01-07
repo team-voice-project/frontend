@@ -75,7 +75,6 @@ export default handleActions(
       }),
     [LOAD_CATEGORY]: (state, action) =>
       produce(state, (draft) => {
-        console.log("액션페이로드", action.payload);
         draft.category_list = action.payload.category.tracks;
         draft.tags = action.payload.category.categoryTags;
       }),

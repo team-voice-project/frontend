@@ -21,6 +21,8 @@ const OnBoarding = ({ onClose }) => {
               style={{
                 width: "80px",
                 height: "20px",
+                backgroundColor: "#ddd",
+                margin: "8px",
               }}
             >
               <Font title margin="2px 0px 0px 8px"></Font>
@@ -51,12 +53,8 @@ const OnBoarding = ({ onClose }) => {
             </CountBox>
           </FlexCount>
         </BoxDiv>
-        <Button bg margin="0px 0px 15px 0px">
-          나도 목소리 올리기
-        </Button>
-        <Button border margin="0px 0px 25px 0px">
-          다른 목소리 듣기
-        </Button>
+        <Button bg margin="0px 0px 15px 0px"></Button>
+        <Button border margin="0px 0px 25px 0px"></Button>
       </Container>
     </Background>
   );
@@ -119,13 +117,15 @@ const SmallCircle = styled.img`
   width: 35px;
   height: 35px;
   border-radius: 35px;
-  background-color: #616161;
+  background-color: #b1aeae;
+  border: none;
 `;
 
 const ImgDiv = styled.div`
   width: 160px;
   height: 160px;
   margin: 48px auto 25px auto;
+  background-color: #b1aeae;
 `;
 
 const OAOImage = styled.img`

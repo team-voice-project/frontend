@@ -43,7 +43,7 @@ const OnBoarding = ({ onClose }) => {
                 height: "20px",
               }}
             >
-              <Font title margin="2px 0px 0px 8px">
+              <Font title fontSizd="16px" margin="2px 0px 0px 8px">
                 {random && random.User.nickname}
               </Font>
             </div>

@@ -26,8 +26,8 @@ const loadPostDB = () => {
 const loadImageDB = () => {
   return function (dispatch, getState, { history }) {
     apis.getMenuInfoDB().then((res) => {
-      sessionStorage.setItem("tag_list", JSON.stringify(res.data.tag));
-      console.log("데이터::", res.data.tag);
+      sessionStorage.setItem("tag_list", JSON.stringify(res.data.tags));
+
       dispatch(loadImage(res.data));
     });
   };
