@@ -45,7 +45,7 @@ Font.defaultProps = {
 
 const FontWrap = styled.div`
 ${(props) => (props.fontSize ? `font-size: ${props.fontSize};` : "")}
-  font-family:'Black Han Sans', serif;
+  font-family:'GmarketSansBold', serif;
   margin ${(props) => props.margin};
   font-weight:500; 
 `;
