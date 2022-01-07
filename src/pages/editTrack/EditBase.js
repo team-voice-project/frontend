@@ -82,9 +82,7 @@ const EditBase = ({ history }) => {
   const getMenuData = async () => {
     try {
       const res = await apis.getMenuInfoDB();
-      console.log("테스트", res);
       const menu_data = filterTotalCategory(res.data);
-      console.log("메뉴 정보", menu_data);
       return menu_data;
     } catch (err) {
       console.error("[getMenuData] 카테고리, 태그 정보를 가져올 수 없습니다.");

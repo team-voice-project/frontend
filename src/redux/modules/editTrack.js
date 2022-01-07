@@ -27,7 +27,6 @@ const setLoading = createAction(SET_LOADING, (loading) => ({ loading }));
 const sendTrackData = (track) => {
   return async (dispatch, getState, { history }) => {
     const trackData = new FormData();
-    console.log("넘길 트랙 정보", track);
     trackData.append("trackThumbnailId", track.thumbnail_id + 1);
     trackData.append("title", track.subject);
     trackData.append("trackFile", track.audio_file);
@@ -78,7 +77,6 @@ export default handleActions(
   {
     [SAVE_BASE]: (state, action) =>
       produce(state, (draft) => {
-        console.log("[SET_BASE]", action.payload.base_info);
         const { category, tags, subject, audio_url, cover_url } =
           action.payload.base_info;
         draft.category = category;
@@ -92,7 +90,6 @@ export default handleActions(
 
     [SAVE_AUDIO]: (state, action) =>
       produce(state, (draft) => {
-        console.log("[SAVE_AUDIO]", action.payload.audio_info);
         draft.audio_file = action.payload.audio_info.file;
         draft.audio_url = action.payload.audio_info.url;
       }),

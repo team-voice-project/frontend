@@ -111,7 +111,6 @@ const GlobalPlayer = () => {
         title={"플레이 리스트"}
         onClick={() => {
           setPlayListModal(!play_list_modal);
-          console.log("플레이 상태", globalPlayer.paused);
         }}
       >
         <TiArrowSortedUp />
@@ -216,7 +215,6 @@ const GlobalPlayer = () => {
     const play_id_list = play_list.map((track) => track.trackId);
     try {
       const res = await apis.savePlayList(play_id_list);
-      console.log("플레이 리스트 저장 완료", res);
       alert("플레이 리스트가 저장되었습니다 :)");
     } catch (err) {
       console.log("플레이 리스트 저장 실패", err.response);

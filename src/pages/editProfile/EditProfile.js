@@ -145,7 +145,6 @@ const EditProfile = ({ history }) => {
       goNextPage();
     } else {
       alert("[Error] 프로필을 변경 할 수 없습니다 :(");
-      console.log("실패 시점", result);
     }
   };
 
