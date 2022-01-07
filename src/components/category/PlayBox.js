@@ -129,6 +129,8 @@ const PlayBox = (props) => {
           <div
             onClick={() => {
               openModal();
+              // global player pause
+              PauseTargetTrack();
             }}
             style={{ cursor: "pointer" }}
           >
