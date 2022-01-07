@@ -226,11 +226,21 @@ const GlobalPlayer = () => {
 
   const handleTogglePlayItem = (li, track) => {
     const is_active = li.classList.contains("active");
-    if (!is_active) {
+    const is_paused = li.classList.contains("pause");
+    console.log(li);
+    console.log("active", is_active, "pause", is_paused);
+
+    if (is_active && is_paused) {
       handlePlayEvent(track);
-    } else {
-      handlePauseToPlayList();
+      return;
     }
+
+    if (is_active && !is_paused) {
+      handlePauseToPlayList();
+      return;
+    }
+
+    handlePlayEvent(track);
   };
 
   return (
