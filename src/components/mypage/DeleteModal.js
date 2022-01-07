@@ -96,7 +96,7 @@ const UpBtn = styled.button`
   font-weight: 300;
   width: 100%;
   height: 60px;
-  font-size: 25px;
+  font-size: 18px;
   border-radius: 10px;
   border: none;
   background: black;
@@ -107,7 +107,7 @@ const CancleBtn = styled.button`
   font-weight: 300;
   width: 100%;
   height: 60px;
-  font-size: 25px;
+  font-size: 18px;
   border-radius: 10px;
   border: none;
   background: white;

@@ -192,7 +192,7 @@ const Name = styled.h1`
   font-family: "GmarketSansBold", serif;
   font-weight: 300;
   color: white;
-  font-size: 24px;
+  font-size: 20px;
   margin-right: 5px;
   @media screen and (max-width: 380px) {
     margin-top: 10px;

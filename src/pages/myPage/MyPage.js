@@ -311,7 +311,7 @@ const UpBtn = styled.button`
   width: 100%;
   height: 50px;
   margin-top: 20px;
-  font-size: 20px;
+  font-size: 18px;
   border-radius: 10px;
   border: none;
   background: #f1134e;
@@ -322,7 +322,7 @@ const Name = styled.h1`
   font-family: "GmarketSansBold", serif;
   font-weight: 300;
   color: black;
-  font-size: 24px;
+  font-size: 20px;
   margin-right: 5px;
 `;
 
