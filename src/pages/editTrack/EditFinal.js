@@ -248,7 +248,7 @@ const EditWrap = styled.section`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 40px;
+    height: 60px;
     padding: 8px 20px;
 
     .back-btn {
@@ -260,7 +260,7 @@ const EditWrap = styled.section`
       color: #fff;
 
       svg {
-        font-size: 24px;
+        font-size: 32px;
       }
     }
   }

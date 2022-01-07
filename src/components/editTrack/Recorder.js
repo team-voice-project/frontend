@@ -426,7 +426,6 @@ const RecorderWrap = styled.div`
     background: var(--point-color);
     max-width: 320px;
     width: 100%;
-    z-index: -1;
     opacity: 0;
 
     .file-name {
