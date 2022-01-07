@@ -39,11 +39,11 @@ const OnBoarding = ({ onClose }) => {
             <SmallCircle src={random && random.User.profileImage}></SmallCircle>
             <div
               style={{
-                width: "80px",
+                width: "280px",
                 height: "20px",
               }}
             >
-              <Font title fontSizd="16px" margin="2px 0px 0px 8px">
+              <Font title fontSizd="14px" margin="2px 0px 0px 8px">
                 {random && random.User.nickname}
               </Font>
             </div>

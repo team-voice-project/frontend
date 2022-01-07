@@ -79,14 +79,7 @@ const PlayBox = (props) => {
                 }}
               />
               <PlayButton>
-                <BiPause
-                  style={{
-                    color: "white",
-                    fontSize: "30px",
-                    lineHeight: "32px",
-                    marginTop: "1px",
-                  }}
-                />
+                <BiPause className="pause-btn" />
               </PlayButton>
             </CircleDiv>
           ) : (
@@ -238,6 +231,21 @@ const PlayButton = styled.button`
     position: relative;
     right: 25px;
     top: 70px;
+  }
+
+  .pause-btn {
+    color: white;
+    align-items: center;
+    text-align: center;
+    font-size: 30px;
+    margin-top: 1px;
+    margin-left: 1px;
+    margin-right: 0px;
+    @media screen and (max-width: 361px) {
+      font-size: 28px;
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 1px;
   }
 `;
 
