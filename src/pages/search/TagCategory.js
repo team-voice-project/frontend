@@ -183,7 +183,15 @@ const TrackGrid = styled.div`
 `;
 
 const TrackDiv = styled.div`
-  margin: 0 auto;
+  max-width: 120px;
+  margin: 0px 10px;
+  @media screen and (max-width: 422px) {
+    margin: 0 5px;
+    flex: 1;
+  }
+  @media screen and (max-width: 344px) {
+    margin: 0 1px;
+  }
 `;
 
 const TagGrid = styled.div`
