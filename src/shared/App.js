@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Route, Switch } from "react-router-dom";
-import { apis } from "../shared/api";
 
 import GlobalStyles from "./GlobalStyles";
 import Main from "../pages/main/Main";
@@ -22,6 +21,7 @@ import LoginCallback from "../shared/LoginCallback";
 import Auth from "../shared/auth";
 import ErrorHandlePage from "./ErrorHandlePage";
 import GlobalPlayer from "../components/player/GlobalPlayer";
+import { FloatingBtn } from "../elements";
 
 function App() {
   return (
@@ -78,6 +78,7 @@ function App() {
         <Route path={"/error/:code"} component={ErrorHandlePage} />
         <Route component={ErrorHandlePage} />
       </Switch>
+      <FloatingBtn></FloatingBtn>
     </>
   );
 }
