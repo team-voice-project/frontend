@@ -5,16 +5,16 @@ import "react-h5-audio-player/lib/styles.css";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  GLOBAL_PLAYER_ESCAPE_LIST,
   getSessionPlaylist,
+  GLOBAL_PLAYER_ESCAPE_LIST,
 } from "../../shared/utils";
 import { actionCreators as playerActions } from "../../redux/modules/globalPlayer";
 import { apis } from "../../shared/api";
+import { newGetCookie } from "../../shared/Cookie";
 
 import { BiPause } from "react-icons/bi";
 import { HiOutlineSave } from "react-icons/hi";
 import { IoCloseSharp, IoMusicalNotesSharp } from "react-icons/io5";
-import { RiPlayList2Fill } from "react-icons/ri";
 import { FaPlay, FaRegWindowMinimize } from "react-icons/fa";
 import { TiArrowSortedUp } from "react-icons/ti";
 
@@ -84,7 +84,7 @@ const GlobalPlayer = () => {
     const titleEl = displayEl.querySelector(".title");
     const writerEl = displayEl.querySelector(".writer");
 
-    coverImgEl.src = track?.cover;
+    coverImgEl.src = track?.cover.trackThumbnailUrlFace;
     titleEl.innerHTML = track?.name || "비어있음";
     writerEl.innerHTML = track?.singer || "비어있음";
   };
@@ -222,7 +222,29 @@ const GlobalPlayer = () => {
   };
 
   const handleSavePlayList = () => {
+    const is_login = newGetCookie("token");
+    if (!is_login) {
+      alert("로그인 후 저장하실수 있습니다 :(");
+      return;
+    }
     sendMyPlayList();
+  };
+
+  const handleTogglePlayItem = (li, track) => {
+    const is_active = li.classList.contains("active");
+    const is_paused = li.classList.contains("pause");
+
+    if (is_active && is_paused) {
+      handlePlayEvent(track);
+      return;
+    }
+
+    if (is_active && !is_paused) {
+      handlePauseToPlayList();
+      return;
+    }
+
+    handlePlayEvent(track);
   };
 
   return (
@@ -276,21 +298,31 @@ const GlobalPlayer = () => {
                     const active =
                       list.trackId === now_track.trackId ? "active" : "";
                     const paused = active && globalPlayer.paused ? "pause" : "";
-
                     return (
                       <li
                         className={`list-item ${active} ${paused}`}
                         key={`play-list-id-${key}`}
                         data-id={list.musicSrc}
                       >
-                        <div className={"item-info"}>
+                        <div
+                          className={"item-info"}
+                          onClick={(e) =>
+                            handleTogglePlayItem(
+                              e.currentTarget.parentElement,
+                              list
+                            )
+                          }
+                        >
                           <div className={"cover"}>
-                            <img src={list.cover} alt="" />
+                            <img
+                              src={list.cover.trackThumbnailUrlFace}
+                              alt=""
+                            />
                             <div className={"btn-control"}>
                               <button
                                 type={"button"}
                                 className={"icon-pause"}
-                                onClick={handlePauseToPlayList}
+                                // onClick={handlePauseToPlayList}
                               >
                                 <BiPause />
                               </button>
@@ -298,7 +330,7 @@ const GlobalPlayer = () => {
                               <button
                                 type={"button"}
                                 className={"icon-play"}
-                                onClick={() => handlePlayEvent(list)}
+                                // onClick={() => handlePlayEvent(list)}
                               >
                                 <FaPlay />
                               </button>
@@ -512,7 +544,7 @@ const PlayerWidget = styled.article`
     color: #fff;
     background: none;
     font-size: 24px;
-    margin-top: 5px;
+    margin-top: 10px;
 
     svg {
       transition: transform 0.2s;
@@ -553,9 +585,9 @@ const PlayListWidget = styled.article`
       color: #fff;
       font-size: 11px;
       background: none;
-      padding: 2px 8px;
+      padding: 5px 12px;
       border: 1px solid #666;
-      border-radius: 10px;
+      border-radius: 25px;
       margin-left: auto;
 
       &:hover {
@@ -579,7 +611,7 @@ const PlayListWidget = styled.article`
   }
 
   .list-wrap {
-    height: 90%;
+    height: calc(100% - 50px);
     overflow-x: hidden;
     overflow-y: auto;
 

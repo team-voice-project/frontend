@@ -44,7 +44,7 @@ const Track = (props) => {
           trackId: props.trackId,
           name: props.title,
           singer: props.User.nickname,
-          cover: props.TrackThumbnail.trackThumbnailUrlFace,
+          cover: props.TrackThumbnail,
           musicSrc: props.trackUrl,
         };
 
