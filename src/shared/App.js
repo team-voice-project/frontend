@@ -78,7 +78,7 @@ function App() {
         <Route path={"/error/:code"} component={ErrorHandlePage} />
         <Route component={ErrorHandlePage} />
       </Switch>
-      <FloatingBtn></FloatingBtn>
+      {/* <FloatingBtn></FloatingBtn> */}
     </>
   );
 }

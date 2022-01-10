@@ -7,6 +7,7 @@ import { Button, Font } from "../../elements/index";
 import OnBoarding from "../../components/category/Onboarding";
 import Header from "../../components/category/Header";
 import PlayBox from "../../components/category/PlayBox";
+import FloatingBtn from "../../elements/FloatingBtn";
 
 import { actionCreators as postActions } from "../../redux/modules/post";
 
@@ -141,6 +142,7 @@ const Main = (props) => {
             );
           })}
       </WrapDiv>
+      <FloatingBtn></FloatingBtn>
     </>
   );
 };

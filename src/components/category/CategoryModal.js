@@ -7,9 +7,11 @@ import { Button } from "../../elements";
 
 import { useHistory } from "react-router-dom";
 
-const CategoryModal = ({ setShowModal, name }) => {
+const CategoryModal = ({ setShowModal, name, selectedTag }) => {
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const selected_tag = selectedTag;
 
   const _sessionTag = sessionStorage.getItem("tag_list");
   const sessionTag = JSON.parse(_sessionTag);
@@ -17,6 +19,10 @@ const CategoryModal = ({ setShowModal, name }) => {
   const category = name;
   const [tag_list, setTagList] = React.useState([]);
   const [is_disabled, setIsDisabled] = React.useState(true);
+
+  useEffect(() => {
+    dispatch(searchActions.loadCategoryDB(name));
+  }, []);
 
   useEffect(() => {
     const trueActive = tag_list.filter((tag, idx) => {
@@ -29,10 +35,6 @@ const CategoryModal = ({ setShowModal, name }) => {
       setIsDisabled(true);
     }
   }, [tag_list]);
-
-  useEffect(() => {
-    dispatch(searchActions.loadCategoryDB(name));
-  }, []);
 
   useEffect(() => {
     const newList = sessionTag.map((list, idx) => {
@@ -76,6 +78,26 @@ const CategoryModal = ({ setShowModal, name }) => {
     });
     setShowModal(false);
   };
+
+  useEffect(() => {
+    if (selected_tag) {
+      const a = selected_tag[0];
+      const b = selected_tag[1];
+      const c = selected_tag[2];
+      console.log("selected_tag:::", a, b, c);
+      const newList = sessionTag.map((l, i) => {
+        if (l.tag === a || l.tag === b || l.tag === c) {
+          return {
+            tag: l.tag,
+            active: !l.active,
+          };
+        } else {
+          return { ...l };
+        }
+      });
+      setTagList(newList);
+    }
+  }, [selected_tag]);
 
   return (
     <>

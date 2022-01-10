@@ -44,7 +44,9 @@ const Login = ({ history, location }) => {
         >
           네이버로 로그인
         </LoginButtonN>
-        <LoginButtonK href="https://kauth.kakao.com/oauth/authorize?client_id=f1e0d9ea23cc43e8717f86da6573a3a1&amp;redirect_uri=http://localhost:3000/api/auth/kakao/callback&amp;response_type=code">
+        <LoginButtonK
+          href={`https://kauth.kakao.com/oauth/authorize?client_id=f1e0d9ea23cc43e8717f86da6573a3a1&amp;redirect_uri=http://localhost:3000/api/auth/kakao/callback&amp;response_type=code`}
+        >
           카카오로 로그인
         </LoginButtonK>
       </Container>
@@ -66,23 +68,6 @@ const Flex = styled.div`
   vertical-align: center;
   width: 150px;
   height: 25px;
-`;
-
-const Icon = styled.div`
-  width: 20px;
-  height: 28px;
-  background-color: #ddd;
-  margin-right: 12px;
-`;
-
-const SearchText = styled.div`
-  font-size: 22px;
-  font-weight: 700;
-`;
-
-const LoginText = styled.div`
-  font-size: 26px;
-  font-weight: 1000;
 `;
 
 const OAOImage = styled.div`
