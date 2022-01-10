@@ -36,7 +36,6 @@ export const getSessionPlaylist = () => {
 };
 
 export const setSessionPlaylist = (playlist) => {
-  console.log("[setSessionPlaylist]", playlist);
   sessionStorage.setItem(PLAY_LIST_KEY, JSON.stringify(playlist));
 };
 
