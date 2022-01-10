@@ -501,7 +501,7 @@ const PlayerWrap = styled.article`
 
 const PlayerWidget = styled.article`
   position: fixed;
-  bottom: 0;
+  bottom: 56px;
   left: 0;
   right: 0;
   z-index: 2000;
