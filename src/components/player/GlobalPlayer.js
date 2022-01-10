@@ -68,6 +68,10 @@ const GlobalPlayer = () => {
     );
 
     if (is_correct) {
+      if (globalPlayer) {
+        globalPlayer.pause();
+        globalPlayer.currentTime = 0;
+      }
       setRender(false);
     } else {
       setRender(true);
@@ -248,133 +252,130 @@ const GlobalPlayer = () => {
   };
 
   return (
-    render && (
-      <PlayerWrap>
-        <PlayerWidget>
-          <AudioPlayer
-            showJumpControls={false}
-            ref={PlayerRef}
-            autoPlay={true}
-            className={"player-container"}
-            timeFormat={"mm:ss"}
-            defaultCurrentTime={"00:00"}
-            src={now_track.musicSrc}
-            customAdditionalControls={[createPlayInfoEl()]}
-            customVolumeControls={[RHAP_UI.VOLUME, createPlayListOpenEl()]}
-            onPlay={handlePlayEvent}
-            onEnded={handleOnEndEvent}
-            onPause={handleOnPauseEvent}
+    <PlayerWrap className={!render ? "hide" : ""}>
+      <PlayerWidget>
+        <AudioPlayer
+          showJumpControls={false}
+          ref={PlayerRef}
+          autoPlay={true}
+          className={"player-container"}
+          timeFormat={"mm:ss"}
+          defaultCurrentTime={"00:00"}
+          src={now_track.musicSrc}
+          customAdditionalControls={[createPlayInfoEl()]}
+          customVolumeControls={[RHAP_UI.VOLUME, createPlayListOpenEl()]}
+          onPlay={handlePlayEvent}
+          onEnded={handleOnEndEvent}
+          onPause={handleOnPauseEvent}
+        />
+      </PlayerWidget>
+
+      <PlayListWidget className={play_list_modal ? "open" : ""}>
+        <div className={"playlist-header"}>
+          <span className={"title"}>
+            플레이 리스트 ({my_list?.length ? my_list?.length : "0"})
+          </span>
+
+          <button
+            type={"button"}
+            className={"clear-btn"}
+            onClick={handleClearPlayList}
+          >
+            비우기
+          </button>
+          <FaRegWindowMinimize
+            className={"close-btn"}
+            onClick={() => setPlayListModal(false)}
           />
-        </PlayerWidget>
-
-        <PlayListWidget className={play_list_modal ? "open" : ""}>
-          <div className={"playlist-header"}>
-            <span className={"title"}>
-              플레이 리스트 ({my_list?.length ? my_list?.length : "0"})
-            </span>
-
-            <button
-              type={"button"}
-              className={"clear-btn"}
-              onClick={handleClearPlayList}
-            >
-              비우기
-            </button>
-            <FaRegWindowMinimize
-              className={"close-btn"}
-              onClick={() => setPlayListModal(false)}
-            />
-          </div>
-          <div className={"playlist-body"}>
-            <div className={"playlist-content"}>
-              <ul className={"list-wrap"} ref={playListRef}>
-                {!my_list?.length ? (
-                  <div className={"empty-list"}>
-                    <IoMusicalNotesSharp />
-                    <span>플레이리스트가 없습니다.</span>
-                  </div>
-                ) : (
-                  my_list.map((list, key) => {
-                    const active =
-                      list.trackId === now_track.trackId ? "active" : "";
-                    const paused = active && globalPlayer.paused ? "pause" : "";
-                    return (
-                      <li
-                        className={`list-item ${active} ${paused}`}
-                        key={`play-list-id-${key}`}
-                        data-id={list.musicSrc}
+        </div>
+        <div className={"playlist-body"}>
+          <div className={"playlist-content"}>
+            <ul className={"list-wrap"} ref={playListRef}>
+              {!my_list?.length ? (
+                <div className={"empty-list"}>
+                  <IoMusicalNotesSharp />
+                  <span>플레이리스트가 없습니다.</span>
+                </div>
+              ) : (
+                my_list.map((list, key) => {
+                  const active =
+                    list.trackId === now_track.trackId ? "active" : "";
+                  const paused = active && globalPlayer.paused ? "pause" : "";
+                  return (
+                    <li
+                      className={`list-item ${active} ${paused}`}
+                      key={`play-list-id-${key}`}
+                      data-id={list.musicSrc}
+                    >
+                      <div
+                        className={"item-info"}
+                        onClick={(e) =>
+                          handleTogglePlayItem(
+                            e.currentTarget.parentElement,
+                            list
+                          )
+                        }
                       >
-                        <div
-                          className={"item-info"}
-                          onClick={(e) =>
-                            handleTogglePlayItem(
-                              e.currentTarget.parentElement,
-                              list
-                            )
-                          }
+                        <div className={"cover"}>
+                          <img src={list.cover.trackThumbnailUrlFace} alt="" />
+                          <div className={"btn-control"}>
+                            <button
+                              type={"button"}
+                              className={"icon-pause"}
+                              // onClick={handlePauseToPlayList}
+                            >
+                              <BiPause />
+                            </button>
+
+                            <button
+                              type={"button"}
+                              className={"icon-play"}
+                              // onClick={() => handlePlayEvent(list)}
+                            >
+                              <FaPlay />
+                            </button>
+                          </div>
+                        </div>
+                        <div className={"info"}>
+                          <span className={"title"}>{list.name}</span>
+                          <span className={"writer"}>{list.singer}</span>
+                        </div>
+                      </div>
+
+                      <div className={"btn-group"}>
+                        <button
+                          type={"button"}
+                          className={"delete-btn"}
+                          onClick={() => handleDeleteTrack(list.musicSrc)}
                         >
-                          <div className={"cover"}>
-                            <img
-                              src={list.cover.trackThumbnailUrlFace}
-                              alt=""
-                            />
-                            <div className={"btn-control"}>
-                              <button
-                                type={"button"}
-                                className={"icon-pause"}
-                                // onClick={handlePauseToPlayList}
-                              >
-                                <BiPause />
-                              </button>
-
-                              <button
-                                type={"button"}
-                                className={"icon-play"}
-                                // onClick={() => handlePlayEvent(list)}
-                              >
-                                <FaPlay />
-                              </button>
-                            </div>
-                          </div>
-                          <div className={"info"}>
-                            <span className={"title"}>{list.name}</span>
-                            <span className={"writer"}>{list.singer}</span>
-                          </div>
-                        </div>
-
-                        <div className={"btn-group"}>
-                          <button
-                            type={"button"}
-                            className={"delete-btn"}
-                            onClick={() => handleDeleteTrack(list.musicSrc)}
-                          >
-                            <IoCloseSharp />
-                          </button>
-                        </div>
-                      </li>
-                    );
-                  })
-                )}
-              </ul>
-              <div className={"save-my-list"} onClick={handleSavePlayList}>
-                <span>
-                  지금 플레이 리스트를 나중에 또 듣고 싶다면 Click! :)
-                </span>
-                <button type={"button"} className={"save-btn"}>
-                  <HiOutlineSave />
-                </button>
-              </div>
+                          <IoCloseSharp />
+                        </button>
+                      </div>
+                    </li>
+                  );
+                })
+              )}
+            </ul>
+            <div className={"save-my-list"} onClick={handleSavePlayList}>
+              <span>지금 플레이 리스트를 나중에 또 듣고 싶다면 Click! :)</span>
+              <button type={"button"} className={"save-btn"}>
+                <HiOutlineSave />
+              </button>
             </div>
           </div>
-        </PlayListWidget>
-      </PlayerWrap>
-    )
+        </div>
+      </PlayListWidget>
+    </PlayerWrap>
   );
 };
 
 export default GlobalPlayer;
 
 const PlayerWrap = styled.article`
+  &.hide {
+    display: none !important;
+  }
+
   .rhap_container {
     background-color: #1d1d1d;
   }
@@ -500,7 +501,7 @@ const PlayerWrap = styled.article`
 
 const PlayerWidget = styled.article`
   position: fixed;
-  bottom: 0;
+  bottom: 56px;
   left: 0;
   right: 0;
   z-index: 2000;

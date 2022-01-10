@@ -3,10 +3,7 @@ import styled from "styled-components";
 import { history } from "../../redux/configStore";
 import { useSelector } from "react-redux";
 
-import { HiOutlineSearch } from "react-icons/hi";
-import { HiUser } from "react-icons/hi";
-import { BsFillGridFill } from "react-icons/bs";
-import { MdLogin } from "react-icons/md";
+import { BsBellFill } from "react-icons/bs";
 
 const Header = (props) => {
   const { topMenu, noHeader } = props;
@@ -31,44 +28,13 @@ const Header = (props) => {
         ></L>
         <FlexIcon>
           <Temdiv>
-            <HiOutlineSearch
+            <BsBellFill
               cursor="pointer"
-              size="24"
-              onClick={() => {
-                history.push("/searchkeyword");
-              }}
+              size="22"
+              // onClick={() => {
+              //   history.push("/searchkeyword");
+              // }}
             />
-          </Temdiv>
-          {is_login === true ? (
-            <Temdiv>
-              <HiUser
-                cursor="pointer"
-                size="24"
-                onClick={() => {
-                  history.push("/mypage/rank_list");
-                }}
-              ></HiUser>
-            </Temdiv>
-          ) : (
-            <Temdiv>
-              <MdLogin
-                cursor="pointer"
-                size="24"
-                onClick={() => {
-                  history.push("/login");
-                }}
-              ></MdLogin>
-            </Temdiv>
-          )}
-
-          <Temdiv>
-            <BsFillGridFill
-              cursor="pointer"
-              size="24"
-              onClick={() => {
-                history.push("/category");
-              }}
-            ></BsFillGridFill>
           </Temdiv>
         </FlexIcon>
       </FlexSearchBar>
@@ -137,8 +103,8 @@ const FlexIcon = styled.div`
 `;
 
 const Temdiv = styled.div`
-  width: 28px;
-  height: 28px;
+  width: 22px;
+  height: 22px;
   margin-left: 18px;
   align-items: center;
   vertical-align: center;

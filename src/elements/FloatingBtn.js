@@ -44,7 +44,7 @@ const IconDiv = styled.a`
   border-radius: 36px;
   position: fixed;
   right: 20px;
-  bottom: 80px;
+  bottom: 130px;
 
   &:hover .arrow_box {
     visibility: visible;
@@ -56,7 +56,7 @@ const Bubble = styled.div`
   height: 28px;
   position: fixed;
   right: 60px;
-  bottom: 82px;
+  bottom: 132px;
   visibility: hidden;
 
   background-image: url("/assets/images/bubbleImg.svg");
