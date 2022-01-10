@@ -237,8 +237,9 @@ const ProfileCircle = styled.div`
   border: none;
   background: url("${(props) => props.src}");
   background-size: 100%;
+  background-size: cover;
   background-position: center;
-  background-repeat: cover;
+  background-repeat: no-repeat;
 `;
 
 const ImageCircle = styled.img`

@@ -115,7 +115,7 @@ const TrackGrid = styled.div`
 
 const TrackDiv = styled.div`
   max-width: 120px;
-  margin: 0px auto;
+  margin: 0px 0 0 20px;
   @media screen and (max-width: 422px) {
     margin: 0 0 0 20px;
     flex: 1;
@@ -185,9 +185,9 @@ const ImageCircle = styled.div`
   margin-right: 20px;
   border: none;
   background: url("${(props) => props.src}");
-  background-size: 100%;
+  background-size: cover;
   background-position: center;
-  background-repeat: cover;
+  background-repeat: no-repeat;
 `;
 
 const Name = styled.h1`
