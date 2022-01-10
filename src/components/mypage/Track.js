@@ -85,6 +85,7 @@ const Track = (props) => {
                 <Title>{props.title}</Title>
               </div>
             </TextSize>
+
             <Text>{props.User.nickname}</Text>
             <div
               style={{
@@ -117,6 +118,10 @@ const Track = (props) => {
 const DivWrap = styled.div`
   position: relative;
   max-width: 100px;
+  margin: 0 5px;
+  @media screen and (max-width: 422px) {
+    margin: 0 auto;
+  }
 `;
 
 const TrackDiv = styled.div`
@@ -131,7 +136,7 @@ const TrackDiv = styled.div`
 const PlayImg = styled.div`
   position: absolute;
   bottom: 70px;
-  right: 5px;
+  right: -11px;
   background: url(${PlayButton});
   background-color: #f1134e;
   background-size: 50%;
@@ -142,15 +147,22 @@ const PlayImg = styled.div`
   border-radius: 50%;
   @media screen and (max-width: 422px) {
     position: absolute;
-    bottom: 85px;
-    right: 11px;
+    bottom: 71px;
+    right: 10px;
     width: 25px;
     height: 25px;
   }
   @media screen and (max-width: 398px) {
     position: absolute;
-    bottom: 85px;
-    right: 22px;
+    bottom: 71px;
+    right: 12px;
+    width: 25px;
+    height: 25px;
+  }
+  @media screen and (max-width: 345px) {
+    position: absolute;
+    bottom: 69px;
+    right: 25px;
     width: 25px;
     height: 25px;
   }
@@ -189,8 +201,8 @@ const PlayBtn = styled.input.attrs({ type: "checkbox" })`
     }
     .play {
       position: absolute;
-  bottom: 70px;
-  right: 5px;
+      bottom: 70px;
+  right: -11px;
   background: url(${PauseBtn});
   background-color: #f1134e;
   background-size: 50%;
@@ -201,15 +213,22 @@ const PlayBtn = styled.input.attrs({ type: "checkbox" })`
   border-radius: 50%;
   @media screen and (max-width: 422px) {
     position: absolute;
-    bottom: 85px;
-    right: 11px;
+    bottom: 71px;
+    right: 10px;
     width: 25px;
     height: 25px;
   }
   @media screen and (max-width: 398px) {
     position: absolute;
-    bottom: 85px;
-    right: 22px;
+    bottom: 71px;
+    right: 12px;
+    width: 25px;
+    height: 25px;
+  }
+  @media screen and (max-width: 345px) {
+    position: absolute;
+    bottom: 69px;
+    right: 25px;
     width: 25px;
     height: 25px;
   }
@@ -219,7 +238,7 @@ const PlayBtn = styled.input.attrs({ type: "checkbox" })`
 `;
 
 const TextDiv = styled.div`
-  margin-top: 20px;
+  margin-top: 8px;
 `;
 
 const TextSize = styled.div`
@@ -247,6 +266,11 @@ const Text = styled.p`
   margin-bottom: 1px;
   font-size: 12px;
   color: white;
-  max-width: 96px;
+  max-width: 75px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
 `;
 export default Track;
