@@ -45,7 +45,7 @@ const MypageHeader = (props) => {
                 cursor="pointer"
                 size="24"
                 onClick={() => {
-                  history.push("/mypage");
+                  history.push("/mypage/rank_list");
                 }}
               ></HiUser>
             </Temdiv>

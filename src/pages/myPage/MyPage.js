@@ -9,6 +9,8 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { actionCreators } from "../../redux/modules/mypage";
 import { apis } from "../../shared/api";
+import Panparea from "./Pangparea.png";
+import Master from "./master.png";
 
 import MypageHeader from "../../components/mypage/MypageHeader";
 import LogoutModal from "../../components/mypage/LogoutModal";
@@ -116,6 +118,16 @@ const MyPage = (props) => {
         >
           {like === "like_list" ? (
             <>
+              <label>
+                <FormCheckLeft
+                  type="radio"
+                  name="radioBtn"
+                  onClick={() => {
+                    history.push("/mypage/rank_list");
+                  }}
+                />
+                <FormCheckText>보이스 분석</FormCheckText>
+              </label>
               <label style={{ marginRight: "10px" }}>
                 <FormCheckLeft
                   type="radio"
@@ -139,8 +151,53 @@ const MyPage = (props) => {
                 <FormCheckText>좋아요 목록</FormCheckText>
               </label>
             </>
+          ) : like === "rank_list" ? (
+            <>
+              <label>
+                <FormCheckLeft
+                  type="radio"
+                  name="radioBtn"
+                  defaultChecked
+                  onClick={() => {
+                    history.push("/mypage/rank_list");
+                  }}
+                />
+                <FormCheckText>보이스 분석</FormCheckText>
+              </label>
+              <label style={{ marginRight: "10px" }}>
+                <FormCheckLeft
+                  type="radio"
+                  value={"a" || ""}
+                  name="radioBtn"
+                  onClick={() => {
+                    history.push("/mypage");
+                  }}
+                />
+                <FormCheckText>트랙 리스트</FormCheckText>
+              </label>
+              <label>
+                <FormCheckLeft
+                  type="radio"
+                  name="radioBtn"
+                  onClick={() => {
+                    history.push("/mypage/like_list");
+                  }}
+                />
+                <FormCheckText>좋아요 목록</FormCheckText>
+              </label>
+            </>
           ) : (
             <>
+              <label>
+                <FormCheckLeft
+                  type="radio"
+                  name="radioBtn"
+                  onClick={() => {
+                    history.push("/mypage/rank_list");
+                  }}
+                />
+                <FormCheckText>보이스 분석</FormCheckText>
+              </label>
               <label style={{ marginRight: "10px" }}>
                 <FormCheckLeft
                   type="radio"
@@ -206,7 +263,7 @@ const MyPage = (props) => {
                   );
                 })
               )
-            ) : (
+            ) : like === "rank_list" ? null : (
               track?.track_info.map((p, idx) => {
                 return (
                   <TrackDiv key={p.trackId}>
@@ -215,6 +272,50 @@ const MyPage = (props) => {
                 );
               })
             )}
+            {like === "rank_list" ? (
+              <div style={{ margin: "30px auto" }}>
+                <RankDiv>
+                  <RankTitle>{props.rank}</RankTitle>
+                  <RankImg src={Master}></RankImg>
+                  <PangImg src={Panparea}></PangImg>
+                  <RankDic>
+                    "{props.oao_name}"에요, 많은 사랑을 받은 목소리네요!
+                  </RankDic>
+                  <div
+                    style={{
+                      display: "flex",
+                      position: "relative",
+                      bottom: "140px",
+                    }}
+                  >
+                    <Tag>잔잔한</Tag>
+                    <Tag>어른스런</Tag>
+                    <Tag>독특한</Tag>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      position: "relative",
+                      bottom: "110px",
+                      zIndex: "1",
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontSize: "24px",
+                        color: "#f1134e",
+                        marginRight: "10px",
+                        fontWeight: "700",
+                      }}
+                    >
+                      나래이션
+                    </span>
+                    <p>에 적합한 목소리에요!</p>
+                  </div>
+                </RankDiv>
+              </div>
+            ) : null}
           </TrackGrid>
         )}
       </Container>
@@ -223,9 +324,55 @@ const MyPage = (props) => {
 };
 
 MyPage.defaultProps = {
-  user_image:
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgXaZTRs1NC8dvfYkOxERlkyi-nEMnP15bag&usqp=CAU",
+  rank: "3위",
+  oao_name: "마스터 와오",
+  rank_tag: ["잔잔한", "남자다운", "독특한"],
 };
+const Tag = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Pretendard Variable", serif;
+  font-weight: 400;
+  font-size: 14px;
+  border: 0;
+  padding: 10px 15px 11px 15px;
+  color: #fff;
+  background-color: #f1134e;
+  border-radius: 20px;
+  margin-right: 10px;
+`;
+
+const RankDic = styled.p`
+  font-family: "Pretendard Variable", serif;
+  font-size: 12px;
+  z-index: 1;
+  position: relative;
+  bottom: 180px;
+`;
+const RankDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+`;
+const RankImg = styled.img`
+  width: 150px;
+  height: 150px;
+  z-index: 1;
+`;
+const PangImg = styled.img`
+  position: relative;
+  width: 100%;
+  max-width: 425px;
+  bottom: 180px;
+  z-index: 0;
+`;
+const RankTitle = styled.h1`
+  font-family: "GmarketSansBold", serif;
+  font-size: 20px;
+`;
+
 const TrackGrid = styled.div`
   max-width: 425px;
   width: 100%;
@@ -236,7 +383,7 @@ const TrackGrid = styled.div`
 
 const TrackDiv = styled.div`
   max-width: 120px;
-  margin: 0px auto;
+  margin: 0px 0 0 20px;
   @media screen and (max-width: 422px) {
     margin: 0 0 0 20px;
     flex: 1;
@@ -245,7 +392,6 @@ const TrackDiv = styled.div`
     margin: 0 0 0 0 20px;
   }
 `;
-
 const OAODiv = styled.div`
   position: relative;
   top: 50px;
@@ -270,7 +416,7 @@ const OAO = styled.div`
 const FormCheckText = styled.span`
   font-size: 15px;
   font-weight: 900;
-  width: 110px;
+  width: 100px;
   height: 35px;
   background: black;
   border-radius: 50px;
