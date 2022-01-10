@@ -2,20 +2,37 @@ import React from "react";
 import styled from "styled-components";
 import { AiFillGift } from "react-icons/ai";
 
-const FloatingBtn = () => {
+const FloatingBtn = (props) => {
+  const { bubble } = props;
+  if (bubble) {
+    return (
+      <IconDiv
+        className="box"
+        href="https://docs.google.com/forms/d/e/1FAIpQLSddqIx8oAZcKLY_ULBSrWUCbw-zjrwZoG6fPCictsELoSemKg/viewform"
+      >
+        <AiFillGift
+          style={{
+            color: "F1134E",
+          }}
+          size="24"
+        ></AiFillGift>
+        <Bubble className="arrow_box"></Bubble>
+      </IconDiv>
+    );
+  }
   return (
-    <IconDiv href="https://docs.google.com/forms/d/e/1FAIpQLSddqIx8oAZcKLY_ULBSrWUCbw-zjrwZoG6fPCictsELoSemKg/viewform">
-      <AiFillGift
-        style={{
-          color: "F1134E",
-        }}
-        size="24"
-      ></AiFillGift>
-    </IconDiv>
+    <div>
+      <IconDiv href="https://docs.google.com/forms/d/e/1FAIpQLSddqIx8oAZcKLY_ULBSrWUCbw-zjrwZoG6fPCictsELoSemKg/viewform">
+        <AiFillGift
+          style={{
+            color: "F1134E",
+          }}
+          size="24"
+        ></AiFillGift>
+      </IconDiv>
+    </div>
   );
 };
-
-export default FloatingBtn;
 
 const IconDiv = styled.a`
   width: 36px;
@@ -28,4 +45,22 @@ const IconDiv = styled.a`
   position: fixed;
   right: 20px;
   bottom: 80px;
+
+  &:hover .arrow_box {
+    visibility: visible;
+  }
 `;
+
+const Bubble = styled.div`
+  width: 105px;
+  height: 28px;
+  position: fixed;
+  right: 60px;
+  bottom: 82px;
+  visibility: hidden;
+
+  background-image: url("/assets/images/bubbleImg.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+`;
+export default FloatingBtn;

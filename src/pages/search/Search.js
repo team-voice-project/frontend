@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 
 import Header from "../../components/category/Header";
-import { Container } from "../../elements/index";
+import { Container, FloatingBtn } from "../../elements/index";
 import Track from "../../components/mypage/Track";
 import { actionCreators as searchActions } from "../../redux/modules/search";
 
@@ -124,6 +124,7 @@ const Search = (props) => {
           </Container>
         </>
       )}
+      <FloatingBtn></FloatingBtn>
     </div>
   );
 };

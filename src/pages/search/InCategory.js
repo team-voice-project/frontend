@@ -7,7 +7,7 @@ import { actionCreators as searchActions } from "../../redux/modules/search";
 import CategoryModal from "../../components/category/CategoryModal";
 import Header from "../../components/category/Header";
 import Track from "../../components/mypage/Track";
-import { Font } from "../../elements/index";
+import { Font, FloatingBtn } from "../../elements/index";
 
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { BsFilterRight } from "react-icons/bs";
@@ -84,6 +84,7 @@ const InCategory = (props) => {
           </OAODiv>
         )}
       </Wrap>
+      <FloatingBtn></FloatingBtn>
     </>
   );
 };

@@ -68,23 +68,6 @@ const Flex = styled.div`
   height: 25px;
 `;
 
-const Icon = styled.div`
-  width: 20px;
-  height: 28px;
-  background-color: #ddd;
-  margin-right: 12px;
-`;
-
-const SearchText = styled.div`
-  font-size: 22px;
-  font-weight: 700;
-`;
-
-const LoginText = styled.div`
-  font-size: 26px;
-  font-weight: 1000;
-`;
-
 const OAOImage = styled.div`
   width: 180px;
   height: 200px;

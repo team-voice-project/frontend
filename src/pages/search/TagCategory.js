@@ -7,7 +7,7 @@ import { actionCreators as searchActions } from "../../redux/modules/search";
 import CategoryModal from "../../components/category/CategoryModal";
 import Header from "../../components/category/Header";
 import Track from "../../components/mypage/Track";
-import { Font } from "../../elements/index";
+import { Font, FloatingBtn } from "../../elements/index";
 
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { BsFilterRight } from "react-icons/bs";
@@ -37,12 +37,6 @@ const TagCategory = (props) => {
     setTag(a);
   };
 
-  useEffect(() => {
-    if (tag === []) {
-      window.location.reload();
-    }
-  }, []);
-
   const mounted = React.useRef(false);
 
   //업데이트 될 때만 실행
@@ -53,7 +47,6 @@ const TagCategory = (props) => {
       dispatch(searchActions.loadTagDB(name, ...tag));
     }
   }, [tag]);
-  console.log("tag", tag);
 
   return (
     <>
@@ -123,6 +116,7 @@ const TagCategory = (props) => {
           </OAODiv>
         )}
       </Wrap>
+      <FloatingBtn></FloatingBtn>
     </>
   );
 };
