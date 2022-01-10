@@ -4,8 +4,7 @@ import { history } from "../redux/configStore";
 
 // API 인스턴스 생성
 const api = axios.create({
-
-  baseURL: `https://www.engcv.xyz`,
+  baseURL: `https://15.165.160.158`,
 
   headers: {
     "X-Requested-With": "XMLHttpRequest",
