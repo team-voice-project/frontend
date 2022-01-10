@@ -2,75 +2,65 @@ import React from "react";
 import styled from "styled-components";
 import { AiFillGift } from "react-icons/ai";
 
-const FloatingBtn = () => {
+const FloatingBtn = (props) => {
+  const { bubble } = props;
+  if (bubble) {
+    return (
+      <IconDiv
+        className="box"
+        href="https://docs.google.com/forms/d/e/1FAIpQLSddqIx8oAZcKLY_ULBSrWUCbw-zjrwZoG6fPCictsELoSemKg/viewform"
+      >
+        <AiFillGift
+          style={{
+            color: "F1134E",
+          }}
+          size="24"
+        ></AiFillGift>
+        <Bubble className="arrow_box"></Bubble>
+      </IconDiv>
+    );
+  }
   return (
-    <Wrap id="menu">
-      <Div>
-        <IconDiv href="https://docs.google.com/forms/d/e/1FAIpQLSddqIx8oAZcKLY_ULBSrWUCbw-zjrwZoG6fPCictsELoSemKg/viewform">
-          {/* <AiFillGift
-            style={{
-              color: "F1134E",
-            }}
-            size="24"
-          ></AiFillGift> */}
-          <Bubble className="arrow_box"></Bubble>
-        </IconDiv>
-      </Div>
-    </Wrap>
+    <div>
+      <IconDiv href="https://docs.google.com/forms/d/e/1FAIpQLSddqIx8oAZcKLY_ULBSrWUCbw-zjrwZoG6fPCictsELoSemKg/viewform">
+        <AiFillGift
+          style={{
+            color: "F1134E",
+          }}
+          size="24"
+        ></AiFillGift>
+      </IconDiv>
+    </div>
   );
 };
 
-export default FloatingBtn;
-
-const Wrap = styled.div`
-  width: 100px;
-  margin: 40px auto;
-  background: #f3f3f3;
-  border: 1px solid #d8d8d8;
-  text-align: center;
-`;
-
-const Div = styled.div`
-  position: relative;
-  display: inline-block;
-`;
-
 const IconDiv = styled.a`
-  display: block;
-  width: 80px;
-  padding: 2px 16px;
-  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  background-color: #fff;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  border-radius: 36px;
+  position: fixed;
+  right: 20px;
+  bottom: 80px;
+
+  &:hover .arrow_box {
+    visibility: visible;
+  }
 `;
 
 const Bubble = styled.div`
-  display: none;
-  position: absolute;
-  width: 100px;
-  padding: 8px;
-  left: 0;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;
-  background: #333;
-  color: #fff;
-  font-size: 14px;
+  width: 105px;
+  height: 28px;
+  position: fixed;
+  right: 60px;
+  bottom: 82px;
+  visibility: hidden;
 
-  /* background-image: url("/assets/images/bubbleImg.png");
+  background-image: url("/assets/images/bubbleImg.svg");
   background-repeat: no-repeat;
-  background-size: cover; */
-
-  &:after {
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    margin-left: -10px;
-    border: solid transparent;
-    border-color: rgba(51, 51, 51, 0);
-    border-bottom-color: #333;
-    border-width: 10px;
-    pointer-events: none;
-    content: " ";
-  }
+  background-size: cover;
 `;
+export default FloatingBtn;

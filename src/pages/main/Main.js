@@ -142,7 +142,7 @@ const Main = (props) => {
             );
           })}
       </WrapDiv>
-      <FloatingBtn></FloatingBtn>
+      <FloatingBtn bubble></FloatingBtn>
     </>
   );
 };

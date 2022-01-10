@@ -33,7 +33,9 @@ const LoginCallback = ({ history }) => {
     ignoreQueryPrefix: true,
   });
   axios
-    .get(`http://15.165.160.158/api/auth/${platform}/callback?code=${code}`)
+    .get(
+      `${process.env.REACT_APP_TEST_API_URL}/api/auth/${platform}/callback?code=${code}`
+    )
     .then((res) => {
       const user = res.data.user.nickname;
       const userToken = res.data.user.jwtToken;
