@@ -46,7 +46,12 @@ function App() {
         <Route path="/edit/record" component={Auth(EditRecord, true)} exact />
         <Route path="/edit/final" component={Auth(EditFinal, true)} exact />
         <Route
-          path="/portfolio/:userId"
+          path="/portfolio/:userId/"
+          component={Auth(PortfolioPage, true)}
+          exact
+        />
+        <Route
+          path="/portfolio/:userId/:voice"
           component={Auth(PortfolioPage, true)}
           exact
         />

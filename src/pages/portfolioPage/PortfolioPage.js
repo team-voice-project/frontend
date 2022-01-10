@@ -10,6 +10,8 @@ import { history } from "../../redux/configStore";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { actionCreators as trackCreators } from "../../redux/modules/mypage";
+import Panparea from "../myPage/Pangparea.png";
+import Master from "../myPage/master.png";
 
 const PortfolioPage = (props) => {
   const dispatch = useDispatch();
@@ -17,6 +19,7 @@ const PortfolioPage = (props) => {
   const user_info = useSelector((state) => state.mypage.user_info);
   const userId = useParams()?.userId;
   const trackWrapRef = useRef(null);
+  const voice = useParams()?.voice;
 
   useEffect(() => {
     dispatch(trackCreators.setTrackDB(userId));
@@ -51,21 +54,113 @@ const PortfolioPage = (props) => {
           </div>
         </Profile>
       </div>
-
-      <div
-        style={{
-          display: "flex",
-          textAlign: "center",
-          justifyContent: "center",
-          margin: "20px 0 0 0",
-        }}
-      >
-        <label style={{ marginRight: "10px" }}>
-          <FormCheckLeft type="radio" name="radioBtn" checked />
-          <FormCheckText>트랙 리스트</FormCheckText>
-        </label>
-      </div>
-      {track?.track_info === undefined || track?.track_info.length < 1 ? (
+      {voice === "voice_rank" ? (
+        <div
+          style={{
+            display: "flex",
+            textAlign: "center",
+            justifyContent: "center",
+            margin: "20px 0 0 0",
+          }}
+        >
+          <label style={{ marginRight: "10px" }}>
+            <FormCheckLeft
+              type="radio"
+              name="radioBtn"
+              onClick={() => {
+                history.push(`/portfolio/${userId}`);
+              }}
+            />
+            <FormCheckText>트랙 리스트</FormCheckText>
+          </label>
+          <label style={{ marginRight: "10px" }}>
+            <FormCheckLeft
+              type="radio"
+              name="radioBtn"
+              defaultChecked
+              onClick={() => {
+                history.push(`/portfolio/${userId}/voice_rank`);
+              }}
+            />
+            <FormCheckText>보이스 분석</FormCheckText>
+          </label>
+        </div>
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            textAlign: "center",
+            justifyContent: "center",
+            margin: "20px 0 0 0",
+          }}
+        >
+          <label style={{ marginRight: "10px" }}>
+            <FormCheckLeft
+              type="radio"
+              name="radioBtn"
+              defaultChecked
+              onClick={() => {
+                history.push(`/portfolio/${userId}`);
+              }}
+            />
+            <FormCheckText>트랙 리스트</FormCheckText>
+          </label>
+          <label style={{ marginRight: "10px" }}>
+            <FormCheckLeft
+              type="radio"
+              name="radioBtn"
+              onClick={() => {
+                history.push(`/portfolio/${userId}/voice_rank`);
+              }}
+            />
+            <FormCheckText>보이스 분석</FormCheckText>
+          </label>
+        </div>
+      )}
+      {voice === "voice_rank" ? (
+        <div style={{ margin: "30px auto" }}>
+          <RankDiv>
+            <RankTitle>{props.rank}</RankTitle>
+            <RankImg src={Master}></RankImg>
+            <PangImg src={Panparea}></PangImg>
+            <RankDic>
+              "{props.oao_name}"에요, 많은 사랑을 받은 목소리네요!
+            </RankDic>
+            <div
+              style={{
+                display: "flex",
+                position: "relative",
+                bottom: "140px",
+              }}
+            >
+              <Tag>잔잔한</Tag>
+              <Tag>어른스런</Tag>
+              <Tag>독특한</Tag>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                position: "relative",
+                bottom: "110px",
+                zIndex: "1",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "24px",
+                  color: "#f1134e",
+                  marginRight: "10px",
+                  fontWeight: "700",
+                }}
+              >
+                나래이션
+              </span>
+              <p>에 적합한 목소리에요!</p>
+            </div>
+          </RankDiv>
+        </div>
+      ) : track?.track_info === undefined || track?.track_info.length < 1 ? (
         <div
           style={{
             display: "flex",
@@ -103,8 +198,54 @@ const PortfolioPage = (props) => {
 };
 
 PortfolioPage.defaultProps = {
-  user_image: DefaultImg,
+  rank: "3위",
+  oao_name: "마스터 와오",
 };
+
+const Tag = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Pretendard Variable", serif;
+  font-weight: 400;
+  font-size: 14px;
+  border: 0;
+  padding: 10px 15px 11px 15px;
+  color: #fff;
+  background-color: #f1134e;
+  border-radius: 20px;
+  margin-right: 10px;
+`;
+
+const RankDic = styled.p`
+  font-family: "Pretendard Variable", serif;
+  font-size: 12px;
+  z-index: 1;
+  position: relative;
+  bottom: 180px;
+`;
+const RankDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+`;
+const RankImg = styled.img`
+  width: 150px;
+  height: 150px;
+  z-index: 1;
+`;
+const PangImg = styled.img`
+  position: relative;
+  width: 100%;
+  max-width: 425px;
+  bottom: 180px;
+  z-index: 0;
+`;
+const RankTitle = styled.h1`
+  font-family: "GmarketSansBold", serif;
+  font-size: 20px;
+`;
 const TrackGrid = styled.div`
   max-width: 425px;
   width: 100%;
