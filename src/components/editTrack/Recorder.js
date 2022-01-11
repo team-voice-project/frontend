@@ -75,6 +75,7 @@ const Recorder = ({
     // 스크립트 스크린 활성화
     setScriptActive(true);
     setScriptText(scriptRef.current.value);
+    window.document.body.style.overflow = "hidden";
 
     // 녹음 시 버튼 효과음이 들어가는것을 방지하기 위해 효과음 runtime 만큼 딜레이 후 녹음 진행
     setTimeout(() => {
@@ -115,6 +116,7 @@ const Recorder = ({
 
     setStopWatchMode("stop");
     setScriptActive(false);
+    window.document.body.style.overflow = "";
 
     // 녹음기 정지
     if (recorder?.state === "recording") {
@@ -157,6 +159,8 @@ const Recorder = ({
   const handleClickResetRecord = () => {
     setStopWatchMode("reset");
     setScriptActive(false);
+    window.document.body.style.overflow = "";
+
     setChunks([]);
     setControls({
       record: true,
@@ -200,6 +204,7 @@ const Recorder = ({
     setUploadStateBubble({ state: true, text: "파일이 읽어들이는중.." });
     setStopWatchMode("reset");
     setScriptActive(false);
+    window.document.body.style.overflow = "";
 
     setControls({
       record: false,
@@ -369,6 +374,7 @@ const RecorderWrap = styled.div`
   height: 40vh;
   padding: 20px 40px 40px 40px;
   max-height: 216px;
+  min-height: 216px;
 
   .hidden-system-audio {
     display: none;
@@ -410,8 +416,10 @@ const RecorderWrap = styled.div`
   .file-save-state {
     position: absolute;
     top: -102px;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    right: 0;
+    transform: translateY(100%);
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -577,24 +585,30 @@ const RecorderWrap = styled.div`
   @keyframes slideUp {
     0% {
       opacity: 0;
-      transform: translateX(-50%) translateY(100%);
+      //transform: translateX(-50%) translateY(100%);
+      transform: translateY(100%);
     }
     50% {
-      transform: translateX(-50%) translateY(-8%);
+      //transform: translateX(-50%) translateY(-8%);
+      transform: translateY(-8%);
     }
     65% {
-      transform: translateX(-50%) translateY(4%);
+      //transform: translateX(-50%) translateY(4%);
+      transform: translateY(4%);
     }
     80% {
-      transform: translateX(-50%) translateY(-4%);
+      //transform: translateX(-50%) translateY(-4%);
+      transform: translateY(-4%);
     }
     95% {
-      transform: translateX(-50%) translateY(2%);
+      //transform: translateX(-50%) translateY(2%);
+      transform: translateY(2%);
     }
     100% {
       opacity: 1;
       z-index: 1;
-      transform: translateX(-50%) translateY(0%);
+      //transform: translateX(-50%) translateY(0%);
+      transform: translateY(0%);
     }
   }
 `;
