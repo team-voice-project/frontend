@@ -20,6 +20,7 @@ const MyPage = (props) => {
   const track = useSelector((state) => state.mypage.track);
   const user_info = useSelector((state) => state.mypage.user_info);
   const like_track = useSelector((state) => state.mypage.like_track);
+  const rank_data = useSelector((state) => state.mypage.rank_data);
   const like = useParams()?.like;
   const dispatch = useDispatch();
   const trackWrapRef = useRef(null);
@@ -276,11 +277,12 @@ const MyPage = (props) => {
             {like === "rank_list" ? (
               <div style={{ margin: "30px auto" }}>
                 <RankDiv>
-                  <RankTitle>{props.rank}</RankTitle>
+                  <RankTitle>{rank_data.rank_data?.rankClass.rank}위</RankTitle>
                   <RankImg src={Master}></RankImg>
                   <PangImg src={Panparea}></PangImg>
                   <RankDic>
-                    "{props.oao_name}"에요, 많은 사랑을 받은 목소리네요!
+                    "{rank_data.rank_data?.rankClass.class}"에요, 많은 사랑을
+                    받은 목소리네요!
                   </RankDic>
                   <div
                     style={{
@@ -289,9 +291,9 @@ const MyPage = (props) => {
                       bottom: "140px",
                     }}
                   >
-                    <Tag>잔잔한</Tag>
-                    <Tag>어른스런</Tag>
-                    <Tag>독특한</Tag>
+                    {rank_data.rank_data?.categoryTags.tags.map((p, idx) => {
+                      return <Tag>{p}</Tag>;
+                    })}
                   </div>
                   <div
                     style={{
@@ -310,7 +312,7 @@ const MyPage = (props) => {
                         fontWeight: "700",
                       }}
                     >
-                      나래이션
+                      {rank_data.rank_data?.categoryTags.category}
                     </span>
                     <p>에 적합한 목소리에요!</p>
                   </div>
