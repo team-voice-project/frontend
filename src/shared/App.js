@@ -22,6 +22,7 @@ import Auth from "../shared/auth";
 import ErrorHandlePage from "./ErrorHandlePage";
 import GlobalPlayer from "../components/player/GlobalPlayer";
 import Footer from "../components/headerFooter/Footer";
+import ChatList from "../pages/chat/ChatList";
 
 function App() {
   return (
@@ -80,6 +81,7 @@ function App() {
           exact
         />
 
+        <Route path={"/chat/:id"} component={ChatList} />
         <Route path={"/error/:code"} component={ErrorHandlePage} />
         <Route component={ErrorHandlePage} />
       </Switch>
