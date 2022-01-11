@@ -426,7 +426,6 @@ const PlayerWrap = styled.article`
 
     .rhap_play-pause-button {
       width: 35px;
-      height: 35px;
       position: relative;
       top: -1.5px;
     }

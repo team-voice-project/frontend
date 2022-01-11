@@ -25,8 +25,8 @@ const MemoWrap = styled.div`
     background-color: #2c2b2b;
     border: 0;
     width: 100%;
-    height: calc(100% - 24px);
-    max-height: calc(100% - 24px);
+    height: calc(100% - 40px);
+    max-height: calc(100% - 40px);
     overflow-x: hidden;
     overflow-y: auto;
   }
