@@ -1,14 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
-import { useSelector } from "react-redux";
 
 import { BsBellFill } from "react-icons/bs";
 
 const Header = (props) => {
   const { topMenu, noHeader } = props;
-
-  const is_login = useSelector((state) => state.user.is_login);
 
   if (noHeader) {
     return (
@@ -21,11 +18,7 @@ const Header = (props) => {
   if (topMenu) {
     return (
       <FlexSearchBar>
-        <L
-          onClick={() => {
-            history.push("/");
-          }}
-        ></L>
+        <L></L>
         <FlexIcon>
           <Temdiv>
             <BsBellFill
@@ -90,7 +83,6 @@ const L = styled.div`
   width: 60px;
   height: 28px;
   background-color: black;
-  cursor: pointer;
 
   background-image: url("/assets/images/logo.png");
   background-repeat: no-repeat;

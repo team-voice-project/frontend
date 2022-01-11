@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import Container from "../../elements/Container";
 import styled from "styled-components";
 import Track from "../../components/mypage/Track";
+import Footer from "../../components/headerFooter/Footer";
 
 import { useSelector } from "react-redux";
 import DefaultImg from "./profileIMG.png";

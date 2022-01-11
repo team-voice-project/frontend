@@ -8,7 +8,6 @@ import OnBoarding from "../../components/category/Onboarding";
 import Header from "../../components/category/Header";
 import PlayBox from "../../components/category/PlayBox";
 import FloatingBtn from "../../elements/FloatingBtn";
-import Footer from "../../components/headerFooter/Footer";
 
 import { actionCreators as postActions } from "../../redux/modules/post";
 
@@ -144,7 +143,6 @@ const Main = (props) => {
           })}
       </WrapDiv>
       <FloatingBtn bubble></FloatingBtn>
-      <Footer></Footer>
     </>
   );
 };

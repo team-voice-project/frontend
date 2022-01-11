@@ -6,8 +6,6 @@ import Header from "../../components/category/Header";
 import Font from "../../elements/Font";
 import { actionCreators as postActions } from "../../redux/modules/post";
 
-import { RiArrowLeftSLine } from "react-icons/ri";
-
 const Category = (props) => {
   const dispatch = useDispatch();
 
@@ -23,13 +21,6 @@ const Category = (props) => {
       <Wrap>
         <div style={{ marginBottom: "40px", padding: "0px 20px" }}>
           <Flex>
-            <RiArrowLeftSLine
-              cursor="pointer"
-              size="28"
-              onClick={() => {
-                props.history.push("/");
-              }}
-            />
             <Font title fontSize="18px" margin="5px 0px 0px 0px">
               카테고리
             </Font>
