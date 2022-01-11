@@ -58,7 +58,7 @@ const Search = (props) => {
             <Flex>
               <Flex
                 onClick={() => {
-                  props.history.goBack();
+                  props.history.push("/searchKeyword");
                 }}
               >
                 <RiArrowLeftSLine size="30" cursor="pointer"></RiArrowLeftSLine>
@@ -98,7 +98,7 @@ const Search = (props) => {
             <Flex>
               <Flex
                 onClick={() => {
-                  props.history.push("/");
+                  props.history.push("/searchKeyword");
                 }}
               >
                 <RiArrowLeftSLine size="30" cursor="pointer"></RiArrowLeftSLine>
