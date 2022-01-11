@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 import { Container, Font } from "../../elements/index";
 
-import { RiArrowLeftSLine } from "react-icons/ri";
 import { HiOutlineSearch } from "react-icons/hi";
 
 const SearchKeyword = (props) => {
@@ -35,13 +34,6 @@ const SearchKeyword = (props) => {
     <div>
       <Container>
         <FlexTitle>
-          <RiArrowLeftSLine
-            size="32"
-            cursor="pointer"
-            onClick={() => {
-              props.history.goBack();
-            }}
-          />
           <Font title fontSize="18px" margin="5px 0px 0px 0px">
             검색
           </Font>

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import Container from "../../elements/Container";
+import Footer from "../../components/headerFooter/Footer";
 import styled from "styled-components";
 import Track from "../../components/mypage/Track";
 import { BsFillGearFill } from "react-icons/bs";

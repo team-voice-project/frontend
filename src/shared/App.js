@@ -21,6 +21,7 @@ import LoginCallback from "../shared/LoginCallback";
 import Auth from "../shared/auth";
 import ErrorHandlePage from "./ErrorHandlePage";
 import GlobalPlayer from "../components/player/GlobalPlayer";
+import Footer from "../components/headerFooter/Footer";
 
 function App() {
   return (
@@ -82,6 +83,7 @@ function App() {
         <Route path={"/error/:code"} component={ErrorHandlePage} />
         <Route component={ErrorHandlePage} />
       </Switch>
+      <Footer></Footer>
     </>
   );
 }
