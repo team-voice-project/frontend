@@ -1,14 +1,18 @@
-import React, { useState, useRef } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import moment from "moment";
+import {
+  AUDIO_TYPE_LIST,
+  byteToMegaByte,
+  convertAudio,
+} from "../../shared/utils";
 
 import { Container } from "../../elements";
 import StopWatch from "./StopWatch";
 import pushAudio from "../../shared/audio/push.mp3";
 import { BsFillMicFill } from "react-icons/bs";
-import { IoStopSharp, IoPlaySharp } from "react-icons/io5";
+import { IoPlaySharp, IoStopSharp } from "react-icons/io5";
 import { ImFolder } from "react-icons/im";
-import { AUDIO_TYPE_LIST, byteToMegaByte } from "../../shared/utils";
 
 const Recorder = ({
   setVoiceFile,
@@ -179,23 +183,38 @@ const Recorder = ({
     setUploadStateBubble({ state: false });
   };
 
-  const handleUploadAudioFile = (e) => {
-    const is_audio = AUDIO_TYPE_LIST.some(
-      (type) => type === e.target.files[0].type
-    );
+  const fileToMp3Convert = async (files) => {
+    let sourceAudioFile = files;
+    let targetAudioFormat = "mp3";
+    return await convertAudio(sourceAudioFile, targetAudioFormat);
+  };
+
+  const checkFileSize = (files) => {
+    const file_size = files.size;
+    const limit = 20 * 1024 * 1024;
+    return file_size > limit;
+  };
+
+  const handleUploadAudioFile = async (e) => {
+    let files = e.target.files[0];
+    const is_audio = AUDIO_TYPE_LIST.some((type) => type === files.type);
 
     if (!is_audio) {
       alert("오디오 파일만 첨부 할 수 있습니다.");
       return;
     }
 
-    const file_size = e.target.files[0].size;
-    const limit = 20 * 1024 * 1024;
-    if (file_size > limit) {
+    // converting mp3 object
+    const converted_files = await fileToMp3Convert(files);
+
+    files = converted_files.file;
+
+    const is_oversize = checkFileSize(files);
+    if (is_oversize) {
       alert(
         "20MB 이하 파일만 등록할 수 있습니다.\n\n" +
           "현재파일 용량 : " +
-          byteToMegaByte(file_size) +
+          byteToMegaByte(files.size) +
           "MB"
       );
       return;
@@ -213,7 +232,7 @@ const Recorder = ({
     });
 
     const reader = new FileReader();
-    const file = e.target.files[0];
+    const file = files;
     reader.readAsDataURL(file);
 
     playerRef.current.onloadedmetadata = function () {
@@ -230,7 +249,7 @@ const Recorder = ({
       playerRef.current.src = reader.result;
 
       setVoiceFile({
-        file: e.target.files[0],
+        file: files,
         type: "upload",
         url: playerRef.current.src,
       });
