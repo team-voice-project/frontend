@@ -122,8 +122,8 @@ const GlobalPlayer = () => {
     );
   };
 
-  const handlePauseToPlayList = () => {
-    globalPlayer.pause();
+  const handlePauseToPlayList = async () => {
+    await dispatch(playerActions.stop());
   };
 
   const changePlayInfo = (track) => {
@@ -156,7 +156,6 @@ const GlobalPlayer = () => {
 
       // store -> play_list, now_track 정보 업데이트
       await dispatch(playerActions.play(target_track));
-      globalPlayer.play();
     }
   };
 
@@ -174,6 +173,11 @@ const GlobalPlayer = () => {
     }
 
     activeEl.classList.remove("active");
+    dispatch(playerActions.stop());
+
+    // 플레이가 완전히 끝난 후 player readState를 0으로 초기화 (재 시작시 readState 4로 플레이를 두번 눌러야 나오는 현상을 피하기 위해서 필요)
+    globalPlayer.load();
+    console.log("end event");
   };
 
   const handleOnPauseEvent = () => {
@@ -257,7 +261,7 @@ const GlobalPlayer = () => {
         <AudioPlayer
           showJumpControls={false}
           ref={PlayerRef}
-          autoPlay={true}
+          autoPlay={false}
           className={"player-container"}
           timeFormat={"mm:ss"}
           defaultCurrentTime={"00:00"}
