@@ -10,6 +10,7 @@ import {
 } from "../../shared/utils";
 
 const SET_PLAYER = "SET_PLAYER";
+const SET_MODE = "SET_MODE";
 const ADD_TRACK = "ADD_TRACK";
 const DELETE_TRACK = "DELETE_TRACK";
 const NOW_TRACK = "NOW_TRACK";
@@ -20,6 +21,7 @@ const initialState = {
   playerInstance: null,
   play_list: [],
   now_track: {},
+  mode: "stop",
 };
 
 const setPlayer = createAction(SET_PLAYER, (instance) => ({ instance }));
@@ -29,14 +31,32 @@ const nowTrack = createAction(NOW_TRACK, (track) => ({ track }));
 const setPlayList = createAction(SET_PLAY_LIST, (play_list) => ({
   play_list,
 }));
+const setMode = createAction(SET_MODE, (mode) => ({ mode }));
 
 const clearPlayList = createAction(CLEAR_PLAY_LIST, () => ({}));
 
 // middlewares
 const play = (track) => {
   return async (dispatch, getState, { history }) => {
+    const player = getState().globalPlayer.playerInstance;
+    console.log("재생될 현재트랙 정보:  ", track);
     dispatch(addTrack(track));
     dispatch(nowTrack(track));
+    dispatch(setMode("play"));
+
+    if (player.readyState === 0 || player.ended) {
+      player.load();
+    } else {
+      player.play();
+    }
+  };
+};
+
+const stop = () => {
+  return async (dispatch, getState, { history }) => {
+    const player = getState().globalPlayer.playerInstance;
+    dispatch(setMode("stop"));
+    player.pause();
   };
 };
 
@@ -87,7 +107,6 @@ export default handleActions(
 
     [DELETE_TRACK]: (state, action) =>
       produce(state, (draft) => {
-        // console.log("[DELETE_TRACK]", action.payload.track_src);
         const filtered_list = draft.play_list.filter((track) => {
           return track.musicSrc !== action.payload.track_src;
         });
@@ -113,18 +132,25 @@ export default handleActions(
         draft.play_list = [];
         draft.now_track = {};
       }),
+
+    [SET_MODE]: (state, action) =>
+      produce(state, (draft) => {
+        draft.mode = action.payload.mode;
+      }),
   },
   initialState
 );
 
 const actionCreators = {
   setPlayer,
+  setMode,
   addTrack,
   deleteTrack,
   nowTrack,
-  play,
   loadPlayList,
   clearPlayList,
+  play,
+  stop,
 };
 
 export { actionCreators };
