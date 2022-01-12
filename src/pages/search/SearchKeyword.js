@@ -14,7 +14,7 @@ const SearchKeyword = (props) => {
       window.alert("검색어를 두 글자 이상 입력해주세요OAO!");
     } else {
       props.history.push({
-        pathname: `/Search`,
+        pathname: `/search`,
         state: { value: value },
       });
     }

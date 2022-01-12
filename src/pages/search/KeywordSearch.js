@@ -1,29 +1,62 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import { useInView } from "react-intersection-observer";
 import InfiniteScroll from "react-infinite-scroll-component";
-
-import Header from "../../components/category/Header";
-import { Container, FloatingBtn } from "../../elements/index";
+import { useEffect, useState, useRef } from "react";
 import Track from "../../components/mypage/Track";
-import { actionCreators as searchActions } from "../../redux/modules/search";
+import { useLocation } from "react-router-dom";
+import { apis } from "../../shared/api";
+import Header from "../../components/category/Header";
+import { Container } from "../../elements/index";
 
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { HiOutlineSearch } from "react-icons/hi";
-import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
 
-const Search = (props) => {
-  const dispatch = useDispatch();
+const KeywordSearch = (props) => {
+  const trackWrapRef = useRef(null);
   const location = useLocation();
   const keyword = location.state.value;
-  const search_list = useSelector((state) => state.search.search_list);
-  const trackWrapRef = useRef(null);
+
+  const [items, setItems] = useState([]);
+  const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState(2);
 
   useEffect(() => {
-    dispatch(searchActions.getSearchDB(keyword));
+    //데이터 가져오기
+    const getsearchList = async (keyword, pages, track) => {
+      const res = await apis.search(
+        (keyword = location.state.value),
+        (pages = 1),
+        (track = 12)
+      );
+
+      const data = await res.data.tracks; //리스폰스를 const data에 저장
+      setItems(data); //items는 현재 빈배열. 여기에 처음 12개 데이터를 set해주기
+    };
+    getsearchList();
   }, []);
+
+  const fetchSearch = async (keyword, pages, track) => {
+    console.log("page", page);
+    const res = await apis.search(
+      (keyword = location.state.value),
+      (pages = `${page}`),
+      (track = 12)
+    );
+
+    const data = await res.data.tracks;
+    return data;
+  };
+
+  const fetchData = async () => {
+    const searchFormServer = await fetchSearch();
+    setItems([...items, ...searchFormServer]);
+
+    if (searchFormServer.length === 0 || searchFormServer.length < 12) {
+      setHasMore(false);
+    }
+    setPage(page + 1);
+  };
+  console.log("items", items);
 
   const inputRef = React.useRef();
 
@@ -31,9 +64,10 @@ const Search = (props) => {
     const value = inputRef.current.value;
     if (value.length < 2) {
       window.alert("검색어를 두 글자 이상 입력해주세요OAO!");
-    } else {
-      dispatch(searchActions.getSearchDB(value));
     }
+    // else {
+    //   dispatch(searchActions.getSearchDB(value));
+    // }
   };
 
   useEffect(() => {
@@ -52,46 +86,59 @@ const Search = (props) => {
 
   return (
     <div>
-      {/* 검색결과 나올때 */}
-      {search_list && search_list.length > 0 ? (
+      {items && items.length > 0 ? (
         <>
-          <Header topMenu />
-          <Container>
-            <Flex>
-              <Flex
-                onClick={() => {
-                  props.history.push("/searchKeyword");
-                }}
-              >
-                <RiArrowLeftSLine size="30" cursor="pointer"></RiArrowLeftSLine>
-              </Flex>
+          <InfiniteScroll
+            dataLength={items.length}
+            next={fetchData}
+            hasMore={hasMore}
+            loader={<h4>Loading...</h4>}
+            endMessage={
+              <p style={{ textAlign: "center" }}>
+                <b>Yay! You have seen it all</b>
+              </p>
+            }
+          >
+            <Header topMenu />
+            <Container>
+              <Flex>
+                <Flex
+                  onClick={() => {
+                    props.history.push("/searchKeyword");
+                  }}
+                >
+                  <RiArrowLeftSLine
+                    size="30"
+                    cursor="pointer"
+                  ></RiArrowLeftSLine>
+                </Flex>
 
-              <Multiline
-                ref={inputRef}
-                onKeyPress={onKeyPress}
-                placeholder="검색어를 두글자 이상 입력해주세요."
-                type="text"
-                defaultValue={keyword}
-              ></Multiline>
-              <HiOutlineSearch
-                size="30"
-                cursor="pointer"
-                onClick={onClick}
-              ></HiOutlineSearch>
-            </Flex>
-          </Container>
-          <Grid>
-            <TrackGrid ref={trackWrapRef}>
-              {search_list &&
-                search_list.map((l) => {
+                <Multiline
+                  ref={inputRef}
+                  onKeyPress={onKeyPress}
+                  placeholder="검색어를 두글자 이상 입력해주세요."
+                  type="text"
+                  defaultValue={keyword}
+                ></Multiline>
+                <HiOutlineSearch
+                  size="30"
+                  cursor="pointer"
+                  onClick={onClick}
+                ></HiOutlineSearch>
+              </Flex>
+            </Container>
+            <Grid>
+              <TrackGrid ref={trackWrapRef}>
+                {items.map((l) => {
                   return (
                     <TrackDiv key={l.trackId}>
                       <Track {...l} trackWrapRef={trackWrapRef.current} />
                     </TrackDiv>
                   );
                 })}
-            </TrackGrid>
-          </Grid>
+              </TrackGrid>
+            </Grid>
+          </InfiniteScroll>
         </>
       ) : (
         <>
@@ -126,7 +173,6 @@ const Search = (props) => {
           </Container>
         </>
       )}
-      <FloatingBtn></FloatingBtn>
     </div>
   );
 };
@@ -197,4 +243,4 @@ const OAO = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
 `;
-export default Search;
+export default KeywordSearch;
