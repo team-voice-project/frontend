@@ -18,51 +18,33 @@ const Main = (props) => {
   const [showModal, setShowModal] = React.useState(false);
   const [all_list, setAllList] = React.useState([]);
   const track_list = useSelector((state) => state.post.post_list);
+  const global_player_mode = useSelector((state) => state.globalPlayer.mode);
+  const now_track = useSelector((state) => state.globalPlayer.now_track);
+  const HAS_VISITED_BEFORE = localStorage.getItem("hasVisitedBefore");
+
+  useEffect(() => {
+    if (!now_track?.musicSrc) {
+      return;
+    }
+
+    changeBoxListData();
+  }, [now_track]);
+
+  useEffect(() => {
+    if (global_player_mode === "stop") {
+      changeBoxListData();
+    }
+  }, [global_player_mode]);
 
   useEffect(() => {
     if (track_list) {
-      // 각 카테고리의 트랙정보 고유 아이디를 만들기 위한 인덱스 값
-      let idx = 0;
-      const _list = track_list.map((list) => {
-        const new_list = list.tracks.map((l) => {
-          const obj = {
-            uniq: `track-id-${idx}`,
-            CommentCnt: l.CommentCnt,
-            Comments: l.Comments,
-            Likes: l.Likes,
-            TrackTags: l.TrackTags,
-            TrackThumbnail: l.TrackThumbnail,
-            User: l.User,
-            category: l.category,
-            createdAt: l.createdAt,
-            title: l.title,
-            trackId: l.trackId,
-            trackUrl: l.trackUrl,
-            userId: l.userId,
-            active: false,
-          };
-
-          // uniq 인덱스 증가
-          idx++;
-
-          return obj;
-        });
-        const categoryObj = {
-          category: list.category,
-          tracks: new_list,
-        };
-        return categoryObj;
-      });
-      setAllList(_list);
+      changeBoxListData();
     }
   }, [track_list]);
 
   useEffect(() => {
     dispatch(postActions.loadPostDB());
   }, []);
-
-  //모달 하루동안 열지 않기
-  const HAS_VISITED_BEFORE = localStorage.getItem("hasVisitedBefore");
 
   useEffect(() => {
     const handleShowModal = () => {
@@ -82,6 +64,81 @@ const Main = (props) => {
 
     window.setTimeout(handleShowModal, 2000);
   }, [HAS_VISITED_BEFORE]);
+
+  const changeBoxListData = () => {
+    let idx = 0;
+    const _list = track_list?.map((list) => {
+      let obj = {};
+      const new_list = list.tracks.map((l) => {
+        if (global_player_mode === "stop") {
+          obj = {
+            uniq: `track-id-${idx}`,
+            CommentCnt: l.CommentCnt,
+            Comments: l.Comments,
+            Likes: l.Likes,
+            TrackTags: l.TrackTags,
+            TrackThumbnail: l.TrackThumbnail,
+            User: l.User,
+            category: l.category,
+            createdAt: l.createdAt,
+            title: l.title,
+            trackId: l.trackId,
+            trackUrl: l.trackUrl,
+            userId: l.userId,
+            active: false,
+          };
+        } else {
+          if (idx === Number(now_track?.uniqIdx)) {
+            //현재 재생되고 있는 트랙일 경우 active true
+            obj = {
+              uniq: `track-id-${idx}`,
+              CommentCnt: l.CommentCnt,
+              Comments: l.Comments,
+              Likes: l.Likes,
+              TrackTags: l.TrackTags,
+              TrackThumbnail: l.TrackThumbnail,
+              User: l.User,
+              category: l.category,
+              createdAt: l.createdAt,
+              title: l.title,
+              trackId: l.trackId,
+              trackUrl: l.trackUrl,
+              userId: l.userId,
+              active: true,
+            };
+          } else {
+            obj = {
+              uniq: `track-id-${idx}`,
+              CommentCnt: l.CommentCnt,
+              Comments: l.Comments,
+              Likes: l.Likes,
+              TrackTags: l.TrackTags,
+              TrackThumbnail: l.TrackThumbnail,
+              User: l.User,
+              category: l.category,
+              createdAt: l.createdAt,
+              title: l.title,
+              trackId: l.trackId,
+              trackUrl: l.trackUrl,
+              userId: l.userId,
+              active: false,
+            };
+          }
+        }
+
+        // uniq 인덱스 증가
+        idx++;
+
+        return obj;
+      });
+
+      return {
+        category: list.category,
+        tracks: new_list,
+      };
+    });
+    setAllList(_list);
+  };
 
   const handleClose = () => setShowModal(false);
 

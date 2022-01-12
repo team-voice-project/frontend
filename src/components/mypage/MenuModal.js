@@ -103,7 +103,7 @@ const MenuModal = (props) => {
                 <Profile
                   onClick={() => {
                     history.push({
-                      pathname: `/portfolio/${userId}`,
+                      pathname: `/portfolio/${userId}/voice_rank`,
                     });
                     close();
                   }}

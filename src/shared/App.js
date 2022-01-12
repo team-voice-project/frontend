@@ -23,6 +23,9 @@ import ErrorHandlePage from "./ErrorHandlePage";
 import GlobalPlayer from "../components/player/GlobalPlayer";
 import Footer from "../components/headerFooter/Footer";
 import KeywordSearch from "../pages/search/KeywordSearch";
+import ChatList from "../pages/chat/ChatList";
+import ChatRoom from "../pages/chat/ChatRoom";
+
 
 function App() {
   return (
@@ -80,7 +83,8 @@ function App() {
           component={LoginCallback}
           exact
         />
-
+        <Route path={"/chatroom"} component={ChatRoom} />
+        <Route path={"/chat/:id"} component={ChatList} />
         <Route path={"/error/:code"} component={ErrorHandlePage} />
         <Route component={ErrorHandlePage} />
       </Switch>
