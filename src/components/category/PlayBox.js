@@ -13,9 +13,6 @@ const PlayBox = (props) => {
   const dispatch = useDispatch();
   const Image = props.TrackThumbnail.trackThumbnailUrlFace;
   const [modalOpen, setModalOpen] = React.useState(false);
-  const globalPlayer = useSelector(
-    (state) => state.globalPlayer.playerInstance
-  );
 
   const openModal = () => {
     setModalOpen(true);
@@ -27,7 +24,9 @@ const PlayBox = (props) => {
   };
 
   const PlayTargetTrack = async () => {
+    const uniqIdx = props.uniq.split("-").pop();
     const now_track = {
+      uniqIdx: uniqIdx,
       trackId: props.trackId,
       name: props.title,
       singer: props.User.nickname,
@@ -36,12 +35,12 @@ const PlayBox = (props) => {
     };
 
     await dispatch(playerActions.play(now_track));
-    globalPlayer.play();
   };
 
-  const PauseTargetTrack = () => {
-    globalPlayer.pause();
+  const PauseTargetTrack = async () => {
+    await dispatch(playerActions.stop());
   };
+
   return (
     <div>
       <Flex>

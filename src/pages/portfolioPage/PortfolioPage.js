@@ -2,10 +2,8 @@ import React, { useEffect, useRef } from "react";
 import Container from "../../elements/Container";
 import styled from "styled-components";
 import Track from "../../components/mypage/Track";
-import Footer from "../../components/headerFooter/Footer";
 
 import { useSelector } from "react-redux";
-import DefaultImg from "./profileIMG.png";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { history } from "../../redux/configStore";
 import { useParams } from "react-router-dom";
@@ -18,9 +16,11 @@ const PortfolioPage = (props) => {
   const dispatch = useDispatch();
   const track = useSelector((state) => state.mypage.track);
   const user_info = useSelector((state) => state.mypage.user_info);
+  const rank_data = useSelector((state) => state.mypage.rank_data);
   const userId = useParams()?.userId;
   const trackWrapRef = useRef(null);
   const voice = useParams()?.voice;
+  console.log(rank_data.rank_data);
 
   useEffect(() => {
     dispatch(trackCreators.setTrackDB(userId));
@@ -68,22 +68,22 @@ const PortfolioPage = (props) => {
             <FormCheckLeft
               type="radio"
               name="radioBtn"
-              onClick={() => {
-                history.push(`/portfolio/${userId}`);
-              }}
-            />
-            <FormCheckText>트랙 리스트</FormCheckText>
-          </label>
-          <label style={{ marginRight: "10px" }}>
-            <FormCheckLeft
-              type="radio"
-              name="radioBtn"
               defaultChecked
               onClick={() => {
                 history.push(`/portfolio/${userId}/voice_rank`);
               }}
             />
             <FormCheckText>보이스 분석</FormCheckText>
+          </label>
+          <label style={{ marginRight: "10px" }}>
+            <FormCheckLeft
+              type="radio"
+              name="radioBtn"
+              onClick={() => {
+                history.push(`/portfolio/${userId}`);
+              }}
+            />
+            <FormCheckText>트랙 리스트</FormCheckText>
           </label>
         </div>
       ) : (
@@ -99,6 +99,16 @@ const PortfolioPage = (props) => {
             <FormCheckLeft
               type="radio"
               name="radioBtn"
+              onClick={() => {
+                history.push(`/portfolio/${userId}/voice_rank`);
+              }}
+            />
+            <FormCheckText>보이스 분석</FormCheckText>
+          </label>
+          <label style={{ marginRight: "10px" }}>
+            <FormCheckLeft
+              type="radio"
+              name="radioBtn"
               defaultChecked
               onClick={() => {
                 history.push(`/portfolio/${userId}`);
@@ -106,45 +116,32 @@ const PortfolioPage = (props) => {
             />
             <FormCheckText>트랙 리스트</FormCheckText>
           </label>
-          <label style={{ marginRight: "10px" }}>
-            <FormCheckLeft
-              type="radio"
-              name="radioBtn"
-              onClick={() => {
-                history.push(`/portfolio/${userId}/voice_rank`);
-              }}
-            />
-            <FormCheckText>보이스 분석</FormCheckText>
-          </label>
         </div>
       )}
       {voice === "voice_rank" ? (
         <div style={{ margin: "30px auto" }}>
           <RankDiv>
-            <RankTitle>{props.rank}</RankTitle>
-            <RankImg src={Master}></RankImg>
-            <PangImg src={Panparea}></PangImg>
+            <RankTitle>{rank_data.rank_data?.rankClass.rank}위</RankTitle>
+            <RankImg src={rank_data.rank_data.rankClass.classImage}></RankImg>
+
             <RankDic>
-              "{props.oao_name}"에요, 많은 사랑을 받은 목소리네요!
+              "{rank_data.rank_data?.rankClass.class}"에요, 많은 사랑을 받은
+              목소리네요!
             </RankDic>
             <div
               style={{
                 display: "flex",
-                position: "relative",
-                bottom: "140px",
               }}
             >
-              <Tag>잔잔한</Tag>
-              <Tag>어른스런</Tag>
-              <Tag>독특한</Tag>
+              {rank_data.rank_data?.categoryTags.tags.map((p, idx) => {
+                return <Tag key={idx}>{p}</Tag>;
+              })}
             </div>
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
-                position: "relative",
-                bottom: "110px",
-                zIndex: "1",
+                marginTop: "20px",
               }}
             >
               <span
@@ -155,7 +152,7 @@ const PortfolioPage = (props) => {
                   fontWeight: "700",
                 }}
               >
-                나래이션
+                {rank_data.rank_data?.categoryTags.category}
               </span>
               <p>에 적합한 목소리에요!</p>
             </div>
@@ -221,9 +218,7 @@ const Tag = styled.div`
 const RankDic = styled.p`
   font-family: "Pretendard Variable", serif;
   font-size: 12px;
-  z-index: 1;
-  position: relative;
-  bottom: 180px;
+  margin: 10px 0 20px 0;
 `;
 const RankDiv = styled.div`
   display: flex;
@@ -232,17 +227,10 @@ const RankDiv = styled.div`
   align-items: center;
 `;
 const RankImg = styled.img`
-  width: 150px;
-  height: 150px;
-  z-index: 1;
+  width: 230px;
+  height: 230px;
 `;
-const PangImg = styled.img`
-  position: relative;
-  width: 100%;
-  max-width: 425px;
-  bottom: 180px;
-  z-index: 0;
-`;
+
 const RankTitle = styled.h1`
   font-family: "GmarketSansBold", serif;
   font-size: 20px;

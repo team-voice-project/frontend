@@ -1,14 +1,18 @@
-import React, { useState, useRef } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import moment from "moment";
+import {
+  AUDIO_TYPE_LIST,
+  byteToMegaByte,
+  convertAudio,
+} from "../../shared/utils";
 
 import { Container } from "../../elements";
 import StopWatch from "./StopWatch";
 import pushAudio from "../../shared/audio/push.mp3";
 import { BsFillMicFill } from "react-icons/bs";
-import { IoStopSharp, IoPlaySharp } from "react-icons/io5";
+import { IoPlaySharp, IoStopSharp } from "react-icons/io5";
 import { ImFolder } from "react-icons/im";
-import { AUDIO_TYPE_LIST, byteToMegaByte } from "../../shared/utils";
 
 const Recorder = ({
   setVoiceFile,
@@ -43,7 +47,7 @@ const Recorder = ({
 
   // 15728640 byte === 15 MB === 약 30분  // *.m4a
   const getVoiceBlobUrl = () => {
-    const voice_blob = new Blob(chunks, { type: "audio/ogg" });
+    const voice_blob = new Blob(chunks, { type: "audio/mp4" });
     // console.log("보이스 녹음 파일: ", voice_blob);
     const url = URL.createObjectURL(voice_blob);
     // 실제 서버로 넘길 보이스 파일 데이터 객체
@@ -75,6 +79,7 @@ const Recorder = ({
     // 스크립트 스크린 활성화
     setScriptActive(true);
     setScriptText(scriptRef.current.value);
+    window.document.body.style.overflow = "hidden";
 
     // 녹음 시 버튼 효과음이 들어가는것을 방지하기 위해 효과음 runtime 만큼 딜레이 후 녹음 진행
     setTimeout(() => {
@@ -115,6 +120,7 @@ const Recorder = ({
 
     setStopWatchMode("stop");
     setScriptActive(false);
+    window.document.body.style.overflow = "";
 
     // 녹음기 정지
     if (recorder?.state === "recording") {
@@ -157,6 +163,8 @@ const Recorder = ({
   const handleClickResetRecord = () => {
     setStopWatchMode("reset");
     setScriptActive(false);
+    window.document.body.style.overflow = "";
+
     setChunks([]);
     setControls({
       record: true,
@@ -175,23 +183,38 @@ const Recorder = ({
     setUploadStateBubble({ state: false });
   };
 
-  const handleUploadAudioFile = (e) => {
-    const is_audio = AUDIO_TYPE_LIST.some(
-      (type) => type === e.target.files[0].type
-    );
+  const fileToMp3Convert = async (files) => {
+    let sourceAudioFile = files;
+    let targetAudioFormat = "mp3";
+    return await convertAudio(sourceAudioFile, targetAudioFormat);
+  };
+
+  const checkFileSize = (files) => {
+    const file_size = files.size;
+    const limit = 20 * 1024 * 1024;
+    return file_size > limit;
+  };
+
+  const handleUploadAudioFile = async (e) => {
+    let files = e.target.files[0];
+    const is_audio = AUDIO_TYPE_LIST.some((type) => type === files.type);
 
     if (!is_audio) {
       alert("오디오 파일만 첨부 할 수 있습니다.");
       return;
     }
 
-    const file_size = e.target.files[0].size;
-    const limit = 20 * 1024 * 1024;
-    if (file_size > limit) {
+    // converting mp3 object
+    const converted_files = await fileToMp3Convert(files);
+
+    files = converted_files.file;
+
+    const is_oversize = checkFileSize(files);
+    if (is_oversize) {
       alert(
         "20MB 이하 파일만 등록할 수 있습니다.\n\n" +
           "현재파일 용량 : " +
-          byteToMegaByte(file_size) +
+          byteToMegaByte(files.size) +
           "MB"
       );
       return;
@@ -200,6 +223,7 @@ const Recorder = ({
     setUploadStateBubble({ state: true, text: "파일이 읽어들이는중.." });
     setStopWatchMode("reset");
     setScriptActive(false);
+    window.document.body.style.overflow = "";
 
     setControls({
       record: false,
@@ -208,7 +232,7 @@ const Recorder = ({
     });
 
     const reader = new FileReader();
-    const file = e.target.files[0];
+    const file = files;
     reader.readAsDataURL(file);
 
     playerRef.current.onloadedmetadata = function () {
@@ -225,7 +249,7 @@ const Recorder = ({
       playerRef.current.src = reader.result;
 
       setVoiceFile({
-        file: e.target.files[0],
+        file: files,
         type: "upload",
         url: playerRef.current.src,
       });
@@ -369,6 +393,7 @@ const RecorderWrap = styled.div`
   height: 40vh;
   padding: 20px 40px 40px 40px;
   max-height: 216px;
+  min-height: 216px;
 
   .hidden-system-audio {
     display: none;
@@ -410,8 +435,10 @@ const RecorderWrap = styled.div`
   .file-save-state {
     position: absolute;
     top: -102px;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    right: 0;
+    transform: translateY(100%);
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -577,24 +604,30 @@ const RecorderWrap = styled.div`
   @keyframes slideUp {
     0% {
       opacity: 0;
-      transform: translateX(-50%) translateY(100%);
+      //transform: translateX(-50%) translateY(100%);
+      transform: translateY(100%);
     }
     50% {
-      transform: translateX(-50%) translateY(-8%);
+      //transform: translateX(-50%) translateY(-8%);
+      transform: translateY(-8%);
     }
     65% {
-      transform: translateX(-50%) translateY(4%);
+      //transform: translateX(-50%) translateY(4%);
+      transform: translateY(4%);
     }
     80% {
-      transform: translateX(-50%) translateY(-4%);
+      //transform: translateX(-50%) translateY(-4%);
+      transform: translateY(-4%);
     }
     95% {
-      transform: translateX(-50%) translateY(2%);
+      //transform: translateX(-50%) translateY(2%);
+      transform: translateY(2%);
     }
     100% {
       opacity: 1;
       z-index: 1;
-      transform: translateX(-50%) translateY(0%);
+      //transform: translateX(-50%) translateY(0%);
+      transform: translateY(0%);
     }
   }
 `;

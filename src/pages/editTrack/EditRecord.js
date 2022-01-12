@@ -171,14 +171,12 @@ const EditWrap = styled.section`
     right: 0;
     bottom: 0;
     width: 100vw;
-    height: 30vh;
     background-color: rgba(0, 0, 0, 0.85);
     display: flex;
     justify-content: space-between;
     flex-direction: column;
 
     &.active {
-      top: 0;
       height: 100vh;
     }
   }

@@ -10,37 +10,34 @@ const LOADING = "LOADING";
 const initialState = {
   keyword: null,
   list: [],
-  paging: { start: null, next: null, track: 3 },
-  is_loading: false,
+  page: 0,
+  has_more: false,
 };
 
 const setKeyword = createAction(SET_KEYWORD, (keyword) => ({ keyword }));
-const getSearch = createAction(GET_SEARCH, (search_list, paging) => ({
+const getSearch = createAction(GET_SEARCH, (search_list) => ({
   search_list,
-  paging,
 }));
 const loadCategory = createAction(LOAD_CATEGORY, (category) => ({ category }));
-const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
 //middleware
-const getSearchDB = (keyword, page = 0, track = 3, start = null) => {
+const getSearchDB = (keyword, page = 0, track = 12) => {
   return function (dispatch, getState, { history }) {
-    dispatch(loading(true));
-
-    apis.search(keyword, page, (track = track + 1)).then((res) => {
-      if (start) {
-        let page = page + 1;
+    apis.search(keyword, page, track).then((res) => {
+      console.log("res", res);
+      let is_next = null;
+      if (res.data.tracks.length < 12) {
+        is_next = false;
+      } else {
+        res.data.tracks.pop();
+        is_next = true;
       }
-      let paging = {
-        start: res.data.tracks[0],
-        next:
-          res.data.tracks.length === track + 1
-            ? res.data.tracks[res.data.tracks.length - 1]
-            : null,
-        track: track,
+      let search_data = {
+        searchLists: res.data.tracks,
+        page: page + 1,
+        next: is_next,
       };
-      const a = res.data.tracks.pop();
-      dispatch(getSearch(res.data.tracks, paging));
+      dispatch(getSearch(search_data));
     });
   };
 };
@@ -98,9 +95,8 @@ export default handleActions(
       }),
     [GET_SEARCH]: (state, action) =>
       produce(state, (draft) => {
+        console.log("액션페이로드", action.payload);
         draft.search_list = action.payload.search_list;
-        draft.paging = action.payload.paging;
-        draft.is_loading = false;
       }),
     [LOAD_CATEGORY]: (state, action) =>
       produce(state, (draft) => {
