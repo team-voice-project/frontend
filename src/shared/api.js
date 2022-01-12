@@ -53,11 +53,12 @@ export const apis = {
 
   mainPage: () => api.get("/api/common"),
 
-  category: (category, tag1, tag2, tag3) =>
+  category: (category, tag1, tag2, tag3, page, track) =>
     api.get(
-      `/api/common/search?category=${category}&tag1=${tag1}&tag2=${tag2}&tag3=${tag3}`
+      `/api/common/search?category=${category}&tag1=${tag1}&tag2=${tag2}&tag3=${tag3}&page=${page}&track=${track}`
     ),
-  search: (keyword) => api.get(`api/search?keyword=${keyword}`),
+  search: (keyword, page, track) =>
+    api.get(`api/search?keyword=${keyword}&page=${page}&track=${track}`),
 
   commentTrack: (trackId, comment) =>
     api.post(`/api/tracks/${trackId}/comment`, { comment }),
