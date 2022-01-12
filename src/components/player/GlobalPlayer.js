@@ -611,7 +611,7 @@ const PlayListWidget = styled.article`
   }
 
   .list-wrap {
-    height: calc(100% - 50px);
+    height: calc(100% - 106px);
     overflow-x: hidden;
     overflow-y: auto;
 
