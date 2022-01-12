@@ -22,9 +22,10 @@ export const GLOBAL_PLAYER_ESCAPE_LIST = [
   "/edit/record",
   "/edit/final",
   "/login",
-  // "/category",
   "/edit/profile",
   "/share/",
+  "/chat",
+  "/chatroom",
 ];
 
 export const PLAY_LIST_KEY = "OAO::playlist";
