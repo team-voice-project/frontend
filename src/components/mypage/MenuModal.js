@@ -8,16 +8,18 @@ import CommentList from "./CommentList";
 import CommentWrite from "./CommentWrite";
 import DetailTag from "./DetailTag";
 import { history } from "../../redux/configStore";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { MdOutlineMoreVert } from "react-icons/md";
 import SingleAudioPlayer from "../../shared/SingleAudioPlayer";
 import { apis } from "../../shared/api";
 import { RiChat4Fill } from "react-icons/ri";
 import DeleteModal from "./DeleteModal";
+import { actionCreators as commentActions } from "../../redux/modules/comment";
 
 import { newGetCookie } from "../../shared/Cookie";
 
 const MenuModal = (props) => {
+  const dispatch = useDispatch();
   const { open, close } = props;
   const state = useSelector((state) => state.comment.comments);
   const [LikeBtn, setLikeBtn] = React.useState(false);
@@ -39,10 +41,6 @@ const MenuModal = (props) => {
 
   const local = localStorage.getItem(trackId);
   const [modalOpen, setModalOpen] = React.useState(false);
-
-  // const resetRedux = () => {
-  //   state
-  // }
 
   const openModal = () => {
     setModalOpen(true);
@@ -96,7 +94,7 @@ const MenuModal = (props) => {
                     color="white"
                     onClick={() => {
                       close();
-                      window.location.reload();
+                      dispatch(commentActions.setCommentDB(trackId));
                     }}
                   />
                 </div>
@@ -200,8 +198,8 @@ const MenuModal = (props) => {
                     overflowX: "hidden",
                   }}
                 >
-                  {state.length !== 0
-                    ? state.map((p, idx) => {
+                  {state?.length !== 0
+                    ? state?.map((p, idx) => {
                         return <CommentList {...props} key={idx} {...p} />;
                       })
                     : props.props.Comments.map((p, idx) => {

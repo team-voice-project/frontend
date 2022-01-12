@@ -5,7 +5,7 @@ import MenuModal from "./MenuModal";
 import PlayButton from "./playButton.png";
 import PauseBtn from "./pauseBtn.png";
 import { HiHeart } from "react-icons/hi";
-
+import { actionCreators as commentActions } from "../../redux/modules/comment";
 import { RiChat4Fill } from "react-icons/ri";
 import { actionCreators as playerActions } from "../../redux/modules/globalPlayer";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,8 +32,8 @@ const Track = (props) => {
   const openModal = () => {
     setModalOpen(true);
     document.body.style.overflowY = "hidden";
+    // dispatch(commentActions.setCommentDB(trackId)
   };
-
   const closeModal = () => {
     setModalOpen(false);
     document.body.style.overflowY = "scroll";
