@@ -44,7 +44,6 @@ const MyPage = (props) => {
 
   return (
     <>
-      <MypageHeader topMenu props={props} />
       <LogoutModal open={modalOpen} close={closeModal} />
       <Container padding={"0"}>
         <div
@@ -278,8 +277,10 @@ const MyPage = (props) => {
               <div style={{ margin: "30px auto" }}>
                 <RankDiv>
                   <RankTitle>{rank_data.rank_data?.rankClass.rank}위</RankTitle>
-                  <RankImg src={Master}></RankImg>
-                  <PangImg src={Panparea}></PangImg>
+                  <RankImg
+                    src={rank_data.rank_data.rankClass.classImage}
+                  ></RankImg>
+
                   <RankDic>
                     "{rank_data.rank_data?.rankClass.class}"에요, 많은 사랑을
                     받은 목소리네요!
@@ -287,21 +288,17 @@ const MyPage = (props) => {
                   <div
                     style={{
                       display: "flex",
-                      position: "relative",
-                      bottom: "140px",
                     }}
                   >
                     {rank_data.rank_data?.categoryTags.tags.map((p, idx) => {
-                      return <Tag>{p}</Tag>;
+                      return <Tag key={idx}>{p}</Tag>;
                     })}
                   </div>
                   <div
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      position: "relative",
-                      bottom: "110px",
-                      zIndex: "1",
+                      marginTop: "20px",
                     }}
                   >
                     <span
@@ -349,9 +346,7 @@ const Tag = styled.div`
 const RankDic = styled.p`
   font-family: "Pretendard Variable", serif;
   font-size: 12px;
-  z-index: 1;
-  position: relative;
-  bottom: 180px;
+  margin: 10px 0 20px 0;
 `;
 const RankDiv = styled.div`
   display: flex;
@@ -360,17 +355,10 @@ const RankDiv = styled.div`
   align-items: center;
 `;
 const RankImg = styled.img`
-  width: 150px;
-  height: 150px;
-  z-index: 1;
+  width: 230px;
+  height: 230px;
 `;
-const PangImg = styled.img`
-  position: relative;
-  width: 100%;
-  max-width: 425px;
-  bottom: 180px;
-  z-index: 0;
-`;
+
 const RankTitle = styled.h1`
   font-family: "GmarketSansBold", serif;
   font-size: 20px;
