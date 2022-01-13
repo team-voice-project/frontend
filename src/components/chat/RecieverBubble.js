@@ -12,9 +12,9 @@ const RecieverBubble = () => {
       }}
     >
       <Time>오후 8:00</Time>
-      {/* <SenderDiv>
+      <SenderDiv>
         네네 알겠습니다. 요청 주신선주신 샘플대로 진행하여 보내드리도록 하겠슴둥
-      </SenderDiv> */}
+      </SenderDiv>
     </div>
   );
 };
