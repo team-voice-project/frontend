@@ -18,7 +18,7 @@ const Track = (props) => {
   const global_player_mode = useSelector((state) => state.globalPlayer.mode);
 
   useEffect(() => {
-    console.log("현재 플레이 모드", global_player_mode, props);
+    // console.log("현재 플레이 모드", global_player_mode, props);
 
     if (now_track?.trackId === props.trackId) {
       if (global_player_mode === "stop") {

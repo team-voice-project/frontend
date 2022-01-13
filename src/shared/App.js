@@ -26,13 +26,12 @@ import KeywordSearch from "../pages/search/KeywordSearch";
 import ChatList from "../pages/chat/ChatList";
 import ChatRoom from "../pages/chat/ChatRoom";
 
-
 function App() {
   return (
     <>
       {/* 배포 테스트 */}
       <GlobalStyles />
-      <GlobalPlayer />
+      {/* <GlobalPlayer /> */}
       <Switch>
         <Route path="/" component={Auth(Main, false)} exact />
         <Route path="/category" component={Category} exact />
