@@ -41,7 +41,7 @@ const MyPage = (props) => {
       dispatch(actionCreators.setTrackDB(userId));
     });
   }, []);
-
+  //sadassadasjkldakjbsdkhasb
   return (
     <>
       <LogoutModal open={modalOpen} close={closeModal} />
@@ -89,7 +89,7 @@ const MyPage = (props) => {
               <Link>
                 {user_info.user_info?.contact
                   ? user_info.user_info?.contact
-                  : "이메일 정보가 없습니다."}
+                  : "이메일 정보를 입력해주세요."}
               </Link>
               <div style={{ width: "200px", wordBreak: "break-word" }}>
                 <Text>
