@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { history } from "../../redux/configStore";
 
 import { BsBellFill } from "react-icons/bs";
 
@@ -20,15 +19,7 @@ const Header = (props) => {
       <FlexSearchBar>
         <L></L>
         <FlexIcon>
-          <Temdiv>
-            <BsBellFill
-              cursor="pointer"
-              size="22"
-              // onClick={() => {
-              //   history.push("/searchkeyword");
-              // }}
-            />
-          </Temdiv>
+          <BsBellFill cursor="pointer" size="22" />
         </FlexIcon>
       </FlexSearchBar>
     );

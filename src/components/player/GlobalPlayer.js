@@ -73,8 +73,10 @@ const GlobalPlayer = () => {
         globalPlayer.currentTime = 0;
       }
       setRender(false);
+      window.document.body.style.paddingBottom = "";
     } else {
       setRender(true);
+      window.document.body.style.paddingBottom = "200px";
     }
   };
 
@@ -145,6 +147,7 @@ const GlobalPlayer = () => {
   };
 
   const handlePlayEvent = async (target_track) => {
+    console.log("플레이어 재생");
     if (target_track?.type === "play") {
       // 플레이 리스트에서 선택하지 않았을때
       setPlayerDisplay(now_track);
@@ -177,7 +180,6 @@ const GlobalPlayer = () => {
 
     // 플레이가 완전히 끝난 후 player readState를 0으로 초기화 (재 시작시 readState 4로 플레이를 두번 눌러야 나오는 현상을 피하기 위해서 필요)
     globalPlayer.load();
-    console.log("end event");
   };
 
   const handleOnPauseEvent = () => {

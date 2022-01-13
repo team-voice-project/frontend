@@ -1,26 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 
 import MenuModal from "./MenuModal";
 import PlayButton from "./playButton.png";
 import PauseBtn from "./pauseBtn.png";
 import { HiHeart } from "react-icons/hi";
-
+import { actionCreators as commentActions } from "../../redux/modules/comment";
 import { RiChat4Fill } from "react-icons/ri";
 import { actionCreators as playerActions } from "../../redux/modules/globalPlayer";
 import { useDispatch, useSelector } from "react-redux";
 
 const Track = (props) => {
   const dispatch = useDispatch();
+  const playIconRef = useRef(null);
   const [modalOpen, setModalOpen] = useState(false);
-  const globalPlayer = useSelector(
-    (state) => state.globalPlayer.playerInstance
-  );
+  const now_track = useSelector((state) => state.globalPlayer.now_track);
+  const global_player_mode = useSelector((state) => state.globalPlayer.mode);
+
+  useEffect(() => {
+    // console.log("현재 플레이 모드", global_player_mode, props);
+
+    if (now_track?.trackId === props.trackId) {
+      if (global_player_mode === "stop") {
+        playIconRef.current.checked = false;
+      } else {
+        playIconRef.current.checked = true;
+      }
+    }
+  }, [global_player_mode]);
+
   const openModal = () => {
     setModalOpen(true);
     document.body.style.overflowY = "hidden";
+    // dispatch(commentActions.setCommentDB(trackId)
   };
-
   const closeModal = () => {
     setModalOpen(false);
     document.body.style.overflowY = "scroll";
@@ -49,9 +62,8 @@ const Track = (props) => {
         };
 
         await dispatch(playerActions.play(now_track));
-        globalPlayer.play();
       } else {
-        globalPlayer.pause();
+        await dispatch(playerActions.stop());
       }
     }
   };
@@ -63,7 +75,11 @@ const Track = (props) => {
         <TrackDiv onClick={handleChangeActiveTrack}>
           <label>
             {/* PlayBtn -> input element */}
-            <PlayBtn type="checkbox" className="radioButton"></PlayBtn>
+            <PlayBtn
+              type="checkbox"
+              className="radioButton"
+              ref={playIconRef}
+            ></PlayBtn>
             <DIV>
               <ImageCircle
                 className="circle"
