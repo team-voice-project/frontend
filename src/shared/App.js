@@ -30,6 +30,7 @@ import ChatRoom from "../pages/chat/ChatRoom";
 function App() {
   return (
     <>
+      {/* 배포 테스트 */}
       <GlobalStyles />
       <GlobalPlayer />
       <Switch>
