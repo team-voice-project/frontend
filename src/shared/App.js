@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 
 import GlobalStyles from "./GlobalStyles";
@@ -26,7 +26,14 @@ import KeywordSearch from "../pages/search/KeywordSearch";
 import ChatList from "../pages/chat/ChatList";
 import ChatRoom from "../pages/chat/ChatRoom";
 
+import io from "socket.io-client";
+const socket = io.connect("http://3.36.111.102", { cors: { origin: "*" } });
+
 function App() {
+  useEffect(() => {
+    console.log("[socket] 소켓연결 상태", socket);
+  }, []);
+
   return (
     <>
       {/* 배포 테스트 - add release branch */}
