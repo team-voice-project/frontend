@@ -1,9 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import { actionCreators as searchActions } from "../../redux/modules/search";
+import { apis } from "../../shared/api";
 import CategoryModal from "../../components/category/CategoryModal";
 import Header from "../../components/category/Header";
 import Track from "../../components/mypage/Track";
@@ -19,14 +21,34 @@ const TagCategory = (props) => {
   const tags = location.state.tag;
   const name = location.state.category;
   const tag_list = useSelector((state) => state.post.tag_list);
-  const category = useSelector((state) => state.search.category_list);
-  const [show_modal, setShowModal] = React.useState(false);
-  const [tag, setTag] = React.useState([]);
+  const category = useSelector((state) => state.search.list);
+  const category_page = useSelector((state) => state.search.page);
+  const [show_modal, setShowModal] = useState(false);
+  const [tag, setTag] = useState([]);
   const trackWrapRef = useRef(null);
+  console.log("category22::", category);
+  console.log("category_page::", category_page);
+
+  const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState(category_page);
 
   useEffect(() => {
-    dispatch(searchActions.loadTagDB(name, ...tags));
+    dispatch(searchActions.loadTagDB(name, ...tags, page));
   }, []);
+  console.log("tag", tag);
+  const fetchData = () => {
+    let pages = page + 1;
+    const track = 12;
+    apis.category(name, ...tags, page, track).then((res) => {
+      if (
+        res.data.tracks.tracks.length === 0 ||
+        res.data.tracks.tracks.length < 12
+      ) {
+        setHasMore(false);
+      }
+      setPage(pages);
+    });
+  };
 
   const openModal = () => {
     setShowModal(true);
@@ -40,13 +62,13 @@ const TagCategory = (props) => {
   const mounted = React.useRef(false);
 
   //업데이트 될 때만 실행
-  useEffect(() => {
-    if (!mounted.current) {
-      mounted.current = true;
-    } else {
-      dispatch(searchActions.loadTagDB(name, ...tag));
-    }
-  }, [tag]);
+  // useEffect(() => {
+  //   if (!mounted.current) {
+  //     mounted.current = true;
+  //   } else {
+  //     dispatch(searchActions.loadTagDB(name, ...tag));
+  //   }
+  // }, [tag]);
 
   return (
     <>
@@ -68,6 +90,7 @@ const TagCategory = (props) => {
               size="32"
               onClick={() => {
                 props.history.push(`/category`);
+                window.location.reload();
               }}
             />
             <Font title fontSize="18px" margin="5px 0px 0px 0px">
@@ -98,16 +121,28 @@ const TagCategory = (props) => {
           })}
 
         {category && category.length > 0 ? (
-          <TrackGrid ref={trackWrapRef}>
-            {category &&
-              category.map((l, i) => {
-                return (
-                  <TrackDiv key={l.trackId}>
-                    <Track {...l} trackWrapRef={trackWrapRef.current} />
-                  </TrackDiv>
-                );
-              })}
-          </TrackGrid>
+          <InfiniteScroll
+            dataLength={category.length}
+            next={fetchData}
+            hasMore={hasMore}
+            loader={<h4>Loading...</h4>}
+            endMessage={
+              <p style={{ textAlign: "center" }}>
+                <b>Yay! You have seen it all</b>
+              </p>
+            }
+          >
+            <TrackGrid ref={trackWrapRef}>
+              {category &&
+                category.map((l, i) => {
+                  return (
+                    <TrackDiv key={l.trackId}>
+                      <Track {...l} trackWrapRef={trackWrapRef.current} />
+                    </TrackDiv>
+                  );
+                })}
+            </TrackGrid>
+          </InfiniteScroll>
         ) : (
           <OAODiv>
             <OAOText>해당 카테고리의 게시물이 없습니다</OAOText>

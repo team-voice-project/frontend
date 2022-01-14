@@ -1,9 +1,11 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import { actionCreators as postActions } from "../../redux/modules/post";
 import { actionCreators as searchActions } from "../../redux/modules/search";
+import { apis } from "../../shared/api";
 import CategoryModal from "../../components/category/CategoryModal";
 import Header from "../../components/category/Header";
 import Track from "../../components/mypage/Track";
@@ -17,19 +19,48 @@ const InCategory = (props) => {
   const name = props.match.params.categoryName;
 
   const tag_list = useSelector((state) => state.post.tag_list);
-  const category = useSelector((state) => state.search.category_list);
+  const category = useSelector((state) => state.search.list);
+  const category_page = useSelector((state) => state.search.page);
   const trackWrapRef = useRef(null);
+  console.log("category", category);
+  console.log("category_page", category_page);
 
-  const [show_modal, setShowModal] = React.useState(false);
+  const [show_modal, setShowModal] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState(category_page);
 
   const openModal = () => {
     setShowModal(true);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(postActions.loadImageDB());
-    dispatch(searchActions.loadCategoryDB(name));
   }, []);
+
+  useEffect(() => {
+    const tag1 = "";
+    const tag2 = "";
+    const tag3 = "";
+    dispatch(searchActions.loadCategoryDB(name, tag1, tag2, tag3, page));
+    console.log("불렷어");
+  }, [name, page]);
+
+  const fetchData = () => {
+    let pages = page + 1;
+    const track = 12;
+    const tag1 = "";
+    const tag2 = "";
+    const tag3 = "";
+    apis.category(name, tag1, tag2, tag3, page, track).then((res) => {
+      if (
+        res.data.tracks.tracks.length === 0 ||
+        res.data.tracks.tracks.length < 12
+      ) {
+        setHasMore(false);
+      }
+      setPage(pages);
+    });
+  };
 
   return (
     <>
@@ -50,6 +81,7 @@ const InCategory = (props) => {
               size="32"
               onClick={() => {
                 props.history.goBack();
+                dispatch(searchActions.resetdata(page));
               }}
             />
             <Font title fontSize="18px" margin="5px 0px 0px 0px">
@@ -66,16 +98,28 @@ const InCategory = (props) => {
         </Flex>
 
         {category && category.length > 0 ? (
-          <TrackGrid>
-            {category &&
-              category.map((l, i) => {
-                return (
-                  <TrackDiv key={l.trackId}>
-                    <Track {...l} trackWrapRef={trackWrapRef.current} />
-                  </TrackDiv>
-                );
-              })}
-          </TrackGrid>
+          <InfiniteScroll
+            dataLength={category.length}
+            next={fetchData}
+            hasMore={hasMore}
+            loader={<h4>Loading...</h4>}
+            endMessage={
+              <p style={{ textAlign: "center" }}>
+                <b>Yay! You have seen it all</b>
+              </p>
+            }
+          >
+            <TrackGrid>
+              {category &&
+                category.map((l, i) => {
+                  return (
+                    <TrackDiv key={l.trackId}>
+                      <Track {...l} trackWrapRef={trackWrapRef.current} />
+                    </TrackDiv>
+                  );
+                })}
+            </TrackGrid>
+          </InfiniteScroll>
         ) : (
           <OAODiv>
             <OAOText>해당 카테고리의 게시물이 없습니다</OAOText>
