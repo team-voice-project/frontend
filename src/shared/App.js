@@ -31,7 +31,7 @@ const socket = io.connect("http://3.36.111.102", { cors: { origin: "*" } });
 
 function App() {
   useEffect(() => {
-    console.log("[socket] 소켓연결 상태", socket);
+    console.log("[socket] 소켓연결 테스트", socket);
   }, []);
 
   return (
