@@ -2,10 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import { Font } from "../../elements";
 
+import io from "socket.io-client";
+const socket = io.connect("http://3.36.111.102", { cors: { origin: "*" } });
+
 const ChatBlock = () => {
+  const handleJoinChatRoom = () => {
+    console.log("채팅방 입장");
+    socket.emit("joinRoom", { userId: 1, qUserId: 2 });
+  };
+
   return (
-    //  new class 추가 시 새로운 메시지 UI
-    <ChatBlockItem>
+    <ChatBlockItem onClick={handleJoinChatRoom}>
       <div className={"chat-profile"}>
         <img
           src="https://uploadsimgandtrackstest.s3.ap-northeast-2.amazonaws.com/images/nfnm0d1g0f1641901418130.jpeg"

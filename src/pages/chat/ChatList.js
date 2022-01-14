@@ -19,10 +19,6 @@ const ChatList = () => {
         <div className={"chat-list"}>
           <ul>
             <ChatBlock />
-            <ChatBlock />
-            <ChatBlock />
-            <ChatBlock />
-            <ChatBlock />
           </ul>
         </div>
       </Container>
