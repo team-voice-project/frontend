@@ -1,13 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import InfiniteScroll from "react-infinite-scroll-component";
+import { apis } from "../../shared/api";
+import { actionCreators as searchActions } from "../../redux/modules/search";
 import { useEffect, useState, useRef } from "react";
 import Track from "../../components/mypage/Track";
 import { useLocation } from "react-router-dom";
-import { apis } from "../../shared/api";
+import InfiniteScroll from "react-infinite-scroll-component";
 import Header from "../../components/category/Header";
 import { Container } from "../../elements/index";
-import { actionCreators as searchActions } from "../../redux/modules/search";
+
 import { useDispatch, useSelector } from "react-redux";
 
 import { RiArrowLeftSLine } from "react-icons/ri";
@@ -20,27 +21,18 @@ const KeywordSearch = (props) => {
   const keyword = location.state.value;
   const search_list = useSelector((state) => state.search.list);
   const search_page = useSelector((state) => state.search.page);
+  const search_again = useSelector((state) => state.search);
+  console.log("search_again", search_again);
   console.log("search_list", search_list);
   console.log("search_page", search_page);
 
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(search_page);
+  const [returnPage, setReturnPage] = useState(1);
 
   useEffect(() => {
     dispatch(searchActions.getSearchDB(keyword, page));
   }, [page]);
-
-  const fetchData = () => {
-    let pages = page + 1;
-    const track = 12;
-    apis.search(keyword, page, track).then((res) => {
-      if (res.data.tracks.length === 0 || res.data.tracks.length < 12) {
-        setHasMore(false);
-      }
-      setPage(pages);
-      handleSearch();
-    });
-  };
 
   const inputRef = React.useRef();
 
@@ -51,13 +43,27 @@ const KeywordSearch = (props) => {
     }
     if (value.length > 1 && keyword !== value) {
       dispatch(searchActions.resetdata(page));
-      dispatch(searchActions.getSearchDB(value, page));
+      dispatch(searchActions.getPageAgainDB(value, 1));
     }
+    setReturnPage(search_page + 1);
   };
 
+  console.log("returnPage", returnPage);
   useEffect(() => {
     handleSearch();
   }, [page]);
+
+  const fetchData = () => {
+    let pages = page + 1;
+    const track = 12;
+    apis.search(keyword, page, track).then((res) => {
+      console.log("res.data", res.data);
+      if (res.data.tracks.length === 0 || res.data.tracks.length < 12) {
+        setHasMore(false);
+      }
+      setPage(pages);
+    });
+  };
 
   const onClick = () => {
     handleSearch();

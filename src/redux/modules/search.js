@@ -7,6 +7,7 @@ const GET_SEARCH = "GET_SEARCH";
 const LOAD_CATEGORY = "LOAD_CATEGORY";
 const LOADING = "LOADING";
 const RESET = "RESET";
+const GET_AGAIN = "GET_AGAIN";
 
 const initialState = {
   keyword: null,
@@ -21,6 +22,9 @@ const getSearch = createAction(GET_SEARCH, (search_list) => ({
 }));
 const loadCategory = createAction(LOAD_CATEGORY, (category) => ({ category }));
 const resetdata = createAction(RESET, (list) => ({ list }));
+const getPageAgain = createAction(GET_AGAIN, (search_list) => ({
+  search_list,
+}));
 
 //middleware
 const getSearchDB = (keyword, page, track = 12) => {
@@ -38,6 +42,25 @@ const getSearchDB = (keyword, page, track = 12) => {
         next: is_next,
       };
       dispatch(getSearch(search_list));
+    });
+  };
+};
+
+const getPageAgainDB = (keyword, page, track = 12) => {
+  return function (dispatch, getState, { history }) {
+    apis.search(keyword, page, track).then((res) => {
+      let is_next = null;
+      if (res.data.tracks.length < 12) {
+        is_next = false;
+      } else {
+        is_next = true;
+      }
+      let search_again = {
+        searchAgain: res.data.tracks,
+        page: page + 1,
+        next: is_next,
+      };
+      dispatch(getPageAgain(search_again));
     });
   };
 };
@@ -125,10 +148,17 @@ export default handleActions(
       }),
     [GET_SEARCH]: (state, action) =>
       produce(state, (draft) => {
-        console.log("액션페이로드", action.payload);
         draft.list.push(...action.payload.search_list.searchLists);
         // draft.search_list = action.payload.search_list.searchLists;
         draft.has_more = action.payload.search_list.next;
+        draft.page = action.payload.search_list.page;
+      }),
+    [GET_AGAIN]: (state, action) =>
+      produce(state, (draft) => {
+        console.log("액션페이로드", action.payload);
+        draft.list.push(...action.payload.search_list.searchAgain);
+        // draft.search_list = action.payload.search_list.searchLists;
+
         draft.page = action.payload.search_list.page;
       }),
     [LOAD_CATEGORY]: (state, action) =>
@@ -159,6 +189,7 @@ const actionCreators = {
   loadCategoryDB,
   loadTagDB,
   resetdata,
+  getPageAgainDB,
 };
 
 export { actionCreators };

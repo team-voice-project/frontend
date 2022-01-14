@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 
 import { Container, Font } from "../../elements/index";
-
 import { HiOutlineSearch } from "react-icons/hi";
 
 const SearchKeyword = (props) => {
