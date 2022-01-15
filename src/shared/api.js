@@ -4,7 +4,7 @@ import { history } from "../redux/configStore";
 
 // API 인스턴스 생성
 const api = axios.create({
-  baseURL: `https://anythinganythink.shop`,
+  baseURL: `${process.env.REACT_APP_API_URL}`,
 
   headers: {
     "X-Requested-With": "XMLHttpRequest",
