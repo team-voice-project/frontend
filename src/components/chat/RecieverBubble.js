@@ -21,7 +21,7 @@ const RecieverBubble = () => {
 
 export default RecieverBubble;
 
-const SenderDiv = styled.text`
+const SenderDiv = styled.div`
   background: #f1134e;
   color: white;
   font-size: 16px;

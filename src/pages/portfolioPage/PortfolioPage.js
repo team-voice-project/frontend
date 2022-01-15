@@ -20,7 +20,7 @@ const PortfolioPage = (props) => {
   const userId = useParams()?.userId;
   const trackWrapRef = useRef(null);
   const voice = useParams()?.voice;
-  console.log(rank_data.rank_data);
+  console.log(rank_data?.rank_data);
 
   useEffect(() => {
     dispatch(trackCreators.setTrackDB(userId));
@@ -48,9 +48,18 @@ const PortfolioPage = (props) => {
           </div>
           <div style={{ marginBottom: "40px" }}>
             <Name>{user_info.user_info?.nickname}</Name>
-            <Link>{user_info.user_info?.contact}</Link>
+            <Link>
+              {user_info.user_info?.contact
+                ? user_info.user_info?.contact
+                : "등록된 이메일이 없습니다."}
+            </Link>
             <div style={{ width: "200px", wordBreak: "break-word" }}>
-              <Text>{user_info.user_info?.introduce}</Text>
+              <Text>
+                {user_info.user_info?.introduce === null &&
+                user_info.user_info?.introduce === ""
+                  ? user_info.user_info?.introduce
+                  : "등록된 자기소개가 없습니다!"}
+              </Text>
             </div>
           </div>
         </Profile>
@@ -122,7 +131,7 @@ const PortfolioPage = (props) => {
         <div style={{ margin: "30px auto" }}>
           <RankDiv>
             <RankTitle>{rank_data.rank_data?.rankClass.rank}위</RankTitle>
-            <RankImg src={rank_data.rank_data.rankClass.classImage}></RankImg>
+            <RankImg src={rank_data.rank_data?.rankClass.classImage}></RankImg>
 
             <RankDic>
               "{rank_data.rank_data?.rankClass.class}"에요, 많은 사랑을 받은
