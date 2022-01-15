@@ -41,7 +41,7 @@ const MyPage = (props) => {
       dispatch(actionCreators.setTrackDB(userId));
     });
   }, []);
-  //sadassadasjkldakjbsdkhasb
+
   return (
     <>
       <LogoutModal open={modalOpen} close={closeModal} />
@@ -278,7 +278,7 @@ const MyPage = (props) => {
                 <RankDiv>
                   <RankTitle>{rank_data.rank_data?.rankClass.rank}위</RankTitle>
                   <RankImg
-                    src={rank_data.rank_data.rankClass.classImage}
+                    src={rank_data.rank_data?.rankClass.classImage}
                   ></RankImg>
 
                   <RankDic>
