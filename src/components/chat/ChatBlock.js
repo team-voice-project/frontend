@@ -1,14 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { Font } from "../../elements";
-
-import io from "socket.io-client";
-const socket = io.connect("http://3.36.111.102", { cors: { origin: "*" } });
+import { history } from '../../redux/configStore'
 
 const ChatBlock = () => {
   const handleJoinChatRoom = () => {
     console.log("채팅방 입장");
-    socket.emit("joinRoom", { userId: 1, qUserId: 2 });
+    history.push('/chatroom/1_2')
   };
 
   return (

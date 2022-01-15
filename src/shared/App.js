@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as chatActions } from "../redux/modules/chat";
 
 import GlobalStyles from "./GlobalStyles";
 import Main from "../pages/main/Main";
@@ -26,13 +28,22 @@ import KeywordSearch from "../pages/search/KeywordSearch";
 import ChatList from "../pages/chat/ChatList";
 import ChatRoom from "../pages/chat/ChatRoom";
 
-import io from "socket.io-client";
-const socket = io.connect("http://3.36.111.102", { cors: { origin: "*" } });
-
 function App() {
+  const dispatch = useDispatch();
+  const chat = useSelector((state) => state.chat.instance);
+
   useEffect(() => {
-    console.log("[socket] 소켓연결 테스트", socket);
+    dispatch(chatActions.createSocketInstance());
+    return () => {
+      dispatch(chatActions.destroySocketInstance());
+    };
   }, []);
+
+  useEffect(() => {
+    chat?.on("chat", (data) => {
+      console.log("받은 메세지", data);
+    });
+  }, [chat]);
 
   return (
     <>
@@ -90,7 +101,7 @@ function App() {
           component={LoginCallback}
           exact
         />
-        <Route path={"/chatroom"} component={ChatRoom} />
+        <Route path={"/chatroom/:roomId"} component={ChatRoom} />
         <Route path={"/chat/:id"} component={ChatList} />
         <Route path={"/error/:code"} component={ErrorHandlePage} />
         <Route component={ErrorHandlePage} />
