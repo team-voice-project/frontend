@@ -11,6 +11,7 @@ const RoomFooter = (props) => {
   const [content, setCotentText] = React.useState();
   const [options, setOptions] = React.useState(true);
   const dispatch = useDispatch();
+
   const onChange = (e) => {
     setCotentText(e.target.value);
   };
@@ -20,7 +21,6 @@ const RoomFooter = (props) => {
       p.value = "";
     });
   };
-  console.log(options);
 
   return (
     <>
