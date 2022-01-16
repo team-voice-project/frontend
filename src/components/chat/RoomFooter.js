@@ -80,7 +80,7 @@ const RoomFooter = ({ sendMessage, show_option_modal, setOptionModal }) => {
               className={`send-btn ${!content.length ? "disabled" : ""}`}
               onClick={handleSendMessage}
               disabled={!content.length}
-            ></IoIosSend>
+            />
           </div>
         </List>
         {show_option_modal && <SendOptions />}

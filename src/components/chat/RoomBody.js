@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 
 import DatetimeLine from "./DatetimeLine";
@@ -8,6 +8,15 @@ import { Container } from "../../elements";
 
 const RoomBody = ({ my_info, chat_content, show_option_modal }) => {
   console.log("[RoomBody] 대화 정보", chat_content);
+  const contentScrollRef = useRef(null);
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+  }, []);
+
+  useEffect(() => {
+    contentScrollRef.current.scrollTop = contentScrollRef.current.scrollHeight;
+  }, [chat_content]);
 
   const renderChatContent = (message, i) => {
     const isMe = my_info.userId === message.sendUserId.userId;
@@ -18,26 +27,24 @@ const RoomBody = ({ my_info, chat_content, show_option_modal }) => {
     }
   };
 
-  if (!chat_content?.length) {
-    return (
-      <Container>
-        <ChatContentWrap>
-          <div>대화 정보가 존재하지 않습니다.</div>
-        </ChatContentWrap>
-      </Container>
-    );
-  }
-
   return (
     <ChatContentWrap>
       <Container _className={"chat-body-container"}>
-        <ChatContentList show_option_modal={show_option_modal}>
+        <ChatContentList
+          show_option_modal={show_option_modal}
+          ref={contentScrollRef}
+        >
           {/*<DatetimeLine />*/}
           {/*<SenderBubble />*/}
           {/*<RecieverBubble />*/}
-          {chat_content.map((message, i) => {
-            return renderChatContent(message, i);
-          })}
+
+          {!chat_content?.length ? (
+            <NoMessage>대화 기록이 없습니다.</NoMessage>
+          ) : (
+            chat_content.map((message, i) => {
+              return renderChatContent(message, i);
+            })
+          )}
         </ChatContentList>
       </Container>
     </ChatContentWrap>
@@ -47,15 +54,23 @@ const RoomBody = ({ my_info, chat_content, show_option_modal }) => {
 export default RoomBody;
 const ChatContentWrap = styled.div`
   .chat-body-container {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
     height: 100vh;
   }
 `;
 const ChatContentList = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  height: 100%;
+  overflow-y: auto;
+  padding: 0 20px;
   padding-top: 60px;
   padding-bottom: ${({ show_option_modal }) =>
     show_option_modal ? "190px" : "70px"};
+`;
+
+const NoMessage = styled.div`
+  text-align: center;
+  padding-bottom: 30px;
+  color: #aaa;
 `;

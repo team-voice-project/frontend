@@ -21,7 +21,7 @@ const CheckModal = (props) => {
               <Modal>
                 <div>
                   <LogoImage
-                    src={`${process.env.REACT_APP_TEST_API_URL}/trackThumbnail/OAO2_face.png`}
+                    src={`${process.env.REACT_APP_API_URL}/trackThumbnail/OAO2_face.png`}
                   ></LogoImage>
                 </div>
 
