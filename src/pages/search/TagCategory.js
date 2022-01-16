@@ -33,9 +33,13 @@ const TagCategory = (props) => {
   const [page, setPage] = useState(category_page);
 
   useEffect(() => {
-    dispatch(searchActions.loadTagDB(name, ...tags, page));
+    const tag1 = tags[0];
+    const tag2 = tags[1];
+    const tag3 = tags[2];
+    console.log("tag1,tag2,tag3", tag1, tag2, tag3);
+    dispatch(searchActions.loadTagDB(name, tag1, tag2, tag3, page));
   }, []);
-  console.log("tag", tag);
+
   const fetchData = () => {
     let pages = page + 1;
     const track = 12;
@@ -90,7 +94,7 @@ const TagCategory = (props) => {
               size="32"
               onClick={() => {
                 props.history.push(`/category`);
-                window.location.reload();
+                dispatch(searchActions.resetdata(page));
               }}
             />
             <Font title fontSize="18px" margin="5px 0px 0px 0px">

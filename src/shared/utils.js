@@ -1,3 +1,5 @@
+import moment from "moment";
+
 // 허용 가능한 음원 파일 타입 리스트
 export const AUDIO_TYPE_LIST = [
   "audio/basic",
@@ -136,6 +138,11 @@ function getBlobFromBase64Data(b64Data, contentType, sliceSize = 512) {
     byteArrays.push(byteArray);
   }
 
-  const blob = new Blob(byteArrays, { type: contentType });
-  return blob;
+  return new Blob(byteArrays, { type: contentType });
 }
+
+export const formattedKrTime = (datetime) => {
+  let ampm = moment(datetime).format("a") === "am" ? "오전 " : "오후 ";
+  const hhmm = moment(datetime).format("hh:mm");
+  return ampm + hhmm;
+};

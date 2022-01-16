@@ -3,17 +3,19 @@ import thunk from "redux-thunk";
 import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
 
+import Chat from "./modules/chat";
+import Comment from "./modules/comment";
 import EditTrack from "./modules/editTrack";
 import User from "./modules/user";
 import Post from "./modules/post";
 import Mypage from "./modules/mypage";
-import Comment from "./modules/comment";
 import Search from "./modules/search";
 import GlobalPlayer from "./modules/globalPlayer";
 
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
+  chat: Chat,
   comment: Comment,
   editTrack: EditTrack,
   user: User,
