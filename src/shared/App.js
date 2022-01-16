@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as chatActions } from "../redux/modules/chat";
+import { newGetCookie } from "../shared/Cookie";
 
 import GlobalStyles from "./GlobalStyles";
 import Main from "../pages/main/Main";
@@ -33,6 +34,12 @@ function App() {
   const chat = useSelector((state) => state.chat.instance);
 
   useEffect(() => {
+    const uid = newGetCookie("uid");
+    if (!uid) {
+      console.error("[알림] 비로그인 회원은 채팅기능을 사용 할 수 없습니다.");
+      return;
+    }
+
     dispatch(chatActions.createSocketInstance());
     return () => {
       dispatch(chatActions.destroySocketInstance());
@@ -40,10 +47,39 @@ function App() {
   }, []);
 
   useEffect(() => {
-    chat?.on("chat", (data) => {
-      console.log("받은 메세지", data);
+    const uid = newGetCookie("uid");
+    if (!uid) {
+      console.error("[알림] 비로그인 회원은 채팅기능을 사용 할 수 없습니다.");
+      return;
+    }
+
+    chat?.on("list", (data) => {
+      console.log("글로벌 메세지", data);
+      receiveGlobalMessage(data);
     });
   }, [chat]);
+
+  const receiveGlobalMessage = (new_message) => {
+    // TODO: 접속자 고유 아이디와 sender ID 결합하여 room_id 조합 필요
+    const { receiveUserId, sendUserId } = new_message;
+    const room_id = [receiveUserId, sendUserId.userId]
+      .sort((a, b) => a - b)
+      .join("");
+
+    // update redux rooms
+    const new_data = {
+      room_id,
+      data: {
+        sender: {
+          id: new_message.senderUserId,
+          nick: "테스터",
+        },
+        msg: new_message.chatText,
+      },
+    };
+
+    dispatch(chatActions.updateChatData(new_data));
+  };
 
   return (
     <>
@@ -106,7 +142,7 @@ function App() {
         <Route path={"/error/:code"} component={ErrorHandlePage} />
         <Route component={ErrorHandlePage} />
       </Switch>
-      <Footer></Footer>
+      {/*<Footer></Footer>*/}
     </>
   );
 }

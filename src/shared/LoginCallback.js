@@ -32,6 +32,7 @@ const LoginCallback = ({ history }) => {
   const { code } = qs.parse(window.location.search, {
     ignoreQueryPrefix: true,
   });
+
   axios
     .get(
       `${process.env.REACT_APP_TEST_API_URL}/api/auth/${platform}/callback?code=${code}`
@@ -39,7 +40,13 @@ const LoginCallback = ({ history }) => {
     .then((res) => {
       const user = res.data.user.nickname;
       const userToken = res.data.user.jwtToken;
-      setCookie("OAO", `__OAO-nick=${user}__OAO-token=${userToken}`, 1);
+      const userId = res.data.user.userId;
+
+      setCookie(
+        "OAO",
+        `__OAO-uid=${userId}__OAO-nick=${user}__OAO-token=${userToken}`,
+        1
+      );
 
       dispatch(userActions.setUser({ user: user, is_login: true }));
 
