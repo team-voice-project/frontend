@@ -17,8 +17,6 @@ const ChatRoom = (props) => {
 
   useEffect(() => {
     getUserData();
-
-    return () => {};
   }, []);
 
   useEffect(() => {
