@@ -1,29 +1,36 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import { useInView } from "react-intersection-observer";
-import InfiniteScroll from "react-infinite-scroll-component";
-
-import Header from "../../components/category/Header";
-import { Container, FloatingBtn } from "../../elements/index";
-import Track from "../../components/mypage/Track";
 import { actionCreators as searchActions } from "../../redux/modules/search";
+import { useEffect, useState, useRef } from "react";
+import Track from "../../components/mypage/Track";
+import { useLocation } from "react-router-dom";
+import InfiniteScroll from "react-infinite-scroll-component";
+import Header from "../../components/category/Header";
+import { Container, Spinner } from "../../elements/index";
+
+import { useDispatch, useSelector } from "react-redux";
 
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { HiOutlineSearch } from "react-icons/hi";
-import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
 
-const Search = (props) => {
+const KeywordSearch = (props) => {
   const dispatch = useDispatch();
+  const trackWrapRef = useRef(null);
   const location = useLocation();
   const keyword = location.state.value;
-  const search_list = useSelector((state) => state.search.search_list);
-  const trackWrapRef = useRef(null);
+  const search_list = useSelector((state) => state.search.list);
+  const search_page = useSelector((state) => state.search.page);
+  const has_more = useSelector((state) => state.search.has_more);
+
+  console.log("search_list", search_list);
+  console.log("search_page", search_page);
+
+  const [page, setPage] = useState(search_page);
+  const [searchWord, setSearchWord] = useState("");
 
   useEffect(() => {
-    dispatch(searchActions.getSearchDB(keyword));
-  }, []);
+    dispatch(searchActions.getSearchDB(keyword, page));
+  }, [page]);
 
   const inputRef = React.useRef();
 
@@ -31,14 +38,38 @@ const Search = (props) => {
     const value = inputRef.current.value;
     if (value.length < 2) {
       window.alert("검색어를 두 글자 이상 입력해주세요OAO!");
-    } else {
-      dispatch(searchActions.getSearchDB(value));
+    }
+    if (value.length > 1 && keyword !== value) {
+      dispatch(searchActions.resetdata(page));
+      dispatch(searchActions.getSearchDB(value, search_page));
+      setSearchWord(value);
+      props.history.push({
+        pathname: `/search`,
+        state: { value: value },
+      });
     }
   };
 
+  const mounted = React.useRef(false);
+
   useEffect(() => {
-    handleSearch();
-  }, []);
+    const dispatchValue = () => {
+      const value = inputRef.current.value;
+      return value;
+    };
+    const searchValue = dispatchValue();
+    if (!mounted.current) {
+      mounted.current = true;
+    }
+    if (keyword !== searchValue) {
+      dispatch(searchActions.getSearchDB(searchValue, search_page));
+    }
+  }, [page]);
+
+  const fetchData = () => {
+    let pages = page + 1;
+    setPage(pages);
+  };
 
   const onClick = () => {
     handleSearch();
@@ -52,46 +83,60 @@ const Search = (props) => {
 
   return (
     <div>
-      {/* 검색결과 나올때 */}
       {search_list && search_list.length > 0 ? (
         <>
-          <Header topMenu />
-          <Container>
-            <Flex>
-              <Flex
-                onClick={() => {
-                  props.history.push("/searchKeyword");
-                }}
-              >
-                <RiArrowLeftSLine size="30" cursor="pointer"></RiArrowLeftSLine>
-              </Flex>
+          <HeaderDiv>
+            <Header topMenu />
+          </HeaderDiv>
+          <Wrap>
+            <Container>
+              <FlexDiv>
+                <Flex
+                  onClick={() => {
+                    props.history.push("/searchKeyword");
+                    dispatch(searchActions.resetdata(page));
+                  }}
+                >
+                  <RiArrowLeftSLine
+                    size="30"
+                    cursor="pointer"
+                  ></RiArrowLeftSLine>
+                </Flex>
 
-              <Multiline
-                ref={inputRef}
-                onKeyPress={onKeyPress}
-                placeholder="검색어를 두글자 이상 입력해주세요."
-                type="text"
-                defaultValue={keyword}
-              ></Multiline>
-              <HiOutlineSearch
-                size="30"
-                cursor="pointer"
-                onClick={onClick}
-              ></HiOutlineSearch>
-            </Flex>
-          </Container>
-          <Grid>
-            <TrackGrid ref={trackWrapRef}>
-              {search_list &&
-                search_list.map((l) => {
-                  return (
-                    <TrackDiv key={l.trackId}>
-                      <Track {...l} trackWrapRef={trackWrapRef.current} />
-                    </TrackDiv>
-                  );
-                })}
-            </TrackGrid>
-          </Grid>
+                <Multiline
+                  ref={inputRef}
+                  onKeyPress={onKeyPress}
+                  placeholder="검색어를 두글자 이상 입력해주세요."
+                  type="text"
+                  defaultValue={keyword}
+                ></Multiline>
+                <HiOutlineSearch
+                  size="30"
+                  cursor="pointer"
+                  onClick={onClick}
+                ></HiOutlineSearch>
+              </FlexDiv>
+            </Container>
+
+            <Grid>
+              <InfiniteScroll
+                dataLength={search_list.length}
+                next={fetchData}
+                hasMore={has_more}
+                loader={<Spinner />}
+              >
+                <TrackGrid ref={trackWrapRef}>
+                  {search_list.map((l) => {
+                    return (
+                      <TrackDiv key={l.trackId}>
+                        <Track {...l} trackWrapRef={trackWrapRef.current} />
+                      </TrackDiv>
+                    );
+                  })}
+                </TrackGrid>
+              </InfiniteScroll>
+            </Grid>
+          </Wrap>
         </>
       ) : (
         <>
@@ -101,6 +146,7 @@ const Search = (props) => {
               <Flex
                 onClick={() => {
                   props.history.push("/searchKeyword");
+                  dispatch(searchActions.resetdata(page));
                 }}
               >
                 <RiArrowLeftSLine size="30" cursor="pointer"></RiArrowLeftSLine>
@@ -126,10 +172,35 @@ const Search = (props) => {
           </Container>
         </>
       )}
-      <FloatingBtn></FloatingBtn>
     </div>
   );
 };
+
+const HeaderDiv = styled.div`
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #000;
+  z-index: 1000;
+`;
+
+const Wrap = styled.div`
+  margin-top: 60px;
+`;
+
+const FlexDiv = styled.div`
+  display: flex;
+  align-items: center;
+  vertical-align: center;
+  max-width: 425px;
+  width: 100%;
+  padding-right: 50px;
+  background-color: #000;
+  position: fixed;
+  top: 60px;
+  z-index: 9999;
+`;
 
 const Flex = styled.div`
   display: flex;
@@ -154,6 +225,7 @@ const Multiline = styled.input`
 
 const Grid = styled.div`
   padding-left: 10px;
+  margin-top: 110px;
   /* @media screen and (max-width: 375px) {
     padding-left: 0px;
   } */
@@ -197,4 +269,4 @@ const OAO = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
 `;
-export default Search;
+export default KeywordSearch;

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Header from "../../components/category/Header";
 import Font from "../../elements/Font";
 import { actionCreators as postActions } from "../../redux/modules/post";
+import { actionCreators as searchActions } from "../../redux/modules/search";
 
 const Category = (props) => {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ const Category = (props) => {
 
   React.useEffect(() => {
     dispatch(postActions.loadImageDB());
+    dispatch(searchActions.resetdata());
   }, []);
 
   return (

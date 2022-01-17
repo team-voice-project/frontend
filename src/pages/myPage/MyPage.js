@@ -10,21 +10,20 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { actionCreators } from "../../redux/modules/mypage";
 import { apis } from "../../shared/api";
-import Panparea from "./Pangparea.png";
-import Master from "./master.png";
-
-import MypageHeader from "../../components/mypage/MypageHeader";
 import LogoutModal from "../../components/mypage/LogoutModal";
+import Skeleton from "../../components/mypage/Skeleton";
 
 const MyPage = (props) => {
   const track = useSelector((state) => state.mypage.track);
   const user_info = useSelector((state) => state.mypage.user_info);
   const like_track = useSelector((state) => state.mypage.like_track);
   const rank_data = useSelector((state) => state.mypage.rank_data);
+  const is_loading = useSelector((state) => state.mypage.is_loading);
   const like = useParams()?.like;
   const dispatch = useDispatch();
   const trackWrapRef = useRef(null);
   const [modalOpen, setModalOpen] = React.useState(false);
+  console.log(is_loading);
 
   const openModal = () => {
     setModalOpen(true);
@@ -93,7 +92,8 @@ const MyPage = (props) => {
               </Link>
               <div style={{ width: "200px", wordBreak: "break-word" }}>
                 <Text>
-                  {user_info.user_info?.introduce
+                  {user_info.user_info?.introduce === null &&
+                  user_info.user_info?.introduce
                     ? user_info.user_info?.introduce
                     : "자기소개가 비어있습니다."}
                 </Text>
@@ -224,7 +224,19 @@ const MyPage = (props) => {
             </>
           )}
         </div>
-        {track?.track_info === undefined || track?.track_info.length < 1 ? (
+        {is_loading === false && like !== "rank_list" ? (
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "space-between",
+            }}
+          >
+            {new Array(10).fill(1).map((_, i) => {
+              return <Skeleton key={i} />;
+            })}
+          </div>
+        ) : track?.track_info === undefined || track?.track_info.length < 1 ? (
           <div
             style={{
               display: "flex",
@@ -273,6 +285,7 @@ const MyPage = (props) => {
                 );
               })
             )}
+
             {like === "rank_list" ? (
               <div style={{ margin: "30px auto" }}>
                 <RankDiv>

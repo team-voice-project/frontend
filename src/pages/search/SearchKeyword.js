@@ -1,11 +1,18 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
+import { actionCreators as searchActions } from "../../redux/modules/search";
+import { useDispatch } from "react-redux";
 
 import { Container, Font } from "../../elements/index";
 import { HiOutlineSearch } from "react-icons/hi";
 
 const SearchKeyword = (props) => {
+  const dispatch = useDispatch();
   const inputRef = React.useRef();
+
+  useEffect(() => {
+    dispatch(searchActions.resetdata());
+  }, []);
 
   const handleSearch = () => {
     const value = inputRef.current.value;

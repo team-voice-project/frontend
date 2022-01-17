@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { autoHeightArea } from "../../shared/utils";
 
 const ScriptMemo = forwardRef((props, ref) => {
+  console.log(props.randomScript)
   return (
     <MemoWrap>
       <textarea
@@ -10,6 +11,7 @@ const ScriptMemo = forwardRef((props, ref) => {
         // onKeyUp={autoHeightArea}
         // onKeyDown={autoHeightArea}
         ref={ref}
+        defaultValue={props.randomScript}
       />
     </MemoWrap>
   );
@@ -25,8 +27,8 @@ const MemoWrap = styled.div`
     background-color: #2c2b2b;
     border: 0;
     width: 100%;
-    height: calc(100% - 40px);
-    max-height: calc(100% - 40px);
+    height: calc(100% - 50px);
+    max-height: calc(100% - 50px);
     overflow-x: hidden;
     overflow-y: auto;
   }

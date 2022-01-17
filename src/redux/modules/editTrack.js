@@ -2,10 +2,10 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { apis } from "../../shared/api";
 
-const SAVE_BASE = "SAVE_BASE";
-const SAVE_AUDIO = "SAVE_AUDIO";
-const RESET_TRACK = "RESET_TRACK";
-const SET_LOADING = "SET_LOADING";
+const EDITOR_SAVE_BASE = "EDITOR_SAVE_BASE";
+const EDITOR_SAVE_AUDIO = "EDITOR_SAVE_AUDIO";
+const EDITOR_RESET_TRACK = "EDITOR_RESET_TRACK";
+const EDITOR_SET_LOADING = "EDITOR_SET_LOADING";
 
 const initialState = {
   category: "",
@@ -18,10 +18,10 @@ const initialState = {
   is_loading: false,
 };
 
-const saveBase = createAction(SAVE_BASE, (base_info) => ({ base_info }));
-const saveAudio = createAction(SAVE_AUDIO, (audio_info) => ({ audio_info }));
-const resetTrack = createAction(RESET_TRACK, () => ({}));
-const setLoading = createAction(SET_LOADING, (loading) => ({ loading }));
+const saveBase = createAction(EDITOR_SAVE_BASE, (base_info) => ({ base_info }));
+const saveAudio = createAction(EDITOR_SAVE_AUDIO, (audio_info) => ({ audio_info }));
+const resetTrack = createAction(EDITOR_RESET_TRACK, () => ({}));
+const setLoading = createAction(EDITOR_SET_LOADING, (loading) => ({ loading }));
 
 // middlewares
 const sendTrackData = (track) => {
@@ -75,7 +75,7 @@ const sendTrackData = (track) => {
 // reducer
 export default handleActions(
   {
-    [SAVE_BASE]: (state, action) =>
+    [EDITOR_SAVE_BASE]: (state, action) =>
       produce(state, (draft) => {
         const { category, tags, subject, audio_url, cover_url } =
           action.payload.base_info;
@@ -88,13 +88,13 @@ export default handleActions(
         draft.audio_url = audio_url;
       }),
 
-    [SAVE_AUDIO]: (state, action) =>
+    [EDITOR_SAVE_AUDIO]: (state, action) =>
       produce(state, (draft) => {
         draft.audio_file = action.payload.audio_info.file;
         draft.audio_url = action.payload.audio_info.url;
       }),
 
-    [SET_LOADING]: (state, action) =>
+    [EDITOR_SET_LOADING]: (state, action) =>
       produce(state, (draft) => {
         draft.is_loading = action.payload.loading;
       }),

@@ -25,7 +25,6 @@ import Auth from "../shared/auth";
 import ErrorHandlePage from "./ErrorHandlePage";
 import GlobalPlayer from "../components/player/GlobalPlayer";
 import Footer from "../components/headerFooter/Footer";
-import KeywordSearch from "../pages/search/KeywordSearch";
 import ChatList from "../pages/chat/ChatList";
 import ChatRoom from "../pages/chat/ChatRoom";
 
@@ -85,7 +84,7 @@ function App() {
     <>
       {/* 배포 테스트 - add release branch 123 */}
       <GlobalStyles />
-      {/* <GlobalPlayer /> */}
+      <GlobalPlayer />
       <Switch>
         <Route path="/" component={Auth(Main, false)} exact />
         <Route path="/category" component={Category} exact />
@@ -93,7 +92,7 @@ function App() {
         <Route path="/tagcategory" component={TagCategory} exact />
         <Route path="/error" component={Error} exact />
         <Route path="/searchkeyword" component={SearchKeyword} exact />
-        <Route path="/search" component={KeywordSearch} exact />
+        <Route path="/search" component={Search} exact />
         <Route path="/login" component={Auth(Login, false)} exact />
         <Route path="/edit/base" component={Auth(EditBase, true)} exact />
         <Route
@@ -142,7 +141,7 @@ function App() {
         <Route path={"/error/:code"} component={ErrorHandlePage} />
         <Route component={ErrorHandlePage} />
       </Switch>
-      {/*<Footer></Footer>*/}
+      <Footer></Footer>
     </>
   );
 }

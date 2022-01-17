@@ -35,7 +35,7 @@ const LoginCallback = ({ history }) => {
 
   axios
     .get(
-      `${process.env.REACT_APP_TEST_API_URL}/api/auth/${platform}/callback?code=${code}`
+      `${process.env.REACT_APP_API_URL}/api/auth/${platform}/callback?code=${code}`
     )
     .then((res) => {
       const user = res.data.user.nickname;
