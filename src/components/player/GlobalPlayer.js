@@ -17,6 +17,7 @@ import { HiOutlineSave } from "react-icons/hi";
 import { IoCloseSharp, IoMusicalNotesSharp } from "react-icons/io5";
 import { FaPlay, FaRegWindowMinimize } from "react-icons/fa";
 import { TiArrowSortedUp } from "react-icons/ti";
+import { Container } from "../../elements";
 
 /*
  * TODO:
@@ -260,20 +261,22 @@ const GlobalPlayer = () => {
   return (
     <PlayerWrap className={!render ? "hide" : ""}>
       <PlayerWidget>
-        <AudioPlayer
-          showJumpControls={false}
-          ref={PlayerRef}
-          autoPlay={false}
-          className={"player-container"}
-          timeFormat={"mm:ss"}
-          defaultCurrentTime={"00:00"}
-          src={now_track.musicSrc}
-          customAdditionalControls={[createPlayInfoEl()]}
-          customVolumeControls={[RHAP_UI.VOLUME, createPlayListOpenEl()]}
-          onPlay={handlePlayEvent}
-          onEnded={handleOnEndEvent}
-          onPause={handleOnPauseEvent}
-        />
+        <Container padding={"0"}>
+          <AudioPlayer
+            showJumpControls={false}
+            ref={PlayerRef}
+            autoPlay={false}
+            className={"player-container"}
+            timeFormat={"mm:ss"}
+            defaultCurrentTime={"00:00"}
+            src={now_track.musicSrc}
+            customAdditionalControls={[createPlayInfoEl()]}
+            customVolumeControls={[RHAP_UI.VOLUME, createPlayListOpenEl()]}
+            onPlay={handlePlayEvent}
+            onEnded={handleOnEndEvent}
+            onPause={handleOnPauseEvent}
+          />
+        </Container>
       </PlayerWidget>
 
       <PlayListWidget className={play_list_modal ? "open" : ""}>
@@ -383,7 +386,9 @@ const PlayerWrap = styled.article`
   }
 
   .rhap_container {
-    background-color: #1d1d1d;
+    background-color: #000;
+    padding: 0 15px;
+    height: 56px;
   }
 
   .rhap_progress-bar {
@@ -506,7 +511,7 @@ const PlayerWrap = styled.article`
 
 const PlayerWidget = styled.article`
   position: fixed;
-  bottom: 54px;
+  bottom: 56px;
   left: 0;
   right: 0;
   z-index: 2000;
@@ -578,6 +583,7 @@ const PlayListWidget = styled.article`
 
   &.open {
     bottom: 73px;
+    z-index: 9999;
   }
 
   .playlist-header {
@@ -617,7 +623,7 @@ const PlayListWidget = styled.article`
   }
 
   .list-wrap {
-    height: calc(100% - 106px);
+    height: calc(100% - 50px);
     overflow-x: hidden;
     overflow-y: auto;
 
