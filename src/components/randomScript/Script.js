@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { actionCreators as trackActions } from "../../redux/modules/editTrack";
 import { Font } from "../../elements";
 
 const Script = (props) => {
@@ -41,7 +44,12 @@ const Script = (props) => {
   ];
   const sound_effect = [];
 
-  const category = props.category;
+  const dispatch = useDispatch(trackActions.saveBase());
+  const category = useSelector((state) => state.editTrack.category);
+  console.log("category", category);
+  useEffect(() => {
+    dispatch();
+  }, []);
 
   const randomData = () => {
     if (category === "자유주제") {
