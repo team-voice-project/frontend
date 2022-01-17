@@ -70,6 +70,7 @@ export default handleActions(
         draft.user = action.payload.user.user;
         draft.is_login = action.payload.user.is_login;
       }),
+
     [LOG_OUT]: (state, action) =>
       produce(state, (draft) => {
         draft.user = "";

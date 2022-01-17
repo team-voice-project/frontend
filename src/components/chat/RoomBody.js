@@ -12,6 +12,10 @@ const RoomBody = ({ my_info, chat_content, show_option_modal }) => {
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, []);
 
   useEffect(() => {

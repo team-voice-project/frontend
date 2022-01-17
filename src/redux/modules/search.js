@@ -7,7 +7,6 @@ const GET_SEARCH = "GET_SEARCH";
 const LOAD_CATEGORY = "LOAD_CATEGORY";
 const LOADING = "LOADING";
 const RESET = "RESET";
-const GET_AGAIN = "GET_AGAIN";
 
 const initialState = {
   keyword: null,
@@ -22,9 +21,6 @@ const getSearch = createAction(GET_SEARCH, (search_list) => ({
 }));
 const loadCategory = createAction(LOAD_CATEGORY, (category) => ({ category }));
 const resetdata = createAction(RESET, (list) => ({ list }));
-const getPageAgain = createAction(GET_AGAIN, (search_list) => ({
-  search_list,
-}));
 
 //middleware
 const getSearchDB = (keyword, page, track = 12) => {
@@ -33,6 +29,7 @@ const getSearchDB = (keyword, page, track = 12) => {
       let is_next = null;
       if (res.data.tracks.length < 12) {
         is_next = false;
+        page = 0;
       } else {
         is_next = true;
       }
@@ -42,25 +39,6 @@ const getSearchDB = (keyword, page, track = 12) => {
         next: is_next,
       };
       dispatch(getSearch(search_list));
-    });
-  };
-};
-
-const getPageAgainDB = (keyword, page, track = 12) => {
-  return function (dispatch, getState, { history }) {
-    apis.search(keyword, page, track).then((res) => {
-      let is_next = null;
-      if (res.data.tracks.length < 12) {
-        is_next = false;
-      } else {
-        is_next = true;
-      }
-      let search_again = {
-        searchAgain: res.data.tracks,
-        page: page + 1,
-        next: is_next,
-      };
-      dispatch(getPageAgain(search_again));
     });
   };
 };
@@ -77,17 +55,24 @@ const loadCategoryDB = (
     apis
       .category(category, tag1, tag2, tag3, page, track)
       .then((res) => {
+        // console.log("로드 카테고리", res);
+        console.log("페이지뭐야?", page);
+        let next_page = page;
         let is_next = null;
         if (res.data.tracks.tracks.length < 12) {
           is_next = false;
+          next_page = 1;
         } else {
           is_next = true;
+          next_page = next_page + 1;
         }
+
         let category_list = {
           categoryList: res.data.tracks,
-          page: page + 1,
+          page: next_page,
           next: is_next,
         };
+
         dispatch(loadCategory(category_list));
       })
       .catch((err) => {
@@ -111,22 +96,24 @@ const loadTagDB = (
     apis
       .category(category, tag1, tag2, tag3, page, track)
       .then((res) => {
-        console.log("res", res);
         const tags = [`${tag1}`, `${tag2}`, `${tag3}`];
+        let next_page = page;
         let is_next = null;
         if (res.data.tracks.tracks.length < 12) {
           is_next = false;
+          next_page = 1;
         } else {
           is_next = true;
+          next_page = next_page + 1;
         }
         let category_list = {
           categoryList: res.data.tracks,
-          page: page + 1,
+          page: next_page,
           next: is_next,
         };
         dispatch(loadCategory(category_list));
         history.push({
-          pathname: "/tagCategory",
+          pathname: "/tagcategory",
           state: { category: category, tag: tags },
         });
       })
@@ -153,22 +140,14 @@ export default handleActions(
         draft.has_more = action.payload.search_list.next;
         draft.page = action.payload.search_list.page;
       }),
-    [GET_AGAIN]: (state, action) =>
-      produce(state, (draft) => {
-        console.log("액션페이로드", action.payload);
-        draft.list.push(...action.payload.search_list.searchAgain);
-        // draft.search_list = action.payload.search_list.searchLists;
 
-        draft.page = action.payload.search_list.page;
-      }),
     [LOAD_CATEGORY]: (state, action) =>
       produce(state, (draft) => {
         console.log("액션페이로드", action.payload);
-
         draft.list.push(...action.payload.category.categoryList.tracks);
         draft.has_more = action.payload.category.next;
         draft.page = action.payload.category.page;
-        draft.tags = action.payload.category.categoryTags;
+        draft.tags = action.payload.category.categoryList.categoryTags;
       }),
     [RESET]: (state, action) =>
       produce(state, (draft) => {
@@ -189,7 +168,6 @@ const actionCreators = {
   loadCategoryDB,
   loadTagDB,
   resetdata,
-  getPageAgainDB,
 };
 
 export { actionCreators };

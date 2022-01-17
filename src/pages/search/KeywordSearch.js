@@ -21,14 +21,13 @@ const KeywordSearch = (props) => {
   const keyword = location.state.value;
   const search_list = useSelector((state) => state.search.list);
   const search_page = useSelector((state) => state.search.page);
-  const search_again = useSelector((state) => state.search);
-  console.log("search_again", search_again);
+  const has_more = useSelector((state) => state.search.has_more);
+
   console.log("search_list", search_list);
   console.log("search_page", search_page);
 
-  const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(search_page);
-  const [returnPage, setReturnPage] = useState(1);
+  const [searchWord, setSearchWord] = useState("");
 
   useEffect(() => {
     dispatch(searchActions.getSearchDB(keyword, page));
@@ -43,26 +42,30 @@ const KeywordSearch = (props) => {
     }
     if (value.length > 1 && keyword !== value) {
       dispatch(searchActions.resetdata(page));
-      dispatch(searchActions.getPageAgainDB(value, 1));
+      dispatch(searchActions.getSearchDB(value, search_page));
+      setSearchWord(value);
     }
-    setReturnPage(search_page + 1);
   };
 
-  console.log("returnPage", returnPage);
+  const mounted = React.useRef(false);
+
   useEffect(() => {
-    handleSearch();
+    const dispatchValue = () => {
+      const value = inputRef.current.value;
+      return value;
+    };
+    const searchValue = dispatchValue();
+    if (!mounted.current) {
+      mounted.current = true;
+    }
+    if (keyword !== searchValue) {
+      dispatch(searchActions.getSearchDB(searchValue, search_page));
+    }
   }, [page]);
 
   const fetchData = () => {
     let pages = page + 1;
-    const track = 12;
-    apis.search(keyword, page, track).then((res) => {
-      console.log("res.data", res.data);
-      if (res.data.tracks.length === 0 || res.data.tracks.length < 12) {
-        setHasMore(false);
-      }
-      setPage(pages);
-    });
+    setPage(pages);
   };
 
   const onClick = () => {
@@ -79,55 +82,62 @@ const KeywordSearch = (props) => {
     <div>
       {search_list && search_list.length > 0 ? (
         <>
-          <Header topMenu />
-          <Container>
-            <Flex>
-              <Flex
-                onClick={() => {
-                  props.history.push("/searchKeyword");
-                  dispatch(searchActions.resetdata(page));
-                }}
-              >
-                <RiArrowLeftSLine size="30" cursor="pointer"></RiArrowLeftSLine>
-              </Flex>
+          <HeaderDiv>
+            <Header topMenu />
+          </HeaderDiv>
+          <Wrap>
+            <Container>
+              <FlexDiv>
+                <Flex
+                  onClick={() => {
+                    props.history.push("/searchKeyword");
+                    dispatch(searchActions.resetdata(page));
+                  }}
+                >
+                  <RiArrowLeftSLine
+                    size="30"
+                    cursor="pointer"
+                  ></RiArrowLeftSLine>
+                </Flex>
 
-              <Multiline
-                ref={inputRef}
-                onKeyPress={onKeyPress}
-                placeholder="검색어를 두글자 이상 입력해주세요."
-                type="text"
-                defaultValue={keyword}
-              ></Multiline>
-              <HiOutlineSearch
-                size="30"
-                cursor="pointer"
-                onClick={onClick}
-              ></HiOutlineSearch>
-            </Flex>
-          </Container>
-          <InfiniteScroll
-            dataLength={search_list.length}
-            next={fetchData}
-            hasMore={hasMore}
-            loader={<h4>Loading...</h4>}
-            endMessage={
-              <p style={{ textAlign: "center" }}>
-                <b>Yay! You have seen it all</b>
-              </p>
-            }
-          >
-            <Grid>
-              <TrackGrid ref={trackWrapRef}>
-                {search_list.map((l) => {
-                  return (
-                    <TrackDiv key={l.trackId}>
-                      <Track {...l} trackWrapRef={trackWrapRef.current} />
-                    </TrackDiv>
-                  );
-                })}
-              </TrackGrid>
-            </Grid>
-          </InfiniteScroll>
+                <Multiline
+                  ref={inputRef}
+                  onKeyPress={onKeyPress}
+                  placeholder="검색어를 두글자 이상 입력해주세요."
+                  type="text"
+                  defaultValue={keyword}
+                ></Multiline>
+                <HiOutlineSearch
+                  size="30"
+                  cursor="pointer"
+                  onClick={onClick}
+                ></HiOutlineSearch>
+              </FlexDiv>
+            </Container>
+            <InfiniteScroll
+              dataLength={search_list.length}
+              next={fetchData}
+              hasMore={has_more}
+              loader={<h4>Loading...</h4>}
+              endMessage={
+                <p style={{ textAlign: "center" }}>
+                  <b>Yay! You have seen it all</b>
+                </p>
+              }
+            >
+              <Grid>
+                <TrackGrid ref={trackWrapRef}>
+                  {search_list.map((l) => {
+                    return (
+                      <TrackDiv key={l.trackId}>
+                        <Track {...l} trackWrapRef={trackWrapRef.current} />
+                      </TrackDiv>
+                    );
+                  })}
+                </TrackGrid>
+              </Grid>
+            </InfiniteScroll>
+          </Wrap>
         </>
       ) : (
         <>
@@ -167,6 +177,32 @@ const KeywordSearch = (props) => {
   );
 };
 
+const HeaderDiv = styled.div`
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #000;
+  z-index: 1000;
+`;
+
+const Wrap = styled.div`
+  margin-top: 60px;
+`;
+
+const FlexDiv = styled.div`
+  display: flex;
+  align-items: center;
+  vertical-align: center;
+  max-width: 425px;
+  width: 100%;
+  padding-right: 50px;
+  background-color: #000;
+  position: fixed;
+  top: 60px;
+  z-index: 9999;
+`;
+
 const Flex = styled.div`
   display: flex;
   align-items: center;
@@ -190,6 +226,7 @@ const Multiline = styled.input`
 
 const Grid = styled.div`
   padding-left: 10px;
+  margin-top: 80px;
   /* @media screen and (max-width: 375px) {
     padding-left: 0px;
   } */

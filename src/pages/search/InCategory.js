@@ -9,7 +9,7 @@ import { apis } from "../../shared/api";
 import CategoryModal from "../../components/category/CategoryModal";
 import Header from "../../components/category/Header";
 import Track from "../../components/mypage/Track";
-import { Font, FloatingBtn } from "../../elements/index";
+import { Font, FloatingBtn, Spinner } from "../../elements/index";
 
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { BsFilterRight } from "react-icons/bs";
@@ -21,12 +21,12 @@ const InCategory = (props) => {
   const tag_list = useSelector((state) => state.post.tag_list);
   const category = useSelector((state) => state.search.list);
   const category_page = useSelector((state) => state.search.page);
+  const has_more = useSelector((state) => state.search.has_more);
   const trackWrapRef = useRef(null);
   console.log("category", category);
   console.log("category_page", category_page);
 
   const [show_modal, setShowModal] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(category_page);
 
   const openModal = () => {
@@ -35,6 +35,7 @@ const InCategory = (props) => {
 
   useEffect(() => {
     dispatch(postActions.loadImageDB());
+    dispatch(searchActions.resetdata());
   }, []);
 
   useEffect(() => {
@@ -42,29 +43,20 @@ const InCategory = (props) => {
     const tag2 = "";
     const tag3 = "";
     dispatch(searchActions.loadCategoryDB(name, tag1, tag2, tag3, page));
-    console.log("불렷어");
   }, [name, page]);
 
   const fetchData = () => {
     let pages = page + 1;
-    const track = 12;
-    const tag1 = "";
-    const tag2 = "";
-    const tag3 = "";
-    apis.category(name, tag1, tag2, tag3, page, track).then((res) => {
-      if (
-        res.data.tracks.tracks.length === 0 ||
-        res.data.tracks.tracks.length < 12
-      ) {
-        setHasMore(false);
-      }
-      setPage(pages);
-    });
+
+    setPage(pages);
   };
 
   return (
     <>
-      <Header topMenu />
+      <HeaderDiv>
+        <Header topMenu />
+      </HeaderDiv>
+
       {show_modal && (
         <CategoryModal
           tagList={tag_list}
@@ -101,13 +93,8 @@ const InCategory = (props) => {
           <InfiniteScroll
             dataLength={category.length}
             next={fetchData}
-            hasMore={hasMore}
-            loader={<h4>Loading...</h4>}
-            endMessage={
-              <p style={{ textAlign: "center" }}>
-                <b>Yay! You have seen it all</b>
-              </p>
-            }
+            hasMore={has_more}
+            loader={has_more === false ? "" : <Spinner />}
           >
             <TrackGrid>
               {category &&
@@ -132,6 +119,14 @@ const InCategory = (props) => {
     </>
   );
 };
+const HeaderDiv = styled.div`
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #000;
+  z-index: 1000;
+`;
 
 const Wrap = styled.div`
   width: 100%;
@@ -152,7 +147,13 @@ const Flex = styled.div`
   display: flex;
   align-items: center;
   vertical-align: center;
-  padding: 0px 10px;
+  padding: 0px 30px 0px 0px;
+  max-width: 425px;
+  width: 100%;
+  background-color: #000;
+  position: fixed;
+  top: 60px;
+  z-index: 9999;
 `;
 
 const TrackGrid = styled.div`
@@ -161,6 +162,7 @@ const TrackGrid = styled.div`
   margin: auto;
   display: flex;
   flex-wrap: wrap;
+  margin-top: 80px;
 `;
 
 const TrackDiv = styled.div`

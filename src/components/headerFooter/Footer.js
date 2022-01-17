@@ -1,75 +1,127 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
 import { useSelector } from "react-redux";
+import { FOOTER_ESCAPE_LIST } from "../../shared/utils";
+import { newGetCookie } from "../../shared/Cookie";
 
 import { AiFillHome } from "react-icons/ai";
-import { BsBellFill } from "react-icons/bs";
 import { IoMdChatboxes } from "react-icons/io";
 import { HiOutlineSearch } from "react-icons/hi";
 import { HiUser } from "react-icons/hi";
 import { BsFillGridFill } from "react-icons/bs";
 import { MdLogin } from "react-icons/md";
 
-const Footer = (props) => {
+const Footer = () => {
   const is_login = useSelector((state) => state.user.is_login);
-  const [activeNav, setActiveNav] = React.useState(1);
+  const pathName = useSelector((state) => state.router.location.pathname);
+  const uid = newGetCookie("uid");
+  const [render, setRender] = useState(true);
+
+  const urlCheck = () => {
+    const is_correct = FOOTER_ESCAPE_LIST.some(
+      (url) => pathName.indexOf(url) > -1
+    );
+
+    if (is_correct) {
+      setRender(false);
+      window.document.body.style.paddingBottom = "";
+    } else {
+      setRender(true);
+      window.document.body.style.paddingBottom = "200px";
+    }
+  };
+
+  useEffect(() => {
+    urlCheck();
+  }, [pathName]);
+
+  if (render === false) {
+    return null;
+  }
 
   return (
     <div>
       <Flex>
         <IconDiv
-          className={activeNav === 1 ? "active" : "nav-item"}
+          className={pathName === "/" ? "active" : "nav-item"}
           onClick={() => {
-            setActiveNav(1);
             history.push("/");
           }}
         >
           <AiFillHome size="24px" cursor="pointer"></AiFillHome>
         </IconDiv>
         <IconDiv
-          className={activeNav === 2 ? "active" : "nav-item"}
+          className={
+            pathName === "/category" ||
+            pathName === "/tagcategory" ||
+            pathName === "/category/전체" ||
+            pathName === "/category/자유쥬제" ||
+            pathName === "/category/ASMR" ||
+            pathName === "/category/힐링응원" ||
+            pathName === "/category/노래" ||
+            pathName === "/category/외국어" ||
+            pathName === "/category/나레이션" ||
+            pathName === "/category/성대모사" ||
+            pathName === "/category/유행어" ||
+            pathName === "/category/효과음"
+              ? "active"
+              : "nav-item"
+          }
           onClick={() => {
             history.push("/category");
-            setActiveNav(2);
           }}
         >
           <BsFillGridFill size="24px" cursor="pointer"></BsFillGridFill>
         </IconDiv>
         <IconDiv
-          className={activeNav === 3 ? "active" : "nav-item"}
+          className={
+            pathName === "/searchkeyword" || pathName === "/search"
+              ? "active"
+              : "nav-item"
+          }
           onClick={() => {
             history.push("/searchkeyword");
-            setActiveNav(3);
           }}
         >
           <HiOutlineSearch size="24px" cursor="pointer"></HiOutlineSearch>
         </IconDiv>
-        <IconDiv
-          className={activeNav === 4 ? "active" : "nav-item"}
-          onClick={() => {
-            history.push("/chat/1");
-            setActiveNav(4);
-          }}
-        >
-          <IoMdChatboxes size="24px" cursor="pointer"></IoMdChatboxes>
-        </IconDiv>
+
         {is_login === true ? (
           <IconDiv
-            className={activeNav === 5 ? "active" : "nav-item"}
+            className={pathName === `/chat/${uid}` ? "active" : "nav-item"}
+            onClick={() => {
+              history.push(`/chat/${uid}`);
+            }}
+          >
+            <IoMdChatboxes size="24px" cursor="pointer"></IoMdChatboxes>
+          </IconDiv>
+        ) : (
+          <IconDiv
+            className="nav-item"
+            onClick={() => {
+              window.alert("로그인이 필요한 페이지입니다.");
+              history.push("/login");
+            }}
+          >
+            <IoMdChatboxes size="24px" cursor="pointer"></IoMdChatboxes>
+          </IconDiv>
+        )}
+
+        {is_login === true ? (
+          <IconDiv
+            className={pathName === "/mypage/rank_list" ? "active" : "nav-item"}
             onClick={() => {
               history.push("/mypage/rank_list");
-              setActiveNav(5);
             }}
           >
             <HiUser size="24px" cursor="pointer"></HiUser>
           </IconDiv>
         ) : (
           <IconDiv
-            className={activeNav === 5 ? "active" : "nav-item"}
+            className={pathName === "/login" ? "active" : "nav-item"}
             onClick={() => {
               history.push("/login");
-              setActiveNav(5);
             }}
           >
             <MdLogin size="24px" cursor="pointer"></MdLogin>
@@ -79,32 +131,20 @@ const Footer = (props) => {
     </div>
   );
 };
-const DIV = styled.div`
-  cursor: pointer;
-  .homeBtn {
-    border: none;
-  }
-`;
-const FormCheckLeft = styled.input`
-  &:checked + ${DIV} {
-    .homeBtn {
-      color: #f1134e;
-      size: 26px;
-    }
-  }
-  display: none;
-`;
 
 const Flex = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0px 35px;
+  padding: 0px 20px;
   margin: 0 auto;
+  max-width: 425px;
   width: 100%;
   height: 56px;
   position: fixed;
   bottom: 0;
+  left: 0;
+  right: 0;
   background-color: #000;
   z-index: 2000;
 
