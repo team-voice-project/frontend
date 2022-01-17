@@ -106,11 +106,6 @@ const InCategory = (props) => {
             next={fetchData}
             hasMore={hasMore}
             loader={category.length < 12 ? "" : <Spinner />}
-            endMessage={
-              <p style={{ textAlign: "center" }}>
-                <b>Yay! You have seen it all</b>
-              </p>
-            }
           >
             <TrackGrid>
               {category &&

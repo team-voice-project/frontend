@@ -43,6 +43,10 @@ const KeywordSearch = (props) => {
       dispatch(searchActions.resetdata(page));
       dispatch(searchActions.getSearchDB(value, search_page));
       setSearchWord(value);
+      props.history.push({
+        pathname: `/search`,
+        state: { value: value },
+      });
     }
   };
 
@@ -113,18 +117,14 @@ const KeywordSearch = (props) => {
                 ></HiOutlineSearch>
               </FlexDiv>
             </Container>
-            <InfiniteScroll
-              dataLength={search_list.length}
-              next={fetchData}
-              hasMore={has_more}
-              loader={<Spinner />}
-              endMessage={
-                <p style={{ textAlign: "center" }}>
-                  <b>Yay! You have seen it all</b>
-                </p>
-              }
-            >
-              <Grid>
+
+            <Grid>
+              <InfiniteScroll
+                dataLength={search_list.length}
+                next={fetchData}
+                hasMore={has_more}
+                loader={<Spinner />}
+              >
                 <TrackGrid ref={trackWrapRef}>
                   {search_list.map((l) => {
                     return (
@@ -134,8 +134,8 @@ const KeywordSearch = (props) => {
                     );
                   })}
                 </TrackGrid>
-              </Grid>
-            </InfiniteScroll>
+              </InfiniteScroll>
+            </Grid>
           </Wrap>
         </>
       ) : (
@@ -225,7 +225,7 @@ const Multiline = styled.input`
 
 const Grid = styled.div`
   padding-left: 10px;
-  margin-top: 80px;
+  margin-top: 110px;
   /* @media screen and (max-width: 375px) {
     padding-left: 0px;
   } */
