@@ -48,23 +48,18 @@ const Main = (props) => {
     dispatch(postActions.loadPostDB());
   }, []);
 
-  useEffect(() => {
-    const handleShowModal = () => {
+  useEffect( async () => {
       if (HAS_VISITED_BEFORE && HAS_VISITED_BEFORE > new Date()) {
         return;
       }
 
-      if (!HAS_VISITED_BEFORE) {
-        setShowModal(true);
-        let expires = new Date();
-        expires = expires.setHours(expires.getHours() + 24);
-        localStorage.setItem("hasVisitedBefore", expires);
-      } else {
-        setShowModal(false);
-      }
-    };
+      await setShowModal(true);
 
-    window.setTimeout(handleShowModal, 2000);
+      // TODO: 로컬스토리지에서 쿠키 값으로 변경 할 것.
+      let expires = new Date();
+      expires = expires.setHours(expires.getHours() + 24);
+      localStorage.setItem("hasVisitedBefore", expires);
+
   }, [HAS_VISITED_BEFORE]);
 
   const changeBoxListData = () => {

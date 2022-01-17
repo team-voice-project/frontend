@@ -3,15 +3,11 @@ import styled from "styled-components";
 import { autoHeightArea } from "../../shared/utils";
 
 const ScriptMemo = forwardRef((props, ref) => {
-  console.log(props.randomScript)
   return (
     <MemoWrap>
       <textarea
         placeholder={"녹음 시 필요한 내용을 작성해서 읽어보세요!"}
-        // onKeyUp={autoHeightArea}
-        // onKeyDown={autoHeightArea}
         ref={ref}
-        defaultValue={props.randomScript}
       />
     </MemoWrap>
   );
