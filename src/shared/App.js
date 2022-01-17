@@ -83,7 +83,7 @@ function App() {
 
   return (
     <>
-      {/* 배포 테스트 - add release branch */}
+      {/* 배포 테스트 - add release branch 123 */}
       <GlobalStyles />
       {/* <GlobalPlayer /> */}
       <Switch>
