@@ -139,8 +139,13 @@ const EditProfile = ({ history }) => {
   const handleClickApplyBtn = async () => {
     const result = await sendProfileData();
     if (result.status === 200) {
+      const uid = newGetCookie("uid");
       const token = newGetCookie("token");
-      setCookie("OAO", `__OAO-nick=${nick_value}__OAO-token=${token}`, 1);
+      setCookie(
+        "OAO",
+        `__OAO-uid=${uid}__OAO-nick=${nick_value}__OAO-token=${token}`,
+        1
+      );
       dispatch(userActions.setUser({ user: nick_value, is_login: true }));
       goNextPage();
     } else {
@@ -244,7 +249,7 @@ const EditProfile = ({ history }) => {
               <textarea
                 placeholder="입력하기"
                 id={"profile-about"}
-                defaultValue={about_value}
+                defaultValue={about_value || "간단한 자기소개를 해주세요 :)"}
                 onChange={handleChangeAbout}
               ></textarea>
             </div>
