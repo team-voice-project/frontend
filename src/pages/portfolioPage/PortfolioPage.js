@@ -4,19 +4,19 @@ import styled from "styled-components";
 import Track from "../../components/mypage/Track";
 
 import { useSelector } from "react-redux";
+import Skeleton from "../../components/mypage/Skeleton";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { history } from "../../redux/configStore";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { actionCreators as trackCreators } from "../../redux/modules/mypage";
-import Panparea from "../myPage/Pangparea.png";
-import Master from "../myPage/master.png";
 
 const PortfolioPage = (props) => {
   const dispatch = useDispatch();
   const track = useSelector((state) => state.mypage.track);
   const user_info = useSelector((state) => state.mypage.user_info);
   const rank_data = useSelector((state) => state.mypage.rank_data);
+  const is_loading = useSelector((state) => state.mypage.is_loading);
   const userId = useParams()?.userId;
   const trackWrapRef = useRef(null);
   const voice = useParams()?.voice;
@@ -127,7 +127,19 @@ const PortfolioPage = (props) => {
           </label>
         </div>
       )}
-      {voice === "voice_rank" ? (
+      {is_loading === false && voice !== "voice_rank" ? (
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+          }}
+        >
+          {new Array(10).fill(1).map((_, i) => {
+            return <Skeleton key={i} />;
+          })}
+        </div>
+      ) : voice === "voice_rank" ? (
         <div style={{ margin: "30px auto" }}>
           <RankDiv>
             <RankTitle>{rank_data.rank_data?.rankClass.rank}위</RankTitle>
