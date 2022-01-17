@@ -48,18 +48,17 @@ const Main = (props) => {
     dispatch(postActions.loadPostDB());
   }, []);
 
-  useEffect( async () => {
-      if (HAS_VISITED_BEFORE && HAS_VISITED_BEFORE > new Date()) {
-        return;
-      }
+  useEffect(async () => {
+    if (HAS_VISITED_BEFORE && HAS_VISITED_BEFORE > new Date()) {
+      return;
+    }
 
-      await setShowModal(true);
+    await setShowModal(true);
 
-      // TODO: 로컬스토리지에서 쿠키 값으로 변경 할 것.
-      let expires = new Date();
-      expires = expires.setHours(expires.getHours() + 24);
-      localStorage.setItem("hasVisitedBefore", expires);
-
+    // TODO: 로컬스토리지에서 쿠키 값으로 변경 할 것.
+    let expires = new Date();
+    expires = expires.setHours(expires.getHours() + 24);
+    localStorage.setItem("hasVisitedBefore", expires);
   }, [HAS_VISITED_BEFORE]);
 
   const changeBoxListData = () => {
@@ -210,7 +209,7 @@ const Main = (props) => {
           })
         )}
       </WrapDiv>
-      <FloatingBtn bubble></FloatingBtn>
+      <FloatingBtn bubble />
     </>
   );
 };

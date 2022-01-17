@@ -5,6 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import Track from "../../components/mypage/Track";
 import { useLocation } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
+import Skeleton from "../../components/mypage/Skeleton";
 import Header from "../../components/category/Header";
 import { Container, Spinner } from "../../elements/index";
 
@@ -19,6 +20,7 @@ const KeywordSearch = (props) => {
   const location = useLocation();
   const keyword = location.state.value;
   const search_list = useSelector((state) => state.search.list);
+  const searchLoading = useSelector((state) => state.search.is_loading);
   const search_page = useSelector((state) => state.search.page);
   const has_more = useSelector((state) => state.search.has_more);
 
@@ -54,7 +56,7 @@ const KeywordSearch = (props) => {
 
   useEffect(() => {
     const dispatchValue = () => {
-      const value = inputRef.current.value;
+      const value = inputRef?.current?.value;
       return value;
     };
     const searchValue = dispatchValue();
@@ -83,7 +85,22 @@ const KeywordSearch = (props) => {
 
   return (
     <div>
-      {search_list && search_list.length > 0 ? (
+      {searchLoading === false ? (
+        <Wrap
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            margin: "0 auto",
+            marginTop: "60px",
+            maxWidth: "425px",
+          }}
+        >
+          {new Array(10).fill(1).map((_, i) => {
+            return <Skeleton key={i} />;
+          })}
+        </Wrap>
+      ) : search_list && search_list.length > 0 ? (
         <>
           <HeaderDiv>
             <Header topMenu />
@@ -117,7 +134,6 @@ const KeywordSearch = (props) => {
                 ></HiOutlineSearch>
               </FlexDiv>
             </Container>
-
             <Grid>
               <InfiniteScroll
                 dataLength={search_list.length}

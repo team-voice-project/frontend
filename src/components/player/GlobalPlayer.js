@@ -573,17 +573,18 @@ const PlayerWidget = styled.article`
 const PlayListWidget = styled.article`
   position: fixed;
   bottom: -100%;
-  right: 0;
+  left: 50%;
+  transform: translateX(-50%);
   background: #1d1d1d;
   border: 1px solid #2e2e2e;
   width: 100%;
   max-width: 360px;
-  z-index: 1000;
   transition: bottom 0.2s;
 
   &.open {
-    bottom: 73px;
-    z-index: 9999;
+    transform: translateX(-50%);
+    bottom: 112px;
+    z-index: 10000;
   }
 
   .playlist-header {
@@ -813,14 +814,16 @@ const PlayListWidget = styled.article`
     position: fixed;
     top: 100%;
     right: 0;
+    left: 0;
     bottom: initial;
     max-width: 100%;
-    height: calc(100vh - 66px);
+    height: calc(100vh - 112px);
 
     transition: top 0.2s;
 
     &.open {
       top: 0;
+      margin-left: 0;
     }
 
     .playlist-body {
