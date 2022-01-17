@@ -21,12 +21,12 @@ const InCategory = (props) => {
   const tag_list = useSelector((state) => state.post.tag_list);
   const category = useSelector((state) => state.search.list);
   const category_page = useSelector((state) => state.search.page);
+  const has_more = useSelector((state) => state.search.has_more);
   const trackWrapRef = useRef(null);
   console.log("category", category);
   console.log("category_page", category_page);
 
   const [show_modal, setShowModal] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(category_page);
 
   const openModal = () => {
@@ -47,19 +47,8 @@ const InCategory = (props) => {
 
   const fetchData = () => {
     let pages = page + 1;
-    const track = 12;
-    const tag1 = "";
-    const tag2 = "";
-    const tag3 = "";
-    apis.category(name, tag1, tag2, tag3, page, track).then((res) => {
-      if (
-        res.data.tracks.tracks.length === 0 ||
-        res.data.tracks.tracks.length < 12
-      ) {
-        setHasMore(false);
-      }
-      setPage(pages);
-    });
+
+    setPage(pages);
   };
 
   return (
@@ -104,8 +93,8 @@ const InCategory = (props) => {
           <InfiniteScroll
             dataLength={category.length}
             next={fetchData}
-            hasMore={hasMore}
-            loader={category.length < 12 ? "" : <Spinner />}
+            hasMore={has_more}
+            loader={has_more === false ? "" : <Spinner />}
           >
             <TrackGrid>
               {category &&
