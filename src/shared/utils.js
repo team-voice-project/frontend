@@ -30,6 +30,14 @@ export const GLOBAL_PLAYER_ESCAPE_LIST = [
   "/chatroom",
 ];
 
+export const FOOTER_ESCAPE_LIST = [
+  "/chatroom",
+  "/edit/base",
+  "/edit/record",
+  "edit/final",
+  "/edit/profile",
+];
+
 export const PLAY_LIST_KEY = "OAO::playlist";
 
 // 세션스토리지 플레이리스트 관련
