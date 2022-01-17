@@ -10,6 +10,7 @@ import { history } from "../../redux/configStore";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { actionCreators as trackCreators } from "../../redux/modules/mypage";
+import { newGetCookie } from "../../shared/Cookie";
 
 const PortfolioPage = (props) => {
   const dispatch = useDispatch();
@@ -20,11 +21,21 @@ const PortfolioPage = (props) => {
   const userId = useParams()?.userId;
   const trackWrapRef = useRef(null);
   const voice = useParams()?.voice;
-  console.log(rank_data?.rank_data);
+  const my_Id = newGetCookie("uid");
 
   useEffect(() => {
     dispatch(trackCreators.setTrackDB(userId));
   }, []);
+
+  const createRoomNumber = () => {
+    const total_Id = [my_Id, userId];
+    return total_Id
+      .map(Number)
+      .sort((a, b) => a - b)
+      .join("_");
+  };
+
+  const roomId = createRoomNumber();
 
   return (
     <Container padding={"0"}>
@@ -64,12 +75,12 @@ const PortfolioPage = (props) => {
           </div>
         </Profile>
         <UpBtn
-            onClick={() => {
-              history.push("/edit/base");
-            }}
-          >
-            채팅하기{" "}
-          </UpBtn>
+          onClick={() => {
+            history.push(`/chatroom/${roomId}`);
+          }}
+        >
+          채팅하기
+        </UpBtn>
       </div>
       {voice === "voice_rank" ? (
         <div

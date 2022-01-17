@@ -84,8 +84,10 @@ const EditRecord = ({ history }) => {
 
       <Container padding={"20px"} _className={"stretch-height"}>
         <div className={"edit-body"}>
-          <strong className={"title"}>목소리 올리기</strong>
-          {/* <Script category={category}></Script> */}
+          <div className={'top-bar'}>
+            <strong className={"title"}>목소리 올리기</strong>
+            <button type='button'>리프레시</button>
+          </div>
           <ScriptMemo ref={scriptRef} />
         </div>
       </Container>
@@ -161,6 +163,12 @@ const EditWrap = styled.section`
 
   .edit-body {
     height: 100%;
+
+    .top-bar {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
 
     .title {
       display: block;
