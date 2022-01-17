@@ -5,7 +5,7 @@ import MenuModal from "./MenuModal";
 import PlayButton from "./playButton.png";
 import PauseBtn from "./pauseBtn.png";
 import { HiHeart } from "react-icons/hi";
-import { actionCreators as commentActions } from "../../redux/modules/comment";
+
 import { RiChat4Fill } from "react-icons/ri";
 import { actionCreators as playerActions } from "../../redux/modules/globalPlayer";
 import { useDispatch, useSelector } from "react-redux";
@@ -119,6 +119,7 @@ const Track = (props) => {
                 <HiHeart style={{ marginRight: "5px" }} />
                 <Text>{props?.Likes?.likeCnt}</Text>
               </div>
+
               <div style={{ display: "flex", alignItems: "center" }}>
                 <RiChat4Fill style={{ marginRight: "5px", marginTop: "3px" }} />
                 <Text>{props?.Comments?.length}</Text>
