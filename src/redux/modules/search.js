@@ -7,12 +7,14 @@ const GET_SEARCH = "GET_SEARCH";
 const LOAD_CATEGORY = "LOAD_CATEGORY";
 const LOADING = "LOADING";
 const RESET = "RESET";
+const SEARCH_LOADING = "SEARCH_LOADING";
 
 const initialState = {
   keyword: null,
   list: [],
   page: 1,
   has_more: false,
+  is_loading: false,
 };
 
 const setKeyword = createAction(SET_KEYWORD, (keyword) => ({ keyword }));
@@ -21,6 +23,9 @@ const getSearch = createAction(GET_SEARCH, (search_list) => ({
 }));
 const loadCategory = createAction(LOAD_CATEGORY, (category) => ({ category }));
 const resetdata = createAction(RESET, (list) => ({ list }));
+const setSearchLoading = createAction(SEARCH_LOADING, (loading) => ({
+  loading,
+}));
 
 //middleware
 const getSearchDB = (keyword, page, track = 12) => {
@@ -39,6 +44,7 @@ const getSearchDB = (keyword, page, track = 12) => {
         next: is_next,
       };
       dispatch(getSearch(search_list));
+      dispatch(setSearchLoading(true));
     });
   };
 };
@@ -74,6 +80,7 @@ const loadCategoryDB = (
         };
 
         dispatch(loadCategory(category_list));
+        dispatch(setSearchLoading(true));
       })
       .catch((err) => {
         console.log("에러", err);
@@ -157,6 +164,10 @@ export default handleActions(
     [LOADING]: (state, action) =>
       produce(state, (draft) => {
         draft.is_loading = action.payload.is_loading;
+      }),
+    [SEARCH_LOADING]: (state, action) =>
+      produce(state, (draft) => {
+        draft.is_loading = action.payload.loading;
       }),
   },
   initialState

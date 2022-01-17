@@ -23,7 +23,6 @@ const MyPage = (props) => {
   const dispatch = useDispatch();
   const trackWrapRef = useRef(null);
   const [modalOpen, setModalOpen] = React.useState(false);
-  console.log(is_loading);
 
   const openModal = () => {
     setModalOpen(true);
