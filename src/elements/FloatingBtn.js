@@ -6,22 +6,24 @@ const FloatingBtn = (props) => {
   const { bubble } = props;
   if (bubble) {
     return (
-      <IconDiv
-        className="box"
-        href="https://docs.google.com/forms/d/e/1FAIpQLSddqIx8oAZcKLY_ULBSrWUCbw-zjrwZoG6fPCictsELoSemKg/viewform"
-      >
-        <AiFillGift
-          style={{
-            color: "F1134E",
-          }}
-          size="24"
-        ></AiFillGift>
-        <Bubble className="arrow_box"></Bubble>
-      </IconDiv>
+      <FloatingContainer>
+        <IconDiv
+          className="box"
+          href="https://docs.google.com/forms/d/e/1FAIpQLSddqIx8oAZcKLY_ULBSrWUCbw-zjrwZoG6fPCictsELoSemKg/viewform"
+        >
+          <AiFillGift
+            style={{
+              color: "F1134E",
+            }}
+            size="24"
+          ></AiFillGift>
+          <Bubble className="arrow_box"></Bubble>
+        </IconDiv>
+      </FloatingContainer>
     );
   }
   return (
-    <div>
+    <FloatingContainer>
       <IconDiv href="https://docs.google.com/forms/d/e/1FAIpQLSddqIx8oAZcKLY_ULBSrWUCbw-zjrwZoG6fPCictsELoSemKg/viewform">
         <AiFillGift
           style={{
@@ -30,21 +32,31 @@ const FloatingBtn = (props) => {
           size="24"
         ></AiFillGift>
       </IconDiv>
-    </div>
+    </FloatingContainer>
   );
 };
 
+const FloatingContainer = styled.div`
+  max-width: 425px;
+  width: 100%;
+  position: fixed;
+  bottom: 112px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 10px;
+  padding-right: 10px;
+`;
+
 const IconDiv = styled.a`
+  display: block;
   width: 36px;
   height: 36px;
   background-color: #fff;
-  justify-content: center;
-  align-items: center;
-  display: flex;
   border-radius: 36px;
-  position: fixed;
-  right: 20px;
-  bottom: 130px;
+  padding: 6px;
+  position: relative;
 
   &:hover .arrow_box {
     visibility: visible;
@@ -52,11 +64,11 @@ const IconDiv = styled.a`
 `;
 
 const Bubble = styled.div`
+  position: absolute;
+  right: 40px;
+  bottom: 5px;
   width: 105px;
   height: 28px;
-  position: fixed;
-  right: 60px;
-  bottom: 132px;
   visibility: hidden;
 
   background-image: url("/assets/images/bubbleImg.svg");

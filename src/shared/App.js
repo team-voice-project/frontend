@@ -40,6 +40,7 @@ function App() {
     }
 
     dispatch(chatActions.createSocketInstance());
+    
     return () => {
       dispatch(chatActions.destroySocketInstance());
     };
