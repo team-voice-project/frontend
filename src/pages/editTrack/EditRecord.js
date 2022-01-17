@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { actionCreators as editTrackActions } from "../../redux/modules/editTrack";
 
@@ -8,6 +9,7 @@ import Recorder from "../../components/editTrack/Recorder";
 import ScriptView from "../../components/editTrack/ScriptView";
 import { useDispatch } from "react-redux";
 import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/ri";
+import Script from "../../components/randomScript/Script";
 
 const EditRecord = ({ history }) => {
   const dispatch = useDispatch();
@@ -20,6 +22,7 @@ const EditRecord = ({ history }) => {
   const [script_active, setScriptActive] = useState(false);
   const [script_text, setScriptText] = useState("");
   const nextBtnRef = useRef(null);
+  const category = useSelector((state) => state.editTrack.category);
 
   useEffect(() => {
     const empty_voice = Object.values(voice_file).some((prop) => prop === null);
@@ -82,6 +85,7 @@ const EditRecord = ({ history }) => {
       <Container padding={"20px"} _className={"stretch-height"}>
         <div className={"edit-body"}>
           <strong className={"title"}>목소리 올리기</strong>
+          <Script category={category}></Script>
           <ScriptMemo ref={scriptRef} />
         </div>
       </Container>
