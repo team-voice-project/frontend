@@ -4,5 +4,6 @@ import Tag from "./Tag";
 import Font from "./Font";
 import Button from "./Button";
 import FloatingBtn from "./FloatingBtn";
+import Spinner from "./Spinner";
 
-export { Container, Text, Tag, Font, Button, FloatingBtn };
+export { Container, Text, Tag, Font, Button, FloatingBtn, Spinner };
