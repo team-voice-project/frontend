@@ -47,10 +47,10 @@ const Footer = (props) => {
         </IconDiv>
         <IconDiv
           className={activeNav === 4 ? "active" : "nav-item"}
-          // onClick={() => {
-          //   history.push("");
-          //  setActiveNav(4)
-          // }}
+          onClick={() => {
+            history.push("/chat/1");
+            setActiveNav(4);
+          }}
         >
           <IoMdChatboxes size="24px" cursor="pointer"></IoMdChatboxes>
         </IconDiv>

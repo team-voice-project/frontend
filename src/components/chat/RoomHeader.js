@@ -5,8 +5,7 @@ import { RiArrowLeftSLine } from "react-icons/ri";
 import { MdOutlineMoreVert } from "react-icons/md";
 import RoomModal from "./RoomModal";
 
-const RoomHeader = (props) => {
-  const { topMenu } = props;
+const RoomHeader = () => {
   const [modalOpen, setModalOpen] = React.useState(false);
 
   const openModal = () => {
@@ -18,10 +17,10 @@ const RoomHeader = (props) => {
     document.body.style.overflowY = "scroll";
   };
 
-  if (topMenu) {
-    return (
-      <>
-        <RoomModal props={props} open={modalOpen} close={closeModal} />
+  return (
+    <>
+      <RoomModal open={modalOpen} close={closeModal} />
+      <ChatHeader>
         <FlexSearchBar>
           <div>
             <RiArrowLeftSLine
@@ -45,10 +44,17 @@ const RoomHeader = (props) => {
             />
           </div>
         </FlexSearchBar>
-      </>
-    );
-  }
+      </ChatHeader>
+    </>
+  );
 };
+
+const ChatHeader = styled.header`
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+`;
 
 const FlexSearchBar = styled.div`
   display: flex;

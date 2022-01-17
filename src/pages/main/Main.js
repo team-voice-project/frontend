@@ -21,7 +21,6 @@ const Main = (props) => {
   const global_player_mode = useSelector((state) => state.globalPlayer.mode);
   const now_track = useSelector((state) => state.globalPlayer.now_track);
   const HAS_VISITED_BEFORE = localStorage.getItem("hasVisitedBefore");
-  console.log("mode", global_player_mode);
 
   useEffect(() => {
     if (!now_track?.musicSrc) {

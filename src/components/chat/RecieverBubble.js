@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import { formattedKrTime } from "../../shared/utils";
 
-const RecieverBubble = () => {
+const RecieverBubble = ({ message }) => {
   return (
     <div
       style={{
@@ -11,17 +12,15 @@ const RecieverBubble = () => {
         marginBottom: "20px",
       }}
     >
-      <Time>오후 8:00</Time>
-      <SenderDiv>
-        네네 알겠습니다. 요청 주신선주신 샘플대로 진행하여 보내드리도록 하겠슴둥
-      </SenderDiv>
+      <Time>{formattedKrTime(message.createdAt)}</Time>
+      <SenderDiv>{message.chatText}</SenderDiv>
     </div>
   );
 };
 
 export default RecieverBubble;
 
-const SenderDiv = styled.text`
+const SenderDiv = styled.div`
   background: #f1134e;
   color: white;
   font-size: 16px;
