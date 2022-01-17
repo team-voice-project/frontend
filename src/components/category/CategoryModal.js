@@ -20,9 +20,9 @@ const CategoryModal = ({ setShowModal, name, selectedTag }) => {
   const [tag_list, setTagList] = React.useState([]);
   const [is_disabled, setIsDisabled] = React.useState(true);
 
-  useEffect(() => {
-    dispatch(searchActions.loadCategoryDB(name));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(searchActions.loadCategoryDB(name));
+  // }, []);
 
   useEffect(() => {
     const trueActive = tag_list.filter((tag, idx) => {
@@ -71,11 +71,11 @@ const CategoryModal = ({ setShowModal, name, selectedTag }) => {
     });
 
     //state를 push로 넘기는 방법
-    // dispatch(searchActions.loadTagDB(category, ...tags));
     history.push({
       pathname: `/tagcategory`,
       state: { category: category, tag: tags },
     });
+    dispatch(searchActions.resetdata());
     setShowModal(false);
   };
 
