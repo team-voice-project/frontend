@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 
 import { useDispatch, useSelector } from "react-redux";
+import Skeleton from "../../components/mypage/Skeleton";
 
 import { Button, Font } from "../../elements/index";
 import OnBoarding from "../../components/category/Onboarding";
@@ -17,6 +18,7 @@ const Main = (props) => {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = React.useState(false);
   const [all_list, setAllList] = React.useState([]);
+  const is_loading = useSelector((state) => state.post.is_loading);
   const track_list = useSelector((state) => state.post.post_list);
   const global_player_mode = useSelector((state) => state.globalPlayer.mode);
   const now_track = useSelector((state) => state.globalPlayer.now_track);
@@ -158,7 +160,20 @@ const Main = (props) => {
           </Button>
           <DivText>나의 목소리를 올려서 사람들에게 들려주세요!</DivText>
         </Wrap>
-        {all_list &&
+        {is_loading === false ? (
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "space-between",
+            }}
+          >
+            {new Array(10).fill(1).map((_, i) => {
+              return <Skeleton key={i} />;
+            })}
+          </div>
+        ) : (
+          all_list &&
           all_list.map((list, idx) => {
             return (
               <React.Fragment key={idx}>
@@ -197,7 +212,8 @@ const Main = (props) => {
                 </TrackWrap>
               </React.Fragment>
             );
-          })}
+          })
+        )}
       </WrapDiv>
       <FloatingBtn bubble></FloatingBtn>
     </>

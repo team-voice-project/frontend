@@ -6,12 +6,14 @@ const SET_TRACK = "SET_TRACK";
 const SET_PROFILE = "SET_PROFILE";
 const SET_LIKELIST = "SET_LIKELIST";
 const SET_RANKDATA = "SET_RANKDATA";
+const MYPAGE_LOADING = "MYPAGE_LOADING";
 
 const initialState = {
   track: "",
   user_info: "",
   like_track: "",
   rank_data: "",
+  is_loading: false,
 };
 
 const setTrack = createAction(SET_TRACK, (track_info) => ({ track_info }));
@@ -22,6 +24,7 @@ const setLikelist = createAction(SET_LIKELIST, (like_track) => ({
 const setRankdata = createAction(SET_RANKDATA, (rank_data) => ({
   rank_data,
 }));
+const setMypageLoading = createAction(MYPAGE_LOADING, (loading) => ({ loading }));
 // middlewares
 const setTrackDB = (userId) => {
   return (dispatch, getState, { history }) => {
@@ -30,6 +33,7 @@ const setTrackDB = (userId) => {
       dispatch(setTrack(res.data.results));
       dispatch(setUser(res.data.userDate));
       dispatch(setLikelist(res.data.likesArray));
+      dispatch(setMypageLoading(true));
     });
   };
 };
@@ -52,6 +56,10 @@ export default handleActions(
     [SET_RANKDATA]: (state, action) =>
       produce(state, (draft) => {
         draft.rank_data = action.payload;
+      }),
+    [MYPAGE_LOADING]: (state, action) =>
+      produce(state, (draft) => {
+        draft.is_loading = action.payload.loading;
       }),
   },
   initialState

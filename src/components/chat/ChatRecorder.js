@@ -13,8 +13,9 @@ import pushAudio from "../../shared/audio/push.mp3";
 import { BsFillMicFill } from "react-icons/bs";
 import { IoPlaySharp, IoStopSharp } from "react-icons/io5";
 import { ImFolder } from "react-icons/im";
+import { IoIosSend } from "react-icons/io";
 
-const Recorder = ({
+const ChatRecorder = ({
   setVoiceFile,
   setScriptActive,
   setScriptText,
@@ -77,9 +78,9 @@ const Recorder = ({
     });
 
     // 스크립트 스크린 활성화
-    setScriptActive(true);
-    setScriptText(scriptRef.current.value);
-    window.document.body.style.overflow = "hidden";
+    // setScriptActive(true);
+    // setScriptText(scriptRef.current.value);
+    // window.document.body.style.overflow = "hidden";
 
     // 녹음 시 버튼 효과음이 들어가는것을 방지하기 위해 효과음 runtime 만큼 딜레이 후 녹음 진행
     setTimeout(() => {
@@ -119,8 +120,8 @@ const Recorder = ({
     });
 
     setStopWatchMode("stop");
-    setScriptActive(false);
-    window.document.body.style.overflow = "";
+    // setScriptActive(false);
+    // window.document.body.style.overflow = "";
 
     // 녹음기 정지
     if (recorder?.state === "recording") {
@@ -162,8 +163,8 @@ const Recorder = ({
 
   const handleClickResetRecord = () => {
     setStopWatchMode("reset");
-    setScriptActive(false);
-    window.document.body.style.overflow = "";
+    // setScriptActive(false);
+    // window.document.body.style.overflow = "";
 
     setChunks([]);
     setControls({
@@ -173,7 +174,6 @@ const Recorder = ({
     });
 
     playerRef.current.src = null;
-    uploaderRef.current.value = null;
     setHasAudio(false);
     setVoiceFile({
       file: null,
@@ -222,8 +222,8 @@ const Recorder = ({
 
     setUploadStateBubble({ state: true, text: "파일이 읽어들이는중.." });
     setStopWatchMode("reset");
-    setScriptActive(false);
-    window.document.body.style.overflow = "";
+    // setScriptActive(false);
+    // window.document.body.style.overflow = "";
 
     setControls({
       record: false,
@@ -369,17 +369,11 @@ const Recorder = ({
             )}
           </div>
 
-          <div className={`side-item upload ${has_audio && "disabled"}`}>
+          <div className={`side-item upload ${!has_audio && "disabled"}`}>
             <label className={"btn"}>
-              <input
-                type="file"
-                onChange={handleUploadAudioFile}
-                ref={uploaderRef}
-                accept={"audio/*"}
-              />
-              <ImFolder />
+              <IoIosSend />
             </label>
-            <span className={"btn-text"}>파일 첨부</span>
+            <span className={"btn-text"}>전송</span>
           </div>
         </div>
       </Container>
@@ -387,7 +381,7 @@ const Recorder = ({
   );
 };
 
-export default Recorder;
+export default ChatRecorder;
 
 const RecorderWrap = styled.div`
   height: 40vh;
@@ -569,7 +563,7 @@ const RecorderWrap = styled.div`
       width: 48px;
       height: 48px;
       color: #fff;
-      background: #2c2b2b;
+      background: #595959;
     }
 
     .btn-text {
@@ -583,9 +577,7 @@ const RecorderWrap = styled.div`
     }
 
     &.upload {
-      input {
-        display: none;
-      }
+      font-size: 26px;
     }
   }
 
