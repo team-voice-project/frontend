@@ -63,6 +63,13 @@ const PortfolioPage = (props) => {
             </div>
           </div>
         </Profile>
+        <UpBtn
+            onClick={() => {
+              history.push("/edit/base");
+            }}
+          >
+            채팅하기{" "}
+          </UpBtn>
       </div>
       {voice === "voice_rank" ? (
         <div
@@ -262,6 +269,18 @@ const TrackGrid = styled.div`
   margin: auto;
   display: flex;
   flex-wrap: wrap;
+`;
+const UpBtn = styled.button`
+  font-family: "GmarketSansBold", serif;
+  font-weight: 300;
+  width: 100%;
+  height: 50px;
+  margin-top: 20px;
+  font-size: 18px;
+  border-radius: 10px;
+  border: none;
+  background: #f1134e;
+  color: white;
 `;
 
 const TrackDiv = styled.div`

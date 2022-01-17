@@ -79,15 +79,7 @@ const Script = (props) => {
       return null;
     }
   };
-  return (
-    <>
-      <div>
-        <Font fontSize="12px" margin="0px 0px 20px 0px">
-          {randomData()}
-        </Font>
-      </div>
-    </>
-  );
+  return randomData();
 };
 
 export default Script;

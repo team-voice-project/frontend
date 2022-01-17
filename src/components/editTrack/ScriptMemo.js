@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { autoHeightArea } from "../../shared/utils";
 
 const ScriptMemo = forwardRef((props, ref) => {
+  console.log(props.randomScript)
   return (
     <MemoWrap>
       <textarea
@@ -10,6 +11,7 @@ const ScriptMemo = forwardRef((props, ref) => {
         // onKeyUp={autoHeightArea}
         // onKeyDown={autoHeightArea}
         ref={ref}
+        defaultValue={props.randomScript}
       />
     </MemoWrap>
   );

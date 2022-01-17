@@ -85,7 +85,7 @@ const EditRecord = ({ history }) => {
       <Container padding={"20px"} _className={"stretch-height"}>
         <div className={"edit-body"}>
           <strong className={"title"}>목소리 올리기</strong>
-          <Script category={category}></Script>
+          {/* <Script category={category}></Script> */}
           <ScriptMemo ref={scriptRef} />
         </div>
       </Container>
