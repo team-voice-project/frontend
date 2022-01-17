@@ -82,7 +82,7 @@ const Script = (props) => {
   return (
     <>
       <div>
-        <Font fontSize="12px" margin="0px 0px 20px 0px">
+        <Font fontSize="12px" margin="0px 0px 20px 0px" color="#AEAEAE">
           {randomData()}
         </Font>
       </div>
