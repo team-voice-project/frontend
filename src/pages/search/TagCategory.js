@@ -183,11 +183,6 @@ const TagCategory = (props) => {
               next={fetchData}
               hasMore={has_more}
               loader={<Spinner />}
-              endMessage={
-                <p style={{ textAlign: "center" }}>
-                  <b>Yay! You have seen it all</b>
-                </p>
-              }
             >
               <TrackGrid ref={trackWrapRef}>
                 {category &&

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { history } from "../../redux/configStore";
 import { useSelector } from "react-redux";
 import { FOOTER_ESCAPE_LIST } from "../../shared/utils";
+import { newGetCookie } from "../../shared/Cookie";
 
 import { AiFillHome } from "react-icons/ai";
 import { IoMdChatboxes } from "react-icons/io";
@@ -14,6 +15,7 @@ import { MdLogin } from "react-icons/md";
 const Footer = () => {
   const is_login = useSelector((state) => state.user.is_login);
   const pathName = useSelector((state) => state.router.location.pathname);
+  const uid = newGetCookie("uid");
   const [render, setRender] = useState(true);
 
   const urlCheck = () => {
@@ -49,7 +51,6 @@ const Footer = () => {
         >
           <AiFillHome size="24px" cursor="pointer"></AiFillHome>
         </IconDiv>
-        {/* {category()&&category()} */}
         <IconDiv
           className={
             pathName === "/category" ||
@@ -86,28 +87,26 @@ const Footer = () => {
           <HiOutlineSearch size="24px" cursor="pointer"></HiOutlineSearch>
         </IconDiv>
 
-        {/* {is_login === true ? (
+        {is_login === true ? (
           <IconDiv
-            className={pathName === 4 ? "active" : "nav-item"}
-            // onClick={() => {
-            //   history.push(`/chat/${id}`);
-                        setActiveNav(4);
-
-            // }}
+            className={pathName === `/chat/${uid}` ? "active" : "nav-item"}
+            onClick={() => {
+              history.push(`/chat/${uid}`);
+            }}
           >
             <IoMdChatboxes size="24px" cursor="pointer"></IoMdChatboxes>
           </IconDiv>
         ) : (
           <IconDiv
-            className={pathName === "/login" ? "active" : "nav-item"}
+            className="nav-item"
             onClick={() => {
-              window.alert("로그인이 필요한 페이지 입니다.");
+              window.alert("로그인이 필요한 페이지입니다.");
               history.push("/login");
             }}
           >
             <IoMdChatboxes size="24px" cursor="pointer"></IoMdChatboxes>
           </IconDiv>
-        )} */}
+        )}
 
         {is_login === true ? (
           <IconDiv
@@ -137,12 +136,15 @@ const Flex = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0px 35px;
+  padding: 0px 20px;
   margin: 0 auto;
+  max-width: 425px;
   width: 100%;
   height: 56px;
   position: fixed;
   bottom: 0;
+  left: 0;
+  right: 0;
   background-color: #000;
   z-index: 2000;
 
