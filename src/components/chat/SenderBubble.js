@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import Profile from "../../pages/portfolioPage/profileIMG.png";
+import { formattedKrTime } from "../../shared/utils";
 
-const SenderBubble = () => {
+const SenderBubble = ({ message }) => {
   return (
     <div
       style={{
@@ -12,10 +12,10 @@ const SenderBubble = () => {
       }}
     >
       <div>
-        <ProfileImg src={Profile} />
+        <ProfileImg src={message.sendUserId.profileImage} />
       </div>
-      <SenderDiv>네네 알겠습니다.</SenderDiv>
-      <Time>오후 8:00</Time>
+      <SenderDiv>{message.chatText}</SenderDiv>
+      <Time>{formattedKrTime(message.createdAt)}</Time>
     </div>
   );
 };
@@ -36,6 +36,9 @@ const ProfileImg = styled.img`
   width: 32px;
   height: 32px;
   margin-right: 10px;
+  border-radius: 50%;
+  position: relative;
+  top: 4px;
 `;
 
 const Time = styled.p`

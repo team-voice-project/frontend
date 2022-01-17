@@ -85,11 +85,14 @@ const Footer = () => {
         >
           <HiOutlineSearch size="24px" cursor="pointer"></HiOutlineSearch>
         </IconDiv>
+
         {/* {is_login === true ? (
           <IconDiv
             className={pathName === 4 ? "active" : "nav-item"}
             // onClick={() => {
             //   history.push(`/chat/${id}`);
+                        setActiveNav(4);
+
             // }}
           >
             <IoMdChatboxes size="24px" cursor="pointer"></IoMdChatboxes>
