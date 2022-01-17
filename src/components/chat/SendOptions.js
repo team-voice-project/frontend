@@ -1,31 +1,69 @@
 import React from "react";
 import styled from "styled-components";
+import { byteToMegaByte, convertAudio } from "../../shared/utils";
+
 import { BsFillMicFill } from "react-icons/bs";
 import { AiFillFileText, AiFillFolder } from "react-icons/ai";
 import { ImImage } from "react-icons/im";
 
-const SendOptions = () => {
+const SendOptions = ({ setRecordModal, setRequestModal }) => {
+  const handleOpenRecordModal = () => {
+    setRecordModal(true);
+  };
+
+  const handleOpenRequestModal = () => {
+    setRequestModal(true);
+  };
+
+  const handleChangeUploadImage = (e) => {
+    if (!e.target.files[0]) {
+      return;
+    }
+
+    console.log(e.target.files[0], e.target.value);
+  };
+
+  const handleChangeUploadVoice = async (e) => {
+    if (!e.target.files[0]) {
+      return;
+    }
+    const converted = await convertAudio(e.target.files[0], "mp3");
+    console.log(converted, converted.name);
+  };
+
   return (
     <List>
-      <IconDiv>
+      <IconDiv onClick={handleOpenRecordModal}>
         <OptionsDiv>
           <BsFillMicFill />
         </OptionsDiv>
         <OptionsName>녹음</OptionsName>
       </IconDiv>
-      <IconDiv>
+      <IconDiv onClick={handleOpenRequestModal}>
         <OptionsDiv>
           <AiFillFileText />
         </OptionsDiv>
         <OptionsName>샘플 요청</OptionsName>
       </IconDiv>
-      <IconDiv>
+      <IconDiv htmlFor={"imageUploader"}>
+        <input
+          type="file"
+          accept={"image/*"}
+          id={"imageUploader"}
+          onChange={handleChangeUploadImage}
+        />
         <OptionsDiv>
           <ImImage />
         </OptionsDiv>
         <OptionsName>이미지 첨부</OptionsName>
       </IconDiv>
-      <IconDiv>
+      <IconDiv htmlFor={"voiceUploader"}>
+        <input
+          type="file"
+          accept={"audio/*"}
+          id={"voiceUploader"}
+          onChange={handleChangeUploadVoice}
+        />
         <OptionsDiv>
           <AiFillFolder />
         </OptionsDiv>
@@ -68,8 +106,12 @@ const OptionsDiv = styled.div`
   cursor: pointer;
 `;
 
-const IconDiv = styled.div`
+const IconDiv = styled.label`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  input[type="file"] {
+    display: none;
+  }
 `;
