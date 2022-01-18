@@ -97,6 +97,32 @@ const ChatRoom = (props) => {
     chat?.emit("leaveRoom", { userId: uid, qUserId: another });
   };
 
+  // useEffect(() => {
+  //   const room_id = room?.roomId;
+  //   if (!room_id) {
+  //     alert("방 입장 불가");
+  //     return;
+  //   }
+
+  //   const splitted = room_id.split("_");
+  //   const uid = Number(newGetCookie("uid"));
+  //   const another = Number(splitted.filter((id) => id != uid)[0]);
+
+  //   // const Id = {userId:uid, qUserId:another}
+  //   console.log("타입?", typeof uid, typeof another);
+  //   // userId undefined
+  //   const getChat = async (Id, page, chat) => {
+  //     const res = await apis.getChatList(
+  //       (Id = { userId: uid, qUserId: another }),
+  //       (page = 1),
+  //       (chat = 20)
+  //     );
+  //     const data = await res.data;
+  //     console.log("data::", data);
+  //   };
+  //   getChat();
+  // }, []);
+
   return (
     <>
       <RoomHeader />
