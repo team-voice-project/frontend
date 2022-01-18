@@ -76,9 +76,8 @@ const MenuModal = (props) => {
               <Container>
                 <div
                   style={{
-                    display: "flex",
-                    justifyContent: "end",
-                    alignItems: "center",
+                    display: "block",
+                    textAlign: "end",
                   }}
                 >
                   {isMe && (

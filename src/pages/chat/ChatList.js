@@ -3,8 +3,18 @@ import styled from "styled-components";
 
 import { Font, Container } from "../../elements";
 import ChatBlock from "../../components/chat/ChatBlock";
+import { newGetCookie } from "../../shared/Cookie";
+import { apis } from "../../shared/api";
 
 const ChatList = () => {
+  // React.useEffect(() => {
+  //   const id = newGetCookie("uid");
+  //   const userId = id;
+  //   console.log(userId);
+  //   apis.setChatList(userId).then((res) => {
+  //     console.log(res);
+  //   });
+  // }, []);
   return (
     <ChatListWrap>
       <Container>
