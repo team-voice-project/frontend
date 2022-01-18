@@ -28,11 +28,11 @@ const setSearchLoading = createAction(SEARCH_LOADING, (loading) => ({
 }));
 
 //middleware
-const getSearchDB = (keyword, page, track = 12) => {
+const getSearchDB = (keyword, page, track = 60) => {
   return function (dispatch, getState, { history }) {
     apis.search(keyword, page, track).then((res) => {
       let is_next = null;
-      if (res.data.tracks.length < 12) {
+      if (res.data.tracks.length < 60) {
         is_next = false;
         page = 0;
       } else {
@@ -55,7 +55,7 @@ const loadCategoryDB = (
   tag2 = "",
   tag3 = "",
   page,
-  track = 12
+  track = 60
 ) => {
   return function (dispatch, getState, { history }) {
     apis
@@ -65,7 +65,7 @@ const loadCategoryDB = (
         console.log("페이지뭐야?", page);
         let next_page = page;
         let is_next = null;
-        if (res.data.tracks.tracks.length < 12) {
+        if (res.data.tracks.tracks.length < 60) {
           is_next = false;
           next_page = 1;
         } else {
@@ -97,7 +97,7 @@ const loadTagDB = (
   tag2 = "",
   tag3 = "",
   page,
-  track = 12
+  track = 60
 ) => {
   return function (dispatch, getState, { history }) {
     apis
@@ -106,7 +106,7 @@ const loadTagDB = (
         const tags = [`${tag1}`, `${tag2}`, `${tag3}`];
         let next_page = page;
         let is_next = null;
-        if (res.data.tracks.tracks.length < 12) {
+        if (res.data.tracks.tracks.length < 60) {
           is_next = false;
           next_page = 1;
         } else {
