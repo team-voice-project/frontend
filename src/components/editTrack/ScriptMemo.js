@@ -1,12 +1,13 @@
 import React, { forwardRef } from "react";
 import styled from "styled-components";
-import { autoHeightArea } from "../../shared/utils";
 
 const ScriptMemo = forwardRef((props, ref) => {
   return (
     <MemoWrap>
       <textarea
-        placeholder={"녹음 시 필요한 내용을 작성해서 읽어보세요!"}
+        placeholder={
+          props.random_script || "녹음 시 필요한 내용을 작성해서 읽어보세요!"
+        }
         ref={ref}
       />
     </MemoWrap>

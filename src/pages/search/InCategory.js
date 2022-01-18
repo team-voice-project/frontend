@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import { actionCreators as postActions } from "../../redux/modules/post";
+import Skeleton from "../../components/mypage/Skeleton";
 import { actionCreators as searchActions } from "../../redux/modules/search";
 import { apis } from "../../shared/api";
 import CategoryModal from "../../components/category/CategoryModal";
@@ -20,6 +21,7 @@ const InCategory = (props) => {
 
   const tag_list = useSelector((state) => state.post.tag_list);
   const category = useSelector((state) => state.search.list);
+  const searchLoading = useSelector((state) => state.search.is_loading);
   const category_page = useSelector((state) => state.search.page);
   const has_more = useSelector((state) => state.search.has_more);
   const trackWrapRef = useRef(null);
@@ -88,8 +90,20 @@ const InCategory = (props) => {
             )}
           </div>
         </Flex>
-
-        {category && category.length > 0 ? (
+        {searchLoading === false ? (
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "space-between",
+              marginTop: "60px",
+            }}
+          >
+            {new Array(10).fill(1).map((_, i) => {
+              return <Skeleton key={i} />;
+            })}
+          </div>
+        ) : category && category.length > 0 ? (
           <InfiniteScroll
             dataLength={category.length}
             next={fetchData}

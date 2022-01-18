@@ -7,7 +7,7 @@ import SingleAudioPlayer from "../../shared/SingleAudioPlayer";
 
 import { HiHeart } from "react-icons/hi";
 import { RiChat4Fill } from "react-icons/ri";
-import { Button, Font } from "../../elements";
+import { Button } from "../../elements";
 
 const OnBoarding = ({ onClose }) => {
   return (
@@ -17,20 +17,9 @@ const OnBoarding = ({ onClose }) => {
         <BoxDiv>
           <Flex>
             <SmallCircle></SmallCircle>
-            <div
-              style={{
-                width: "80px",
-                height: "20px",
-                backgroundColor: "#ddd",
-                margin: "8px",
-              }}
-            >
-              <Font title margin="2px 0px 0px 8px"></Font>
-            </div>
+            <NameDiv></NameDiv>
           </Flex>
-          <ImgDiv>
-            <OAOImage></OAOImage>
-          </ImgDiv>
+          <ImgDiv></ImgDiv>
 
           <FlexTag>
             <div style={{ display: "inline-block" }}>
@@ -54,7 +43,7 @@ const OnBoarding = ({ onClose }) => {
           </FlexCount>
         </BoxDiv>
         <Button bg margin="0px 0px 15px 0px"></Button>
-        <Button border margin="0px 0px 25px 0px"></Button>
+        <Button border margin="0px 0px 25px 0px" _onClick={onClose}></Button>
       </Container>
     </Background>
   );
@@ -113,24 +102,91 @@ const FlexCount = styled.div`
   }
 `;
 
-const SmallCircle = styled.img`
+const SmallCircle = styled.div`
   width: 35px;
   height: 35px;
   border-radius: 35px;
-  background-color: #b1aeae;
   border: none;
+  overflow: hidden;
+  position: relative;
+  background-color: #2c2b2b;
+  @keyframes loading {
+    0% {
+      transform: translateX(0);
+    }
+    50%,
+    100% {
+      transform: translateX(460px);
+    }
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 100%;
+    background: linear-gradient(to right, #2c2b2b, #ddd, #2c2b2b);
+    animation: loading 2s infinite linear;
+  }
+`;
+
+const NameDiv = styled.div`
+  width: 80px;
+  height: 20px;
+  background-color: #ddd;
+  margin: 8px;
+  overflow: hidden;
+  position: relative;
+  background-color: #2c2b2b;
+  @keyframes loading {
+    0% {
+      transform: translateX(0);
+    }
+    50%,
+    100% {
+      transform: translateX(460px);
+    }
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 100%;
+    background: linear-gradient(to right, #2c2b2b, #ddd, #2c2b2b);
+    animation: loading 2s infinite linear;
+  }
 `;
 
 const ImgDiv = styled.div`
   width: 160px;
   height: 160px;
   margin: 48px auto 25px auto;
-  background-color: #b1aeae;
-`;
-
-const OAOImage = styled.img`
-  width: 160px;
-  height: 160px;
+  overflow: hidden;
+  position: relative;
+  border: none;
+  background-color: #2c2b2b;
+  @keyframes loading {
+    0% {
+      transform: translateX(0);
+    }
+    50%,
+    100% {
+      transform: translateX(460px);
+    }
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 100%;
+    background: linear-gradient(to right, #2c2b2b, #ddd, #2c2b2b);
+    animation: loading 2s infinite linear;
+  }
 `;
 
 const CountText = styled.div`
@@ -152,6 +208,7 @@ const TagBox = styled.button`
   margin: 10px 5px;
   font-family: "Pretendard Variable", serif;
   height: 28px;
+  width: 70px;
   font-size: 12px;
   color: white;
   padding: 5px 10px;
@@ -159,6 +216,28 @@ const TagBox = styled.button`
   border: none;
   background-color: #000;
   cursor: Default;
+  overflow: hidden;
+  position: relative;
+  background-color: #2c2b2b;
+  @keyframes loading {
+    0% {
+      transform: translateX(0);
+    }
+    50%,
+    100% {
+      transform: translateX(460px);
+    }
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 100%;
+    background: linear-gradient(to right, #2c2b2b, #ddd, #2c2b2b);
+    animation: loading 2s infinite linear;
+  }
 `;
 
 export default OnBoarding;
