@@ -77,7 +77,7 @@ const MenuModal = (props) => {
                 <div
                   style={{
                     display: "flex",
-                    justifyContent: "right",
+                    justifyContent: "end",
                     alignItems: "center",
                   }}
                 >
