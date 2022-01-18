@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Container from "../../elements/Container";
 import { IoIosClose } from "react-icons/io";
@@ -15,27 +15,37 @@ import { apis } from "../../shared/api";
 import { RiChat4Fill } from "react-icons/ri";
 import DeleteModal from "./DeleteModal";
 import { actionCreators as commentActions } from "../../redux/modules/comment";
-
+import { actionCreators as postActions } from "../../redux/modules/post";
+import { actionCreators } from "../../redux/modules/mypage";
 import { newGetCookie } from "../../shared/Cookie";
 
 const MenuModal = (props) => {
   const dispatch = useDispatch();
   const { open, close } = props;
   const state = useSelector((state) => state.comment.comments);
-  const [LikeBtn, setLikeBtn] = React.useState(false);
   const [LikeCnt, setLikeCnt] = React.useState();
   const userId = props.props.userId;
   const trackId = props.props?.trackId;
   const nick = newGetCookie("nick");
   const isMe = props.props.User.nickname === nick;
+  const setTrack = () => {
+    apis.getProfile().then((res) => {
+      const userId = res.data.user.userId;
+      dispatch(actionCreators.setTrackDB(userId));
+    });
+  };
+  const setMainTrack = () => {
+    dispatch(postActions.loadPostDB());
+  };
 
   const likeBtn = (trackId) => {
     apis.likeTrack(trackId).then((res) => {
       const boolean = res.data.result.like;
       const likeCnt = res.data.result.likeCnt;
       localStorage.setItem(trackId, boolean);
-      setLikeBtn(boolean);
       setLikeCnt(likeCnt);
+      setTrack();
+      setMainTrack();
     });
   };
 
@@ -140,7 +150,7 @@ const MenuModal = (props) => {
                       lineHeight: "50%",
                     }}
                   >
-                    {local === "true" || LikeBtn ? (
+                    {local === "true" ? (
                       <BsFillHeartFill
                         onClick={() => {
                           likeBtn(trackId);

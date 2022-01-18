@@ -39,9 +39,14 @@ const deleteCommentDB = (tracksId, commentId) => {
 
 const addCommentDB = (trackId, comment) => {
   return function (dispatch, getState, { history }) {
-    apis.commentTrack(trackId, comment).then((res) => {
-      dispatch(addComment(trackId, res.data.comments));
-    });
+    apis
+      .commentTrack(trackId, comment)
+      .then((res) => {
+        dispatch(addComment(trackId, res.data.comments));
+      })
+      .catch((err) => {
+        window.alert("내용을 입력해주세요!");
+      });
   };
 };
 

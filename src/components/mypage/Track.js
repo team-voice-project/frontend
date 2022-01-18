@@ -122,7 +122,7 @@ const Track = (props) => {
 
               <div style={{ display: "flex", alignItems: "center" }}>
                 <RiChat4Fill style={{ marginRight: "5px", marginTop: "3px" }} />
-                <Text>{props?.Comments?.length}</Text>
+                <Text>{props?.CommentCnt?.commentCnt}</Text>
               </div>
             </div>
           </TextDiv>
