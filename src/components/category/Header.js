@@ -25,13 +25,13 @@ const Header = (props) => {
         ></L>
         <FlexIcon>
           <Temdiv>
-            <BsBellFill
+            {/* <BsBellFill
               cursor="pointer"
               size="22"
               // onClick={() => {
               //   history.push("/searchkeyword");
               // }}
-            />
+            /> */}
           </Temdiv>
         </FlexIcon>
       </FlexSearchBar>
