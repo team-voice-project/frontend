@@ -50,11 +50,14 @@ const Main = (props) => {
     dispatch(postActions.loadPostDB());
   }, []);
 
+
   useEffect(() => {
     if (HAS_VISITED_BEFORE) {
       return;
     }
     setShowModal(true);
+
+ 
   }, [HAS_VISITED_BEFORE]);
 
   const handleClose = () => {
@@ -212,7 +215,7 @@ const Main = (props) => {
           })
         )}
       </WrapDiv>
-      <FloatingBtn bubble></FloatingBtn>
+      <FloatingBtn bubble />
     </>
   );
 };
