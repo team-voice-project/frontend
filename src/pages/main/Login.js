@@ -99,10 +99,6 @@ const LoginButtonG = styled.a`
   background-image: url("/assets/images/google.svg");
   background-repeat: no-repeat;
   background-size: cover;
-  @media screen and (max-width: 360px) {
-    height: 45px;
-    margin-bottom: 10px;
-  }
 `;
 
 const LoginButtonN = styled.a`
@@ -122,10 +118,6 @@ const LoginButtonN = styled.a`
   background-image: url("/assets/images/naver.svg");
   background-repeat: no-repeat;
   background-size: cover;
-  @media screen and (max-width: 360px) {
-    height: 45px;
-    margin-bottom: 10px;
-  }
 `;
 
 const LoginButtonK = styled.a`
@@ -145,10 +137,6 @@ const LoginButtonK = styled.a`
   background-image: url("/assets/images/kakao.png");
   background-repeat: no-repeat;
   background-size: cover;
-  @media screen and (max-width: 360px) {
-    height: 45px;
-    margin-bottom: 10px;
-  }
 `;
 
 export default Login;
