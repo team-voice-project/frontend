@@ -4,43 +4,6 @@ import { newGetCookie } from "../../shared/Cookie";
 
 import io from "socket.io-client";
 
-// const joinRoom = () => {
-//   console.log("룸 입장", socket);
-//   socket.emit("joinRoom", { userId: 1, qUserId: 2 });
-// };
-//
-// const leaveRoom = () => {
-//   console.log("룸 나가기");
-//   socket.emit("leaveRoom", { userId: 1, qUserId: 2 });
-// };
-//
-// const receiveMessage = () => {
-//   socket.on("chat", (data) => {
-//     console.log("받은 메세지", data);
-//   });
-// };
-//
-// const handleSendMessage = () => {
-//   console.log("채팅 보내기");
-//   socket.emit("room", {
-//     userId: 1,
-//     sendUserId: 2,
-//     chatText: "보내는 메세지 .",
-//   });
-// };
-//
-// useEffect(() => {
-//   console.log("처음 소켓 상태:", socket);
-//   console.log("채팅방 입장");
-//
-//   joinRoom();
-//   receiveMessage();
-//
-//   return () => {
-//     socket.close();
-//   };
-// }, []);
-
 const SET_SOCKET = "SET_SOCKET";
 const DESTROY_SOCKET = "DESTROY_SOCKET";
 const UPDATE_ROOM_LIST = "UPDATE_ROOM_LIST";
@@ -80,6 +43,7 @@ const createSocketInstance = () => {
       if (!userId) {
         return;
       }
+      
       // console.log("초기 룸 입장: ", { userId: 1, qUserId: 2 });
       instance?.emit("login", { userId });
 
