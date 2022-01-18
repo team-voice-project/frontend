@@ -1,33 +1,41 @@
 import React from "react";
 import styled from "styled-components";
 import { Font } from "../../elements";
-import { history } from '../../redux/configStore'
+import { history } from "../../redux/configStore";
 
-const ChatBlock = () => {
-  const handleJoinChatRoom = () => {
-    console.log("채팅방 입장");
-    history.push('/chatroom/1_2')
+const ChatBlock = (props) => {
+  const my_Id = props.receiveUserId;
+  const userId = props.sendUserId.userId;
+
+  const createRoomNumber = () => {
+    const total_Id = [my_Id, userId];
+    return total_Id
+      .map(Number)
+      .sort((a, b) => a - b)
+      .join("_");
   };
 
+  const roomId = createRoomNumber();
+
+  const handleJoinChatRoom = () => {
+    console.log("채팅방 입장");
+    history.push(`/chatroom/${roomId}`);
+  };
+  console.log(props);
   return (
     <ChatBlockItem onClick={handleJoinChatRoom}>
       <div className={"chat-profile"}>
-        <img
-          src="https://uploadsimgandtrackstest.s3.ap-northeast-2.amazonaws.com/images/nfnm0d1g0f1641901418130.jpeg"
-          alt=""
-        />
+        <img src={props.sendUserId.profileImage} alt="" />
       </div>
       <div className={"chat-display"}>
         <div className={"display-top"}>
           <Font title _className={"user-name"}>
-            최세영
+            {props.sendUserId.nickname}
           </Font>
           <span className={"last-modified"}>어제</span>
         </div>
         <div className={"display-bottom"}>
-          <span className={"chat-message"}>
-            안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요?
-          </span>
+          <span className={"chat-message"}>{props.chatText}</span>
         </div>
       </div>
     </ChatBlockItem>

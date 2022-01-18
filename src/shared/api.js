@@ -86,5 +86,5 @@ export const apis = {
   getMenuInfoDB: () => api.get("/api/tracks/listinfo"),
   getTrackInfoDB: (id) => api.get(`/api/tracks/${id}`),
   // 채팅 API
-  setChatList: (userId) => api.get(`/api/chat/list`, { userId }),
+  setChatList: (userId) => api.post(`/api/chat/list`, { userId }),
 };
