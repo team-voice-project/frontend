@@ -18,7 +18,11 @@ const Header = (props) => {
   if (topMenu) {
     return (
       <FlexSearchBar>
-        <L></L>
+        <L
+          onClick={() => {
+            history.push("/");
+          }}
+        ></L>
         <FlexIcon>
           <Temdiv>
             <BsBellFill
@@ -83,6 +87,7 @@ const L = styled.div`
   width: 60px;
   height: 28px;
   background-color: black;
+  cursor: pointer;
 
   background-image: url("/assets/images/logo.png");
   background-repeat: no-repeat;

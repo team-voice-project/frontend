@@ -6,9 +6,11 @@ import Skeleton from "../../components/mypage/Skeleton";
 
 import { Button, Font } from "../../elements/index";
 import OnBoarding from "../../components/category/Onboarding";
+import OnboadingSkeleton from "../../components/category/OnboadingSkeleton";
 import Header from "../../components/category/Header";
 import PlayBox from "../../components/category/PlayBox";
 import FloatingBtn from "../../elements/FloatingBtn";
+import { setCookie, getOnbCookie, deleteCookie } from "../../shared/Cookie";
 
 import { actionCreators as postActions } from "../../redux/modules/post";
 
@@ -22,7 +24,7 @@ const Main = (props) => {
   const track_list = useSelector((state) => state.post.post_list);
   const global_player_mode = useSelector((state) => state.globalPlayer.mode);
   const now_track = useSelector((state) => state.globalPlayer.now_track);
-  const HAS_VISITED_BEFORE = localStorage.getItem("hasVisitedBefore");
+  const HAS_VISITED_BEFORE = getOnbCookie("hasVisitedBefore");
 
   useEffect(() => {
     if (!now_track?.musicSrc) {
@@ -48,18 +50,20 @@ const Main = (props) => {
     dispatch(postActions.loadPostDB());
   }, []);
 
-  useEffect(async () => {
-    if (HAS_VISITED_BEFORE && HAS_VISITED_BEFORE > new Date()) {
+
+  useEffect(() => {
+    if (HAS_VISITED_BEFORE) {
       return;
     }
+    setShowModal(true);
 
-    await setShowModal(true);
-
-    // TODO: 로컬스토리지에서 쿠키 값으로 변경 할 것.
-    let expires = new Date();
-    expires = expires.setHours(expires.getHours() + 24);
-    localStorage.setItem("hasVisitedBefore", expires);
+ 
   }, [HAS_VISITED_BEFORE]);
+
+  const handleClose = () => {
+    setShowModal(false);
+    setCookie("hasVisitedBefore", "true", 1);
+  };
 
   const changeBoxListData = () => {
     let idx = 0;
@@ -136,12 +140,14 @@ const Main = (props) => {
     setAllList(_list);
   };
 
-  const handleClose = () => setShowModal(false);
-
   return (
     <>
       <Header topMenu props={props} />
-      {showModal && <OnBoarding onClose={handleClose} />}
+
+      {is_loading === false
+        ? showModal && <OnboadingSkeleton onClose={handleClose} />
+        : showModal && <OnBoarding onClose={handleClose} />}
+
       <WrapDiv>
         <Wrap>
           <Button

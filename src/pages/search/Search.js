@@ -215,7 +215,7 @@ const FlexDiv = styled.div`
   background-color: #000;
   position: fixed;
   top: 60px;
-  z-index: 9999;
+  z-index: 8888;
 `;
 
 const Flex = styled.div`

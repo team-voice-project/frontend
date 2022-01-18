@@ -26,6 +26,14 @@ const newGetCookie = (key) => {
     .split(`-${key}=`)[1];
 };
 
+const getOnbCookie = (name) => {
+  let value = "; " + document.cookie;
+  let parts = value.split("; " + name + "=");
+  if (parts.length === 2) {
+    return parts.pop().split(";").shift();
+  }
+};
+
 // 쿠키에 저장하는 함수
 const setCookie = (name, value, exp = 5) => {
   let date = new Date();
@@ -41,4 +49,4 @@ const deleteCookie = (name) => {
   document.cookie = name + "=; expires=Thu, 01 Jan 1999 00:00:10 GMT;";
 };
 
-export { setCookie, deleteCookie, getCookie, newGetCookie };
+export { setCookie, deleteCookie, getCookie, newGetCookie, getOnbCookie };
