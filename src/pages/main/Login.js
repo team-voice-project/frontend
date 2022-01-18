@@ -20,16 +20,16 @@ const Login = ({ history, location }) => {
                 history.push("/");
               }}
             ></RiArrowLeftSLine>
-            <Font title fontSize="22px" margin="5px 0px 0px 0px">
+            <Font title fontSize="18px" margin="5px 0px 0px 0px">
               로그인
             </Font>
           </Flex>
         </SearchBar>
 
-        <Font title fontSize="28px">
+        <Font title fontSize="24px">
           3초 로그인 후,
         </Font>
-        <Font title fontSize="28px">
+        <Font title fontSize="24px">
           다시 만나요 OAO
         </Font>
 
@@ -39,16 +39,16 @@ const Login = ({ history, location }) => {
         283372056185-4d683ifd0ec8u3un2lmtmrq94qh0cgc8.apps.googleusercontent.com
 
         */}
-        <LoginButtonG href="https://accounts.google.com/o/oauth2/v2/auth?scope=profile&amp;response_type=code&amp;client_id=915984581184-0lemqp7h486t35lr3eei5sdmqun7l4m6.apps.googleusercontent.com&amp;redirect_uri=https://oao-voice-dev.shop/api/auth/google/callback">
+        <LoginButtonG href="https://accounts.google.com/o/oauth2/v2/auth?scope=profile&amp;response_type=code&amp;client_id=915984581184-0lemqp7h486t35lr3eei5sdmqun7l4m6.apps.googleusercontent.com&amp;redirect_uri=http://localhost:3000/api/auth/google/callback">
           구글로 로그인
         </LoginButtonG>
 
         <LoginButtonN
-          href={`https://nid.naver.com/oauth2.0/authorize?response_type=code&amp;client_id=${NAVER_KEY}&amp;redirect_uri=https://oao-voice-dev.shop/api/auth/naver/callback&amp;state=state`}
+          href={`https://nid.naver.com/oauth2.0/authorize?response_type=code&amp;client_id=${NAVER_KEY}&amp;redirect_uri=http://localhost:3000/api/auth/naver/callback&amp;state=state`}
         >
           네이버로 로그인
         </LoginButtonN>
-        <LoginButtonK href="https://kauth.kakao.com/oauth/authorize?client_id=f1e0d9ea23cc43e8717f86da6573a3a1&amp;redirect_uri=https://oao-voice-dev.shop/api/auth/kakao/callback&amp;response_type=code">
+        <LoginButtonK href="https://kauth.kakao.com/oauth/authorize?client_id=f1e0d9ea23cc43e8717f86da6573a3a1&amp;redirect_uri=http://localhost:3000/api/auth/kakao/callback&amp;response_type=code">
           카카오로 로그인
         </LoginButtonK>
       </Container>
@@ -61,7 +61,7 @@ const SearchBar = styled.div`
   align-items: center;
   vertical-align: center;
   justify-content: space-between;
-  margin: 20px 0px 60px 0px;
+  margin: 15px 0px 50px 0px;
 `;
 
 const Flex = styled.div`
@@ -73,9 +73,9 @@ const Flex = styled.div`
 `;
 
 const OAOImage = styled.div`
-  width: 180px;
-  height: 200px;
-  margin: 85px auto 35px auto;
+  width: 150px;
+  height: 170px;
+  margin: 75px auto 30px auto;
 
   background-image: url("/assets/images/OAOoriginal.png");
   background-repeat: no-repeat;

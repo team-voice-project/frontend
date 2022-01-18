@@ -259,10 +259,10 @@ const TrackGrid = styled.div`
 const TrackDiv = styled.div`
   margin: 0px 10px;
   @media screen and (max-width: 375px) {
-    margin: 0 5px;
+    margin: 0 6px;
   }
   @media screen and (max-width: 320px) {
-    margin: 0 1px;
+    margin: 0px 0px 0px 3px;
   }
 `;
 
