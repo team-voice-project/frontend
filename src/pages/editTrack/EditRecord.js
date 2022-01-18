@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { getRandomScript } from "../../shared/utils";
 import { actionCreators as editTrackActions } from "../../redux/modules/editTrack";
 
 import { Container, Font } from "../../elements";
+import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/ri";
+import { IoMdRefresh } from "react-icons/io";
 import ScriptMemo from "../../components/editTrack/ScriptMemo";
 import Recorder from "../../components/editTrack/Recorder";
 import ScriptView from "../../components/editTrack/ScriptView";
-import { useDispatch } from "react-redux";
-import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/ri";
-import Script from "../../components/randomScript/Script";
 
 const EditRecord = ({ history }) => {
   const dispatch = useDispatch();
@@ -21,8 +21,13 @@ const EditRecord = ({ history }) => {
   });
   const [script_active, setScriptActive] = useState(false);
   const [script_text, setScriptText] = useState("");
+  const [random_script, setRandomScript] = useState("");
   const nextBtnRef = useRef(null);
   const category = useSelector((state) => state.editTrack.category);
+
+  useEffect(() => {
+    RandomScriptGenerator();
+  }, []);
 
   useEffect(() => {
     const empty_voice = Object.values(voice_file).some((prop) => prop === null);
@@ -49,6 +54,15 @@ const EditRecord = ({ history }) => {
 
     dispatch(editTrackActions.saveAudio(voice_file));
     history.push("/edit/final");
+  };
+
+  const RandomScriptGenerator = () => {
+    if (!category) {
+      return;
+    }
+
+    const script = getRandomScript(category);
+    setRandomScript(script);
   };
 
   return (
@@ -84,9 +98,17 @@ const EditRecord = ({ history }) => {
 
       <Container padding={"20px"} _className={"stretch-height"}>
         <div className={"edit-body"}>
-          <strong className={"title"}>목소리 올리기</strong>
-          <Script category={category}></Script>
-          <ScriptMemo ref={scriptRef} />
+          <div className={"top-bar"}>
+            <strong className={"title"}>목소리 올리기</strong>
+            <button
+              type="button"
+              onClick={RandomScriptGenerator}
+              className={"title-btn"}
+            >
+              <IoMdRefresh size="16" />
+            </button>
+          </div>
+          <ScriptMemo ref={scriptRef} random_script={random_script} />
         </div>
       </Container>
 
@@ -162,9 +184,19 @@ const EditWrap = styled.section`
   .edit-body {
     height: 100%;
 
+    .top-bar {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
     .title {
       display: block;
       margin-bottom: 20px;
+    }
+    .title-btn {
+      background-color: #2c2b2b;
+      color: #fff;
     }
   }
 

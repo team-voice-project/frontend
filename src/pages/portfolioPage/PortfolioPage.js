@@ -10,6 +10,7 @@ import { history } from "../../redux/configStore";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { actionCreators as trackCreators } from "../../redux/modules/mypage";
+import { newGetCookie } from "../../shared/Cookie";
 
 const PortfolioPage = (props) => {
   const dispatch = useDispatch();
@@ -20,11 +21,21 @@ const PortfolioPage = (props) => {
   const userId = useParams()?.userId;
   const trackWrapRef = useRef(null);
   const voice = useParams()?.voice;
-  console.log(rank_data?.rank_data);
+  const my_Id = newGetCookie("uid");
 
   useEffect(() => {
     dispatch(trackCreators.setTrackDB(userId));
   }, []);
+
+  const createRoomNumber = () => {
+    const total_Id = [my_Id, userId];
+    return total_Id
+      .map(Number)
+      .sort((a, b) => a - b)
+      .join("_");
+  };
+
+  const roomId = createRoomNumber();
 
   return (
     <Container padding={"0"}>
@@ -63,6 +74,13 @@ const PortfolioPage = (props) => {
             </div>
           </div>
         </Profile>
+        <UpBtn
+          onClick={() => {
+            history.push(`/chatroom/${roomId}`);
+          }}
+        >
+          채팅하기
+        </UpBtn>
       </div>
       {voice === "voice_rank" ? (
         <div
@@ -262,6 +280,18 @@ const TrackGrid = styled.div`
   margin: auto;
   display: flex;
   flex-wrap: wrap;
+`;
+const UpBtn = styled.button`
+  font-family: "GmarketSansBold", serif;
+  font-weight: 300;
+  width: 100%;
+  height: 50px;
+  margin-top: 20px;
+  font-size: 18px;
+  border-radius: 10px;
+  border: none;
+  background: #f1134e;
+  color: white;
 `;
 
 const TrackDiv = styled.div`

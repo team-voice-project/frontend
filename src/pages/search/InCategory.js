@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import { actionCreators as postActions } from "../../redux/modules/post";
+import Skeleton from "../../components/mypage/Skeleton";
 import { actionCreators as searchActions } from "../../redux/modules/search";
 import { apis } from "../../shared/api";
 import CategoryModal from "../../components/category/CategoryModal";
@@ -20,13 +21,14 @@ const InCategory = (props) => {
 
   const tag_list = useSelector((state) => state.post.tag_list);
   const category = useSelector((state) => state.search.list);
+  const searchLoading = useSelector((state) => state.search.is_loading);
   const category_page = useSelector((state) => state.search.page);
+  const has_more = useSelector((state) => state.search.has_more);
   const trackWrapRef = useRef(null);
   console.log("category", category);
   console.log("category_page", category_page);
 
   const [show_modal, setShowModal] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(category_page);
 
   const openModal = () => {
@@ -47,19 +49,8 @@ const InCategory = (props) => {
 
   const fetchData = () => {
     let pages = page + 1;
-    const track = 12;
-    const tag1 = "";
-    const tag2 = "";
-    const tag3 = "";
-    apis.category(name, tag1, tag2, tag3, page, track).then((res) => {
-      if (
-        res.data.tracks.tracks.length === 0 ||
-        res.data.tracks.tracks.length < 12
-      ) {
-        setHasMore(false);
-      }
-      setPage(pages);
-    });
+
+    setPage(pages);
   };
 
   return (
@@ -99,13 +90,25 @@ const InCategory = (props) => {
             )}
           </div>
         </Flex>
-
-        {category && category.length > 0 ? (
+        {searchLoading === false ? (
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "space-between",
+              marginTop: "60px",
+            }}
+          >
+            {new Array(10).fill(1).map((_, i) => {
+              return <Skeleton key={i} />;
+            })}
+          </div>
+        ) : category && category.length > 0 ? (
           <InfiniteScroll
             dataLength={category.length}
             next={fetchData}
-            hasMore={hasMore}
-            loader={category.length < 12 ? "" : <Spinner />}
+            hasMore={has_more}
+            loader={has_more === false ? "" : <Spinner />}
           >
             <TrackGrid>
               {category &&

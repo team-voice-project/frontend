@@ -5,14 +5,14 @@ import { apis } from "../../shared/api";
 const LOAD_POST = "LOAD_POST";
 const SEARCH_LOADING = "SEARCH_LOADING";
 const LOAD_IMAGE = "LOAD_IMAGE";
-const SET_LOADING = "SET_LOADING";
+const POST_LOADING = "POST_LOADING";
 
 const loadPost = createAction(LOAD_POST, (post) => ({ post }));
 const searchLoading = createAction(SEARCH_LOADING, (search_loading) => ({
   search_loading,
 }));
 const loadImage = createAction(LOAD_IMAGE, (listInfo) => ({ listInfo }));
-const setLoading = createAction(SET_LOADING, (loading) => ({ loading }));
+const setPostLoading = createAction(POST_LOADING, (loading) => ({ loading }));
 
 const initialState = { is_loading: false };
 
@@ -21,7 +21,7 @@ const loadPostDB = () => {
   return function (dispatch, getState, { history }) {
     apis.mainPage().then((res) => {
       dispatch(loadPost(res.data.totalTracks));
-      dispatch(setLoading(true));
+      dispatch(setPostLoading(true));
     });
   };
 };
@@ -53,7 +53,7 @@ export default handleActions(
         draft.Image_list = action.payload.listInfo.categories;
         draft.tag_list = action.payload.listInfo.tag;
       }),
-    [SET_LOADING]: (state, action) =>
+    [POST_LOADING]: (state, action) =>
       produce(state, (draft) => {
         draft.is_loading = action.payload.loading;
       }),

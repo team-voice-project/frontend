@@ -87,6 +87,8 @@ const Script = (props) => {
       return null;
     }
   };
+  const random_script = randomData();
+
   return (
     <>
       <div>

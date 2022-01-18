@@ -70,8 +70,9 @@ const createSocketInstance = () => {
   return (dispatch, getState) => {
     const socket = getState().chat.instance;
     if (!socket || !socket?.connected) {
-      const instance = io.connect(process.env.REACT_APP_API_URL, {
+      const instance = io.connect(process.env.REACT_APP_TEST_API_URL, {
         cors: { origin: "*" },
+        secure: true,
       });
 
       // TODO: 유저 채팅 정보 확인 후 모든 방에 입장 시키기
