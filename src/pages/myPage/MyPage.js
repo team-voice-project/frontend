@@ -91,7 +91,7 @@ const MyPage = (props) => {
               </Link>
               <div style={{ width: "200px", wordBreak: "break-word" }}>
                 <Text>
-                  {user_info.user_info?.introduce === null &&
+                  {user_info.user_info?.introduce === null ||
                   user_info.user_info?.introduce === ""
                     ? "자기소개가 비어있습니다."
                     : user_info.user_info?.introduce}
