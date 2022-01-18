@@ -1,8 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { actionCreators as commentCreators } from "../../redux/modules/comment";
+import { actionCreators as postActions } from "../../redux/modules/post";
 import { IoIosSend } from "react-icons/io";
 import { useDispatch } from "react-redux";
+import { apis } from "../../shared/api";
+import { actionCreators } from "../../redux/modules/mypage";
 
 const CommentWrite = (props) => {
   const [content, setCotentText] = React.useState();
@@ -15,6 +18,15 @@ const CommentWrite = (props) => {
     Array.from(comment).map((p) => {
       p.value = "";
     });
+  };
+  const setTrack = () => {
+    apis.getProfile().then((res) => {
+      const userId = res.data.user.userId;
+      dispatch(actionCreators.setTrackDB(userId));
+    });
+  };
+  const setMainTrack = () => {
+    dispatch(postActions.loadPostDB());
   };
 
   return (
@@ -36,6 +48,8 @@ const CommentWrite = (props) => {
               commentCreators.addCommentDB(`${props.props.trackId}`, content)
             );
             commetReset();
+            setTrack();
+            setMainTrack();
           }}
         ></IoIosSend>
       </div>

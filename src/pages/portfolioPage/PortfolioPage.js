@@ -69,8 +69,8 @@ const PortfolioPage = (props) => {
               <Text>
                 {user_info.user_info?.introduce === null &&
                 user_info.user_info?.introduce === ""
-                  ? user_info.user_info?.introduce
-                  : "등록된 자기소개가 없습니다!"}
+                  ? "등록된 자기소개가 없습니다!"
+                  : user_info.user_info?.introduce}
               </Text>
             </div>
           </div>
