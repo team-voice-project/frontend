@@ -56,7 +56,7 @@ const KeywordSearch = (props) => {
 
   useEffect(() => {
     const dispatchValue = () => {
-      const value = inputRef?.current?.value;
+      const value = inputRef.current?.value;
       return value;
     };
     const searchValue = dispatchValue();
@@ -215,7 +215,7 @@ const FlexDiv = styled.div`
   background-color: #000;
   position: fixed;
   top: 60px;
-  z-index: 9999;
+  z-index: 8888;
 `;
 
 const Flex = styled.div`
@@ -242,6 +242,7 @@ const Multiline = styled.input`
 const Grid = styled.div`
   padding-left: 10px;
   margin-top: 110px;
+  margin-left: 5px;
   /* @media screen and (max-width: 375px) {
     padding-left: 0px;
   } */

@@ -91,10 +91,10 @@ const MyPage = (props) => {
               </Link>
               <div style={{ width: "200px", wordBreak: "break-word" }}>
                 <Text>
-                  {user_info.user_info?.introduce === null &&
-                  user_info.user_info?.introduce
-                    ? user_info.user_info?.introduce
-                    : "자기소개가 비어있습니다."}
+                  {user_info.user_info?.introduce === null ||
+                  user_info.user_info?.introduce === ""
+                    ? "자기소개가 비어있습니다."
+                    : user_info.user_info?.introduce}
                 </Text>
               </div>
             </div>
@@ -297,15 +297,19 @@ const MyPage = (props) => {
                     "{rank_data.rank_data?.rankClass.class}"에요, 많은 사랑을
                     받은 목소리네요!
                   </RankDic>
-                  <div
-                    style={{
-                      display: "flex",
-                    }}
-                  >
-                    {rank_data.rank_data?.categoryTags.tags.map((p, idx) => {
-                      return <Tag key={idx}>{p}</Tag>;
-                    })}
-                  </div>
+                  {rank_data?.rank_data?.categoryTags?.tags === "" ? null : (
+                    <div
+                      style={{
+                        display: "flex",
+                      }}
+                    >
+                      {rank_data?.rank_data?.categoryTags?.tags.map(
+                        (p, idx) => {
+                          return <Tag key={idx}>{p}</Tag>;
+                        }
+                      )}
+                    </div>
+                  )}
                   <div
                     style={{
                       display: "flex",

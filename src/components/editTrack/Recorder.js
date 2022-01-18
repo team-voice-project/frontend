@@ -43,7 +43,11 @@ const Recorder = ({
     return;
   }
 
-  const checkVoiceFileSize = (size) => {};
+  const fileToMp3Convert = async (files) => {
+    let sourceAudioFile = files;
+    let targetAudioFormat = "mp3";
+    return await convertAudio(sourceAudioFile, targetAudioFormat);
+  };
 
   // 15728640 byte === 15 MB === 약 30분  // *.m4a
   const getVoiceBlobUrl = () => {
@@ -181,12 +185,6 @@ const Recorder = ({
       url: null,
     });
     setUploadStateBubble({ state: false });
-  };
-
-  const fileToMp3Convert = async (files) => {
-    let sourceAudioFile = files;
-    let targetAudioFormat = "mp3";
-    return await convertAudio(sourceAudioFile, targetAudioFormat);
   };
 
   const checkFileSize = (files) => {
