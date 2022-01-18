@@ -249,7 +249,9 @@ const EditProfile = ({ history }) => {
               <textarea
                 placeholder="입력하기"
                 id={"profile-about"}
-                defaultValue={about_value || "간단한 자기소개를 해주세요 :)"}
+                value={
+                  about_value ? about_value : "간단한 자기소개를 해주세요 :)"
+                }
                 onChange={handleChangeAbout}
               ></textarea>
             </div>
