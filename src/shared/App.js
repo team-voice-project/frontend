@@ -40,7 +40,7 @@ function App() {
     }
 
     dispatch(chatActions.createSocketInstance());
-    
+
     return () => {
       dispatch(chatActions.destroySocketInstance());
     };
@@ -83,7 +83,7 @@ function App() {
 
   return (
     <>
-      {/* 배포 테스트 - add release branch 123 */}
+      {/* 배포 테스트 - add release branch  123*/}
       <GlobalStyles />
       <GlobalPlayer />
       <Switch>

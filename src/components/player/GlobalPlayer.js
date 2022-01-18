@@ -574,6 +574,7 @@ const PlayListWidget = styled.article`
   position: fixed;
   bottom: -100%;
   left: 50%;
+  -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
   background: #1d1d1d;
   border: 1px solid #2e2e2e;
@@ -582,6 +583,7 @@ const PlayListWidget = styled.article`
   transition: bottom 0.2s;
 
   &.open {
+    left: 50%;
     transform: translateX(-50%);
     bottom: 112px;
     z-index: 10000;
