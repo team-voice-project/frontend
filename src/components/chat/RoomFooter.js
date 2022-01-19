@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 import ChatRecorder from "../chat/ChatRecorder";
@@ -14,18 +14,19 @@ const RoomFooter = ({
   sendMessage,
   show_option_modal,
   setOptionModal,
+  show_record_modal,
+  show_request_modal,
+  setRecordModal,
+  setRequestModal,
+  request_text,
 }) => {
+  const requestRef = useRef(null);
   const [content, setCotentText] = React.useState("");
-  const [show_record_modal, setRecordModal] = useState(false);
-  const [show_reqeust_modal, setRequestModal] = useState(false);
-
   const [voice_file, setVoiceFile] = useState({
     file: null,
     type: null,
     url: null,
   });
-
-  useEffect(() => {}, [content]);
 
   const onChange = (e) => {
     setCotentText(e.target.value);
@@ -52,7 +53,16 @@ const RoomFooter = ({
 
   const handleCloseRequestModal = () => {
     setRequestModal(false);
-    sendMessage("샘플 보내기");
+  };
+
+  const handleSendRequest = () => {
+    const request = requestRef.current.value;
+    if (!requestRef.current.value) {
+      alert("요청 사항이 입력해주세요.");
+      return;
+    }
+    sendMessage(request, "request");
+    setRequestModal(false);
   };
 
   return (
@@ -111,7 +121,7 @@ const RoomFooter = ({
         </Container>
       </ChatFooter>
 
-      {show_reqeust_modal && (
+      {show_request_modal && (
         <RequestModal>
           <Container padding={"0"} _className={"record-container"}>
             <div className={"request-header"}>
@@ -120,7 +130,7 @@ const RoomFooter = ({
                 onClick={handleCloseRequestModal}
               />
 
-              <button className={"send-btn"} onClick={handleCloseRequestModal}>
+              <button className={"send-btn"} onClick={handleSendRequest}>
                 <Font title>완료</Font>
               </button>
             </div>
@@ -133,6 +143,7 @@ const RoomFooter = ({
               </p>
 
               <textarea
+                ref={requestRef}
                 className={"reqeust-ta"}
                 placeholder={"요구사항을 작성해주세요."}
               ></textarea>
@@ -151,20 +162,17 @@ const RoomFooter = ({
               />
             </div>
             <div className={"record-request"}>
-              <Font _className={"request-title"} title>
-                샘플 요청 사항
-              </Font>
+              {request_text ? (
+                <Font _className={"request-title"} title>
+                  샘플 요청 사항
+                </Font>
+              ) : (
+                <Font _className={"request-title"} title>
+                  목소리를 녹음하세요!
+                </Font>
+              )}
 
-              <p className={"request-content"}>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Aliquid architecto commodi cumque eaque eveniet, itaque quasi
-                ullam! Alias dolor itaque molestiae numquam quas. A, aut
-                delectus esse incidunt ipsa quia. Lorem ipsum dolor sit amet,
-                consectetur adipisicing elit. Aliquid architecto commodi cumque
-                eaque eveniet, itaque quasi ullam! Alias dolor itaque molestiae
-                numquam quas. A, aut delectus esse incidunt ipsa quia. Lorem
-                ipsum dolor sit amet,
-              </p>
+              <p className={"request-content"}>{request_text}</p>
             </div>
             <div className={"record-widget"}>
               <ChatRecorder
@@ -173,6 +181,7 @@ const RoomFooter = ({
                 setVoiceFile={setVoiceFile}
                 voice_file={voice_file}
                 setRecordModal={setRecordModal}
+                request_text={request_text}
               />
             </div>
           </Container>
