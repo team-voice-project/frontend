@@ -21,7 +21,28 @@ const ChatBlock = (props) => {
     console.log("채팅방 입장");
     history.push(`/chatroom/${roomId}`);
   };
-  console.log(props);
+
+  const createdAt = new Date(props.createdAt);
+
+  function displayedAt(createdAt) {
+    const milliSeconds = new Date() - createdAt;
+
+    const seconds = milliSeconds / 1000;
+    if (seconds < 60) return `방금 전`;
+    const minutes = seconds / 60;
+    if (minutes < 60) return `${Math.floor(minutes)}분 전`;
+    const hours = minutes / 60;
+    if (hours < 24) return `${Math.floor(hours)}시간 전`;
+    const days = hours / 24;
+    if (days < 7) return `${Math.floor(days)}일 전`;
+    const weeks = days / 7;
+    if (weeks < 5) return `${Math.floor(weeks)}주 전`;
+    const months = days / 30;
+    if (months < 12) return `${Math.floor(months)}개월 전`;
+    const years = days / 365;
+    return `${Math.floor(years)}년 전`;
+  }
+
   return (
     <ChatBlockItem onClick={handleJoinChatRoom}>
       <div className={"chat-profile"}>
@@ -32,7 +53,7 @@ const ChatBlock = (props) => {
           <Font title _className={"user-name"}>
             {props.sendUserId.nickname}
           </Font>
-          <span className={"last-modified"}>어제</span>
+          <span className={"last-modified"}>{displayedAt(createdAt)}</span>
         </div>
         <div className={"display-bottom"}>
           <span className={"chat-message"}>{props.chatText}</span>
