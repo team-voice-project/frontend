@@ -108,6 +108,7 @@ const ProfileImg = styled.img`
   border-radius: 50%;
   position: relative;
   top: 4px;
+  object-fit: cover;
 `;
 
 const Time = styled.p`
