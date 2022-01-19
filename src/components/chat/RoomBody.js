@@ -24,9 +24,6 @@ const RoomBody = forwardRef(
     const [pages, setPages] = useState(2);
     const [hasMore, setHasMore] = useState(true);
     const params = useParams();
-    console.log("1페이지 데이터", chatData);
-
-    console.log("data", data);
 
     useEffect(() => {
       if (data && chat_content) {
@@ -37,7 +34,6 @@ const RoomBody = forwardRef(
         totalChat();
       }
     }, [chat_content, data]);
-    console.log("chat", chat);
 
     useEffect(() => {
       document.body.style.overflow = "hidden";

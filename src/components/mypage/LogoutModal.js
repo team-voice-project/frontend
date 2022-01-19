@@ -19,6 +19,7 @@ const LogoutModal = (props) => {
                 <div style={{ margin: "20px 20px 10px 20px" }}>
                   <UpBtn
                     onClick={() => {
+                      document.body.style.overflow = "";
                       dispatch(userActions.logOutDB());
                     }}
                   >
