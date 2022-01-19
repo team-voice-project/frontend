@@ -28,6 +28,7 @@ export default handleActions(
   {
     [SET_CHATBLOCK]: (state, action) =>
       produce(state, (draft) => {
+        console.log("채팅 리스트 정보: ", action.payload.chat_list);
         draft.chat_list.push(action.payload.chat_list);
       }),
   },
