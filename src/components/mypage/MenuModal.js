@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Container from "../../elements/Container";
-import { IoIosClose } from "react-icons/io";
+import { AiOutlineClose } from "react-icons/ai";
 import { BsFillHeartFill } from "react-icons/bs";
 import { ImShare } from "react-icons/im";
 import CommentList from "./CommentList";
@@ -94,12 +94,16 @@ const MenuModal = (props) => {
                     onClick={() => {
                       history.push(`/share/${trackId}`);
                     }}
-                    style={{ margin: "10px 0px 0 0px", cursor: "pointer" }}
+                    style={{ cursor: "pointer" }}
                     size="20px"
                   />
-                  <IoIosClose
-                    style={{ margin: "13px 0px 0 0px", cursor: "pointer" }}
-                    size="40px"
+                  <AiOutlineClose
+                    style={{
+                      margin: "0px 0px 0px 10px",
+
+                      cursor: "pointer",
+                    }}
+                    size="20px"
                     color="white"
                     onClick={() => {
                       close();

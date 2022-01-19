@@ -24,6 +24,13 @@ const RoomBody = ({ my_info, chat_content, show_option_modal }) => {
 
   const renderChatContent = (message, i) => {
     const isMe = my_info.userId === message.sendUserId.userId;
+    console.log(
+      "렌더링 될 메시지",
+      message,
+      my_info.userId,
+      message.sendUserId.userId
+    );
+
     if (isMe) {
       return <RecieverBubble message={message} key={`chat-bubble-${i}`} />;
     } else {
