@@ -1,10 +1,10 @@
-import React, {
-  useCallback,
+
+import React, {  useCallback,
   useEffect,
   useRef,
   useState,
-  forwardRef,
-} from "react";
+  forwardRef, } from "react";
+
 import styled from "styled-components";
 import { Scrollbars } from "react-custom-scrollbars";
 import { apis } from "../../shared/api";
@@ -16,7 +16,11 @@ import { Container } from "../../elements";
 import { useParams } from "react-router-dom";
 
 const RoomBody = forwardRef(
-  ({ my_info, chat_content, show_option_modal, chatData }, ref) => {
+  ({ my_info,
+  chat_content,
+  show_option_modal,
+  setRecordModal,
+  setRequestText, chatData }, ref) => {
     console.log("[RoomBody] 대화 정보", chat_content);
     const contentScrollRef = useRef(null);
     const [chat, setChat] = useState([]);
@@ -145,6 +149,7 @@ const RoomBody = forwardRef(
     );
   }
 );
+
 
 export default RoomBody;
 const ChatContentWrap = styled.div`

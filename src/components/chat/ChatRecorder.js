@@ -23,6 +23,7 @@ const ChatRecorder = ({
   setVoiceFile,
   voice_file,
   setRecordModal,
+  request_text,
   sendMessage,
   setScriptActive,
   setScriptText,
@@ -293,11 +294,13 @@ const ChatRecorder = ({
     send_data.append("trackFile", voice_file.file);
     send_data.append("sendUserId", uid);
     send_data.append("receiveUserId", another);
+    send_data.append("sample", request_text);
 
     console.log("전송될 데이터: ", {
       trackFile: voice_file.file,
       sendUserId: uid,
       receiveUserId: another,
+      sample: request_text,
     });
 
     try {
