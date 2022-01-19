@@ -83,11 +83,8 @@ export const apis = {
     api.post(`/api/playlist`, { trackId: play_id_list }),
 
   //채팅API
-  getChatList: (Id, page, chat) => {
-    console.log("유저 아이디", Id);
-    api.get(`api/chat?page=${page}&chat=${chat}`, Id);
-  },
-
+  getChatList: (room_info, page, chat) =>
+    api.post(`/api/chat?page=${page}&chat=${chat}`, room_info),
   // 공통 API
   getMenuInfoDB: () => api.get("/api/tracks/listinfo"),
   getTrackInfoDB: (id) => api.get(`/api/tracks/${id}`),

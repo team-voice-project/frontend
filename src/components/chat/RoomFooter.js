@@ -21,7 +21,7 @@ const RoomFooter = ({ sendMessage, show_option_modal, setOptionModal }) => {
     url: null,
   });
 
-  console.log("녹음된 파일: ", voice_file);
+  // console.log("녹음된 파일: ", voice_file);
 
   useEffect(() => {}, [content]);
 
