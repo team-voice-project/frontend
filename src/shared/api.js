@@ -93,4 +93,5 @@ export const apis = {
   getTrackInfoDB: (id) => api.get(`/api/tracks/${id}`),
   // 채팅 API
   setChatList: (userId) => api.post(`/api/chat/list`, { userId }),
+  sendVoiceChat: (send_data) => api.post("/api/chat/track", send_data),
 };

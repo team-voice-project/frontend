@@ -6,17 +6,24 @@ import {
   byteToMegaByte,
   convertAudio,
 } from "../../shared/utils";
+import { apis } from "../../shared/api";
 
 import { Container } from "../../elements";
 import StopWatch from "../../shared/record/StopWatch";
 import pushAudio from "../../shared/audio/push.mp3";
 import { BsFillMicFill } from "react-icons/bs";
 import { IoPlaySharp, IoStopSharp } from "react-icons/io5";
-import { ImFolder } from "react-icons/im";
 import { IoIosSend } from "react-icons/io";
+import { newGetCookie } from "../../shared/Cookie";
+import { useParams } from "react-router-dom";
+import ScaleLoader from "react-spinners/ScaleLoader";
 
 const ChatRecorder = ({
+  chat,
   setVoiceFile,
+  voice_file,
+  setRecordModal,
+  sendMessage,
   setScriptActive,
   setScriptText,
   scriptRef,
@@ -34,11 +41,13 @@ const ChatRecorder = ({
   const [runtime_memory, setRuntimeMemory] = useState(null);
   const [has_audio, setHasAudio] = useState(false);
   const [upload_state_bubble, setUploadStateBubble] = useState(false);
+  const [show_loading_modal, setLoadingModal] = useState(false);
   const playerRef = useRef(null);
   const uploaderRef = useRef(null);
   const systemAudioRef = useRef(null);
   const playBtnRef = useRef(null);
   const mainControlRef = useRef(null);
+  const room = useParams();
 
   if (!navigator.mediaDevices) {
     return;
@@ -260,128 +269,259 @@ const ChatRecorder = ({
     }, 500);
   };
 
+  const createRoomId = () => {
+    const room_id = room?.roomId;
+    if (!room_id) {
+      alert("방 입장 불가");
+      return;
+    }
+
+    const splitted = room_id.split("_");
+    const uid = Number(newGetCookie("uid"));
+    const another = Number(splitted.filter((id) => id != uid)[0]);
+
+    return {
+      uid,
+      another,
+    };
+  };
+
+  const sendVoiceData = async () => {
+    const { uid, another } = createRoomId();
+
+    const send_data = new FormData();
+    send_data.append("trackFile", voice_file.file);
+    send_data.append("sendUserId", uid);
+    send_data.append("receiveUserId", another);
+
+    console.log("전송될 데이터: ", {
+      trackFile: voice_file.file,
+      sendUserId: uid,
+      receiveUserId: another,
+    });
+
+    try {
+      const res = await apis.sendVoiceChat(send_data);
+      console.log("목소리 파일 전송 결과: ", res);
+      return true;
+    } catch (err) {
+      console.log(err.response);
+      return false;
+    }
+  };
+
+  const handleSendVoice = async () => {
+    const result = await sendVoiceData();
+    setLoadingModal(true);
+    if (result) {
+      console.log("목소리 전송이 성공했습니다.");
+      const { uid, another } = createRoomId();
+
+      // socket voice file send event
+      chat?.emit("track", {
+        receiveUserId: another,
+        sendUserId: uid, // 보내는 사람 (나)
+      });
+
+      setTimeout(() => {
+        setLoadingModal(false);
+        setRecordModal(false);
+      }, 500);
+    } else {
+      console.log("목소리 전송이 실패했습니다.");
+      setTimeout(() => {
+        setLoadingModal(false);
+      }, 500);
+    }
+  };
+
   const repeat_visible =
     upload_state_bubble.state &&
     has_audio &&
     (stopwatch_mode === "stop" || stopwatch_mode === "reset");
 
   return (
-    <RecorderWrap>
-      <div className={"hidden-system-audio"}>
-        <audio preload="auto" controls src={pushAudio} ref={systemAudioRef}>
-          <code>audio</code> element.
-        </audio>
-      </div>
-      <Container _className={"recorder-container"}>
-        <audio
-          className={"audio-el"}
-          controls
-          src=""
-          ref={playerRef}
-          preload="metadata"
-        >
-          <code>audio</code> element.
-        </audio>
-
-        {
-          <div
-            className={`file-save-state ${
-              upload_state_bubble.state ? "slideUp" : ""
-            }`}
-          >
-            <div className={"file-name"}>{upload_state_bubble.text}</div>
-            <button
-              type={"button"}
-              className={"remove-file-btn"}
-              onClick={handleClickResetRecord}
-            >
-              취소
-            </button>
-          </div>
-        }
-
-        <div className={"limit-guide"}>녹음 시간은 5분으로 제한됩니다.</div>
-
-        <StopWatch
-          _className={"stopwatch"}
-          mode={stopwatch_mode}
-          setMode={setStopWatchMode}
-          runtime_memory={runtime_memory}
-          setRuntimeMemory={setRuntimeMemory}
-          setControls={setControls}
-          playerRef={playerRef}
-          has_audio={has_audio}
-          has_upload={uploaderRef.current?.files[0]}
-          recordLimitOff={handleClickOffRecord}
-        />
-
-        <div className={"main-controls"} ref={mainControlRef}>
-          <div className={`side-item repeat ${!repeat_visible && "disabled"}`}>
-            <button
-              type="button"
-              className={"btn repeat"}
-              onClick={handleClickResetRecord}
-            >
-              <BsFillMicFill />
-            </button>
-            <span className={"btn-text"}>다시 녹음</span>
-          </div>
-
-          <div className="main-item">
-            {controls.record && (
-              <div className="item-box">
-                <button
-                  type="button"
-                  className={"btn record on"}
-                  onClick={handleClickOnRecord}
-                >
-                  <BsFillMicFill />
-                </button>
-
-                <span className={"btn-text"}>녹음</span>
-              </div>
-            )}
-
-            {controls.pause && (
-              <div className="item-box">
-                <button
-                  type="button"
-                  className={"btn pause"}
-                  onClick={handleClickOffRecord}
-                >
-                  <IoStopSharp className={"icon-pause"} />
-                </button>
-                <span className={"btn-text"}>정지</span>
-              </div>
-            )}
-
-            {controls.play && (
-              <div className="item-box" ref={playBtnRef}>
-                <button
-                  type="button"
-                  className={"btn play"}
-                  onClick={handleClickPlayRecord}
-                >
-                  <IoPlaySharp />
-                </button>
-                <span className={"btn-text"}>재생</span>
-              </div>
-            )}
-          </div>
-
-          <div className={`side-item upload ${!has_audio && "disabled"}`}>
-            <label className={"btn"}>
-              <IoIosSend />
-            </label>
-            <span className={"btn-text"}>전송</span>
-          </div>
+    <>
+      <RecorderWrap>
+        <div className={"hidden-system-audio"}>
+          <audio preload="auto" controls src={pushAudio} ref={systemAudioRef}>
+            <code>audio</code> element.
+          </audio>
         </div>
-      </Container>
-    </RecorderWrap>
+        <Container _className={"recorder-container"}>
+          <audio
+            className={"audio-el"}
+            controls
+            src=""
+            ref={playerRef}
+            preload="metadata"
+          >
+            <code>audio</code> element.
+          </audio>
+
+          {
+            <div
+              className={`file-save-state ${
+                upload_state_bubble.state ? "slideUp" : ""
+              }`}
+            >
+              <div className={"file-name"}>{upload_state_bubble.text}</div>
+              <button
+                type={"button"}
+                className={"remove-file-btn"}
+                onClick={handleClickResetRecord}
+              >
+                취소
+              </button>
+            </div>
+          }
+
+          <div className={"limit-guide"}>녹음 시간은 5분으로 제한됩니다.</div>
+
+          <StopWatch
+            _className={"stopwatch"}
+            mode={stopwatch_mode}
+            setMode={setStopWatchMode}
+            runtime_memory={runtime_memory}
+            setRuntimeMemory={setRuntimeMemory}
+            setControls={setControls}
+            playerRef={playerRef}
+            has_audio={has_audio}
+            has_upload={uploaderRef.current?.files[0]}
+            recordLimitOff={handleClickOffRecord}
+          />
+
+          <div className={"main-controls"} ref={mainControlRef}>
+            <div
+              className={`side-item repeat ${!repeat_visible && "disabled"}`}
+            >
+              <button
+                type="button"
+                className={"btn repeat"}
+                onClick={handleClickResetRecord}
+              >
+                <BsFillMicFill />
+              </button>
+              <span className={"btn-text"}>다시 녹음</span>
+            </div>
+
+            <div className="main-item">
+              {controls.record && (
+                <div className="item-box">
+                  <button
+                    type="button"
+                    className={"btn record on"}
+                    onClick={handleClickOnRecord}
+                  >
+                    <BsFillMicFill />
+                  </button>
+
+                  <span className={"btn-text"}>녹음</span>
+                </div>
+              )}
+
+              {controls.pause && (
+                <div className="item-box">
+                  <button
+                    type="button"
+                    className={"btn pause"}
+                    onClick={handleClickOffRecord}
+                  >
+                    <IoStopSharp className={"icon-pause"} />
+                  </button>
+                  <span className={"btn-text"}>정지</span>
+                </div>
+              )}
+
+              {controls.play && (
+                <div className="item-box" ref={playBtnRef}>
+                  <button
+                    type="button"
+                    className={"btn play"}
+                    onClick={handleClickPlayRecord}
+                  >
+                    <IoPlaySharp />
+                  </button>
+                  <span className={"btn-text"}>재생</span>
+                </div>
+              )}
+            </div>
+
+            <div
+              className={`side-item upload ${!has_audio && "disabled"} ${
+                !repeat_visible && "disabled"
+              }`}
+              onClick={handleSendVoice}
+            >
+              <label className={"btn"}>
+                <IoIosSend />
+              </label>
+              <span className={"btn-text"}>전송</span>
+            </div>
+          </div>
+        </Container>
+      </RecorderWrap>
+
+      {show_loading_modal && (
+        <LoadingSpinModal>
+          <div className={"spinner-box"}>
+            <p className={"guide-text"}>
+              <b>전송 중입니다.</b>
+              <br />
+              <br />
+              잠시만 기다려주세요.
+            </p>
+
+            <ScaleLoader color={"var(--point-color)"} height={18} />
+          </div>
+        </LoadingSpinModal>
+      )}
+    </>
   );
 };
 
 export default ChatRecorder;
+
+const LoadingSpinModal = styled.article`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999999;
+  text-align: center;
+
+  .spinner-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 180px;
+    color: #000;
+    background-color: #fff;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+
+    .guide-text {
+      color: #666;
+      font-size: 13px;
+      margin-bottom: 20px;
+
+      b {
+        color: #333;
+        font-size: 15px;
+      }
+    }
+  }
+`;
 
 const RecorderWrap = styled.div`
   height: 40vh;

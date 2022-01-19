@@ -9,8 +9,12 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { IoIosClose } from "react-icons/io";
 import { useSelector } from "react-redux";
 
-const RoomFooter = ({ sendMessage, show_option_modal, setOptionModal }) => {
-  const chat = useSelector((state) => state.chat.instance);
+const RoomFooter = ({
+  chat,
+  sendMessage,
+  show_option_modal,
+  setOptionModal,
+}) => {
   const [content, setCotentText] = React.useState("");
   const [show_record_modal, setRecordModal] = useState(false);
   const [show_reqeust_modal, setRequestModal] = useState(false);
@@ -20,8 +24,6 @@ const RoomFooter = ({ sendMessage, show_option_modal, setOptionModal }) => {
     type: null,
     url: null,
   });
-
-  console.log("녹음된 파일: ", voice_file);
 
   useEffect(() => {}, [content]);
 
@@ -165,7 +167,13 @@ const RoomFooter = ({ sendMessage, show_option_modal, setOptionModal }) => {
               </p>
             </div>
             <div className={"record-widget"}>
-              <ChatRecorder setVoiceFile={setVoiceFile} />
+              <ChatRecorder
+                chat={chat}
+                sendMessage={sendMessage}
+                setVoiceFile={setVoiceFile}
+                voice_file={voice_file}
+                setRecordModal={setRecordModal}
+              />
             </div>
           </Container>
         </RecordModal>
