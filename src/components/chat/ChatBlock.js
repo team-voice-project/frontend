@@ -2,10 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { Font } from "../../elements";
 import { history } from "../../redux/configStore";
+import { newGetCookie } from "../../shared/Cookie";
 
 const ChatBlock = (props) => {
-  const my_Id = props.receiveUserId;
-  const userId = props.sendUserId.userId;
+  const my_Id = newGetCookie("uid");
+  const userId = props.qUserId.userId;
 
   const createRoomNumber = () => {
     const total_Id = [my_Id, userId];
@@ -16,6 +17,7 @@ const ChatBlock = (props) => {
   };
 
   const roomId = createRoomNumber();
+  console.log(props);
 
   const handleJoinChatRoom = () => {
     console.log("채팅방 입장");
@@ -42,33 +44,61 @@ const ChatBlock = (props) => {
     const years = days / 365;
     return `${Math.floor(years)}년 전`;
   }
-
+  const check = props.checkChat;
   return (
-    <ChatBlockItem onClick={handleJoinChatRoom}>
-      <div className={"chat-profile"}>
-        <img src={props.sendUserId.profileImage} alt="" />
-      </div>
-      <div className={"chat-display"}>
-        <div className={"display-top"}>
-          <Font title _className={"user-name"}>
-            {props.sendUserId.nickname}
-          </Font>
-          <span className={"last-modified"}>{displayedAt(createdAt)}</span>
-        </div>
-        <div className={"display-bottom"}>
-          <span className={"chat-message"}>{props.chatText}</span>
-        </div>
-      </div>
-    </ChatBlockItem>
+    <>
+      {check === true ? (
+        <ChatBlockItem background="#353535" onClick={handleJoinChatRoom}>
+          <div className={"chat-profile"}>
+            <img src={props.qUserId.profileImage} alt="" />
+          </div>
+          <div className={"chat-display"}>
+            <div className={"display-top"}>
+              <div style={{ display: "flex" }}>
+                <Font title _className={"user-name"}>
+                  {props.qUserId.nickname}
+                </Font>
+                <div className={"red-point"}></div>
+              </div>
+              <span className={"last-modified"}>{displayedAt(createdAt)}</span>
+            </div>
+            <div className={"display-bottom"}>
+              <span className={"chat-message"}>{props.chatText}</span>
+            </div>
+          </div>
+        </ChatBlockItem>
+      ) : (
+        <ChatBlockItem onClick={handleJoinChatRoom}>
+          <div className={"chat-profile"}>
+            <img src={props.qUserId.profileImage} alt="" />
+          </div>
+          <div className={"chat-display"}>
+            <div className={"display-top"}>
+              <Font title _className={"user-name"}>
+                {props.qUserId.nickname}
+              </Font>
+              <span className={"last-modified"}>{displayedAt(createdAt)}</span>
+            </div>
+            <div className={"display-bottom"}>
+              <span className={"chat-message"}>{props.chatText}</span>
+            </div>
+          </div>
+        </ChatBlockItem>
+      )}
+    </>
   );
 };
 
 export default ChatBlock;
+Font.defaultProps = {
+  background: "",
+};
 
 const ChatBlockItem = styled.li`
   padding: 12px 20px;
   display: flex;
   border-top: 1px solid #333333;
+  background: ${(props) => props.background};
   cursor: pointer;
 
   &:active {
@@ -117,6 +147,7 @@ const ChatBlockItem = styled.li`
       .user-name {
         font-size: 14px;
         position: relative;
+        margin-right: 5px;
 
         &::after {
           content: "";
@@ -132,6 +163,12 @@ const ChatBlockItem = styled.li`
       }
       .last-modified {
         font-size: 12px;
+      }
+      .red-point {
+        background: #f1134e;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
       }
     }
     .display-bottom {
