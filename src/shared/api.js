@@ -91,6 +91,7 @@ export const apis = {
   sendVoiceChat: (send_data) => api.post("/api/chat/track", send_data),
   sendImageChat: (send_data) => api.post("/api/chat/image", send_data),
 
+
   // 공통 API
   getMenuInfoDB: () => api.get("/api/tracks/listinfo"),
   getTrackInfoDB: (id) => api.get(`/api/tracks/${id}`),
