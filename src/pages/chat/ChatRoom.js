@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { newGetCookie } from "../../shared/Cookie";
@@ -11,17 +11,48 @@ import RoomHeader from "../../components/chat/RoomHeader";
 const ChatRoom = (props) => {
   const chat = useSelector((state) => state.chat.instance);
   const room = useParams();
+  const scrollbarRef = useRef(null);
   const [my_info, setMyInfo] = useState(null);
   const [chat_content, setChatContent] = useState([]);
   const [show_option_modal, setOptionModal] = useState(false);
+  const [data, setData] = useState([]);
+  const [show_record_modal, setRecordModal] = useState(false);
+  const [show_request_modal, setRequestModal] = useState(false);
+  const [request_text, setRequestText] = useState("");
 
   useEffect(() => {
     getUserData();
+
+    return () => {
+      handleLeaveRoom();
+    };
   }, []);
 
   useEffect(() => {
     getRoomData();
   }, [chat, room]);
+
+  useEffect(() => {
+    const room_id = room?.roomId;
+    if (!room_id) {
+      alert("방 입장 불가");
+      return;
+    }
+
+    const splitted = room_id.split("_");
+    const uid = Number(newGetCookie("uid"));
+    const another = Number(splitted.filter((id) => id != uid)[0]);
+    const room_info = { userId: uid, qUserId: another };
+    console.log("채팅 부르기 전 룸 정보: ", room_info);
+    getChat(room_info, 1, 20);
+  }, []);
+
+  const getChat = async (room_info, page = 1, chat = 20) => {
+    const res = await apis.getChatList(room_info, page, chat);
+    console.log("불러온 채팅 데이터::", res.data.getChat);
+    const chatData = res.data.getChat;
+    setData(chatData);
+  };
 
   const getUserData = async () => {
     const { data } = await apis.getProfile();
@@ -59,13 +90,8 @@ const ChatRoom = (props) => {
     const splitted = room_id.split("_");
     const uid = Number(newGetCookie("uid"));
     const another = Number(splitted.filter((id) => id != uid)[0]);
-    console.log("나의 uid", uid);
-    console.log("상대의 uid", another);
-
-    console.log("새로운 룸 입장: ", {
-      userId: Number(splitted[0]),
-      qUserId: Number(splitted[1]),
-    });
+    // console.log("나의 uid", uid);
+    // console.log("상대의 uid", another);
 
     chat?.emit("joinRoom", {
       userId: uid,
@@ -78,17 +104,28 @@ const ChatRoom = (props) => {
     });
   };
 
-  const sendMessage = (message) => {
+  const sendMessage = (message, type = "normal") => {
     const { uid, another } = createRoomId();
-    console.log("채팅 보내기 receiveUserId:", another);
-    console.log("채팅 보내기 sendUserId:", uid);
+    // console.log("채팅 보내기 receiveUserId:", another);
+    // console.log("채팅 보내기 sendUserId:", uid);
 
-    // socket send
-    chat?.emit("room", {
-      receiveUserId: another,
-      sendUserId: uid, // 보내는 사람 (나)
-      chatText: message,
-    });
+    if (type === "normal") {
+      chat?.emit("room", {
+        receiveUserId: another,
+        sendUserId: uid, // 보내는 사람 (나)
+        chatText: message,
+        sample: null,
+      });
+    }
+
+    if (type === "request") {
+      chat?.emit("room", {
+        receiveUserId: another,
+        sendUserId: uid, // 보내는 사람 (나)
+        chatText: "샘플요청",
+        sample: message,
+      });
+    }
   };
 
   const handleLeaveRoom = () => {
@@ -104,11 +141,21 @@ const ChatRoom = (props) => {
         my_info={my_info}
         chat_content={chat_content}
         show_option_modal={show_option_modal}
+        chatData={data}
+        ref={scrollbarRef}
+        setRecordModal={setRecordModal}
+        setRequestText={setRequestText}
       />
       <RoomFooter
+        chat={chat}
         sendMessage={sendMessage}
         show_option_modal={show_option_modal}
         setOptionModal={setOptionModal}
+        show_record_modal={show_record_modal}
+        setRecordModal={setRecordModal}
+        show_request_modal={show_request_modal}
+        setRequestModal={setRequestModal}
+        request_text={request_text}
       />
     </>
   );

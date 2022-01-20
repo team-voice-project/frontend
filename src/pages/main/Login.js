@@ -20,16 +20,16 @@ const Login = ({ history, location }) => {
                 history.push("/");
               }}
             ></RiArrowLeftSLine>
-            <Font title fontSize="22px" margin="5px 0px 0px 0px">
+            <Font title fontSize="18px" margin="5px 0px 0px 0px">
               로그인
             </Font>
           </Flex>
         </SearchBar>
 
-        <Font title fontSize="28px">
+        <Font title fontSize="24px">
           3초 로그인 후,
         </Font>
-        <Font title fontSize="28px">
+        <Font title fontSize="24px">
           다시 만나요 OAO
         </Font>
 
@@ -61,7 +61,7 @@ const SearchBar = styled.div`
   align-items: center;
   vertical-align: center;
   justify-content: space-between;
-  margin: 20px 0px 60px 0px;
+  margin: 15px 0px 50px 0px;
 `;
 
 const Flex = styled.div`
@@ -73,9 +73,9 @@ const Flex = styled.div`
 `;
 
 const OAOImage = styled.div`
-  width: 180px;
-  height: 200px;
-  margin: 85px auto 35px auto;
+  width: 150px;
+  height: 170px;
+  margin: 75px auto 30px auto;
 
   background-image: url("/assets/images/OAOoriginal.png");
   background-repeat: no-repeat;

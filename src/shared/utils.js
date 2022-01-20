@@ -36,6 +36,7 @@ export const FOOTER_ESCAPE_LIST = [
   "/edit/record",
   "edit/final",
   "/edit/profile",
+  "/login",
 ];
 
 const sample_script = [
@@ -227,7 +228,8 @@ function getBlobFromBase64Data(b64Data, contentType, sliceSize = 512) {
     byteArrays.push(byteArray);
   }
 
-  return new Blob(byteArrays, { type: contentType });
+  const blob = new Blob(byteArrays, { type: contentType });
+  return blob;
 }
 
 export const formattedKrTime = (datetime) => {
