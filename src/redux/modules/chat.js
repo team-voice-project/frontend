@@ -38,13 +38,12 @@ const createSocketInstance = () => {
         secure: true,
       });
 
-      // TODO: 유저 채팅 정보 확인 후 모든 방에 입장 시키기
       const userId = Number(newGetCookie("uid"));
       if (!userId) {
         return;
       }
 
-      // console.log("초기 룸 입장: ", { userId: 1, qUserId: 2 });
+      // 글로벌 메시지를 위한 방 입장
       instance?.emit("login", { userId });
 
       dispatch(setSocket(instance));
