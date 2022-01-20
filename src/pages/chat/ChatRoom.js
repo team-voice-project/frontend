@@ -102,6 +102,15 @@ const ChatRoom = (props) => {
         sample: message,
       });
     }
+
+    if (type === "image") {
+      console.log("이미지 전송");
+      chat?.emit("file", {
+        receiveUserId: another,
+        sendUserId: uid, // 보내는 사람 (나)
+        chatType: "image",
+      });
+    }
   };
 
   const handleLeaveRoom = () => {
@@ -130,6 +139,7 @@ const ChatRoom = (props) => {
         show_request_modal={show_request_modal}
         setRequestModal={setRequestModal}
         request_text={request_text}
+        createRoomId={createRoomId}
       />
     </>
   );

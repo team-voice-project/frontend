@@ -321,9 +321,10 @@ const ChatRecorder = ({
       const { uid, another } = createRoomId();
 
       // socket voice file send event
-      chat?.emit("track", {
+      chat?.emit("file", {
         receiveUserId: another,
         sendUserId: uid, // 보내는 사람 (나)
+        chatType: "track",
       });
 
       setTimeout(() => {

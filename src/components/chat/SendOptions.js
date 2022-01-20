@@ -1,12 +1,18 @@
 import React from "react";
 import styled from "styled-components";
-import { byteToMegaByte, convertAudio } from "../../shared/utils";
+import { convertAudio } from "../../shared/utils";
+import { apis } from "../../shared/api";
 
 import { BsFillMicFill } from "react-icons/bs";
 import { AiFillFileText, AiFillFolder } from "react-icons/ai";
 import { ImImage } from "react-icons/im";
 
-const SendOptions = ({ setRecordModal, setRequestModal }) => {
+const SendOptions = ({
+  sendMessage,
+  setRecordModal,
+  setRequestModal,
+  createRoomId,
+}) => {
   const handleOpenRecordModal = () => {
     setRecordModal(true);
   };
@@ -15,12 +21,50 @@ const SendOptions = ({ setRecordModal, setRequestModal }) => {
     setRequestModal(true);
   };
 
-  const handleChangeUploadImage = (e) => {
+  const sendImageFile = async (image) => {
+    try {
+      const { uid, another } = createRoomId();
+
+      const send_data = new FormData();
+      send_data.append("image", image);
+      send_data.append("sendUserId", uid);
+      send_data.append("receiveUserId", another);
+
+      const res = await apis.sendImageChat(send_data);
+      console.log("이미지 전송결과: ", res);
+      return true;
+    } catch (err) {
+      console.log("[sendImageFile] 이미지 전송에 실패했습니다.");
+      return false;
+    }
+  };
+
+  const handleChangeUploadImage = async (e) => {
     if (!e.target.files[0]) {
       return;
     }
 
-    console.log(e.target.files[0], e.target.value);
+    const ACCEPT_LIST = ["jpg", "png", "jpeg", "gif"];
+    const image_type = e.target.files[0].type;
+
+    const is_accept = ACCEPT_LIST.some(
+      (accept_type) => image_type.indexOf(accept_type) > -1
+    );
+    if (!is_accept) {
+      alert("jpg, png, jpeg, gif 확장자만 첨부 할 수 있어요 :(");
+      return;
+    }
+
+    console.log("첨부 이미지:", e.target.files[0]);
+
+    const result = await sendImageFile(e.target.files[0]);
+    if (result) {
+      sendMessage(null, "image");
+      e.target.value = null;
+    } else {
+      console.log("이미지 전송이 실패했습니다.");
+      e.target.value = null;
+    }
   };
 
   const handleChangeUploadVoice = async (e) => {
@@ -48,7 +92,7 @@ const SendOptions = ({ setRecordModal, setRequestModal }) => {
       <IconDiv htmlFor={"imageUploader"}>
         <input
           type="file"
-          accept={"image/*"}
+          accept={"image/png, image/jpeg, image/gif"}
           id={"imageUploader"}
           onChange={handleChangeUploadImage}
         />

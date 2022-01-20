@@ -87,11 +87,11 @@ export const apis = {
     console.log("유저 아이디", Id);
     api.get(`api/chat?page=${page}&chat=${chat}`, Id);
   },
+  setChatList: (userId) => api.post(`/api/chat/list`, { userId }),
+  sendVoiceChat: (send_data) => api.post("/api/chat/track", send_data),
+  sendImageChat: (send_data) => api.post("/api/chat/image", send_data),
 
   // 공통 API
   getMenuInfoDB: () => api.get("/api/tracks/listinfo"),
   getTrackInfoDB: (id) => api.get(`/api/tracks/${id}`),
-  // 채팅 API
-  setChatList: (userId) => api.post(`/api/chat/list`, { userId }),
-  sendVoiceChat: (send_data) => api.post("/api/chat/track", send_data),
 };
