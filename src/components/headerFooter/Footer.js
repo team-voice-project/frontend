@@ -110,7 +110,11 @@ const Footer = () => {
 
         {is_login === true ? (
           <IconDiv
-            className={pathName === "/mypage/rank_list" ? "active" : "nav-item"}
+            className={
+              pathName === "/mypage/rank_list" || pathName === "/mypage"
+                ? "active"
+                : "nav-item"
+            }
             onClick={() => {
               history.push("/mypage/rank_list");
             }}
@@ -138,7 +142,7 @@ const Flex = styled.div`
   justify-content: space-between;
   padding: 0px 20px;
   margin: 0 auto;
-  max-width: 425px;
+  max-width: 426px;
   width: 100%;
   height: 56px;
   position: fixed;
