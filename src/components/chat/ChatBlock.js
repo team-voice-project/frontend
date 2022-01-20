@@ -4,8 +4,9 @@ import { Font } from "../../elements";
 import { history } from "../../redux/configStore";
 
 const ChatBlock = (props) => {
+  console.log(props);
   const my_Id = props.receiveUserId;
-  const userId = props.sendUserId.userId;
+  const userId = props.sendUserId;
 
   const createRoomNumber = () => {
     const total_Id = [my_Id, userId];
@@ -21,16 +22,16 @@ const ChatBlock = (props) => {
     console.log("채팅방 입장");
     history.push(`/chatroom/${roomId}`);
   };
-  console.log(props);
+
   return (
     <ChatBlockItem onClick={handleJoinChatRoom}>
       <div className={"chat-profile"}>
-        <img src={props.sendUserId.profileImage} alt="" />
+        <img src={props.qUserId.profileImage} alt="" />
       </div>
       <div className={"chat-display"}>
         <div className={"display-top"}>
           <Font title _className={"user-name"}>
-            {props.sendUserId.nickname}
+            {props.qUserId.nickname}
           </Font>
           <span className={"last-modified"}>어제</span>
         </div>
