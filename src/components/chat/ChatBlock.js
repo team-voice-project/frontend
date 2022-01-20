@@ -47,7 +47,7 @@ const ChatBlock = (props) => {
 
   return (
     <>
-      {check === true ? (
+      {check === false ? (
         <ChatBlockItem background="#353535" onClick={handleJoinChatRoom}>
           <div className={"chat-profile"}>
             <img src={props.qUserId.profileImage} alt="" />
