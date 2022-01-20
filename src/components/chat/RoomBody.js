@@ -1,155 +1,167 @@
-
-import React, {  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  forwardRef, } from "react";
-
+import React, { useEffect, useRef, useCallback, useState } from "react";
 import styled from "styled-components";
-import { Scrollbars } from "react-custom-scrollbars";
-import { apis } from "../../shared/api";
+import _ from "lodash";
 
 import DatetimeLine from "./DatetimeLine";
 import RecieverBubble from "./RecieverBubble";
 import SenderBubble from "./SenderBubble";
 import { Container } from "../../elements";
-import { useParams } from "react-router-dom";
+import { apis } from "../../shared/api";
 
-const RoomBody = forwardRef(
-  ({ my_info,
+const RoomBody = ({
+  my_info,
   chat_content,
   show_option_modal,
   setRecordModal,
-  setRequestText, chatData }, ref) => {
-    console.log("[RoomBody] 대화 정보", chat_content);
-    const contentScrollRef = useRef(null);
-    const [chat, setChat] = useState([]);
-    const [data, setData] = useState(chatData);
-    const [pages, setPages] = useState(2);
-    const [hasMore, setHasMore] = useState(true);
-    const params = useParams();
+  setRequestText,
+  createRoomId,
+}) => {
+  console.log("[RoomBody] 대화 정보", chat_content);
+  const contentScrollRef = useRef(null);
+  const [hasMore, setHasMore] = useState(true);
+  const [data, setData] = useState([]);
+  const [pages, setPages] = useState(2);
+  const [load, setLoad] = useState(false);
+  const [scroll_point, setScrollPoint] = useState(null);
+  const topMessageRef = useRef(null);
 
-    useEffect(() => {
-      if (data && chat_content) {
-        const totalChat = () => {
-          const total = data.concat(chat_content);
-          setChat(total);
-        };
-        totalChat();
-      }
-    }, [chat_content, data]);
+  const totalData = () => {
+    const total = [...data, ...chat_content];
+    return total;
+  };
+  const totalChat = totalData();
 
-    useEffect(() => {
-      document.body.style.overflow = "hidden";
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
 
-      return () => {
-        document.body.style.overflow = "";
-      };
-    }, []);
-
-    useEffect(() => {
-      contentScrollRef.current.scrollTop =
-        contentScrollRef.current.scrollHeight;
-    }, [chat_content]);
-
-    const renderChatContent = (message, i) => {
-      const isMe = my_info.userId === message.sendUserId.userId;
-      if (isMe) {
-        return <RecieverBubble message={message} key={`chat-bubble-${i}`} />;
-      } else {
-        return <SenderBubble message={message} key={`chat-bubble-${i}`} />;
-      }
+    return () => {
+      document.body.style.overflow = "";
     };
+  }, []);
 
-    const ID = () => {
-      if (my_info) {
-        const userId = my_info.userId;
-        const _quserId = params.roomId.split("_").map((l) => {
-          if (Number(l) !== userId) {
-            return l;
-          }
-        });
-        const qUserId = Number(_quserId[0]);
-        return { userId, qUserId };
-      }
-    };
-    console.log(ID());
-    const roomInfo = ID();
+  useEffect(() => {
+    contentScrollRef.current.scrollTop = contentScrollRef.current.scrollHeight;
+  }, [chat_content]);
 
-    const onScroll = useCallback((values) => {
-      if (values.scrollTop === 0 && hasMore === true) {
-        console.log("가장 위");
+  useEffect(() => {
+    // console.log("지금스크롤위치", contentScrollRef.current.scrollTop);
+    // console.log("스크롤 전체", document.documentElement.scrollHeight);
+    // console.log("보이는 영역만큼", document.documentElement.clientHeight);
+    // console.log("가려진 스크롤", document.documentElement.scrollTop);
+    //useState로 페이지의 높이를 담아두기
+    //로딩 된 다음 페이지 높이에서 이전 높이 빼기
+    //그 값을 현재 스크롤바 위치로 설정
+    //페이지1의 스크롤 전체 저장, 페이지2전체스크롤-페이지1전체스크롤
+    // contentScrollRef.current.scrollTo(0, 1200);
+  }, [totalChat]);
 
-        const fetchChat = async (room_info, page, chat = 20) => {
-          const res = await apis.getChatList(
-            (room_info = roomInfo),
-            (page = `${pages}`),
-            chat
-          );
+  useEffect(() => {
+    // if (scroll_point) {
+    //   contentScrollRef.current.scrollTo(
+    //     0,
+    //     contentScrollRef.current.scrollHeight - scroll_point
+    //   );
+    // }
+    setScrollPoint(contentScrollRef.current.scrollHeight);
+    console.log("스크롤 값=>", scroll_point);
+    //스크롤
+    // console.log(
+    //   "스크롤 결과값",
+    //   contentScrollRef.current.scrollHeight - scroll_point
+    // );
+    // contentScrollRef.current.scrollTo(
+    //   0,
+    //   contentScrollRef.current.scrollHeight - scroll_point
+    // );
+    //
 
-          const resData = await res.data.getChat;
-          console.log("2페이지가 나오나?", resData);
+    // setScrollPoint(null);
+  }, [totalChat]);
 
-          // const totalData = chatData.concat(resData);
-          // setData(totalData);
-          setData((data) => [...data, ...resData]);
-          if (resData.length === 0 || resData.length < 20) {
-            setHasMore(false);
-          }
-          setPages(pages + 1);
-        };
+  const _handleReverseScroll = _.throttle((e) => {
+    const now_scroll = contentScrollRef.current.scrollTop;
+    console.log("hasMore", hasMore);
+    if (now_scroll === 0 && hasMore === true) {
+      fetchMoreChatContent();
+    }
+  }, 250);
 
-        return fetchChat();
-      }
-    });
-    console.log("데이터 합쳐지냐", data);
-    return (
-      <ChatContentWrap>
-        <Container _className={"chat-body-container"}>
-          <Scrollbars autoHide ref={ref} onScrollFrame={onScroll}>
-            <ChatContentList
-              show_option_modal={show_option_modal}
-              ref={contentScrollRef}
-            >
-              {/*<DatetimeLine />*/}
-              {/*<SenderBubble />*/}
-              {/*<RecieverBubble />*/}
-
-              {chatData && chat.length < 1 ? (
-                <>
-                  {chatData.map((message, i) => {
-                    return renderChatContent(message, i);
-                  })}
-                </>
-              ) : (
-                <>
-                  {chat.length > 0 ? (
-                    <>
-                      {chat.map((message, i) => {
-                        return renderChatContent(message, i);
-                      })}
-                    </>
-                  ) : (
-                    <>
-                      {!chat_content?.length ? (
-                        <NoMessage>대화 기록이 없습니다.</NoMessage>
-                      ) : (
-                        chat_content.map((message, i) => {
-                          return renderChatContent(message, i);
-                        })
-                      )}
-                    </>
-                  )}
-                </>
-              )}
-            </ChatContentList>
-          </Scrollbars>
-        </Container>
-      </ChatContentWrap>
+  const fetchMoreChatContent = async (room_info, page, chat) => {
+    const { uid, another } = createRoomId();
+    const roomInfo = { userId: uid, qUserId: another };
+    setLoad(true);
+    const res = await apis.getChatList(
+      (room_info = roomInfo),
+      (page = `${pages}`),
+      (chat = 20)
     );
-  }
-);
+    setPages(pages + 1);
+    setLoad(false);
 
+    const resData = res.data.getChat;
+    setData((data) => [...resData, ...data]);
+
+    if (resData.length === 0 || resData.length < 20) {
+      setHasMore(false);
+      contentScrollRef.current.scrollTo(0, 0);
+    } else {
+      contentScrollRef.current.scrollTo(0, 1200);
+    }
+  };
+
+  const handleReverseScroll = useCallback(_handleReverseScroll, [load]);
+
+  const renderChatContent = (message, i) => {
+    if (!my_info) {
+      return;
+    }
+    const isMe = my_info.userId === message.sendUserId.userId;
+    // console.log(
+    //   "렌더링 될 메시지",
+    //   message,
+    //   my_info.userId,
+    //   message.sendUserId.userId
+    // );
+
+    if (isMe) {
+      return <SenderBubble message={message} key={`chat-bubble-${i}`} />;
+    } else {
+      return (
+        <RecieverBubble
+          setRequestText={setRequestText}
+          setRecordModal={setRecordModal}
+          message={message}
+          key={`chat-bubble-${i}`}
+        />
+      );
+    }
+  };
+
+  return (
+    <ChatContentWrap>
+      <Container _className={"chat-body-container"}>
+        <ChatContentList
+          show_option_modal={show_option_modal}
+          ref={contentScrollRef}
+          onScroll={handleReverseScroll}
+          id={"chat-list"}
+        >
+          {/*<DatetimeLine />*/}
+          {/*<SenderBubble />*/}
+          {/*<RecieverBubble />*/}
+
+          {!chat_content?.length ? (
+            <NoMessage>대화 기록이 없습니다.</NoMessage>
+          ) : (
+            totalChat.map((message, i) => {
+              return renderChatContent(message, i);
+            })
+          )}
+        </ChatContentList>
+      </Container>
+    </ChatContentWrap>
+  );
+};
 
 export default RoomBody;
 const ChatContentWrap = styled.div`
@@ -167,9 +179,22 @@ const ChatContentList = styled.div`
   padding-top: 60px;
   padding-bottom: ${({ show_option_modal }) =>
     show_option_modal ? "190px" : "70px"};
+
+  &::-webkit-scrollbar {
+    width: 4px;
+    border-radius: 6px;
+    overflow: auto;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--point-color);
+    border-radius: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #000;
+  }
 `;
 
-const NoMessage = styled.div`
+const NoMessage = styled.p`
   text-align: center;
   padding-bottom: 30px;
   color: #aaa;

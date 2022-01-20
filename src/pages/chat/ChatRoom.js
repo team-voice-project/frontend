@@ -14,7 +14,6 @@ const ChatRoom = () => {
   const [my_info, setMyInfo] = useState(null);
   const [chat_content, setChatContent] = useState([]);
   const [show_option_modal, setOptionModal] = useState(false);
-  const [data, setData] = useState([]);
   const [show_record_modal, setRecordModal] = useState(false);
   const [show_request_modal, setRequestModal] = useState(false);
   const [request_text, setRequestText] = useState("");
@@ -49,8 +48,9 @@ const ChatRoom = () => {
   const getChat = async (room_info, page = 1, chat = 20) => {
     const res = await apis.getChatList(room_info, page, chat);
     console.log("불러온 채팅 데이터::", res.data.getChat);
-    const chatData = res.data.getChat;
-    setData(chatData);
+    if (res) {
+      setChatContent((prevState) => [...prevState, ...res.data.getChat]);
+    }
   };
 
   const getUserData = async () => {
@@ -149,10 +149,9 @@ const ChatRoom = () => {
         my_info={my_info}
         chat_content={chat_content}
         show_option_modal={show_option_modal}
-        chatData={data}
-        ref={scrollbarRef}
         setRecordModal={setRecordModal}
         setRequestText={setRequestText}
+        createRoomId={createRoomId}
       />
       <RoomFooter
         chat={chat}
