@@ -24,10 +24,7 @@ const ChatRecorder = ({
   voice_file,
   setRecordModal,
   request_text,
-  sendMessage,
-  setScriptActive,
-  setScriptText,
-  scriptRef,
+  setRequestText,
 }) => {
   const initial_controls = {
     record: true,
@@ -296,26 +293,23 @@ const ChatRecorder = ({
     send_data.append("receiveUserId", another);
     send_data.append("sample", request_text);
 
-    console.log("전송될 데이터: ", {
-      trackFile: voice_file.file,
-      sendUserId: uid,
-      receiveUserId: another,
-      sample: request_text,
-    });
-
     try {
       const res = await apis.sendVoiceChat(send_data);
       console.log("목소리 파일 전송 결과: ", res);
+      setRequestText("");
       return true;
     } catch (err) {
       console.log(err.response);
+      setRequestText("");
+
       return false;
     }
   };
 
   const handleSendVoice = async () => {
-    const result = await sendVoiceData();
     setLoadingModal(true);
+
+    const result = await sendVoiceData();
     if (result) {
       console.log("목소리 전송이 성공했습니다.");
       const { uid, another } = createRoomId();

@@ -26,6 +26,12 @@ const RecieverBubble = ({ message, setRecordModal, setRequestText }) => {
     setRecordModal(true);
   };
 
+  const handleSendVoiceFile = (sample_text) => {
+    setRequestText(sample_text);
+    const voiceUploadEl = document.querySelector("#voiceUploader");
+    voiceUploadEl.click();
+  };
+
   // 일반 보이스 메시지
   if (!message?.sample && message.chatType === "audio") {
     return (
@@ -64,7 +70,12 @@ const RecieverBubble = ({ message, setRecordModal, setRequestText }) => {
             >
               녹음하기
             </Button>
-            <Button _className={"btn upload-btn"}>파일첨부</Button>
+            <Button
+              _className={"btn upload-btn"}
+              _onClick={() => handleSendVoiceFile(message.sample)}
+            >
+              파일첨부
+            </Button>
           </div>
         </div>
         <Time>{formattedKrTime(message.createdAt)}</Time>

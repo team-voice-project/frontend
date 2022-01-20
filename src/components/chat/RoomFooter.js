@@ -18,6 +18,7 @@ const RoomFooter = ({
   setRecordModal,
   setRequestModal,
   request_text,
+  setRequestText,
   createRoomId,
 }) => {
   const requestRef = useRef(null);
@@ -111,14 +112,17 @@ const RoomFooter = ({
               />
             </div>
           </List>
-          {show_option_modal && (
-            <SendOptions
-              sendMessage={sendMessage}
-              setRecordModal={setRecordModal}
-              setRequestModal={setRequestModal}
-              createRoomId={createRoomId}
-            />
-          )}
+
+          <SendOptions
+            request_text={request_text}
+            show_option_modal={show_option_modal}
+            chat={chat}
+            sendMessage={sendMessage}
+            setRecordModal={setRecordModal}
+            setRequestModal={setRequestModal}
+            createRoomId={createRoomId}
+            setRequestText={setRequestText}
+          />
         </Container>
       </ChatFooter>
 
@@ -183,6 +187,7 @@ const RoomFooter = ({
                 voice_file={voice_file}
                 setRecordModal={setRecordModal}
                 request_text={request_text}
+                setRequestText={setRequestText}
               />
             </div>
           </Container>
