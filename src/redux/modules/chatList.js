@@ -18,6 +18,7 @@ const initialState = {
 const setChatBlockData = (userId) => {
   return (dispatch, getState, { history }) => {
     apis.setChatList(userId).then((res) => {
+      console.log("채팅 리스트 불러오기 => ", userId, res);
       dispatch(setChatBlock(res.data.result));
     });
   };
