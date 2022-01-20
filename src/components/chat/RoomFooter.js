@@ -7,7 +7,6 @@ import { Container, Font } from "../../elements";
 import { IoIosSend } from "react-icons/io";
 import { AiOutlinePlus } from "react-icons/ai";
 import { IoIosClose } from "react-icons/io";
-import { useSelector } from "react-redux";
 
 const RoomFooter = ({
   chat,
@@ -19,6 +18,8 @@ const RoomFooter = ({
   setRecordModal,
   setRequestModal,
   request_text,
+  setRequestText,
+  createRoomId,
 }) => {
   const requestRef = useRef(null);
   const [content, setCotentText] = React.useState("");
@@ -111,13 +112,17 @@ const RoomFooter = ({
               />
             </div>
           </List>
-          {show_option_modal && (
-            <SendOptions
-              sendMessage={sendMessage}
-              setRecordModal={setRecordModal}
-              setRequestModal={setRequestModal}
-            />
-          )}
+
+          <SendOptions
+            request_text={request_text}
+            show_option_modal={show_option_modal}
+            chat={chat}
+            sendMessage={sendMessage}
+            setRecordModal={setRecordModal}
+            setRequestModal={setRequestModal}
+            createRoomId={createRoomId}
+            setRequestText={setRequestText}
+          />
         </Container>
       </ChatFooter>
 
@@ -182,6 +187,7 @@ const RoomFooter = ({
                 voice_file={voice_file}
                 setRecordModal={setRecordModal}
                 request_text={request_text}
+                setRequestText={setRequestText}
               />
             </div>
           </Container>
