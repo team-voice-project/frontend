@@ -17,7 +17,6 @@ const ChatBlock = (props) => {
   };
 
   const roomId = createRoomNumber();
-  console.log(props);
 
   const handleJoinChatRoom = () => {
     console.log("채팅방 입장");
