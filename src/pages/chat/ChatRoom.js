@@ -8,9 +8,9 @@ import RoomBody from "../../components/chat/RoomBody";
 import RoomFooter from "../../components/chat/RoomFooter";
 import RoomHeader from "../../components/chat/RoomHeader";
 
-const ChatRoom = (props) => {
-  const chat = useSelector((state) => state.chat.instance);
+const ChatRoom = () => {
   const room = useParams();
+  const chat = useSelector((state) => state.chat.instance);
   const [my_info, setMyInfo] = useState(null);
   const [chat_content, setChatContent] = useState([]);
   const [show_option_modal, setOptionModal] = useState(false);
@@ -125,6 +125,15 @@ const ChatRoom = (props) => {
         sample: message,
       });
     }
+
+    if (type === "image") {
+      console.log("이미지 전송");
+      chat?.emit("file", {
+        receiveUserId: another,
+        sendUserId: uid, // 보내는 사람 (나)
+        chatType: "image",
+      });
+    }
   };
 
   const handleLeaveRoom = () => {
@@ -154,6 +163,8 @@ const ChatRoom = (props) => {
         show_request_modal={show_request_modal}
         setRequestModal={setRequestModal}
         request_text={request_text}
+        setRequestText={setRequestText}
+        createRoomId={createRoomId}
       />
     </>
   );

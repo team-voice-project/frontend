@@ -31,7 +31,7 @@ const ChatList = () => {
       <Container padding={"0"}>
         <div className={"chat-list"}>
           <ul>
-            {chatList[0]?.map((p, idx) => {
+            {chatList?.map((p, idx) => {
               return <ChatBlock key={idx} {...p} />;
             })}
           </ul>

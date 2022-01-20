@@ -24,6 +24,7 @@ const ChatBlock = (props) => {
     history.push(`/chatroom/${roomId}`);
   };
 
+
   const createdAt = new Date(props.createdAt);
 
   function displayedAt(createdAt) {
