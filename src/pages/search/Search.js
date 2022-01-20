@@ -56,7 +56,7 @@ const KeywordSearch = (props) => {
 
   useEffect(() => {
     const dispatchValue = () => {
-      const value = inputRef.current?.value;
+      const value = inputRef.current.value;
       return value;
     };
     const searchValue = dispatchValue();
