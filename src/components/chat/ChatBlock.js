@@ -20,10 +20,8 @@ const ChatBlock = (props) => {
   console.log(props);
 
   const handleJoinChatRoom = () => {
-    console.log("채팅방 입장");
     history.push(`/chatroom/${roomId}`);
   };
-
 
   const createdAt = new Date(props.createdAt);
 
@@ -46,6 +44,7 @@ const ChatBlock = (props) => {
     return `${Math.floor(years)}년 전`;
   }
   const check = props.checkChat;
+
   return (
     <>
       {check === true ? (
