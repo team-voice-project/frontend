@@ -247,11 +247,9 @@ const EditProfile = ({ history }) => {
                 <Font m>자기소개</Font>
               </label>
               <textarea
-                placeholder="입력하기"
+                placeholder="간단한 자기소개를 해주세요 :)"
                 id={"profile-about"}
-                value={
-                  about_value ? about_value : "간단한 자기소개를 해주세요 :)"
-                }
+                defaultValue={about_value}
                 onChange={handleChangeAbout}
               ></textarea>
             </div>
