@@ -36,6 +36,7 @@ export const FOOTER_ESCAPE_LIST = [
   "/edit/record",
   "edit/final",
   "/edit/profile",
+  "/login",
 ];
 
 const sample_script = [

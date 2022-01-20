@@ -82,6 +82,15 @@ export const apis = {
   savePlayList: (play_id_list) =>
     api.post(`/api/playlist`, { trackId: play_id_list }),
 
+  //채팅API
+  getChatList: (Id, page, chat) => {
+    console.log("유저 아이디", Id);
+    api.get(`api/chat?page=${page}&chat=${chat}`, Id);
+  },
+  setChatList: (userId) => api.post(`/api/chat/list`, { userId }),
+  sendVoiceChat: (send_data) => api.post("/api/chat/track", send_data),
+  sendImageChat: (send_data) => api.post("/api/chat/image", send_data),
+
   // 공통 API
   getMenuInfoDB: () => api.get("/api/tracks/listinfo"),
   getTrackInfoDB: (id) => api.get(`/api/tracks/${id}`),

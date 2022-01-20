@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 import { Font, Container } from "../../elements";
 import ChatBlock from "../../components/chat/ChatBlock";
+import { newGetCookie } from "../../shared/Cookie";
+import { apis } from "../../shared/api";
+import { actionCreators as chatListActions } from "../../redux/modules/chatList";
+import { useDispatch, useSelector } from "react-redux";
 
 const ChatList = () => {
+  const dispatch = useDispatch();
+  const userId = newGetCookie("uid");
+  const chatList = useSelector((state) => state?.chatList?.chat_list);
+
+  useEffect(() => {
+    dispatch(chatListActions.setChatBlockData(userId));
+  }, []);
+  console.log(chatList);
+
   return (
     <ChatListWrap>
       <Container>
@@ -18,7 +31,9 @@ const ChatList = () => {
       <Container padding={"0"}>
         <div className={"chat-list"}>
           <ul>
-            <ChatBlock />
+            {chatList[0]?.map((p, idx) => {
+              return <ChatBlock key={idx} {...p} />;
+            })}
           </ul>
         </div>
       </Container>

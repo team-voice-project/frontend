@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 import DatetimeLine from "./DatetimeLine";
@@ -6,7 +6,13 @@ import RecieverBubble from "./RecieverBubble";
 import SenderBubble from "./SenderBubble";
 import { Container } from "../../elements";
 
-const RoomBody = ({ my_info, chat_content, show_option_modal }) => {
+const RoomBody = ({
+  my_info,
+  chat_content,
+  show_option_modal,
+  setRecordModal,
+  setRequestText,
+}) => {
   console.log("[RoomBody] 대화 정보", chat_content);
   const contentScrollRef = useRef(null);
 
@@ -24,10 +30,24 @@ const RoomBody = ({ my_info, chat_content, show_option_modal }) => {
 
   const renderChatContent = (message, i) => {
     const isMe = my_info.userId === message.sendUserId.userId;
+    console.log(
+      "렌더링 될 메시지",
+      message,
+      my_info.userId,
+      message.sendUserId.userId
+    );
+
     if (isMe) {
-      return <RecieverBubble message={message} key={`chat-bubble-${i}`} />;
-    } else {
       return <SenderBubble message={message} key={`chat-bubble-${i}`} />;
+    } else {
+      return (
+        <RecieverBubble
+          setRequestText={setRequestText}
+          setRecordModal={setRecordModal}
+          message={message}
+          key={`chat-bubble-${i}`}
+        />
+      );
     }
   };
 
