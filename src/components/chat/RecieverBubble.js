@@ -110,15 +110,15 @@ const RecieverBubble = ({ message, setRecordModal, setRequestText }) => {
           <ProfileImg src={message.sendUserId.profileImage} />
         </div>
         <div className={"bubble-content"}>
-          <a download href={image_url}>
-            <img
-              src={image_url}
-              alt=""
-              title={"클릭해서 다운받기"}
-              onLoad={() => completeLoad()}
-              onError={getError}
-            />
-          </a>
+          {/*<a download href={image_url}>*/}
+          <img
+            src={image_url}
+            alt=""
+            title={"클릭해서 다운받기"}
+            onLoad={() => completeLoad()}
+            onError={getError}
+          />
+          {/*</a>*/}
 
           {loading && (
             <div className={"spinner"}>
@@ -161,7 +161,7 @@ const ImageBubble = styled.div`
     font-weight: 400;
     padding: 0;
     max-width: 210px;
-    border-radius: 10px 0 10px 10px;
+    border-radius: 0 10px 10px 10px;
     word-break: break-all;
     overflow: hidden;
 
