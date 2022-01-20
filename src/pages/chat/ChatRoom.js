@@ -47,7 +47,7 @@ const ChatRoom = () => {
 
   const getChat = async (room_info, page = 1, chat = 20) => {
     const res = await apis.getChatList(room_info, page, chat);
-    console.log("불러온 채팅 데이터::", res.data.getChat);
+    console.log("불러온 채팅 데이터::", res);
     if (res) {
       setChatContent((prevState) => [...prevState, ...res.data.getChat]);
     }
