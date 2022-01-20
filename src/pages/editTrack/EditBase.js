@@ -47,10 +47,10 @@ const EditBase = ({ history }) => {
 
     //  수정 시 기존 데이터 불러오기
     if (track_id) {
-      const { TrackTags, title, category, trackUrl, TrackThumbnail } =
+      const { TrackTags, title, Category, trackUrl, TrackThumbnail } =
         await getTrackData(track_id);
       const reveal_tags = TrackTags.map((item) => item.tag);
-      setSelectedCate(category);
+      setSelectedCate(Category.category);
       setSelectedTag(reveal_tags);
       setSubject(title);
       setRestData({
@@ -65,6 +65,7 @@ const EditBase = ({ history }) => {
   const getTrackData = async (id) => {
     try {
       const res = await apis.getTrackInfoDB(id);
+      console.log("트랙정보", res);
       return res.data.track;
     } catch (err) {
       console.error("[getTrackData] 트랙정보를 가져올 수 없습니다.");
