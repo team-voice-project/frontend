@@ -28,7 +28,7 @@ export default handleActions(
   {
     [SET_CHATBLOCK]: (state, action) =>
       produce(state, (draft) => {
-        draft.chat_list.push(action.payload.chat_list);
+        draft.chat_list = action.payload.chat_list;
       }),
   },
   initialState
