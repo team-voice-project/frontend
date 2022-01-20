@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { newGetCookie } from "../../shared/Cookie";
@@ -29,6 +29,29 @@ const ChatRoom = () => {
   useEffect(() => {
     getRoomData();
   }, [chat, room]);
+
+  useEffect(() => {
+    const room_id = room?.roomId;
+    if (!room_id) {
+      alert("방 입장 불가");
+      return;
+    }
+
+    const splitted = room_id.split("_");
+    const uid = Number(newGetCookie("uid"));
+    const another = Number(splitted.filter((id) => id != uid)[0]);
+    const room_info = { userId: uid, qUserId: another };
+    console.log("채팅 부르기 전 룸 정보: ", room_info);
+    getChat(room_info, 1, 20);
+  }, []);
+
+  const getChat = async (room_info, page = 1, chat = 20) => {
+    const res = await apis.getChatList(room_info, page, chat);
+    console.log("불러온 채팅 데이터::", res.data.getChat);
+    if (res) {
+      setChatContent((prevState) => [...prevState, ...res.data.getChat]);
+    }
+  };
 
   const getUserData = async () => {
     const { data } = await apis.getProfile();
@@ -128,6 +151,7 @@ const ChatRoom = () => {
         show_option_modal={show_option_modal}
         setRecordModal={setRecordModal}
         setRequestText={setRequestText}
+        createRoomId={createRoomId}
       />
       <RoomFooter
         chat={chat}
