@@ -13,7 +13,6 @@ const RoomBody = ({
   setRecordModal,
   setRequestText,
 }) => {
-  console.log("[RoomBody] 대화 정보", chat_content);
   const contentScrollRef = useRef(null);
 
   useEffect(() => {
@@ -30,12 +29,6 @@ const RoomBody = ({
 
   const renderChatContent = (message, i) => {
     const isMe = my_info.userId === message.sendUserId.userId;
-    console.log(
-      "렌더링 될 메시지",
-      message,
-      my_info.userId,
-      message.sendUserId.userId
-    );
 
     if (isMe) {
       return <SenderBubble message={message} key={`chat-bubble-${i}`} />;

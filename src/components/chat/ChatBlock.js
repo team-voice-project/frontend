@@ -18,10 +18,9 @@ const ChatBlock = (props) => {
   const roomId = createRoomNumber();
 
   const handleJoinChatRoom = () => {
-    console.log("채팅방 입장");
     history.push(`/chatroom/${roomId}`);
   };
-  console.log(props);
+
   return (
     <ChatBlockItem onClick={handleJoinChatRoom}>
       <div className={"chat-profile"}>
