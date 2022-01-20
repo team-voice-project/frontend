@@ -110,7 +110,11 @@ const Footer = () => {
 
         {is_login === true ? (
           <IconDiv
-            className={pathName === "/mypage/rank_list" ? "active" : "nav-item"}
+            className={
+              pathName === "/mypage/rank_list" || pathName === "/mypage"
+                ? "active"
+                : "nav-item"
+            }
             onClick={() => {
               history.push("/mypage/rank_list");
             }}
