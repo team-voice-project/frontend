@@ -7,7 +7,6 @@ import RoomModal from "./RoomModal";
 
 const RoomHeader = () => {
   const [modalOpen, setModalOpen] = React.useState(false);
-
   const openModal = () => {
     setModalOpen(true);
     document.body.style.overflowY = "hidden";
