@@ -48,7 +48,7 @@ const Login = ({ history, location }) => {
         >
           네이버로 로그인
         </LoginButtonN>
-        <LoginButtonK href="https://kauth.kakao.com/oauth/authorize?client_id=f1e0d9ea23cc43e8717f86da6573a3a1&amp;redirect_uri=https://oao-voice.com/auth/kakao/callback&amp;response_type=code">
+        <LoginButtonK href="https://kauth.kakao.com/oauth/authorize?client_id=f1e0d9ea23cc43e8717f86da6573a3a1&amp;redirect_uri=https://oao-voice.com/api/auth/kakao/callback&amp;response_type=code">
           카카오로 로그인
         </LoginButtonK>
       </Container>
