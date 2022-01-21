@@ -78,7 +78,7 @@ const SenderBubble = ({ message }) => {
           <img
             src={image_url}
             alt=""
-            title={"클릭해서 다운받기"}
+            // title={"클릭해서 다운받기"}
             onLoad={() => completeLoad()}
             onError={getError}
           />
