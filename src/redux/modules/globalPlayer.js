@@ -65,6 +65,7 @@ const loadPlayList = () => {
     const nick = newGetCookie("nick");
     const token = newGetCookie("token");
     const is_login = Boolean(nick && token);
+
     const session_playlist = getSessionPlaylist();
     if (is_login) {
       try {

@@ -5,7 +5,7 @@ import _ from "lodash";
 import DatetimeLine from "./DatetimeLine";
 import RecieverBubble from "./RecieverBubble";
 import SenderBubble from "./SenderBubble";
-import { Container } from "../../elements";
+import { Container, Spinner } from "../../elements/index";
 import { apis } from "../../shared/api";
 
 const RoomBody = ({
@@ -21,6 +21,7 @@ const RoomBody = ({
   const [data, setData] = useState([]);
   const [pages, setPages] = useState(2);
   const [load, setLoad] = useState(false);
+  const [scroll_point, setScrollPoint] = useState(null);
 
   const totalData = () => {
     const total = [...data, ...chat_content];
@@ -28,13 +29,21 @@ const RoomBody = ({
   };
   const totalChat = totalData();
 
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, []);
+  const newChatList = () => {
+    if (!totalChat) {
+      return;
+    }
+    const newList = totalChat.map((chat, i) => {
+      const date = chat.createdAt.split("T")[0];
+      const obj = {
+        ...chat,
+        date: date,
+      };
+      return obj;
+    });
+    return newList;
+  };
+  const newTotalChat = newChatList();
 
   useEffect(() => {
     contentScrollRef.current.scrollTop = contentScrollRef.current.scrollHeight;
@@ -105,10 +114,12 @@ const RoomBody = ({
           {/*<SenderBubble />*/}
           {/*<RecieverBubble />*/}
 
+          {load === true && <Spinner small />}
+
           {!chat_content?.length ? (
             <NoMessage>대화 기록이 없습니다.</NoMessage>
           ) : (
-            totalChat.map((message, i) => {
+            newTotalChat.map((message, i) => {
               return renderChatContent(message, i);
             })
           )}
@@ -126,6 +137,7 @@ const ChatContentWrap = styled.div`
     flex-direction: column;
     justify-content: flex-end;
     height: 100vh;
+    height: -webkit-fill-available;
   }
 `;
 const ChatContentList = styled.div`
