@@ -114,7 +114,7 @@ const RecieverBubble = ({ message, setRecordModal, setRequestText }) => {
           <img
             src={image_url}
             alt=""
-            title={"클릭해서 다운받기"}
+            // title={"클릭해서 다운받기"}
             onLoad={() => completeLoad()}
             onError={getError}
           />
@@ -244,7 +244,7 @@ const AudioBubble = styled.div`
     font-weight: 400;
     padding: 20px;
     max-width: 210px;
-    border-radius: 10px 0px 10px 10px;
+    border-radius: 0 10px 10px 10px;
     word-break: break-all;
   }
 

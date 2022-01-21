@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
+import { useSelector, useDispatch } from "react-redux";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { MdOutlineMoreVert } from "react-icons/md";
+import { actionCreators as chatListActions } from "../../redux/modules/chatList";
 import RoomModal from "./RoomModal";
 
-const RoomHeader = () => {
+const RoomHeader = ({ another_info, handleLeaveRoom }) => {
+  const dispatch = useDispatch();
   const [modalOpen, setModalOpen] = React.useState(false);
+
   const openModal = () => {
     setModalOpen(true);
     document.body.style.overflowY = "hidden";
@@ -18,7 +22,11 @@ const RoomHeader = () => {
 
   return (
     <>
-      <RoomModal open={modalOpen} close={closeModal} />
+      <RoomModal
+        open={modalOpen}
+        close={closeModal}
+        handleLeaveRoom={handleLeaveRoom}
+      />
       <ChatHeader>
         <FlexSearchBar>
           <div>
@@ -31,7 +39,7 @@ const RoomHeader = () => {
             />
           </div>
           <div>
-            <Name>조은영</Name>
+            <Name>{another_info?.nickname}</Name>
           </div>
           <div>
             <MdOutlineMoreVert
