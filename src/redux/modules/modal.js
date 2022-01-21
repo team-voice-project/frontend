@@ -14,6 +14,7 @@ const viewModal = createAction(VIEW_MODAL, (boolean) => boolean);
 const viewModalDB = (trackId) => {
   return (dispatch, getState, { history }) => {
     apis.getTrackInfoDB(trackId).then((res) => {
+      console.log("트랙정보: ", res);
       dispatch(viewModal(true));
     });
   };
@@ -32,6 +33,7 @@ export default handleActions(
 
 const actionCreators = {
   viewModal,
+  viewModalDB,
 };
 
 export { actionCreators };
