@@ -588,7 +588,7 @@ const PlayerWidget = styled.article`
 
 const PlayListWidget = styled.article`
   position: fixed;
-  bottom: -100%;
+  bottom: -300%;
   left: 50%;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
