@@ -270,7 +270,7 @@ const ImageCircle = styled.img`
 
 const Section = styled.div`
   position: fixed;
-  z-index: 9900;
+  z-index: 10;
   right: 0;
   top: 0;
   left: 0;
