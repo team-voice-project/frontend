@@ -27,10 +27,12 @@ import GlobalPlayer from "../components/player/GlobalPlayer";
 import Footer from "../components/headerFooter/Footer";
 import ChatList from "../pages/chat/ChatList";
 import ChatRoom from "../pages/chat/ChatRoom";
+import GlobalModal from "./globalmodal/GlobalModal";
 
 function App() {
   const dispatch = useDispatch();
   const chat = useSelector((state) => state.chat.instance);
+  const Modal = useSelector((state) => state.modal.open);
 
   useEffect(() => {
     const uid = newGetCookie("uid");
@@ -62,7 +64,7 @@ function App() {
   const receiveGlobalMessage = (new_message) => {
     // TODO: 접속자 고유 아이디와 sender ID 결합하여 room_id 조합 필요
     const { receiveUserId, sendUserId } = new_message;
-    const room_id = [receiveUserId, sendUserId.userId]
+    const room_id = [receiveUserId, sendUserId?.userId]
       .sort((a, b) => a - b)
       .join("");
 
@@ -71,8 +73,8 @@ function App() {
       room_id,
       data: {
         sender: {
-          id: new_message.senderUserId,
-          nick: "테스터",
+          id: new_message.sendUserId?.userId,
+          nick: new_message.sendUserId?.nickname,
         },
         msg: new_message.chatText,
       },
@@ -83,7 +85,7 @@ function App() {
 
   return (
     <>
-      {/* 배포 테스트 - add release branch  123*/}
+      {Modal && <GlobalModal />}
       <GlobalStyles />
       <GlobalPlayer />
       <Switch>

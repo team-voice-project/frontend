@@ -1,8 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import { history } from "../../redux/configStore";
 
 const RoomModal = (props) => {
   const { open, close } = props;
+
+  const handeClickGoChatList = () => {
+    history.goBack();
+    props.handleLeaveRoom();
+  };
 
   return (
     <>
@@ -11,11 +17,8 @@ const RoomModal = (props) => {
           <BackGround>
             <Wrap>
               <Modal>
-                <div style={{ margin: "20px 20px 10px 20px" }}>
-                  <UpBtn>신고하기</UpBtn>
-                </div>
-                <div style={{ margin: "0px 20px 40px 20px" }}>
-                  <UpBtn>채팅방 나가기</UpBtn>
+                <div style={{ margin: "20px 20px 40px 20px" }}>
+                  <UpBtn onClick={handeClickGoChatList}>채팅방 나가기</UpBtn>
                 </div>
                 <div style={{ margin: "0px 20px 10px 20px" }}>
                   <CancleBtn onClick={close}>취소</CancleBtn>
@@ -52,7 +55,7 @@ const Modal = styled.div`
   max-width: 425px;
   width: 100%;
   margin: auto;
-  height: 270px;
+  height: 200px;
   background-color: #2c2b2b;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
