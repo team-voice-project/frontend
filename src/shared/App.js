@@ -27,7 +27,7 @@ import GlobalPlayer from "../components/player/GlobalPlayer";
 import Footer from "../components/headerFooter/Footer";
 import ChatList from "../pages/chat/ChatList";
 import ChatRoom from "../pages/chat/ChatRoom";
-import GlobalModal from "./GlobalModal";
+import GlobalModal from "./globalmodal/GlobalModal";
 
 function App() {
   const dispatch = useDispatch();
