@@ -1,8 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import { history } from "../../redux/configStore";
 
 const RoomModal = (props) => {
   const { open, close } = props;
+
+  const handeClickGoChatList = () => {
+    history.goBack();
+    props.handleLeaveRoom();
+  };
 
   return (
     <>
@@ -12,7 +18,7 @@ const RoomModal = (props) => {
             <Wrap>
               <Modal>
                 <div style={{ margin: "20px 20px 40px 20px" }}>
-                  <UpBtn>채팅방 나가기</UpBtn>
+                  <UpBtn onClick={handeClickGoChatList}>채팅방 나가기</UpBtn>
                 </div>
                 <div style={{ margin: "0px 20px 10px 20px" }}>
                   <CancleBtn onClick={close}>취소</CancleBtn>

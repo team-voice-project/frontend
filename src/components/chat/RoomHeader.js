@@ -7,7 +7,7 @@ import { MdOutlineMoreVert } from "react-icons/md";
 import { actionCreators as chatListActions } from "../../redux/modules/chatList";
 import RoomModal from "./RoomModal";
 
-const RoomHeader = ({ createRoomId }) => {
+const RoomHeader = ({ another_info, handleLeaveRoom }) => {
   const dispatch = useDispatch();
   const [modalOpen, setModalOpen] = React.useState(false);
   const another_nick = useSelector(
@@ -30,7 +30,11 @@ const RoomHeader = ({ createRoomId }) => {
 
   return (
     <>
-      <RoomModal open={modalOpen} close={closeModal} />
+      <RoomModal
+        open={modalOpen}
+        close={closeModal}
+        handleLeaveRoom={handleLeaveRoom}
+      />
       <ChatHeader>
         <FlexSearchBar>
           <div>
@@ -43,7 +47,7 @@ const RoomHeader = ({ createRoomId }) => {
             />
           </div>
           <div>
-            <Name>{another_nick}</Name>
+            <Name>{another_info?.nickname}</Name>
           </div>
           <div>
             <MdOutlineMoreVert

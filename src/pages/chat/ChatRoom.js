@@ -12,6 +12,7 @@ const ChatRoom = () => {
   const room = useParams();
   const chat = useSelector((state) => state.chat.instance);
   const [my_info, setMyInfo] = useState(null);
+  const [another_info, setAnotherInfo] = useState(null);
   const [chat_content, setChatContent] = useState([]);
   const [show_option_modal, setOptionModal] = useState(false);
   const [show_record_modal, setRecordModal] = useState(false);
@@ -20,6 +21,7 @@ const ChatRoom = () => {
 
   useEffect(() => {
     getUserData();
+    getAnotherUserData();
 
     return () => {
       handleLeaveRoom();
@@ -49,6 +51,12 @@ const ChatRoom = () => {
     if (res) {
       setChatContent((prevState) => [...prevState, ...res.data.getChat]);
     }
+  };
+
+  const getAnotherUserData = async () => {
+    const { uid, another } = createRoomId();
+    const { data } = await apis.getUserInfo(another);
+    setAnotherInfo(data.result);
   };
 
   const getUserData = async () => {
@@ -142,7 +150,12 @@ const ChatRoom = () => {
 
   return (
     <>
-      <RoomHeader createRoomId={createRoomId} />
+      <RoomHeader
+        another_info={another_info}
+        handleLeaveRoom={handleLeaveRoom}
+createRoomId={createRoomId}
+      />
+
       <RoomBody
         my_info={my_info}
         chat_content={chat_content}
