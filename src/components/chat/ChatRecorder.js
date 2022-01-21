@@ -527,6 +527,11 @@ const RecorderWrap = styled.div`
   max-height: 216px;
   min-height: 216px;
 
+  /* iOS only */
+  @supports (-webkit-touch-callout: none) {
+    padding-bottom: 70px;
+  }
+
   .hidden-system-audio {
     display: none;
   }

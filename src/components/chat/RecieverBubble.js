@@ -304,5 +304,5 @@ const Time = styled.p`
   color: #818181;
   font-size: 12px;
   margin-left: 5px;
-  align-items: end;
+  align-items: flex-end;
 `;
