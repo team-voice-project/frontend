@@ -132,23 +132,22 @@ const RecieverBubble = ({ message, setRecordModal, setRequestText }) => {
   }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        marginTop: "20px",
-        marginBottom: "20px",
-      }}
-    >
+    <BasicBubble>
       <div>
         <ProfileImg src={message.sendUserId.profileImage} />
       </div>
       <SenderDiv>{message.chatText}</SenderDiv>
       <Time>{formattedKrTime(message.createdAt)}</Time>
-    </div>
+    </BasicBubble>
   );
 };
 
 export default RecieverBubble;
+
+const BasicBubble = styled.div`
+  display: flex;
+  margin: 20px 0;
+`;
 
 const ImageBubble = styled.div`
   display: flex;
