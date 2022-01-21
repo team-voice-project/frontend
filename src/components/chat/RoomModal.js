@@ -11,10 +11,7 @@ const RoomModal = (props) => {
           <BackGround>
             <Wrap>
               <Modal>
-                <div style={{ margin: "20px 20px 10px 20px" }}>
-                  <UpBtn>신고하기</UpBtn>
-                </div>
-                <div style={{ margin: "0px 20px 40px 20px" }}>
+                <div style={{ margin: "20px 20px 40px 20px" }}>
                   <UpBtn>채팅방 나가기</UpBtn>
                 </div>
                 <div style={{ margin: "0px 20px 10px 20px" }}>
@@ -52,7 +49,7 @@ const Modal = styled.div`
   max-width: 425px;
   width: 100%;
   margin: auto;
-  height: 270px;
+  height: 200px;
   background-color: #2c2b2b;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;

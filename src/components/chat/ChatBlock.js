@@ -7,6 +7,8 @@ import { newGetCookie } from "../../shared/Cookie";
 const ChatBlock = (props) => {
   const my_Id = newGetCookie("uid");
   const userId = props.qUserId.userId;
+  const sendUserId = props.sendUserId;
+  const admin_Id = props.userId;
 
   const createRoomNumber = () => {
     const total_Id = [my_Id, userId];
@@ -17,7 +19,6 @@ const ChatBlock = (props) => {
   };
 
   const roomId = createRoomNumber();
-  console.log(props);
 
   const handleJoinChatRoom = () => {
     history.push(`/chatroom/${roomId}`);
@@ -47,7 +48,7 @@ const ChatBlock = (props) => {
 
   return (
     <>
-      {check === false ? (
+      {check === false && sendUserId !== +admin_Id ? (
         <ChatBlockItem background="#353535" onClick={handleJoinChatRoom}>
           <div className={"chat-profile"}>
             <img src={props.qUserId.profileImage} alt="" />
