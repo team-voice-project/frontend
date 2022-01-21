@@ -21,31 +21,78 @@ const ChatList = () => {
   useEffect(() => {
     dispatch(chatListActions.setChatBlockData(userId));
   }, [chat_rooms_info]);
-
+  console.log(chat_rooms_info);
   return (
-    <ChatListWrap>
-      <Container>
-        <div className={"page-title"}>
-          <Font title fontSize={"18px"}>
-            채팅
-          </Font>
-        </div>
-      </Container>
+    <>
+      {chatList.length === 0 ? (
+        <ChatListWrap>
+          <Container>
+            <div className={"page-title"}>
+              <Font title fontSize={"18px"}>
+                채팅
+              </Font>
+            </div>
+          </Container>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+            }}
+          >
+            <OAODiv>
+              <OAOText>채팅목록이 없습니다!</OAOText>
+              <OAOText>다른 사람과 채팅을 해보세요!</OAOText>
+              <OAO></OAO>
+            </OAODiv>
+          </div>
+        </ChatListWrap>
+      ) : (
+        <ChatListWrap>
+          <Container>
+            <div className={"page-title"}>
+              <Font title fontSize={"18px"}>
+                채팅
+              </Font>
+            </div>
+          </Container>
 
-      <Container padding={"0"}>
-        <div className={"chat-list"}>
-          <ul>
-            {chatList?.map((p, idx) => {
-              return <ChatBlock key={idx} {...p} />;
-            })}
-          </ul>
-        </div>
-      </Container>
-    </ChatListWrap>
+          <Container padding={"0"}>
+            <div className={"chat-list"}>
+              <ul>
+                {chatList?.map((p, idx) => {
+                  return <ChatBlock key={idx} {...p} />;
+                })}
+              </ul>
+            </div>
+          </Container>
+        </ChatListWrap>
+      )}
+    </>
   );
 };
 
 export default ChatList;
+const OAODiv = styled.div`
+  position: relative;
+  top: 50px;
+`;
+
+const OAOText = styled.p`
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 12px;
+`;
+
+const OAO = styled.div`
+  width: 200px;
+  height: 210px;
+  margin: 55px auto 0px auto;
+
+  background-image: url("/assets/images/OAO.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+`;
 
 const ChatListWrap = styled.section`
   .page-title {

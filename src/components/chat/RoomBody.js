@@ -23,10 +23,16 @@ const RoomBody = ({
   const [load, setLoad] = useState(false);
   const [scroll_point, setScrollPoint] = useState(null);
 
+  useEffect(() => {
+    const last_message = contentScrollRef.current?.lastChild;
+    last_message.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [chat_content]);
+
   const totalData = () => {
     const total = [...data, ...chat_content];
     return total;
   };
+
   const totalChat = totalData();
 
   const newChatList = () => {
@@ -43,11 +49,8 @@ const RoomBody = ({
     });
     return newList;
   };
-  const newTotalChat = newChatList();
 
-  useEffect(() => {
-    contentScrollRef.current.scrollTop = contentScrollRef.current.scrollHeight;
-  }, [chat_content]);
+  const newTotalChat = newChatList();
 
   const _handleReverseScroll = _.throttle((e) => {
     const now_scroll = contentScrollRef.current.scrollTop;
@@ -110,10 +113,6 @@ const RoomBody = ({
           onScroll={handleReverseScroll}
           id={"chat-list"}
         >
-          {/*<DatetimeLine />*/}
-          {/*<SenderBubble />*/}
-          {/*<RecieverBubble />*/}
-
           {load === true && <Spinner small />}
 
           {!chat_content?.length ? (
@@ -145,7 +144,7 @@ const ChatContentList = styled.div`
   padding: 0 20px;
   padding-top: 60px;
   padding-bottom: ${({ show_option_modal }) =>
-    show_option_modal ? "190px" : "70px"};
+    show_option_modal ? "110px" : "0"};
 
   &::-webkit-scrollbar {
     width: 4px;
