@@ -43,13 +43,11 @@ const ChatRoom = () => {
     const uid = Number(newGetCookie("uid"));
     const another = Number(splitted.filter((id) => id != uid)[0]);
     const room_info = { userId: uid, qUserId: another };
-    console.log("채팅 부르기 전 룸 정보: ", room_info);
     getChat(room_info, 1, 20);
   }, []);
 
   const getChat = async (room_info, page = 1, chat = 20) => {
     const res = await apis.getChatList(room_info, page, chat);
-    console.log("불러온 채팅 데이터::", res);
     if (res) {
       setChatContent((prevState) => [...prevState, ...res.data.getChat]);
     }
@@ -155,7 +153,9 @@ const ChatRoom = () => {
       <RoomHeader
         another_info={another_info}
         handleLeaveRoom={handleLeaveRoom}
+createRoomId={createRoomId}
       />
+
       <RoomBody
         my_info={my_info}
         chat_content={chat_content}

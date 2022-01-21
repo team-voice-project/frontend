@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
+import { useSelector, useDispatch } from "react-redux";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { MdOutlineMoreVert } from "react-icons/md";
+import { actionCreators as chatListActions } from "../../redux/modules/chatList";
 import RoomModal from "./RoomModal";
 
 const RoomHeader = ({ another_info, handleLeaveRoom }) => {
+  const dispatch = useDispatch();
   const [modalOpen, setModalOpen] = React.useState(false);
+  const another_nick = useSelector(
+    (state) => state?.chatList?.chat_list[0]?.qUserId?.nickname
+  );
+  const userId = createRoomId()?.uid;
+
+  useEffect(() => {
+    dispatch(chatListActions.setChatBlockData(userId));
+  }, []);
+
   const openModal = () => {
     setModalOpen(true);
     document.body.style.overflowY = "hidden";
