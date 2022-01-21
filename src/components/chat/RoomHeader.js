@@ -1,23 +1,21 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
-import { useSelector, useDispatch } from "react-redux";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { MdOutlineMoreVert } from "react-icons/md";
-import { actionCreators as chatListActions } from "../../redux/modules/chatList";
 import RoomModal from "./RoomModal";
 
 const RoomHeader = ({ another_info, handleLeaveRoom }) => {
-  const dispatch = useDispatch();
   const [modalOpen, setModalOpen] = React.useState(false);
 
   const openModal = () => {
     setModalOpen(true);
     document.body.style.overflowY = "hidden";
   };
+
   const closeModal = () => {
     setModalOpen(false);
-    document.body.style.overflowY = "scroll";
+    document.body.style.overflowY = "";
   };
 
   return (
