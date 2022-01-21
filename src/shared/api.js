@@ -88,7 +88,9 @@ export const apis = {
   setChatList: (userId) => api.post(`/api/chat/list`, { userId }),
   sendVoiceChat: (send_data) => api.post("/api/chat/track", send_data),
   sendImageChat: (send_data) => api.post("/api/chat/image", send_data),
+
   checkNewMessage: (userId) => api.post("/api/chat/new", { userId }),
+
 
   // 공통 API
   getMenuInfoDB: () => api.get("/api/tracks/listinfo"),

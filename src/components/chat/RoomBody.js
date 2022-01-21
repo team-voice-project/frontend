@@ -5,7 +5,7 @@ import _ from "lodash";
 import DatetimeLine from "./DatetimeLine";
 import RecieverBubble from "./RecieverBubble";
 import SenderBubble from "./SenderBubble";
-import { Container } from "../../elements";
+import { Container, Spinner } from "../../elements/index";
 import { apis } from "../../shared/api";
 
 const RoomBody = ({
@@ -21,6 +21,7 @@ const RoomBody = ({
   const [data, setData] = useState([]);
   const [pages, setPages] = useState(2);
   const [load, setLoad] = useState(false);
+  const [scroll_point, setScrollPoint] = useState(null);
 
   const totalData = () => {
     const total = [...data, ...chat_content];
@@ -112,6 +113,8 @@ const RoomBody = ({
           {/*<DatetimeLine />*/}
           {/*<SenderBubble />*/}
           {/*<RecieverBubble />*/}
+
+          {load === true && <Spinner small />}
 
           {!chat_content?.length ? (
             <NoMessage>대화 기록이 없습니다.</NoMessage>
