@@ -29,6 +29,19 @@ const CommentWrite = (props) => {
     dispatch(postActions.loadPostDB());
   };
 
+  const commentAction = () => {
+    dispatch(commentCreators.addCommentDB(`${props.props.trackId}`, content));
+    commetReset();
+    setTrack();
+    setMainTrack();
+  };
+
+  const onKeyPress = (event) => {
+    if (event.key === "Enter") {
+      commentAction();
+    }
+  };
+
   return (
     <List>
       <div style={{ width: "95%" }}>
@@ -37,6 +50,7 @@ const CommentWrite = (props) => {
           type="text"
           placeholder="댓글 내용을 입력해주세요 :)"
           onChange={onChange}
+          onKeyPress={onKeyPress}
         />
       </div>
       <div>
@@ -44,12 +58,7 @@ const CommentWrite = (props) => {
           type="submit"
           style={{ width: "35px", height: "35px", cursor: "pointer" }}
           onClick={(e) => {
-            dispatch(
-              commentCreators.addCommentDB(`${props.props.trackId}`, content)
-            );
-            commetReset();
-            setTrack();
-            setMainTrack();
+            commentAction();
           }}
         ></IoIosSend>
       </div>
