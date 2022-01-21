@@ -97,12 +97,21 @@ const GlobalPlayer = () => {
     writerEl.innerHTML = track?.singer || "비어있음";
   };
 
+  const handleOpenGlobalModal = () => {
+    const track_id = now_track?.trackId;
+
+    // 플레이어에 트랙상태가 없다면 모달을 열 수 없습니다.
+    if (!track_id) {
+      return;
+    }
+
+    dispatch(modalActions.viewModalDB(track_id));
+  };
+
   const createPlayInfoEl = () => {
     return (
       <div
-        onClick={() => {
-          dispatch(modalActions.viewModal(true));
-        }}
+        onClick={handleOpenGlobalModal}
         className={"play-display"}
         ref={displayRef}
       >
