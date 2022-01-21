@@ -5,7 +5,7 @@ import { history } from "../redux/configStore";
 // API 인스턴스 생성
 const api = axios.create({
   baseURL: `${process.env.REACT_APP_TEST_API_URL}`,
-
+  withCredentials: true,
   headers: {
     "X-Requested-With": "XMLHttpRequest",
     "Content-type": "application/json; charset=UTF-8",
