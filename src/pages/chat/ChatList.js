@@ -12,11 +12,15 @@ const ChatList = () => {
   const dispatch = useDispatch();
   const userId = newGetCookie("uid");
   const chatList = useSelector((state) => state?.chatList?.chat_list);
+  const chat_rooms_info = useSelector((state) => state.chat.rooms);
 
   useEffect(() => {
     dispatch(chatListActions.setChatBlockData(userId));
   }, []);
-  console.log(chatList);
+
+  useEffect(() => {
+    dispatch(chatListActions.setChatBlockData(userId));
+  }, [chat_rooms_info]);
 
   return (
     <ChatListWrap>

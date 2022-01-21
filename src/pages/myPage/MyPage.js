@@ -30,7 +30,7 @@ const MyPage = (props) => {
   };
   const closeModal = () => {
     setModalOpen(false);
-    document.body.style.overflowY = "scroll";
+    document.body.style.overflowY = "";
   };
 
   useEffect(() => {
@@ -38,6 +38,10 @@ const MyPage = (props) => {
       const userId = res.data.user.userId;
       dispatch(actionCreators.setTrackDB(userId));
     });
+
+    return () => {
+      document.body.style.overflowY = "";
+    };
   }, []);
 
   return (

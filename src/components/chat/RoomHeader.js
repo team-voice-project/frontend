@@ -5,20 +5,26 @@ import { RiArrowLeftSLine } from "react-icons/ri";
 import { MdOutlineMoreVert } from "react-icons/md";
 import RoomModal from "./RoomModal";
 
-const RoomHeader = () => {
+const RoomHeader = ({ another_info, handleLeaveRoom }) => {
   const [modalOpen, setModalOpen] = React.useState(false);
+
   const openModal = () => {
     setModalOpen(true);
     document.body.style.overflowY = "hidden";
   };
+
   const closeModal = () => {
     setModalOpen(false);
-    document.body.style.overflowY = "scroll";
+    document.body.style.overflowY = "";
   };
 
   return (
     <>
-      <RoomModal open={modalOpen} close={closeModal} />
+      <RoomModal
+        open={modalOpen}
+        close={closeModal}
+        handleLeaveRoom={handleLeaveRoom}
+      />
       <ChatHeader>
         <FlexSearchBar>
           <div>
@@ -31,7 +37,7 @@ const RoomHeader = () => {
             />
           </div>
           <div>
-            <Name>조은영</Name>
+            <Name>{another_info?.nickname}</Name>
           </div>
           <div>
             <MdOutlineMoreVert

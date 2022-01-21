@@ -1,12 +1,18 @@
 import React from "react";
 import styled from "styled-components";
-import { Font } from "../../elements";
+import { useDispatch } from "react-redux";
 import { history } from "../../redux/configStore";
 import { newGetCookie } from "../../shared/Cookie";
+import { actionCreators as chatActions } from "../../redux/modules/chat";
+
+import { Font } from "../../elements";
 
 const ChatBlock = (props) => {
+  const dispatch = useDispatch();
   const my_Id = newGetCookie("uid");
   const userId = props.qUserId.userId;
+  const sendUserId = props.sendUserId;
+  const admin_Id = props.userId;
 
   const createRoomNumber = () => {
     const total_Id = [my_Id, userId];
@@ -17,13 +23,12 @@ const ChatBlock = (props) => {
   };
 
   const roomId = createRoomNumber();
-  console.log(props);
 
   const handleJoinChatRoom = () => {
-    console.log("채팅방 입장");
+    const room_key = roomId.split("_").join("");
+    dispatch(chatActions.setReadRoom(room_key));
     history.push(`/chatroom/${roomId}`);
   };
-
 
   const createdAt = new Date(props.createdAt);
 
@@ -46,9 +51,10 @@ const ChatBlock = (props) => {
     return `${Math.floor(years)}년 전`;
   }
   const check = props.checkChat;
+
   return (
     <>
-      {check === true ? (
+      {check === false && sendUserId !== +admin_Id ? (
         <ChatBlockItem background="#353535" onClick={handleJoinChatRoom}>
           <div className={"chat-profile"}>
             <img src={props.qUserId.profileImage} alt="" />

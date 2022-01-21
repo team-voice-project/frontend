@@ -7,25 +7,18 @@ import io from "socket.io-client";
 const SET_SOCKET = "SET_SOCKET";
 const DESTROY_SOCKET = "DESTROY_SOCKET";
 const UPDATE_ROOM_LIST = "UPDATE_ROOM_LIST";
+const SET_READ_ROOM = "SET_READ_ROOM";
 
 const setSocket = createAction(SET_SOCKET, (instance) => ({ instance }));
 const destroySocket = createAction(DESTROY_SOCKET, () => ({}));
 const setChatData = createAction(UPDATE_ROOM_LIST, (new_message) => ({
   new_message,
 }));
+const setReadRoom = createAction(SET_READ_ROOM, (room_id) => ({ room_id }));
 
 const initialState = {
   instance: null,
-  rooms: {
-    12: {
-      new: false,
-      sender: {
-        id: 2,
-        nick: "테스터",
-      },
-      msg: "안녕하세요??",
-    },
-  },
+  rooms: {},
 };
 
 //middleware
@@ -86,6 +79,15 @@ export default handleActions(
         draft.rooms[room_id] = action.payload.new_message.data;
         draft.rooms[room_id].new = true;
       }),
+
+    [SET_READ_ROOM]: (state, action) =>
+      produce(state, (draft) => {
+        const room_id = action.payload.room_id;
+        if (!draft.rooms[room_id]?.new) {
+          return;
+        }
+        draft.rooms[room_id].new = false;
+      }),
   },
   initialState
 );
@@ -94,6 +96,7 @@ const actionCreators = {
   createSocketInstance,
   destroySocketInstance,
   updateChatData,
+  setReadRoom,
 };
 
 export { actionCreators };

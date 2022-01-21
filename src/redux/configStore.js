@@ -12,10 +12,12 @@ import Post from "./modules/post";
 import Mypage from "./modules/mypage";
 import Search from "./modules/search";
 import GlobalPlayer from "./modules/globalPlayer";
+import Modal from "./modules/modal";
 
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
+  modal: Modal,
   chat: Chat,
   chatList: ChatList,
   comment: Comment,

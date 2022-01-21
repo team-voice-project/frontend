@@ -110,15 +110,15 @@ const RecieverBubble = ({ message, setRecordModal, setRequestText }) => {
           <ProfileImg src={message.sendUserId.profileImage} />
         </div>
         <div className={"bubble-content"}>
-          <a download href={image_url}>
-            <img
-              src={image_url}
-              alt=""
-              title={"클릭해서 다운받기"}
-              onLoad={() => completeLoad()}
-              onError={getError}
-            />
-          </a>
+          {/*<a download href={image_url}>*/}
+          <img
+            src={image_url}
+            alt=""
+            // title={"클릭해서 다운받기"}
+            onLoad={() => completeLoad()}
+            onError={getError}
+          />
+          {/*</a>*/}
 
           {loading && (
             <div className={"spinner"}>
@@ -132,23 +132,22 @@ const RecieverBubble = ({ message, setRecordModal, setRequestText }) => {
   }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        marginTop: "20px",
-        marginBottom: "20px",
-      }}
-    >
+    <BasicBubble>
       <div>
         <ProfileImg src={message.sendUserId.profileImage} />
       </div>
       <SenderDiv>{message.chatText}</SenderDiv>
       <Time>{formattedKrTime(message.createdAt)}</Time>
-    </div>
+    </BasicBubble>
   );
 };
 
 export default RecieverBubble;
+
+const BasicBubble = styled.div`
+  display: flex;
+  margin: 20px 0;
+`;
 
 const ImageBubble = styled.div`
   display: flex;
@@ -161,7 +160,7 @@ const ImageBubble = styled.div`
     font-weight: 400;
     padding: 0;
     max-width: 210px;
-    border-radius: 10px 0 10px 10px;
+    border-radius: 0 10px 10px 10px;
     word-break: break-all;
     overflow: hidden;
 
@@ -244,7 +243,7 @@ const AudioBubble = styled.div`
     font-weight: 400;
     padding: 20px;
     max-width: 210px;
-    border-radius: 10px 0px 10px 10px;
+    border-radius: 0 10px 10px 10px;
     word-break: break-all;
   }
 

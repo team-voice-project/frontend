@@ -74,15 +74,15 @@ const SenderBubble = ({ message }) => {
       <ImageBubble>
         <Time>{formattedKrTime(message.createdAt)}</Time>
         <div className={"bubble-content"}>
-          <a download href={image_url}>
-            <img
-              src={image_url}
-              alt=""
-              title={"클릭해서 다운받기"}
-              onLoad={() => completeLoad()}
-              onError={getError}
-            />
-          </a>
+          {/*<a download href={image_url}>*/}
+          <img
+            src={image_url}
+            alt=""
+            // title={"클릭해서 다운받기"}
+            onLoad={() => completeLoad()}
+            onError={getError}
+          />
+          {/*</a>*/}
 
           {loading && (
             <div className={"spinner"}>
@@ -95,21 +95,20 @@ const SenderBubble = ({ message }) => {
   }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "end",
-        marginTop: "20px",
-        marginBottom: "20px",
-      }}
-    >
+    <BasicBubble>
       <Time>{formattedKrTime(message.createdAt)}</Time>
       <SenderDiv>{message.chatText}</SenderDiv>
-    </div>
+    </BasicBubble>
   );
 };
 
 export default SenderBubble;
+
+const BasicBubble = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px 0;
+`;
 
 const ImageBubble = styled.div`
   display: flex;

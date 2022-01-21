@@ -62,8 +62,6 @@ const SendOptions = ({
       return;
     }
 
-    console.log("첨부 이미지:", e.target.files[0]);
-
     const result = await sendImageFile(e.target.files[0]);
     if (result) {
       sendMessage(null, "image");
@@ -124,7 +122,6 @@ const SendOptions = ({
 
     const result = await sendVoiceData(e.target.files[0]);
     if (result) {
-      console.log("목소리 전송이 성공했습니다.");
       const { uid, another } = createRoomId();
 
       chat?.emit("file", {

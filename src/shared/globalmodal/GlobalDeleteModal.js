@@ -1,21 +1,21 @@
 import React from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import CheckModal from "./CheckModal";
+import CheckModal from "./GlobalCheckModal";
 
-const DeleteModal = (props) => {
+const GlobalDeleteModal = (props) => {
   const { open, close } = props;
   const history = useHistory();
-  const trackId = props.props.props.trackId;
+  const trackId = props?.track_info?.trackId;
   const [modalOpen, setModalOpen] = React.useState(false);
-
+  console.log(props);
   const openModal = () => {
     setModalOpen(true);
     document.body.style.overflowY = "hidden";
   };
   const closeModal = () => {
     setModalOpen(false);
-    document.body.style.overflowY = "scroll";
+    document.body.style.overflowY = "";
   };
 
   return (
@@ -115,4 +115,4 @@ const CancleBtn = styled.button`
   color: black;
 `;
 
-export default DeleteModal;
+export default GlobalDeleteModal;

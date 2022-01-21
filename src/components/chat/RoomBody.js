@@ -29,13 +29,21 @@ const RoomBody = ({
   };
   const totalChat = totalData();
 
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, []);
+  const newChatList = () => {
+    if (!totalChat) {
+      return;
+    }
+    const newList = totalChat.map((chat, i) => {
+      const date = chat.createdAt.split("T")[0];
+      const obj = {
+        ...chat,
+        date: date,
+      };
+      return obj;
+    });
+    return newList;
+  };
+  const newTotalChat = newChatList();
 
   useEffect(() => {
     contentScrollRef.current.scrollTop = contentScrollRef.current.scrollHeight;
@@ -109,7 +117,7 @@ const RoomBody = ({
           {!chat_content?.length ? (
             <NoMessage>대화 기록이 없습니다.</NoMessage>
           ) : (
-            totalChat.map((message, i) => {
+            newTotalChat.map((message, i) => {
               return renderChatContent(message, i);
             })
           )}
@@ -127,6 +135,7 @@ const ChatContentWrap = styled.div`
     flex-direction: column;
     justify-content: flex-end;
     height: 100vh;
+    height: -webkit-fill-available;
   }
 `;
 const ChatContentList = styled.div`
