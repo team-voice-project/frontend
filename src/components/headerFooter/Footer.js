@@ -39,6 +39,12 @@ const Footer = () => {
 
   const checkDBNewMessage = async () => {
     const uid = newGetCookie("uid");
+
+    // 비로그인시 새로운 메시지 체크하지 않음
+    if (!uid) {
+      return;
+    }
+
     const res = await apis.checkNewMessage(uid);
     const empty_new_message = res.data?.roomCheck;
     if (empty_new_message) {
