@@ -62,21 +62,21 @@ const stop = () => {
 
 const loadPlayList = () => {
   return async (dispatch, getState, { history }) => {
-    // const nick = newGetCookie("nick");
-    // const token = newGetCookie("token");
-    // const is_login = Boolean(nick && token);
-    // const session_playlist = getSessionPlaylist();
-    // if (is_login) {
-    //   try {
-    //     const res = await apis.getPlayList();
-    //     dispatch(setPlayList(res.data.playlist));
-    //     console.log("플레이 리스트 불러오기 성공", res);
-    //   } catch (err) {
-    //     console.log("플레이 리스트 불러오기 실패", err.response);
-    //   }
-    // } else if (session_playlist) {
-    //   dispatch(setPlayList(session_playlist));
-    // }
+    const nick = newGetCookie("nick");
+    const token = newGetCookie("token");
+    const is_login = Boolean(nick && token);
+    const session_playlist = getSessionPlaylist();
+    if (is_login) {
+      try {
+        const res = await apis.getPlayList();
+        dispatch(setPlayList(res.data.playlist));
+        console.log("플레이 리스트 불러오기 성공", res);
+      } catch (err) {
+        console.log("플레이 리스트 불러오기 실패", err.response);
+      }
+    } else if (session_playlist) {
+      dispatch(setPlayList(session_playlist));
+    }
   };
 };
 
