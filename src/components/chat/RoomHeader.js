@@ -10,14 +10,6 @@ import RoomModal from "./RoomModal";
 const RoomHeader = ({ another_info, handleLeaveRoom }) => {
   const dispatch = useDispatch();
   const [modalOpen, setModalOpen] = React.useState(false);
-  const another_nick = useSelector(
-    (state) => state?.chatList?.chat_list[0]?.qUserId?.nickname
-  );
-  const userId = createRoomId()?.uid;
-
-  useEffect(() => {
-    dispatch(chatListActions.setChatBlockData(userId));
-  }, []);
 
   const openModal = () => {
     setModalOpen(true);

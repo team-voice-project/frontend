@@ -83,6 +83,9 @@ export default handleActions(
     [SET_READ_ROOM]: (state, action) =>
       produce(state, (draft) => {
         const room_id = action.payload.room_id;
+        if (!draft.rooms[room_id]?.new) {
+          return;
+        }
         draft.rooms[room_id].new = false;
       }),
   },

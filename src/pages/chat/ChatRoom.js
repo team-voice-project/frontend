@@ -153,7 +153,6 @@ const ChatRoom = () => {
       <RoomHeader
         another_info={another_info}
         handleLeaveRoom={handleLeaveRoom}
-createRoomId={createRoomId}
       />
 
       <RoomBody
