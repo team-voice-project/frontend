@@ -146,6 +146,7 @@ const ChatRoom = () => {
     console.log("방 나가기");
     const { uid, another } = createRoomId();
     chat?.emit("leaveRoom", { userId: uid, qUserId: another });
+    chat?.emit("login", { userId: uid });
   };
 
   return (
