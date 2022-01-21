@@ -234,7 +234,7 @@ const EditProfile = ({ history }) => {
                 <Font m>이메일</Font>
               </label>
               <input
-                type="text"
+                type="email"
                 placeholder="입력하기"
                 id={"profile-email"}
                 defaultValue={email_value}
@@ -402,6 +402,10 @@ const EditWrap = styled.section`
         textarea {
           min-height: 75px;
           max-height: 140px;
+        }
+
+        #profile-email {
+          text-transform: lowercase;
         }
       }
     }
