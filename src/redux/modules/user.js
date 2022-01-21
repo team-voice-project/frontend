@@ -57,8 +57,9 @@ const registerKakaoDB = () => {
 
 const logOutDB = () => {
   return function (dispatch, getState, { history }) {
-    dispatch(logOut(deleteCookie("OAO")));
-    history.push("/");
+    deleteCookie("OAO");
+    dispatch(logOut());
+    window.location.href = "/";
   };
 };
 

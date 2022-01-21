@@ -146,7 +146,7 @@ const EditProfile = ({ history }) => {
       //   `__OAO-uid=${uid}__OAO-nick=${nick_value}__OAO-token=${token}`,
       //   1
       // );
-      // dispatch(userActions.setUser({ user: nick_value, is_login: true }));
+      dispatch(userActions.setUser({ user: nick_value, is_login: true }));
       goNextPage();
     } else {
       alert("[Error] 프로필을 변경 할 수 없습니다 :(");
