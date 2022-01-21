@@ -202,7 +202,7 @@ const MenuModal = (props) => {
                     <Text>{props.props.Comments.length}</Text>
                   </div>
                 </div>
-                <div
+                <Comments
                   style={{
                     margin: "10px 0px",
                     minHeight: "120px",
@@ -218,7 +218,7 @@ const MenuModal = (props) => {
                     : props.props.Comments.map((p, idx) => {
                         return <CommentList {...props} key={idx} {...p} />;
                       })}
-                </div>
+                </Comments>
                 <CommentWrite {...props} />
               </Container>
             </Section>
@@ -295,5 +295,25 @@ const Text = styled.p`
   margin-top: 5px;
   font-size: 17px;
   color: white;
+`;
+
+const Comments = styled.div`
+  margin: 10px 0px;
+  min-height: 120px;
+  max-height: 120px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  &::-webkit-scrollbar {
+    width: 4px;
+    border-radius: 6px;
+    overflow: auto;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--point-color);
+    border-radius: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #000;
+  }
 `;
 export default MenuModal;

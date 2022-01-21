@@ -13,7 +13,6 @@ import { BsFillGridFill } from "react-icons/bs";
 import { MdLogin } from "react-icons/md";
 
 const Footer = () => {
-  const is_login = useSelector((state) => state.user.is_login);
   const pathName = useSelector((state) => state.router.location.pathname);
   const uid = newGetCookie("uid");
   const [render, setRender] = useState(true);
@@ -87,7 +86,7 @@ const Footer = () => {
           <HiOutlineSearch size="24px" cursor="pointer"></HiOutlineSearch>
         </IconDiv>
 
-        {is_login === true ? (
+        {uid ? (
           <IconDiv
             className={pathName === `/chat/${uid}` ? "active" : "nav-item"}
             onClick={() => {
@@ -108,7 +107,7 @@ const Footer = () => {
           </IconDiv>
         )}
 
-        {is_login === true ? (
+        {uid ? (
           <IconDiv
             className={
               pathName === "/mypage/rank_list" || pathName === "/mypage"
