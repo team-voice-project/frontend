@@ -139,14 +139,14 @@ const EditProfile = ({ history }) => {
   const handleClickApplyBtn = async () => {
     const result = await sendProfileData();
     if (result?.status === 200) {
-      const uid = newGetCookie("uid");
-      const token = newGetCookie("token");
-      setCookie(
-        "OAO",
-        `__OAO-uid=${uid}__OAO-nick=${nick_value}__OAO-token=${token}`,
-        1
-      );
-      dispatch(userActions.setUser({ user: nick_value, is_login: true }));
+      // const uid = newGetCookie("uid");
+      // const token = newGetCookie("token");
+      // setCookie(
+      //   "OAO",
+      //   `__OAO-uid=${uid}__OAO-nick=${nick_value}__OAO-token=${token}`,
+      //   1
+      // );
+      // dispatch(userActions.setUser({ user: nick_value, is_login: true }));
       goNextPage();
     } else {
       alert("[Error] 프로필을 변경 할 수 없습니다 :(");
