@@ -9,6 +9,7 @@ import {
   GLOBAL_PLAYER_ESCAPE_LIST,
 } from "../../shared/utils";
 import { actionCreators as playerActions } from "../../redux/modules/globalPlayer";
+import { actionCreators as modalActions } from "../../redux/modules/modal";
 import { apis } from "../../shared/api";
 import { newGetCookie } from "../../shared/Cookie";
 
@@ -98,7 +99,13 @@ const GlobalPlayer = () => {
 
   const createPlayInfoEl = () => {
     return (
-      <div className={"play-display"} ref={displayRef}>
+      <div
+        onClick={() => {
+          dispatch(modalActions.viewModal(true));
+        }}
+        className={"play-display"}
+        ref={displayRef}
+      >
         <div className={"cover"}>
           <img src="" alt="" />
         </div>
