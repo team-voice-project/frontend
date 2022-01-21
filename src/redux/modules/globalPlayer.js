@@ -39,7 +39,6 @@ const clearPlayList = createAction(CLEAR_PLAY_LIST, () => ({}));
 const play = (track) => {
   return async (dispatch, getState, { history }) => {
     const player = getState().globalPlayer.playerInstance;
-    console.log("재생될 현재트랙 정보:  ", track);
     dispatch(addTrack(track));
     dispatch(nowTrack(track));
     dispatch(setMode("play"));
