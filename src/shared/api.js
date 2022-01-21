@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getCookie } from "./Cookie";
+import { newGetCookie } from "./Cookie";
 import { history } from "../redux/configStore";
 
 // API 인스턴스 생성
@@ -15,7 +15,7 @@ const api = axios.create({
 
 // 토큰정보 인터셉트
 api.interceptors.request.use((config) => {
-  config.headers.common["authorization"] = `Bearer ${getCookie()}`;
+  config.headers.common["authorization"] = `Bearer ${newGetCookie("token")}`;
   return config;
 });
 
@@ -90,7 +90,6 @@ export const apis = {
   sendImageChat: (send_data) => api.post("/api/chat/image", send_data),
 
   checkNewMessage: (userId) => api.post("/api/chat/new", { userId }),
-
 
   // 공통 API
   getMenuInfoDB: () => api.get("/api/tracks/listinfo"),
