@@ -138,7 +138,7 @@ const EditProfile = ({ history }) => {
 
   const handleClickApplyBtn = async () => {
     const result = await sendProfileData();
-    if (result.status === 200) {
+    if (result?.status === 200) {
       const uid = newGetCookie("uid");
       const token = newGetCookie("token");
       setCookie(

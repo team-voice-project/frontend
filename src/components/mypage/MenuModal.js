@@ -27,6 +27,7 @@ const MenuModal = (props) => {
   const userId = props.props.userId;
   const trackId = props.props?.trackId;
   const nick = newGetCookie("nick");
+  const trackNick = props.props.User.nickname;
   const isMe = props.props.User.nickname === nick;
   const setTrack = () => {
     apis.getProfile().then((res) => {
@@ -78,6 +79,7 @@ const MenuModal = (props) => {
                   style={{
                     display: "block",
                     textAlign: "end",
+                    verticalAlign: "center",
                   }}
                 >
                   {isMe && (
@@ -99,7 +101,7 @@ const MenuModal = (props) => {
                   />
                   <AiOutlineClose
                     style={{
-                      margin: "0px 0px 0px 10px",
+                      margin: "13px 0px 0px 10px",
 
                       cursor: "pointer",
                     }}
@@ -111,17 +113,30 @@ const MenuModal = (props) => {
                     }}
                   />
                 </div>
-                <Profile
-                  onClick={() => {
-                    history.push({
-                      pathname: `/portfolio/${userId}/voice_rank`,
-                    });
-                    close();
-                  }}
-                >
-                  <ProfileCircle src={props.props.User.profileImage} />
-                  <Name>{props.props.User.nickname}</Name>
-                </Profile>
+                {nick === trackNick ? (
+                  <Profile
+                    onClick={() => {
+                      history.push("/mypage/rank_list");
+                      close();
+                    }}
+                  >
+                    <ProfileCircle src={props.props.User.profileImage} />
+                    <Name>{props.props.User.nickname}</Name>
+                  </Profile>
+                ) : (
+                  <Profile
+                    onClick={() => {
+                      history.push({
+                        pathname: `/portfolio/${userId}/voice_rank`,
+                      });
+                      close();
+                    }}
+                  >
+                    <ProfileCircle src={props.props.User.profileImage} />
+                    <Name>{props.props.User.nickname}</Name>
+                  </Profile>
+                )}
+
                 <div style={{ textAlign: "center" }}>
                   <ImageCircle
                     src={props.props.TrackThumbnail?.trackThumbnailUrlFull}
@@ -236,6 +251,7 @@ MenuModal.defaultProps = {
 
 const Profile = styled.div`
   display: flex;
+  width: 200px;
   align-items: center;
   cursor: pointer;
 `;
