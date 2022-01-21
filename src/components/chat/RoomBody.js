@@ -106,8 +106,6 @@ const RoomBody = ({
           {/*<SenderBubble />*/}
           {/*<RecieverBubble />*/}
 
-          {load === true && <Spinner small />}
-
           {!chat_content?.length ? (
             <NoMessage>대화 기록이 없습니다.</NoMessage>
           ) : (
