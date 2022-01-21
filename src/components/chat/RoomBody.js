@@ -142,6 +142,7 @@ const ChatContentWrap = styled.div`
     flex-direction: column;
     justify-content: flex-end;
     height: 100vh;
+    height: -webkit-fill-available;
   }
 `;
 const ChatContentList = styled.div`
