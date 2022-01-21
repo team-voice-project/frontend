@@ -44,13 +44,13 @@ const RoomBody = ({
   };
   const newTotalChat = newChatList();
 
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, []);
+  // useEffect(() => {
+  //   document.body.style.overflow = "hidden";
+  //
+  //   return () => {
+  //     document.body.style.overflow = "";
+  //   };
+  // }, []);
 
   useEffect(() => {
     contentScrollRef.current.scrollTop = contentScrollRef.current.scrollHeight;
