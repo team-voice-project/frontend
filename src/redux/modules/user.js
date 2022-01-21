@@ -51,14 +51,15 @@ const registerNaverDB = () => {
 
 const registerKakaoDB = () => {
   return function (dispatch, getState, { history }) {
-    window.location.href = "http://54.180.82.210/api/auth/kakao";
+    window.location.href = `${process.env.REACT_APP_TEST_API_URL}/api/auth/kakao`;
   };
 };
 
 const logOutDB = () => {
   return function (dispatch, getState, { history }) {
-    dispatch(logOut(deleteCookie("OAO")));
-    history.push("/");
+    deleteCookie("OAO");
+    dispatch(logOut());
+    window.location.href = "/";
   };
 };
 
