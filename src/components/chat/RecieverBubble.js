@@ -244,7 +244,7 @@ const AudioBubble = styled.div`
     font-weight: 400;
     padding: 20px;
     max-width: 210px;
-    border-radius: 10px 0px 10px 10px;
+    border-radius: 0 10px 10px 10px;
     word-break: break-all;
   }
 
