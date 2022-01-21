@@ -12,7 +12,6 @@ const ChatList = () => {
   const dispatch = useDispatch();
   const userId = newGetCookie("uid");
   const chatList = useSelector((state) => state?.chatList?.chat_list);
-
   useEffect(() => {
     dispatch(chatListActions.setChatBlockData(userId));
   }, []);

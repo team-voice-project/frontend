@@ -28,6 +28,22 @@ const RoomBody = ({
   };
   const totalChat = totalData();
 
+  const newChatList = () => {
+    if (!totalChat) {
+      return;
+    }
+    const newList = totalChat.map((chat, i) => {
+      const date = chat.createdAt.split("T")[0];
+      const obj = {
+        ...chat,
+        date: date,
+      };
+      return obj;
+    });
+    return newList;
+  };
+  const newTotalChat = newChatList();
+
   useEffect(() => {
     document.body.style.overflow = "hidden";
 
@@ -108,7 +124,7 @@ const RoomBody = ({
           {!chat_content?.length ? (
             <NoMessage>대화 기록이 없습니다.</NoMessage>
           ) : (
-            totalChat.map((message, i) => {
+            newTotalChat.map((message, i) => {
               return renderChatContent(message, i);
             })
           )}
