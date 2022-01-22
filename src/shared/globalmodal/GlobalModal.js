@@ -25,7 +25,6 @@ const GlobalModal = (props) => {
 
   const state = useSelector((state) => state.comment.comments);
   const track_info = useSelector((state) => state.modal.track_info);
-  console.log(track_info);
   const [LikeCnt, setLikeCnt] = React.useState();
   const userId = track_info?.userId;
   const trackId = track_info?.trackId;

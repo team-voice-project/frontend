@@ -45,8 +45,8 @@ const Track = (props) => {
       // img, input 태그 중첩 클릭 방지
       const currentInput = e.currentTarget.querySelector(".radioButton");
       const wrapper = props.trackWrapRef;
-      const inputs = wrapper.querySelectorAll(".radioButton");
-      const checkedLength = wrapper.querySelectorAll(
+      const inputs = wrapper?.querySelectorAll(".radioButton");
+      const checkedLength = wrapper?.querySelectorAll(
         ".radioButton:checked"
       ).length;
 
