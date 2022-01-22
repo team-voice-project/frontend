@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 
-import MenuModal from "./MenuModal";
 import PlayButton from "./playButton.png";
 import PauseBtn from "./pauseBtn.png";
 import { HiHeart } from "react-icons/hi";
+
+import { actionCreators as modalActions } from "../../redux/modules/modal";
 
 import { RiChat4Fill } from "react-icons/ri";
 import { actionCreators as playerActions } from "../../redux/modules/globalPlayer";
@@ -13,9 +14,19 @@ import { useDispatch, useSelector } from "react-redux";
 const Track = (props) => {
   const dispatch = useDispatch();
   const playIconRef = useRef(null);
-  const [modalOpen, setModalOpen] = useState(false);
   const now_track = useSelector((state) => state.globalPlayer.now_track);
+
   const global_player_mode = useSelector((state) => state.globalPlayer.mode);
+
+  const handleOpenGlobalModal = () => {
+    const track_id = props?.trackId;
+
+    // 플레이어에 트랙상태가 없다면 모달을 열 수 없습니다.
+    if (!track_id) {
+      return;
+    }
+    dispatch(modalActions.viewModalDB(track_id));
+  };
 
   useEffect(() => {
     // console.log("현재 플레이 모드", global_player_mode, props);
@@ -28,16 +39,6 @@ const Track = (props) => {
       }
     }
   }, [global_player_mode]);
-
-  const openModal = () => {
-    setModalOpen(true);
-    document.body.style.overflowY = "hidden";
-    // dispatch(commentActions.setCommentDB(trackId)
-  };
-  const closeModal = () => {
-    setModalOpen(false);
-    document.body.style.overflowY = "scroll";
-  };
 
   const handleChangeActiveTrack = async (e) => {
     if (e.target.tagName === "INPUT") {
@@ -70,7 +71,6 @@ const Track = (props) => {
 
   return (
     <>
-      <MenuModal props={props} open={modalOpen} close={closeModal} />
       <DivWrap>
         <TrackDiv onClick={handleChangeActiveTrack}>
           <label>
@@ -91,7 +91,7 @@ const Track = (props) => {
         </TrackDiv>
         <div
           onClick={() => {
-            openModal();
+            handleOpenGlobalModal();
           }}
           style={{ cursor: "pointer" }}
         >

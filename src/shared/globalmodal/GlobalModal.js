@@ -125,8 +125,8 @@ const GlobalModal = (props) => {
                   close();
                 }}
               >
-                <ProfileCircle src={track_info.User.profileImage} />
-                <Name>{track_info.User.nickname}</Name>
+                <ProfileCircle src={track_info?.User?.profileImage} />
+                <Name>{track_info?.User?.nickname}</Name>
               </Profile>
             ) : (
               <Profile
@@ -137,8 +137,8 @@ const GlobalModal = (props) => {
                   close();
                 }}
               >
-                <ProfileCircle src={track_info.User?.profileImage} />
-                <Name>{track_info.User?.nickname}</Name>
+                <ProfileCircle src={track_info?.User?.profileImage} />
+                <Name>{track_info?.User?.nickname}</Name>
               </Profile>
             )}
 
