@@ -223,7 +223,7 @@ const MenuModal = (props) => {
                     minHeight: "120px",
                     maxHeight: "120px",
                     overflowY: "scroll",
-                    overflowX: "hidden",
+                    // overflowX: "hidden",
                   }}
                 >
                   {state?.length !== 0
