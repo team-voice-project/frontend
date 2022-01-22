@@ -50,19 +50,37 @@ const RoomBody = ({
     return newList;
   };
 
+
+  useEffect(() => {
+    setScrollPoint(contentScrollRef.current.scrollHeight);
+    const activeScroll = contentScrollRef.current.scrollHeight - scroll_point;
+    if (activeScroll !== 0) {
+      return contentScrollRef.current.scrollTo(
+        0,
+        contentScrollRef.current.scrollHeight - scroll_point
+      );
+    }
+  }, [totalChat]);
+
+  useEffect(() => {
+    contentScrollRef.current.scrollTop = contentScrollRef.current.scrollHeight;
+  }, [chat_content]);
+
   const newTotalChat = newChatList();
+
 
   const _handleReverseScroll = _.throttle((e) => {
     const now_scroll = contentScrollRef.current.scrollTop;
+
     if (now_scroll === 0 && hasMore === true) {
       fetchMoreChatContent();
     }
   }, 250);
-
+  // console.log("스크롤", scroll_point);
   const fetchMoreChatContent = async (room_info, page, chat) => {
     const { uid, another } = createRoomId();
     const roomInfo = { userId: uid, qUserId: another };
-    setLoad(true);
+
     const res = await apis.getChatList(
       (room_info = roomInfo),
       (page = `${pages}`),
@@ -76,9 +94,6 @@ const RoomBody = ({
 
     if (resData.length === 0 || resData.length < 20) {
       setHasMore(false);
-      contentScrollRef.current.scrollTo(0, 0);
-    } else {
-      contentScrollRef.current.scrollTo(0, 1200);
     }
   };
 
@@ -113,7 +128,11 @@ const RoomBody = ({
           onScroll={handleReverseScroll}
           id={"chat-list"}
         >
-          {load === true && <Spinner small />}
+
+          {/*<DatetimeLine />*/}
+          {/*<SenderBubble />*/}
+          {/*<RecieverBubble />*/}
+
 
           {!chat_content?.length ? (
             <NoMessage>대화 기록이 없습니다.</NoMessage>
@@ -136,7 +155,9 @@ const ChatContentWrap = styled.div`
     flex-direction: column;
     justify-content: flex-end;
     height: 100vh;
-    height: -webkit-fill-available;
+    @supports (-webkit-touch-callout: none) {
+      height: -webkit-fill-available;
+    }
   }
 `;
 const ChatContentList = styled.div`

@@ -41,14 +41,6 @@ const newGetCookie = (key) => {
     .split(`-${key}=`)[1];
 };
 
-const getOnbCookie = (name) => {
-  let value = "; " + document.cookie;
-  let parts = value.split("; " + name + "=");
-  if (parts.length === 2) {
-    return parts.pop().split(";").shift();
-  }
-};
-
 // 쿠키에 저장하는 함수
 // const setCookie = (name, value, exp = 5) => {
 //   let date = new Date();
@@ -72,4 +64,4 @@ const deleteCookie = (name) => {
   localStorage.removeItem(name);
 };
 
-export { setCookie, deleteCookie, getCookie, newGetCookie, getOnbCookie };
+export { setCookie, deleteCookie, getCookie, newGetCookie };
