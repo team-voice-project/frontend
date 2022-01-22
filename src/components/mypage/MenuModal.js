@@ -287,7 +287,7 @@ const ImageCircle = styled.img`
 const Section = styled.div`
   position: fixed;
 
-  z-index: 9000;
+  z-index: 9990;
   //-webkit-transform: translateZ(0px);
 
   right: 0;
