@@ -219,7 +219,8 @@ const HeaderDiv = styled.div`
   width: 100%;
   height: 60px;
   background-color: #000;
-  z-index: 1000;
+  z-index: 4;
+  -webkit-transform: translateZ(-5px);
 `;
 
 const Tag = styled.div`
@@ -272,7 +273,8 @@ const Flex = styled.div`
   background-color: #000;
   position: fixed;
   top: 60px;
-  z-index: 8888;
+  z-index: 4;
+  -webkit-transform: translateZ(-5px);
 `;
 
 const TagDiv = styled.div`
