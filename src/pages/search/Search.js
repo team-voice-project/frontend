@@ -199,6 +199,7 @@ const HeaderDiv = styled.div`
   height: 60px;
   background-color: #000;
   z-index: 4;
+  -webkit-transform: translateZ(-5px);
 `;
 
 const Wrap = styled.div`
