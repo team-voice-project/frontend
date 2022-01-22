@@ -105,6 +105,7 @@ const GlobalPlayer = () => {
       return;
     }
 
+    dispatch(playerActions.stop());
     dispatch(modalActions.viewModalDB(track_id));
   };
 
@@ -164,7 +165,6 @@ const GlobalPlayer = () => {
   };
 
   const handlePlayEvent = async (target_track) => {
-    console.log("플레이어 재생");
     if (target_track?.type === "play") {
       // 플레이 리스트에서 선택하지 않았을때
       setPlayerDisplay(now_track);
@@ -206,6 +206,7 @@ const GlobalPlayer = () => {
     }
 
     activeEl.classList.add("pause");
+    dispatch(playerActions.stop());
   };
 
   const resetPlayerDisplay = () => {
@@ -536,6 +537,7 @@ const PlayerWidget = styled.article`
     font-size: 13px;
     display: flex;
     align-items: center;
+    cursor: pointer;
 
     .cover {
       width: 40px;

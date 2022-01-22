@@ -40,6 +40,7 @@ const Login = ({ history, location }) => {
 
         */}
         <LoginButtonG href="https://accounts.google.com/o/oauth2/v2/auth?scope=profile&amp;response_type=code&amp;client_id=915984581184-0lemqp7h486t35lr3eei5sdmqun7l4m6.apps.googleusercontent.com&amp;redirect_uri=http://localhost:3000/api/auth/google/callback">
+
           구글로 로그인
         </LoginButtonG>
 
