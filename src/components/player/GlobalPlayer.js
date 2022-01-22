@@ -532,7 +532,6 @@ const PlayerWidget = styled.article`
   left: 0;
   right: 0;
   z-index: 2000;
-  -webkit-transform: translateZ(-5px);
 
   .play-display {
     font-size: 13px;
@@ -606,7 +605,6 @@ const PlayListWidget = styled.article`
     transform: translateX(-50%);
     bottom: 112px;
     z-index: 10000;
-    -webkit-transform: translateZ(-5px);
   }
 
   .playlist-header {
