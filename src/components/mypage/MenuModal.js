@@ -288,8 +288,9 @@ const Section = styled.div`
   position: fixed;
 
   z-index: 9000;
-  -webkit-transform-style: preserve-3d;
-  -webkit-transform: translateZ(-5px);
+  -webkit-transform: translateZ(0px); // safari bug fix
+
+  -webkit-backface-visibility: hidden;
 
   right: 0;
   top: 0;
