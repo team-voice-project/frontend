@@ -529,8 +529,9 @@ const RecorderWrap = styled.div`
 
   /* iOS only */
   @supports (-webkit-touch-callout: none) {
-    max-height: 286px;
-    padding-bottom: 70px;
+    height: 50vh;
+    max-height: 326px;
+    padding-bottom: 140px;
   }
 
   .hidden-system-audio {
