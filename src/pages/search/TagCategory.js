@@ -282,9 +282,6 @@ const TagDiv = styled.div`
   width: 100%;
   background-color: #000;
   margin-top: 90px;
-  /* position: fixed;
-  top: 90px;
-  z-index: 9999; */
 `;
 
 const TrackGrid = styled.div`
