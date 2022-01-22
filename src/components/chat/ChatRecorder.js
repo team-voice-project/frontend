@@ -296,7 +296,9 @@ const ChatRecorder = ({
 
     // 컨버팅 여부를 위해 사용자 디바이스가 iOS인지 아닌지 결과값 전달
     const is_iphone = iOS();
-    send_data.append("iphone", is_iphone);
+    if (is_iphone) {
+      send_data.append("device", "iphone");
+    }
 
     try {
       const res = await apis.sendVoiceChat(send_data);
