@@ -35,16 +35,21 @@ const Login = ({ history, location }) => {
 
         <OAOImage></OAOImage>
 
-        <LoginButtonG href="https://accounts.google.com/o/oauth2/v2/auth?scope=profile&amp;response_type=code&amp;client_id=915984581184-0lemqp7h486t35lr3eei5sdmqun7l4m6.apps.googleusercontent.com&amp;redirect_uri=https://oao-voice.com/api/auth/google/callback">
+        {/*
+        283372056185-4d683ifd0ec8u3un2lmtmrq94qh0cgc8.apps.googleusercontent.com
+
+        */}
+        <LoginButtonG href="https://accounts.google.com/o/oauth2/v2/auth?scope=profile&amp;response_type=code&amp;client_id=915984581184-0lemqp7h486t35lr3eei5sdmqun7l4m6.apps.googleusercontent.com&amp;redirect_uri=http://localhost:3000/api/auth/google/callback">
+
           구글로 로그인
         </LoginButtonG>
 
         <LoginButtonN
-          href={`https://nid.naver.com/oauth2.0/authorize?response_type=code&amp;client_id=${NAVER_KEY}&amp;redirect_uri=https://oao-voice.com/api/auth/naver/callback&amp;state=state`}
+          href={`https://nid.naver.com/oauth2.0/authorize?response_type=code&amp;client_id=${NAVER_KEY}&amp;redirect_uri=http://localhost:3000/api/auth/naver/callback&amp;state=state`}
         >
           네이버로 로그인
         </LoginButtonN>
-        <LoginButtonK href="https://kauth.kakao.com/oauth/authorize?client_id=f1e0d9ea23cc43e8717f86da6573a3a1&amp;redirect_uri=https://oao-voice.com/api/auth/kakao/callback&amp;response_type=code">
+        <LoginButtonK href="https://kauth.kakao.com/oauth/authorize?client_id=f1e0d9ea23cc43e8717f86da6573a3a1&amp;redirect_uri=http://localhost:3000/api/auth/kakao/callback&amp;response_type=code">
           카카오로 로그인
         </LoginButtonK>
       </Container>
