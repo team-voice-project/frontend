@@ -216,6 +216,8 @@ const FlexDiv = styled.div`
   position: fixed;
   top: 60px;
   z-index: 4;
+
+  -webkit-transform: translateZ(-5px);
 `;
 
 const Flex = styled.div`
