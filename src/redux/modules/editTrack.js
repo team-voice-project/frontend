@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { apis } from "../../shared/api";
+import { iOS } from "../../shared/utils";
 
 const EDITOR_SAVE_BASE = "EDITOR_SAVE_BASE";
 const EDITOR_SAVE_AUDIO = "EDITOR_SAVE_AUDIO";
@@ -19,7 +20,9 @@ const initialState = {
 };
 
 const saveBase = createAction(EDITOR_SAVE_BASE, (base_info) => ({ base_info }));
-const saveAudio = createAction(EDITOR_SAVE_AUDIO, (audio_info) => ({ audio_info }));
+const saveAudio = createAction(EDITOR_SAVE_AUDIO, (audio_info) => ({
+  audio_info,
+}));
 const resetTrack = createAction(EDITOR_RESET_TRACK, () => ({}));
 const setLoading = createAction(EDITOR_SET_LOADING, (loading) => ({ loading }));
 
@@ -34,6 +37,10 @@ const sendTrackData = (track) => {
     trackData.append("tag1", track.tags[0] ? track.tags[0] : "");
     trackData.append("tag2", track.tags[1] ? track.tags[1] : "");
     trackData.append("tag3", track.tags[2] ? track.tags[2] : "");
+
+    // 컨버팅 여부를 위해 사용자 디바이스가 iOS인지 아닌지 결과값 전달
+    const is_iphone = iOS();
+    trackData.append("iphone", is_iphone);
 
     if (track.mode === "upload") {
       try {
