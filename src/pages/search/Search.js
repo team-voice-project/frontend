@@ -105,7 +105,7 @@ const KeywordSearch = (props) => {
           <HeaderDiv>
             <Header topMenu />
           </HeaderDiv>
-          <Wrap>
+          <Wrap ref={trackWrapRef}>
             <Container>
               <FlexDiv>
                 <Flex
@@ -141,7 +141,7 @@ const KeywordSearch = (props) => {
                 hasMore={has_more}
                 loader={<Spinner />}
               >
-                <TrackGrid ref={trackWrapRef}>
+                <TrackGrid>
                   {search_list.map((l) => {
                     return (
                       <TrackDiv key={l.trackId}>
