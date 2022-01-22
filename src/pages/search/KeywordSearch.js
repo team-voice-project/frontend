@@ -75,13 +75,13 @@ const KeywordSearch = (props) => {
   };
 
   return (
-    <div>
+    <div ref={trackWrapRef}>
       {search_list && search_list.length > 0 ? (
         <>
           <HeaderDiv>
             <Header topMenu />
           </HeaderDiv>
-          <Wrap ref={trackWrapRef}>
+          <Wrap>
             <Container>
               <FlexDiv>
                 <Flex
