@@ -84,7 +84,7 @@ const KeywordSearch = (props) => {
   };
 
   return (
-    <div>
+    <div ref={trackWrapRef}>
       {searchLoading === false ? (
         <Wrap
           style={{
@@ -105,7 +105,7 @@ const KeywordSearch = (props) => {
           <HeaderDiv>
             <Header topMenu />
           </HeaderDiv>
-          <Wrap ref={trackWrapRef}>
+          <Wrap>
             <Container>
               <FlexDiv>
                 <Flex
