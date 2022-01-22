@@ -207,6 +207,7 @@ const Flex = styled.div`
   right: 0;
   background-color: #000;
   z-index: 2000;
+  -webkit-transform: translateZ(-5px);
 
   .nav-item {
     color: #7f7f7f;
