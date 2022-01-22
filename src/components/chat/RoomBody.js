@@ -48,7 +48,8 @@ const RoomBody = ({
   useEffect(() => {
     setScrollPoint(contentScrollRef.current.scrollHeight);
     const activeScroll = contentScrollRef.current.scrollHeight - scroll_point;
-    if (activeScroll !== 0) {
+    if (activeScroll !== 0 && hasMore === true) {
+      console.log(activeScroll);
       return contentScrollRef.current.scrollTo(
         0,
         contentScrollRef.current.scrollHeight - scroll_point
@@ -67,11 +68,10 @@ const RoomBody = ({
       fetchMoreChatContent();
     }
   }, 250);
-  // console.log("스크롤", scroll_point);
   const fetchMoreChatContent = async (room_info, page, chat) => {
     const { uid, another } = createRoomId();
     const roomInfo = { userId: uid, qUserId: another };
-
+    setLoad(true);
     const res = await apis.getChatList(
       (room_info = roomInfo),
       (page = `${pages}`),
