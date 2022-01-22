@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { byteToMegaByte, convertAudio } from "../../shared/utils";
+import { byteToMegaByte, iOS } from "../../shared/utils";
 import { apis } from "../../shared/api";
 
 import { BsFillMicFill } from "react-icons/bs";
@@ -79,6 +79,10 @@ const SendOptions = ({
     send_data.append("trackFile", voice_file);
     send_data.append("sendUserId", uid);
     send_data.append("receiveUserId", another);
+
+    // 컨버팅 여부를 위해 사용자 디바이스가 iOS인지 아닌지 결과값 전달
+    const is_iphone = iOS();
+    send_data.append("iphone", is_iphone);
 
     if (request_text) {
       send_data.append("sample", request_text);
