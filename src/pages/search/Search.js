@@ -24,9 +24,6 @@ const KeywordSearch = (props) => {
   const search_page = useSelector((state) => state.search.page);
   const has_more = useSelector((state) => state.search.has_more);
 
-  console.log("search_list", search_list);
-  console.log("search_page", search_page);
-
   const [page, setPage] = useState(search_page);
   const [searchWord, setSearchWord] = useState("");
 
