@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { apis } from "../../shared/api";
 import { useDispatch } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { actionCreators as userActions } from "../../redux/modules/user";
 import {
   DEFAULT_PROFILE_URL,
@@ -11,10 +11,8 @@ import {
 } from "../../shared/utils";
 
 import Container from "../../elements/Container";
-import { Font } from "../../elements";
+import { Font, Button } from "../../elements";
 import { RiArrowLeftSLine } from "react-icons/ri";
-import { HiCheck } from "react-icons/hi";
-import { newGetCookie, setCookie } from "../../shared/Cookie";
 
 const EditProfile = ({ history }) => {
   const dispatch = useDispatch();
@@ -104,6 +102,11 @@ const EditProfile = ({ history }) => {
   };
 
   const handleChangeAbout = (e) => {
+    if (e.target.value.length > 100) {
+      alert("100글자 이하로 입력해주세요!");
+      return;
+    }
+
     setAboutValue(e.target.value);
   };
 
@@ -137,15 +140,9 @@ const EditProfile = ({ history }) => {
   };
 
   const handleClickApplyBtn = async () => {
+    console.log("click");
     const result = await sendProfileData();
     if (result?.status === 200) {
-      // const uid = newGetCookie("uid");
-      // const token = newGetCookie("token");
-      // setCookie(
-      //   "OAO",
-      //   `__OAO-uid=${uid}__OAO-nick=${nick_value}__OAO-token=${token}`,
-      //   1
-      // );
       dispatch(userActions.setUser({ user: nick_value, is_login: true }));
       goNextPage();
     } else {
@@ -155,8 +152,21 @@ const EditProfile = ({ history }) => {
 
   return (
     <EditWrap>
-      <div className={"fixed-box"}>
-        <Container>
+      <Container>
+        <nav className={"edit-header"}>
+          <RiArrowLeftSLine
+            className={"back-btn"}
+            onClick={() => history.goBack()}
+          />
+          <Font
+            title
+            margin={"0 auto 0 0"}
+            fontSize={"22px"}
+            _className={"edit-title"}
+          >
+            프로필 설정
+          </Font>
+
           <button
             type={"button"}
             className={"skip-btn"}
@@ -164,26 +174,6 @@ const EditProfile = ({ history }) => {
             onClick={handleClickSkipBtn}
           >
             {is_first && <Font m>건너뛰기</Font>}
-          </button>
-        </Container>
-      </div>
-
-      <Container>
-        <nav className={"edit-header"}>
-          <RiArrowLeftSLine
-            className={"back-btn"}
-            onClick={() => history.goBack()}
-          />
-          <Font title fontSize={"22px"} _className={"edit-title"}>
-            프로필 설정
-          </Font>
-          <button
-            type={"button"}
-            className={"apply-btn"}
-            disabled={next_btn_disabled}
-            onClick={handleClickApplyBtn}
-          >
-            <HiCheck />
           </button>
         </nav>
 
@@ -222,7 +212,7 @@ const EditProfile = ({ history }) => {
                 placeholder="입력하기"
                 id={"profile-nick"}
                 defaultValue={nick_value}
-                onChange={handleChangeNick}
+                onKeyUp={handleChangeNick}
                 autoComplete="off"
               />
             </div>
@@ -238,7 +228,7 @@ const EditProfile = ({ history }) => {
                 placeholder="입력하기"
                 id={"profile-email"}
                 defaultValue={email_value}
-                onChange={handleChangeEmail}
+                onKeyUp={handleChangeEmail}
                 autoComplete="off"
               />
             </div>
@@ -250,35 +240,42 @@ const EditProfile = ({ history }) => {
                 placeholder="간단한 자기소개를 해주세요 :)"
                 id={"profile-about"}
                 defaultValue={about_value}
-                onChange={handleChangeAbout}
+                onKeyUp={handleChangeAbout}
               ></textarea>
             </div>
           </div>
         </div>
+      </Container>
+
+      <Container>
+        <Button
+          type={"button"}
+          className={"apply-btn"}
+          _disabled={next_btn_disabled}
+          _onClick={handleClickApplyBtn}
+          bg={"var(--point-color)"}
+        >
+          설정하기
+        </Button>
       </Container>
     </EditWrap>
   );
 };
 
 const EditWrap = styled.section`
-  .fixed-box {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    text-align: right;
+  .apply-btn {
+    border: 0;
+    background: none;
+    cursor: pointer;
+    font-size: 28px;
+    margin-left: auto;
+    color: var(--point-color);
+    display: flex;
+    align-items: center;
 
-    .skip-btn {
-      padding: 10px 20px;
-      margin-bottom: 20px;
-      border: 0;
-      background: none;
-      color: var(--point-color);
-
-      &.disabled {
-        color: #696969;
-        pointer-events: none;
-      }
+    &:disabled {
+      color: #696969;
+      opacity: 0.5;
     }
   }
 
@@ -294,25 +291,23 @@ const EditWrap = styled.section`
       top: 3px;
     }
 
+    .skip-btn {
+      padding: 10px 20px;
+      margin-bottom: 20px;
+      border: 0;
+      background: none;
+      color: var(--point-color);
+
+      &.disabled {
+        color: #696969;
+        pointer-events: none;
+      }
+    }
+
     .back-btn {
       cursor: pointer;
       font-size: 30px;
       margin-right: 15px;
-    }
-
-    .apply-btn {
-      border: 0;
-      background: none;
-      cursor: pointer;
-      font-size: 28px;
-      margin-left: auto;
-      color: var(--point-color);
-      display: flex;
-      align-items: center;
-
-      &:disabled {
-        color: #696969;
-      }
     }
   }
 

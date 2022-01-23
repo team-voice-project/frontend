@@ -28,13 +28,6 @@ const RoomBody = ({
     last_message.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [chat_content]);
 
-  const totalData = () => {
-    const total = [...data, ...chat_content];
-    return total;
-  };
-
-  const totalChat = totalData();
-
   useEffect(() => {
     setScrollPoint(contentScrollRef.current.scrollHeight);
     const activeScroll = contentScrollRef.current.scrollHeight - scroll_point;
@@ -42,6 +35,13 @@ const RoomBody = ({
       contentScrollRef.current.scrollTo(0, activeScroll);
     }
   }, [data]);
+
+  const totalData = () => {
+    const total = [...data, ...chat_content];
+    return total;
+  };
+
+  const totalChat = totalData();
 
   const newChatList = () => {
     if (!totalChat) {
