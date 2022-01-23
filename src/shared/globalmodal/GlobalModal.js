@@ -103,6 +103,7 @@ const GlobalModal = (props) => {
               <ImShare
                 onClick={() => {
                   history.push(`/share/${trackId}`);
+                  close();
                 }}
                 style={{ cursor: "pointer" }}
                 size="20px"
