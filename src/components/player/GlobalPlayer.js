@@ -9,6 +9,7 @@ import {
   GLOBAL_PLAYER_ESCAPE_LIST,
 } from "../../shared/utils";
 import { actionCreators as playerActions } from "../../redux/modules/globalPlayer";
+import { actionCreators as modalActions } from "../../redux/modules/modal";
 import { apis } from "../../shared/api";
 import { newGetCookie } from "../../shared/Cookie";
 
@@ -96,9 +97,25 @@ const GlobalPlayer = () => {
     writerEl.innerHTML = track?.singer || "비어있음";
   };
 
+  const handleOpenGlobalModal = () => {
+    const track_id = now_track?.trackId;
+
+    // 플레이어에 트랙상태가 없다면 모달을 열 수 없습니다.
+    if (!track_id) {
+      return;
+    }
+
+    dispatch(playerActions.stop());
+    dispatch(modalActions.viewModalDB(track_id));
+  };
+
   const createPlayInfoEl = () => {
     return (
-      <div className={"play-display"} ref={displayRef}>
+      <div
+        onClick={handleOpenGlobalModal}
+        className={"play-display"}
+        ref={displayRef}
+      >
         <div className={"cover"}>
           <img src="" alt="" />
         </div>
@@ -148,7 +165,6 @@ const GlobalPlayer = () => {
   };
 
   const handlePlayEvent = async (target_track) => {
-    console.log("플레이어 재생");
     if (target_track?.type === "play") {
       // 플레이 리스트에서 선택하지 않았을때
       setPlayerDisplay(now_track);
@@ -190,6 +206,7 @@ const GlobalPlayer = () => {
     }
 
     activeEl.classList.add("pause");
+    dispatch(playerActions.stop());
   };
 
   const resetPlayerDisplay = () => {
@@ -520,6 +537,7 @@ const PlayerWidget = styled.article`
     font-size: 13px;
     display: flex;
     align-items: center;
+    cursor: pointer;
 
     .cover {
       width: 40px;
@@ -572,7 +590,7 @@ const PlayerWidget = styled.article`
 
 const PlayListWidget = styled.article`
   position: fixed;
-  bottom: -100%;
+  bottom: -300%;
   left: 50%;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);

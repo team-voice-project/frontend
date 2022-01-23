@@ -43,6 +43,7 @@ const MyPage = (props) => {
       document.body.style.overflowY = "";
     };
   }, []);
+  console.log(rank_data.rank_data?.categoryTags.category);
 
   return (
     <>
@@ -239,20 +240,6 @@ const MyPage = (props) => {
               return <Skeleton key={i} />;
             })}
           </div>
-        ) : track?.track_info === undefined || track?.track_info.length < 1 ? (
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "center",
-            }}
-          >
-            <OAODiv>
-              <OAOText>등록된 목소리가 없어요!</OAOText>
-              <OAOText>목소리를 등록해 주세요!</OAOText>
-              <OAO></OAO>
-            </OAODiv>
-          </div>
         ) : (
           <TrackGrid ref={trackWrapRef}>
             {like === "like_list" ? (
@@ -279,7 +266,23 @@ const MyPage = (props) => {
                   );
                 })
               )
-            ) : like === "rank_list" ? null : (
+            ) : like === "rank_list" ? null : track?.track_info === undefined ||
+              track?.track_info.length < 1 ? (
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  justifyContent: "center",
+                  margin: "0 auto",
+                }}
+              >
+                <OAODiv>
+                  <OAOText>등록된 목소리가 없어요!</OAOText>
+                  <OAOText>목소리를 등록해 주세요!</OAOText>
+                  <OAO></OAO>
+                </OAODiv>
+              </div>
+            ) : (
               track?.track_info.map((p, idx) => {
                 return (
                   <TrackDiv key={p.trackId}>
@@ -290,51 +293,71 @@ const MyPage = (props) => {
             )}
 
             {like === "rank_list" ? (
-              <div style={{ margin: "30px auto" }}>
-                <RankDiv>
-                  <RankTitle>{rank_data.rank_data?.rankClass.rank}위</RankTitle>
-                  <RankImg
-                    src={rank_data.rank_data?.rankClass.classImage}
-                  ></RankImg>
+              track?.track_info === undefined ||
+              track?.track_info.length < 1 ? (
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                    margin: "0 auto",
+                  }}
+                >
+                  <OAODiv>
+                    <OAOText>등록된 목소리가 없어요!</OAOText>
+                    <OAOText>목소리를 등록해 주세요!</OAOText>
+                    <OAO></OAO>
+                  </OAODiv>
+                </div>
+              ) : (
+                <div style={{ margin: "30px auto" }}>
+                  <RankDiv>
+                    <RankTitle>
+                      {rank_data.rank_data?.rankClass.rank}위
+                    </RankTitle>
+                    <RankImg
+                      src={rank_data.rank_data?.rankClass.classImage}
+                    ></RankImg>
 
-                  <RankDic>
-                    "{rank_data.rank_data?.rankClass.class}"에요, 많은 사랑을
-                    받은 목소리네요!
-                  </RankDic>
-                  {rank_data?.rank_data?.categoryTags?.tags === "" ? null : (
+                    <RankDic>
+                      "{rank_data.rank_data?.rankClass.class}"에요, 많은 사랑을
+                      받은 목소리네요!
+                    </RankDic>
+                    {rank_data?.rank_data?.categoryTags?.tags === "" ? null : (
+                      <div
+                        style={{
+                          display: "flex",
+                        }}
+                      >
+                        {rank_data?.rank_data?.categoryTags?.tags.map(
+                          (p, idx) => {
+                            return <Tag key={idx}>{p}</Tag>;
+                          }
+                        )}
+                      </div>
+                    )}
                     <div
                       style={{
                         display: "flex",
+                        alignItems: "center",
+                        marginTop: "20px",
                       }}
                     >
-                      {rank_data?.rank_data?.categoryTags?.tags.map(
-                        (p, idx) => {
-                          return <Tag key={idx}>{p}</Tag>;
-                        }
-                      )}
+                      <span
+                        style={{
+                          fontSize: "24px",
+                          color: "#f1134e",
+                          marginRight: "10px",
+                          fontWeight: "700",
+                        }}
+                      >
+                        {rank_data.rank_data?.categoryTags.category}
+                      </span>
+                      <p>에 적합한 목소리에요!</p>
                     </div>
-                  )}
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      marginTop: "20px",
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontSize: "24px",
-                        color: "#f1134e",
-                        marginRight: "10px",
-                        fontWeight: "700",
-                      }}
-                    >
-                      {rank_data.rank_data?.categoryTags.category}
-                    </span>
-                    <p>에 적합한 목소리에요!</p>
-                  </div>
-                </RankDiv>
-              </div>
+                  </RankDiv>
+                </div>
+              )
             ) : null}
           </TrackGrid>
         )}

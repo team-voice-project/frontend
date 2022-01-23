@@ -138,14 +138,14 @@ const EditProfile = ({ history }) => {
 
   const handleClickApplyBtn = async () => {
     const result = await sendProfileData();
-    if (result.status === 200) {
-      const uid = newGetCookie("uid");
-      const token = newGetCookie("token");
-      setCookie(
-        "OAO",
-        `__OAO-uid=${uid}__OAO-nick=${nick_value}__OAO-token=${token}`,
-        1
-      );
+    if (result?.status === 200) {
+      // const uid = newGetCookie("uid");
+      // const token = newGetCookie("token");
+      // setCookie(
+      //   "OAO",
+      //   `__OAO-uid=${uid}__OAO-nick=${nick_value}__OAO-token=${token}`,
+      //   1
+      // );
       dispatch(userActions.setUser({ user: nick_value, is_login: true }));
       goNextPage();
     } else {
@@ -234,7 +234,7 @@ const EditProfile = ({ history }) => {
                 <Font m>이메일</Font>
               </label>
               <input
-                type="text"
+                type="email"
                 placeholder="입력하기"
                 id={"profile-email"}
                 defaultValue={email_value}
@@ -402,6 +402,10 @@ const EditWrap = styled.section`
         textarea {
           min-height: 75px;
           max-height: 140px;
+        }
+
+        #profile-email {
+          text-transform: lowercase;
         }
       }
     }

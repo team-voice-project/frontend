@@ -4,6 +4,7 @@ import { history } from "../../redux/configStore";
 import { useSelector } from "react-redux";
 import { FOOTER_ESCAPE_LIST } from "../../shared/utils";
 import { newGetCookie } from "../../shared/Cookie";
+import { apis } from "../../shared/api";
 
 import { AiFillHome } from "react-icons/ai";
 import { IoMdChatboxes } from "react-icons/io";
@@ -14,8 +15,49 @@ import { MdLogin } from "react-icons/md";
 
 const Footer = () => {
   const pathName = useSelector((state) => state.router.location.pathname);
+  const chat_rooms_info = useSelector((state) => state.chat.rooms);
   const uid = newGetCookie("uid");
   const [render, setRender] = useState(true);
+  const [new_chat, setNewChat] = useState(true);
+
+  useEffect(() => {
+    checkDBNewMessage();
+  }, []);
+
+  useEffect(() => {
+    const has_new_message = checkRealTimeNewMessage(chat_rooms_info);
+    if (has_new_message) {
+      setNewChat(true);
+    } else {
+      setNewChat(false);
+    }
+  }, [chat_rooms_info]);
+
+  useEffect(() => {
+    urlCheck();
+  }, [pathName]);
+
+  const checkDBNewMessage = async () => {
+    const uid = newGetCookie("uid");
+
+    // 비로그인시 새로운 메시지 체크하지 않음
+    if (!uid) {
+      return;
+    }
+
+    const res = await apis.checkNewMessage(uid);
+    const empty_new_message = res.data?.roomCheck;
+    if (empty_new_message) {
+      setNewChat(false);
+    } else {
+      setNewChat(true);
+    }
+  };
+
+  const checkRealTimeNewMessage = (rooms_info) => {
+    const value_arr = Object.values(rooms_info);
+    return value_arr.some((room) => room.new);
+  };
 
   const urlCheck = () => {
     const is_correct = FOOTER_ESCAPE_LIST.some(
@@ -31,9 +73,24 @@ const Footer = () => {
     }
   };
 
-  useEffect(() => {
-    urlCheck();
-  }, [pathName]);
+  const createChatIconClass = () => {
+    const entered = pathName === `/chat/${uid}`;
+    let _class = "nav-item";
+
+    if (new_chat && entered) {
+      _class = "nav-item new active";
+    }
+
+    if (new_chat && !entered) {
+      _class = "nav-item new";
+    }
+
+    if (!new_chat && entered) {
+      _class = "nav-item active";
+    }
+
+    return _class;
+  };
 
   if (render === false) {
     return null;
@@ -88,12 +145,12 @@ const Footer = () => {
 
         {uid ? (
           <IconDiv
-            className={pathName === `/chat/${uid}` ? "active" : "nav-item"}
+            className={createChatIconClass()}
             onClick={() => {
               history.push(`/chat/${uid}`);
             }}
           >
-            <IoMdChatboxes size="24px" cursor="pointer"></IoMdChatboxes>
+            <IoMdChatboxes size="24px" cursor="pointer" />
           </IconDiv>
         ) : (
           <IconDiv
@@ -164,5 +221,21 @@ const IconDiv = styled.div`
   width: 24px;
   height: 24px;
   /* background-color: #ddd; */
+
+  &.new {
+    position: relative;
+
+    &::after {
+      content: "";
+      display: block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--point-color);
+      position: absolute;
+      top: -4px;
+      right: -4px;
+    }
+  }
 `;
 export default Footer;

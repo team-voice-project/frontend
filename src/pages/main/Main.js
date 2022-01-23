@@ -10,7 +10,6 @@ import OnboadingSkeleton from "../../components/category/OnboadingSkeleton";
 import Header from "../../components/category/Header";
 import PlayBox from "../../components/category/PlayBox";
 import FloatingBtn from "../../elements/FloatingBtn";
-import { setCookie, getOnbCookie, deleteCookie } from "../../shared/Cookie";
 
 import { actionCreators as postActions } from "../../redux/modules/post";
 
@@ -24,7 +23,7 @@ const Main = (props) => {
   const track_list = useSelector((state) => state.post.post_list);
   const global_player_mode = useSelector((state) => state.globalPlayer.mode);
   const now_track = useSelector((state) => state.globalPlayer.now_track);
-  const HAS_VISITED_BEFORE = getOnbCookie("hasVisitedBefore");
+  const HAS_VISITED_BEFORE = sessionStorage.getItem("hasVisitedBefore");
 
   useEffect(() => {
     if (!now_track?.musicSrc) {
@@ -50,19 +49,16 @@ const Main = (props) => {
     dispatch(postActions.loadPostDB());
   }, []);
 
-
   useEffect(() => {
     if (HAS_VISITED_BEFORE) {
       return;
     }
     setShowModal(true);
-
- 
   }, [HAS_VISITED_BEFORE]);
 
   const handleClose = () => {
     setShowModal(false);
-    setCookie("hasVisitedBefore", "true", 1);
+    sessionStorage.setItem("hasVisitedBefore", "true");
   };
 
   const changeBoxListData = () => {

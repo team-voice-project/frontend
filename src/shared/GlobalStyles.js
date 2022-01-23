@@ -42,8 +42,9 @@ const GlobalStyles = createGlobalStyle`
   
   input {
     outline: none;
+    -webkit-appearance: none; -webkit-border-radius: 0;
   }
-  
+
   textarea {
     font-family: inherit;
     resize: none;

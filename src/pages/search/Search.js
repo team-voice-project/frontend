@@ -81,7 +81,7 @@ const KeywordSearch = (props) => {
   };
 
   return (
-    <div>
+    <div ref={trackWrapRef}>
       {searchLoading === false ? (
         <Wrap
           style={{
@@ -138,7 +138,7 @@ const KeywordSearch = (props) => {
                 hasMore={has_more}
                 loader={<Spinner />}
               >
-                <TrackGrid ref={trackWrapRef}>
+                <TrackGrid>
                   {search_list.map((l) => {
                     return (
                       <TrackDiv key={l.trackId}>
@@ -195,7 +195,7 @@ const HeaderDiv = styled.div`
   width: 100%;
   height: 60px;
   background-color: #000;
-  z-index: 1000;
+  z-index: 4;
 `;
 
 const Wrap = styled.div`
@@ -212,7 +212,7 @@ const FlexDiv = styled.div`
   background-color: #000;
   position: fixed;
   top: 60px;
-  z-index: 8888;
+  z-index: 4;
 `;
 
 const Flex = styled.div`
@@ -255,10 +255,28 @@ const TrackGrid = styled.div`
 
 const TrackDiv = styled.div`
   margin: 0px 10px;
+  @media screen and (max-width: 422px) {
+    margin: 0 13px;
+  }
+  @media screen and (max-width: 400px) {
+    margin: 0 11px;
+  }
   @media screen and (max-width: 375px) {
+    margin: 0 8px;
+  }
+  @media screen and (max-width: 366px) {
+    margin: 0 7px;
+  }
+  @media screen and (max-width: 351px) {
     margin: 0 6px;
   }
-  @media screen and (max-width: 320px) {
+  @media screen and (max-width: 345px) {
+    margin: 0 5px;
+  }
+  @media screen and (max-width: 339px) {
+    margin: 0 4px;
+  }
+  @media screen and (max-width: 333px) {
     margin: 0px 0px 0px 3px;
   }
 `;

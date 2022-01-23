@@ -7,6 +7,7 @@ import {
   convertAudio,
 } from "../../shared/utils";
 import { apis } from "../../shared/api";
+import { iOS } from "../../shared/utils";
 
 import { Container } from "../../elements";
 import StopWatch from "../../shared/record/StopWatch";
@@ -293,6 +294,12 @@ const ChatRecorder = ({
     send_data.append("receiveUserId", another);
     send_data.append("sample", request_text);
 
+    // 컨버팅 여부를 위해 사용자 디바이스가 iOS인지 아닌지 결과값 전달
+    const is_iphone = iOS();
+    if (is_iphone) {
+      send_data.append("device", "iphone");
+    }
+
     try {
       const res = await apis.sendVoiceChat(send_data);
       console.log("목소리 파일 전송 결과: ", res);
@@ -526,6 +533,13 @@ const RecorderWrap = styled.div`
   padding: 20px 40px 40px 40px;
   max-height: 216px;
   min-height: 216px;
+
+  /* iOS only */
+  @supports (-webkit-touch-callout: none) {
+    height: 50vh;
+    max-height: 326px;
+    padding-bottom: 140px;
+  }
 
   .hidden-system-audio {
     display: none;

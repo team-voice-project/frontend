@@ -7,9 +7,10 @@ import { useDispatch } from "react-redux";
 import { apis } from "../../shared/api";
 import { actionCreators } from "../../redux/modules/mypage";
 
-const CommentWrite = (props) => {
+const GlobalCommentWrite = (props) => {
   const [content, setCotentText] = React.useState();
   const dispatch = useDispatch();
+
   const onChange = (e) => {
     setCotentText(e.target.value);
   };
@@ -30,7 +31,7 @@ const CommentWrite = (props) => {
   };
 
   const commentAction = () => {
-    dispatch(commentCreators.addCommentDB(`${props.props.trackId}`, content));
+    dispatch(commentCreators.addCommentDB(`${props.trackId}`, content));
     commetReset();
     setTrack();
     setMainTrack();
@@ -92,4 +93,4 @@ const CommentInput = styled.input`
   }
 `;
 
-export default CommentWrite;
+export default GlobalCommentWrite;
