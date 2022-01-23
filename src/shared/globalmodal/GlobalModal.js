@@ -19,6 +19,8 @@ import { actionCreators as postActions } from "../../redux/modules/post";
 import { actionCreators } from "../../redux/modules/mypage";
 import { actionCreators as modalAction } from "../../redux/modules/modal";
 import { newGetCookie } from "../Cookie";
+import GlobalCommentWrite from "./GlobalCommentWrite";
+import GlobalCommentList from "./GlobalCommentList";
 
 const GlobalModal = (props) => {
   const dispatch = useDispatch();
@@ -31,6 +33,7 @@ const GlobalModal = (props) => {
   const nick = newGetCookie("nick");
   const trackNick = track_info?.User?.nickname;
   const isMe = trackNick === nick;
+
   const setTrack = () => {
     apis.getProfile().then((res) => {
       const userId = res.data.user.userId;
@@ -100,6 +103,7 @@ const GlobalModal = (props) => {
               <ImShare
                 onClick={() => {
                   history.push(`/share/${trackId}`);
+                  close();
                 }}
                 style={{ cursor: "pointer" }}
                 size="20px"
@@ -233,13 +237,17 @@ const GlobalModal = (props) => {
             >
               {state?.length !== 0
                 ? state?.map((p, idx) => {
-                    return <CommentList {...props} key={idx} {...p} />;
+                    return (
+                      <GlobalCommentList {...track_info} key={idx} {...p} />
+                    );
                   })
                 : track_info.Comments?.map((p, idx) => {
-                    return <CommentList {...props} key={idx} {...p} />;
+                    return (
+                      <GlobalCommentList {...track_info} key={idx} {...p} />
+                    );
                   })}
             </div>
-            <CommentWrite {...props} />
+            <GlobalCommentWrite {...track_info} />
           </Container>
         </Section>
       </div>
