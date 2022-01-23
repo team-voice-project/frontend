@@ -10,7 +10,6 @@ import OnboadingSkeleton from "../../components/category/OnboadingSkeleton";
 import Header from "../../components/category/Header";
 import PlayBox from "../../components/category/PlayBox";
 import FloatingBtn from "../../elements/FloatingBtn";
-import { setCookie, getCookie, deleteCookie } from "../../shared/Cookie";
 
 import { actionCreators as postActions } from "../../redux/modules/post";
 
