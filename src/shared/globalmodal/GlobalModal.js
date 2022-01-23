@@ -45,6 +45,7 @@ const GlobalModal = (props) => {
   };
   const close = () => {
     dispatch(modalAction.viewModal(false));
+    document.body.style.overflowY = "";
   };
 
   const likeBtn = (trackId) => {
