@@ -48,7 +48,7 @@ const SearchKeyword = (props) => {
           <Multiline
             ref={inputRef}
             onKeyPress={onKeyPress}
-            placeholder="검색어를 두글자 이상 입력해주세요."
+            placeholder="아이디나 제목으로 검색해보세요."
             type="text"
           ></Multiline>
           <HiOutlineSearch
