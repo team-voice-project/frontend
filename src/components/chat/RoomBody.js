@@ -26,7 +26,7 @@ const RoomBody = ({
   useEffect(() => {
     const last_message = contentScrollRef.current?.lastChild;
     last_message.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, [chat_content]);
+  }, [chat_content, show_option_modal]);
 
   useEffect(() => {
     setScrollPoint(contentScrollRef.current.scrollHeight);
@@ -131,7 +131,7 @@ const ChatContentList = styled.div`
   padding: 0 20px;
   padding-top: 60px;
   padding-bottom: ${({ show_option_modal }) =>
-    show_option_modal ? "110px" : "0"};
+    show_option_modal ? "0" : "110px"};
 
   &::-webkit-scrollbar {
     width: 4px;
