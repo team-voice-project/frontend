@@ -50,7 +50,19 @@ const ChatBlock = (props) => {
     const years = days / 365;
     return `${Math.floor(years)}년 전`;
   }
+
   const check = props.checkChat;
+
+  const printMessageText = (message) => {
+    console.log("메세지", message);
+    if (message.chatType === "image") {
+      return "사진을 보냈습니다.";
+    } else if (message.chatType === "audio") {
+      return "목소리를 보냈습니다.";
+    } else {
+      return message.chatText;
+    }
+  };
 
   return (
     <>
@@ -70,7 +82,7 @@ const ChatBlock = (props) => {
               <span className={"last-modified"}>{displayedAt(createdAt)}</span>
             </div>
             <div className={"display-bottom"}>
-              <span className={"chat-message"}>{props.chatText}</span>
+              <span className={"chat-message"}>{printMessageText(props)}</span>
             </div>
           </div>
         </ChatBlockItem>
@@ -87,7 +99,7 @@ const ChatBlock = (props) => {
               <span className={"last-modified"}>{displayedAt(createdAt)}</span>
             </div>
             <div className={"display-bottom"}>
-              <span className={"chat-message"}>{props.chatText}</span>
+              <span className={"chat-message"}>{printMessageText(props)}</span>
             </div>
           </div>
         </ChatBlockItem>

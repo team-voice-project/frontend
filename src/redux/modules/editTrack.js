@@ -56,6 +56,7 @@ const sendTrackData = (track) => {
         history.push(`/share/${trackId}`);
       } catch (err) {
         dispatch(setLoading(false));
+        alert("업로드에 실패하였습니다. 다시 시도해 주세요 :(");
         console.log("[업로드 실패]", err.response);
       }
     } else if (track.mode === "update") {
