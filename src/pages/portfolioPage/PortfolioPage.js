@@ -80,7 +80,7 @@ const PortfolioPage = (props) => {
             history.push(`/chatroom/${roomId}`);
           }}
         >
-          채팅하기
+          채팅으로 목소리 의뢰하기
         </UpBtn>
       </div>
       {voice === "voice_rank" ? (
@@ -270,7 +270,6 @@ const RankDiv = styled.div`
   align-items: center;
 `;
 const RankImg = styled.img`
-  width: 230px;
   height: 230px;
 `;
 

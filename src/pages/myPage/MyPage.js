@@ -398,7 +398,6 @@ const RankDiv = styled.div`
   align-items: center;
 `;
 const RankImg = styled.img`
-  width: 230px;
   height: 230px;
 `;
 

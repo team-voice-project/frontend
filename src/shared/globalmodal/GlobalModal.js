@@ -49,14 +49,22 @@ const GlobalModal = (props) => {
   };
 
   const likeBtn = (trackId) => {
-    apis.likeTrack(trackId).then((res) => {
-      const boolean = res.data.result.like;
-      const likeCnt = res.data.result.likeCnt;
-      localStorage.setItem(trackId, boolean);
-      setLikeCnt(likeCnt);
-      setTrack();
-      setMainTrack();
-    });
+    apis
+      .likeTrack(trackId)
+      .then((res) => {
+        const boolean = res.data.result.like;
+        const likeCnt = res.data.result.likeCnt;
+        localStorage.setItem(trackId, boolean);
+        setLikeCnt(likeCnt);
+        setTrack();
+        setMainTrack();
+      })
+      .catch((err) => {
+        document.body.style.overflowY = "";
+        window.alert("로그인이 필요합니다!");
+        history.push("/login");
+        close();
+      });
   };
 
   const local = localStorage.getItem(trackId);
@@ -93,7 +101,7 @@ const GlobalModal = (props) => {
             >
               {isMe && (
                 <MdOutlineMoreVert
-                  size="20px"
+                  size="24px"
                   style={{ margin: "13px 10px 0 0px", cursor: "pointer" }}
                   onClick={() => {
                     openModal();
@@ -106,16 +114,15 @@ const GlobalModal = (props) => {
                   history.push(`/share/${trackId}`);
                   close();
                 }}
-                style={{ cursor: "pointer" }}
-                size="20px"
+                style={{ cursor: "pointer", padding: "0px 0px 1px 0px" }}
+                size="24px"
               />
               <AiOutlineClose
                 style={{
                   margin: "13px 0px 0px 10px",
-
                   cursor: "pointer",
                 }}
-                size="20px"
+                size="24px"
                 color="white"
                 onClick={() => {
                   close();
@@ -239,12 +246,22 @@ const GlobalModal = (props) => {
               {state?.length !== 0
                 ? state?.map((p, idx) => {
                     return (
-                      <GlobalCommentList {...track_info} key={idx} {...p} />
+                      <GlobalCommentList
+                        {...track_info}
+                        close={close}
+                        key={idx}
+                        {...p}
+                      />
                     );
                   })
                 : track_info.Comments?.map((p, idx) => {
                     return (
-                      <GlobalCommentList {...track_info} key={idx} {...p} />
+                      <GlobalCommentList
+                        {...track_info}
+                        close={close}
+                        key={idx}
+                        {...p}
+                      />
                     );
                   })}
             </div>

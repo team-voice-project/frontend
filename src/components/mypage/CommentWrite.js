@@ -19,6 +19,8 @@ const CommentWrite = (props) => {
       p.value = "";
     });
   };
+  console.log(content);
+
   const setTrack = () => {
     apis.getProfile().then((res) => {
       const userId = res.data.user.userId;
@@ -30,10 +32,14 @@ const CommentWrite = (props) => {
   };
 
   const commentAction = () => {
-    dispatch(commentCreators.addCommentDB(`${props.props.trackId}`, content));
-    commetReset();
-    setTrack();
-    setMainTrack();
+    if (content === undefined) {
+      window.alert("댓글을 입력해주세요!");
+    } else {
+      dispatch(commentCreators.addCommentDB(`${props.props.trackId}`, content));
+      commetReset();
+      setTrack();
+      setMainTrack();
+    }
   };
 
   const onKeyPress = (event) => {
