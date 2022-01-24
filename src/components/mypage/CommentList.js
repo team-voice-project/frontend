@@ -4,12 +4,15 @@ import { IoIosClose } from "react-icons/io";
 import { newGetCookie } from "../../shared/Cookie";
 import { useDispatch } from "react-redux";
 import { actionCreators as commentActions } from "../../redux/modules/comment";
+import { useHistory } from "react-router-dom";
 
 const CommentList = (props) => {
   const nick = newGetCookie("nick");
   const isMe = props.User?.nickname === nick;
   const dispatch = useDispatch();
   const createdAt = new Date(props.createdAt);
+  const userId = props.userId;
+  const history = useHistory();
 
   function displayedAt(createdAt) {
     const milliSeconds = new Date() - createdAt;
@@ -36,10 +39,27 @@ const CommentList = (props) => {
         <InnerList>
           <CommentStyle margin="10px 0px" width="100%">
             <CommentProfile>
-              <ImageCircle src={props.User?.profileImage} />
-              <div style={{ maxWidth: "300px", wordBreak: "break-all" }}>
+              <ImageCircle
+                onClick={() => {
+                  history.push({
+                    pathname: `/portfolio/${userId}/voice_rank`,
+                  });
+                  props.close();
+                }}
+                src={props.User?.profileImage}
+              />
+              <div style={{ maxWidth: "290px", wordBreak: "break-all" }}>
                 <div style={{ display: "flex", alignItems: "center" }}>
-                  <NickName>{props.User?.nickname}</NickName>
+                  <NickName
+                    onClick={() => {
+                      history.push({
+                        pathname: `/portfolio/${userId}/voice_rank`,
+                      });
+                      props.close();
+                    }}
+                  >
+                    {props.User?.nickname}
+                  </NickName>
                   <TimeName>{displayedAt(createdAt)}</TimeName>
                 </div>
                 <Text>{props.comment}</Text>

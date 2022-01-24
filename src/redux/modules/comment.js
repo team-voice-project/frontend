@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { apis } from "../../shared/api";
+import { actionCreators as modalAction } from "./modal";
 
 const ADD_COMMENT = "ADD_COMMENT";
 const DELETE_COMMENT = "DELETE_COMMENT";
@@ -45,7 +46,11 @@ const addCommentDB = (trackId, comment) => {
         dispatch(addComment(trackId, res.data.comments));
       })
       .catch((err) => {
-        window.alert("내용을 입력해주세요!");
+        window.alert("로그인시 이용 가능합니다!");
+        dispatch(modalAction.viewModal(false));
+        setTimeout(() => {
+          history.push("/login");
+        }, 240);
       });
   };
 };

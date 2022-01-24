@@ -31,10 +31,16 @@ const GlobalCommentWrite = (props) => {
   };
 
   const commentAction = () => {
-    dispatch(commentCreators.addCommentDB(`${props.trackId}`, content));
-    commetReset();
-    setTrack();
-    setMainTrack();
+    if (content === undefined) {
+      window.alert("댓글을 입력해주세요!");
+    } else {
+      dispatch(
+        commentCreators.addCommentDB(`${props.props?.trackId}`, content)
+      );
+      commetReset();
+      setTrack();
+      setMainTrack();
+    }
   };
 
   const onKeyPress = (event) => {
