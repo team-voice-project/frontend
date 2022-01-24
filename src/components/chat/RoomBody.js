@@ -29,7 +29,6 @@ const RoomBody = ({
   }, [chat_content]);
 
   useEffect(() => {
-    setScrollPoint(contentScrollRef.current.scrollHeight);
     const activeScroll = contentScrollRef.current.scrollHeight - scroll_point;
     if (activeScroll !== 0 && hasMore === true) {
       contentScrollRef.current.scrollTo(0, activeScroll);
@@ -64,7 +63,7 @@ const RoomBody = ({
     const resData = res.data.getChat;
     setData((data) => [...resData, ...data]);
 
-    if (resData.length === 0 || resData.length < 20) {
+    if (resData.length < 20 || resData.length === 0) {
       setHasMore(false);
     }
   };
