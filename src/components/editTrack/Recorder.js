@@ -51,7 +51,7 @@ const Recorder = ({
 
   // 15728640 byte === 15 MB === 약 30분  // *.m4a
   const getVoiceBlobUrl = () => {
-    const voice_blob = new Blob(chunks, { type: "audio/mp4" });
+    const voice_blob = new Blob(chunks, { type: "video/mp4" });
     // console.log("보이스 녹음 파일: ", voice_blob);
     const url = URL.createObjectURL(voice_blob);
     // 실제 서버로 넘길 보이스 파일 데이터 객체
