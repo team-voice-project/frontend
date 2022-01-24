@@ -27,6 +27,13 @@ const EditRecord = ({ history }) => {
 
   useEffect(() => {
     RandomScriptGenerator();
+
+    return () => {
+      // URL.createObjectURL() 호출로 부터 생성된 object URL을 해제
+      if (voice_file?.file) {
+        URL.revokeObjectURL(voice_file.file);
+      }
+    };
   }, []);
 
   useEffect(() => {
