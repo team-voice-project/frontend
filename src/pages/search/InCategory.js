@@ -25,8 +25,6 @@ const InCategory = (props) => {
   const category_page = useSelector((state) => state.search.page);
   const has_more = useSelector((state) => state.search.has_more);
   const trackWrapRef = useRef(null);
-  console.log("category", category);
-  console.log("category_page", category_page);
 
   const [show_modal, setShowModal] = useState(false);
   const [page, setPage] = useState(category_page);

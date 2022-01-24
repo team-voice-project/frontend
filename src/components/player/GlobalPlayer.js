@@ -538,6 +538,7 @@ const PlayerWidget = styled.article`
     display: flex;
     align-items: center;
     cursor: pointer;
+    flex: 1;
 
     .cover {
       width: 40px;
