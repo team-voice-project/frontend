@@ -95,8 +95,6 @@ const ChatRoom = () => {
     const splitted = room_id.split("_");
     const uid = Number(newGetCookie("uid"));
     const another = Number(splitted.filter((id) => id != uid)[0]);
-    // console.log("나의 uid", uid);
-    // console.log("상대의 uid", another);
 
     chat?.emit("joinRoom", {
       userId: uid,
@@ -111,8 +109,6 @@ const ChatRoom = () => {
 
   const sendMessage = (message, type = "normal") => {
     const { uid, another } = createRoomId();
-    // console.log("채팅 보내기 receiveUserId:", another);
-    // console.log("채팅 보내기 sendUserId:", uid);
 
     if (type === "normal") {
       chat?.emit("room", {
