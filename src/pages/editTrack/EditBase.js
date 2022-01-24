@@ -6,7 +6,7 @@ import { actionCreators as editTrackActions } from "../../redux/modules/editTrac
 import { apis } from "../../shared/api";
 
 import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/ri";
-import { Container, Tag, Font } from "../../elements";
+import { Container, Font, Tag } from "../../elements";
 import OptModal from "../../components/editTrack/OptModal";
 import CategoryList from "../../components/editTrack/CategoryList";
 import TagList from "../../components/editTrack/TagList";
@@ -65,7 +65,6 @@ const EditBase = ({ history }) => {
   const getTrackData = async (id) => {
     try {
       const res = await apis.getTrackInfoDB(id);
-      console.log("트랙정보", res);
       return res.data.track;
     } catch (err) {
       console.error("[getTrackData] 트랙정보를 가져올 수 없습니다.");
@@ -83,8 +82,7 @@ const EditBase = ({ history }) => {
   const getMenuData = async () => {
     try {
       const res = await apis.getMenuInfoDB();
-      const menu_data = filterTotalCategory(res.data);
-      return menu_data;
+      return filterTotalCategory(res.data);
     } catch (err) {
       console.error("[getMenuData] 카테고리, 태그 정보를 가져올 수 없습니다.");
       return null;
