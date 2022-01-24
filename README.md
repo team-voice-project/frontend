@@ -1,6 +1,6 @@
 # 세상에 모든 목소리
 
- <p align="center"><img width="500"  alt="스크린샷 2021-12-09 오후 2 32 42" src="https://user-images.githubusercontent.com/90129613/146623441-23d73042-288e-4f47-a12d-f408923ab97a.png">
+ <p align="center"><img width="500"  alt="스크린샷 2021-12-09 오후 2 32 42" src="https://user-images.githubusercontent.com/93514215/150720442-e9bf2cf6-a1c2-40b4-882c-659da5679bbd.png">
  </p>
 
 
@@ -12,15 +12,22 @@
  <p> </p>
  <p> </p>
   
-  Web Site : http://team9danguen.s3-website.ap-northeast-2.amazonaws.com/
+  Web Site : https://oao-voice.com
 </br>
 
 ## 🧾 와이어 프레임
 
 <p align="center"float="left">
-  <img src="https://user-images.githubusercontent.com/90129613/146336900-ec5dc293-9097-4823-bbcd-4cdc781c743a.png" width="400" />
-  <img src="https://user-images.githubusercontent.com/90129613/146336913-1561b07c-c192-4720-8dea-a132336ce5ba.png" width="400" /> 
-  <img src="https://user-images.githubusercontent.com/90129613/146336917-d6dd74de-8a1b-475f-b6ed-aefc3c51f8ce.png" width="500" />
+  <img src="https://user-images.githubusercontent.com/93514215/150720749-73719830-93f1-4874-beb8-511196960687.png" />
+  <img src="https://user-images.githubusercontent.com/93514215/150720796-69c78045-6931-42f1-a40c-0927fe80cde9.png" /> 
+  <img src="https://user-images.githubusercontent.com/93514215/150720837-a79ad1d1-6000-4347-b53f-77436c40a540.png"  />
+ <img src="https://user-images.githubusercontent.com/93514215/150720912-a543281e-4201-4d03-b9ee-4fe199c4fa42.png"  />
+ <img src="https://user-images.githubusercontent.com/93514215/150720954-0ff168cf-5475-4745-99b2-dfda8a472a5c.png"  />
+ <img src="https://user-images.githubusercontent.com/93514215/150721029-9939129a-5c0b-4a0a-a29b-10274ba9eebd.png"  />
+ <img src="https://user-images.githubusercontent.com/93514215/150720954-0ff168cf-5475-4745-99b2-dfda8a472a5c.png"  />
+ <img src="https://user-images.githubusercontent.com/93514215/150721073-d10db018-7104-427d-926f-c516432a2a0b.png"  />
+  <img src="https://user-images.githubusercontent.com/93514215/150721134-d21faa1e-b99f-401f-a565-af7f4e362440.png"  />
+ 
 </p>
 
 ## 🎥 시연 영상
@@ -32,13 +39,13 @@
 </br>
 
 ### Front-end   
-   <p><a href="https://github.com/hamkke" target="_blank"><img width="180"  src="https://img.shields.io/static/v1?label=React&message=이서현&color=61dafb&style=for-the-badge&>"/></a></p>
-   <p><a href="https://github.com/cslim0527" target="_blank"><img width="180"  src="https://img.shields.io/static/v1?label=React&message=임찬수&color=61dafb&style=for-the-badge&>"/></a></p>
-   <p><a href="https://github.com/keimindev" target="_blank"><img width="180"  src="https://img.shields.io/static/v1?label=React&message=정민경&color=61dafb&style=for-the-badge&>"/></a></p>
+   <p><a href="https://github.com/hamkke" target="_blank"><img width="180"  src="https://img.shields.io/static/v1?label=React&message=임찬수&color=61dafb&style=for-the-badge&>"/></a></p>
+   <p><a href="https://github.com/cslim0527" target="_blank"><img width="180"  src="https://img.shields.io/static/v1?label=React&message=김용성&color=61dafb&style=for-the-badge&>"/></a></p>
+   <p><a href="https://github.com/keimindev" target="_blank"><img width="180"  src="https://img.shields.io/static/v1?label=React&message=김자운&color=61dafb&style=for-the-badge&>"/></a></p>
   
 ### Back-end
-<p><a href="https://github.com/good4y" target="_blank"><img width="180"  src="https://img.shields.io/static/v1?label=Spring&message=김영철&color=08CE5D&style=for-the-badge&>"/></a></p>
-   <p><a href="https://github.com/HundredCleanWater" target="_blank"><img width="180"  src="https://img.shields.io/static/v1?label=Spring&message=백정수&color=08CE5D&style=for-the-badge&>"/></a></p>
+<p><a href="https://github.com/good4y" target="_blank"><img width="180"  src="https://img.shields.io/static/v1?label=Spring&message=김주영&color=08CE5D&style=for-the-badge&>"/></a></p>
+   <p><a href="https://github.com/HundredCleanWater" target="_blank"><img width="180"  src="https://img.shields.io/static/v1?label=Spring&message=이도연&color=08CE5D&style=for-the-badge&>"/></a></p>
    <p><a href="https://github.com/sixthh-sense" target="_blank"><img width="180"  src="https://img.shields.io/static/v1?label=Spring&message=성해인&color=08CE5D&style=for-the-badge&>"/></a></p>
    
 
@@ -64,7 +71,6 @@
 </br>
 <p float="left">
   <img src="https://img.shields.io/badge/axios-007CE2?style=for-the-badge&logo=axios&logoColor=white">
-  <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=Firebase&logoColor=white">
   <img src="https://img.shields.io/badge/Style Components-DB7093?style=for-the-badge&logo=Style Components&logoColor=white">
   <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white">
   <img src="https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=CSS&logoColor=white">
@@ -87,15 +93,15 @@
 
 ## ✌🏻 개인 역할 및 트러블 슈팅 해결과정
 
-<code>이서현</code> 
-</br>
-
-
 <code>임찬수</code> 
 </br>
 
 
-<code>정민경</code> 회원가입 페이지, 게시글 작성-수정(모달창 포함) 뷰와 기능 구현, 로그아웃 구현
+<code>김용성</code> 
+</br>
+
+
+<code>김자운</code> 회원가입 페이지, 게시글 작성-수정(모달창 포함) 뷰와 기능 구현, 로그아웃 구현
 
 <code>Trouble Shooting</code>  [트러블 슈팅 해결과정]("https://exuberant-dart-a7f.notion.site/0e96630aa4604f8ba979067733964100")
 
@@ -105,15 +111,15 @@
 
 ## 📝 후기 및 팀 노션 페이지
 
-<code>이서현</code> 
-</br>
-하하핳하하 프로젝트 잘 마무리 해서 기분이 
-
 <code>임찬수</code> 
+</br>
+
+
+<code>김용성</code> 
 </br> 
 
 
-<code>정민경</code>  
+<code>김자운</code>  
 
 </br>
 
