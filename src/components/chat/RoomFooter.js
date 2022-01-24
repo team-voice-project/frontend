@@ -70,49 +70,6 @@ const RoomFooter = ({
     <>
       <ChatFooter>
         <Container padding={"0"}>
-          <List>
-            <div
-              onClick={() => {
-                setOptionModal(!show_option_modal);
-              }}
-            >
-              {show_option_modal ? (
-                <IoIosClose
-                  style={{
-                    marginRight: "10px",
-                    fontSize: "20px",
-                    cursor: "pointer",
-                  }}
-                />
-              ) : (
-                <AiOutlinePlus
-                  style={{
-                    marginRight: "10px",
-                    fontSize: "13px",
-                    cursor: "pointer",
-                  }}
-                />
-              )}
-            </div>
-            <div style={{ width: "95%" }}>
-              <CommentInput
-                className="commentInput"
-                type="text"
-                placeholder="메시지를 입력해주세요."
-                onChange={onChange}
-                value={content}
-                onKeyUp={handleWithKeyboardSend}
-              />
-            </div>
-            <div>
-              <IoIosSend
-                className={`send-btn ${!content.length ? "disabled" : ""}`}
-                onClick={handleSendMessage}
-                disabled={!content.length}
-              />
-            </div>
-          </List>
-
           <SendOptions
             request_text={request_text}
             show_option_modal={show_option_modal}
@@ -124,6 +81,33 @@ const RoomFooter = ({
             setRequestText={setRequestText}
           />
         </Container>
+        <List>
+          <div
+            className={"toggle-btn"}
+            onClick={() => {
+              setOptionModal(!show_option_modal);
+            }}
+          >
+            {!show_option_modal ? <IoIosClose /> : <AiOutlinePlus />}
+          </div>
+          <div style={{ width: "95%" }}>
+            <CommentInput
+              className="commentInput"
+              type="text"
+              placeholder="메시지를 입력해주세요."
+              onChange={onChange}
+              value={content}
+              onKeyUp={handleWithKeyboardSend}
+            />
+          </div>
+          <div>
+            <IoIosSend
+              className={`send-btn ${!content.length ? "disabled" : ""}`}
+              onClick={handleSendMessage}
+              disabled={!content.length}
+            />
+          </div>
+        </List>
       </ChatFooter>
 
       {show_request_modal && (
@@ -220,11 +204,21 @@ const List = styled.div`
   display: flex;
   width: 100%;
   background: #2c2b2b;
-  height: 70px;
+  height: 68px;
   padding: 0 20px;
   max-width: 425px;
   align-items: center;
-  margin: 10px auto 0;
+  margin: 0 auto;
+
+  .toggle-btn {
+    width: 30px;
+    display: flex;
+    align-items: center;
+
+    svg {
+      cursor: pointer;
+    }
+  }
 `;
 
 const CommentInput = styled.input`

@@ -26,7 +26,7 @@ const EditFinal = ({ history }) => {
         "작성중인 목소리 정보를 찾을 수 없습니다. 다시 처음부터 시도하세요."
       );
 
-      history.goBack();
+      history.push("/edit/base");
     }
 
     return () => {};

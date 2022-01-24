@@ -38,7 +38,7 @@ const SendOptions = ({
       send_data.append("receiveUserId", another);
 
       const res = await apis.sendImageChat(send_data);
-      console.log("이미지 전송결과: ", res);
+      // console.log("이미지 전송결과: ", res);
       return true;
     } catch (err) {
       console.log("[sendImageFile] 이미지 전송에 실패했습니다.");
@@ -92,11 +92,12 @@ const SendOptions = ({
 
     try {
       const res = await apis.sendVoiceChat(send_data);
-      console.log("목소리 파일 전송 결과: ", res);
+      // console.log("목소리 파일 전송 결과: ", res);
       setRequestText("");
       return true;
     } catch (err) {
-      console.log(err.response);
+      alert(err.response);
+      // console.log(err.response);
       setRequestText("");
       return false;
     }
@@ -142,7 +143,7 @@ const SendOptions = ({
         e.target.value = null;
       }, 500);
     } else {
-      console.log("목소리 전송이 실패했습니다.");
+      alert("목소리 전송이 실패했습니다.");
       setTimeout(() => {
         setLoadingModal(false);
         e.target.value = null;
@@ -152,7 +153,7 @@ const SendOptions = ({
 
   return (
     <>
-      <List className={show_option_modal ? "" : "hide"}>
+      <List className={!show_option_modal ? "" : "hide"}>
         <IconDiv onClick={handleOpenRecordModal}>
           <OptionsDiv>
             <BsFillMicFill />
@@ -258,10 +259,10 @@ const List = styled.div`
   width: 100%;
   background: #2c2b2b;
   height: 120px;
-  padding: 0 30px;
   max-width: 425px;
-  align-items: center;
-  margin: 0px auto;
+  margin: 0 auto;
+  border-top: 1px solid #5b5b5b;
+  border-bottom: 1px solid #5b5b5b;
 
   &.hide {
     display: none;
@@ -275,7 +276,6 @@ const OptionsName = styled.p`
 
 const OptionsDiv = styled.div`
   display: flex;
-  background: black;
   width: 56px;
   height: 56px;
   font-size: 24px;
@@ -291,6 +291,14 @@ const IconDiv = styled.label`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  border-right: 1px solid #5b5b5b;
+  width: 100%;
+  height: 100%;
+
+  &:last-child {
+    border-right: 0;
+  }
 
   input[type="file"] {
     display: none;
