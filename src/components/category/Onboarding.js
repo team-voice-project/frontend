@@ -7,8 +7,6 @@ import Container from "../../elements/Container";
 import SingleAudioPlayer from "../../shared/SingleAudioPlayer";
 import { actionCreators as postActions } from "../../redux/modules/post";
 
-import { HiHeart } from "react-icons/hi";
-import { RiChat4Fill } from "react-icons/ri";
 import { Button, Font } from "../../elements";
 import { useHistory } from "react-router-dom";
 
@@ -69,23 +67,13 @@ const OnBoarding = ({ onClose }) => {
           <SingleAudioPlayer
             audio={random && random.trackUrl}
           ></SingleAudioPlayer>
-
-          <FlexCount>
-            <CountBox>
-              <HiHeart size="20"></HiHeart>
-              <CountText>{random && random.Likes.likeCnt}</CountText>
-            </CountBox>
-            <CountBox>
-              <RiChat4Fill size="18"></RiChat4Fill>
-              <CountText>{random && random.CommentCnt.commentCnt}</CountText>
-            </CountBox>
-          </FlexCount>
         </BoxDiv>
         <Button
           bg
           margin="0px 0px 15px 0px"
           _onClick={() => {
             history.push("/edit/base");
+            onClose();
           }}
         >
           나도 목소리 올리기
@@ -111,7 +99,7 @@ const Background = styled.div`
 
 const BoxDiv = styled.div`
   width: 100%;
-  height: 490px;
+  height: 68vh;
   background-color: #252525;
   border-radius: 12px;
   margin-bottom: 20px;
@@ -124,31 +112,10 @@ const Flex = styled.div`
   vertical-align: center;
 `;
 
-const CountBox = styled.div`
-  display: flex;
-  align-items: center;
-  vertical-align: center;
-  margin-right: 16px;
-`;
-
 const FlexTag = styled.div`
   width: 100%;
   margin: 4px auto 0px auto;
   text-align: center;
-`;
-
-const FlexCount = styled.div`
-  display: flex;
-  align-items: center;
-  vertical-align: right;
-  margin: 4px 0px 0px 250px;
-
-  @media screen and (max-width: 380px) {
-    margin: 10px 0px 0px 200px;
-  }
-  @media screen and (max-width: 320px) {
-    margin: 10px 0px 0px 150px;
-  }
 `;
 
 const SmallCircle = styled.img`
@@ -159,20 +126,14 @@ const SmallCircle = styled.img`
 `;
 
 const ImgDiv = styled.div`
-  width: 160px;
-  height: 160px;
+  width: 140px;
+  height: 140px;
   margin: 48px auto 25px auto;
 `;
 
 const OAOImage = styled.img`
-  width: 160px;
-  height: 160px;
-`;
-
-const CountText = styled.div`
-  font-size: 12px;
-  color: #c4c4c4;
-  margin-left: 2px;
+  width: 140px;
+  height: 140px;
 `;
 
 const BoldFont = styled.div`
