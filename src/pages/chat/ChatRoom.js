@@ -163,6 +163,7 @@ const ChatRoom = () => {
         setRecordModal={setRecordModal}
         setRequestText={setRequestText}
         createRoomId={createRoomId}
+        setChatContent={setChatContent}
       />
       <RoomFooter
         chat={chat}

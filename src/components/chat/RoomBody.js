@@ -5,7 +5,7 @@ import _ from "lodash";
 import DatetimeLine from "./DatetimeLine";
 import RecieverBubble from "./RecieverBubble";
 import SenderBubble from "./SenderBubble";
-import { Container, Spinner } from "../../elements/index";
+import { Container } from "../../elements/index";
 import { apis } from "../../shared/api";
 
 const RoomBody = ({
@@ -25,6 +25,7 @@ const RoomBody = ({
 
   useEffect(() => {
     const last_message = contentScrollRef.current?.lastChild;
+    console.log("scrollIntoView");
     last_message.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [chat_content]);
 
@@ -33,42 +34,18 @@ const RoomBody = ({
     return total;
   };
 
-  const totalChat = totalData();
-
-  const newChatList = () => {
-    if (!totalChat) {
-      return;
-    }
-    const newList = totalChat.map((chat, i) => {
-      const date = chat.createdAt.split("T")[0];
-      const obj = {
-        ...chat,
-        date: date,
-      };
-      return obj;
-    });
-    return newList;
-  };
-
-
   useEffect(() => {
-    setScrollPoint(contentScrollRef.current.scrollHeight);
     const activeScroll = contentScrollRef.current.scrollHeight - scroll_point;
     if (activeScroll !== 0 && hasMore === true) {
-      console.log(activeScroll);
-      return contentScrollRef.current.scrollTo(
-        0,
-        contentScrollRef.current.scrollHeight - scroll_point
-      );
+      console.log("scroll_point", scroll_point);
+      console.log("activeScroll", activeScroll);
+      contentScrollRef.current.scrollTo(0, activeScroll);
     }
-  }, [totalChat]);
+  }, [data]);
 
   useEffect(() => {
     contentScrollRef.current.scrollTop = contentScrollRef.current.scrollHeight;
   }, [chat_content]);
-
-  const newTotalChat = newChatList();
-
 
   const _handleReverseScroll = _.throttle((e) => {
     const now_scroll = contentScrollRef.current.scrollTop;
@@ -77,6 +54,7 @@ const RoomBody = ({
       fetchMoreChatContent();
     }
   }, 250);
+
   const fetchMoreChatContent = async (room_info, page, chat) => {
     const { uid, another } = createRoomId();
     const roomInfo = { userId: uid, qUserId: another };
@@ -88,6 +66,7 @@ const RoomBody = ({
     );
     setPages(pages + 1);
     setLoad(false);
+    setScrollPoint(contentScrollRef.current.scrollHeight);
 
     const resData = res.data.getChat;
     setData((data) => [...resData, ...data]);
@@ -128,16 +107,14 @@ const RoomBody = ({
           onScroll={handleReverseScroll}
           id={"chat-list"}
         >
-
           {/*<DatetimeLine />*/}
           {/*<SenderBubble />*/}
           {/*<RecieverBubble />*/}
 
-
           {!chat_content?.length ? (
             <NoMessage>대화 기록이 없습니다.</NoMessage>
           ) : (
-            newTotalChat.map((message, i) => {
+            totalData()?.map((message, i) => {
               return renderChatContent(message, i);
             })
           )}

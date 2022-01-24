@@ -37,9 +37,9 @@ const TagCategory = (props) => {
   // console.log("tag태그들:::::::))", tags);
 
   useEffect(() => {
-    console.log(
-      "===============================페이지가 1로 초기화 됩니다==================================="
-    );
+    // console.log(
+    //   "===============================페이지가 1로 초기화 됩니다==================================="
+    // );
 
     dispatch(searchActions.resetdata());
   }, [tag1, tag2, tag3]);
@@ -57,7 +57,7 @@ const TagCategory = (props) => {
 
   // console.log("====category_page====", category_page);
   const fetchData = () => {
-    console.log("인피니티 스크롤 -> fetch data의 페이지 상태", category_page);
+    // console.log("인피니티 스크롤 -> fetch data의 페이지 상태", category_page);
     dispatch(
       searchActions.loadCategoryDB(name, tag1, tag2, tag3, category_page)
     );
@@ -76,7 +76,7 @@ const TagCategory = (props) => {
     // dispatch(searchActions.resetdata());
     dispatch(searchActions.loadTagDB(name, ...padArray, 0));
 
-    console.log("필터 후 3개로 채워준 결과값", padArray);
+    // console.log("필터 후 3개로 채워준 결과값", padArray);
     // setTag(a);
   };
 
@@ -138,7 +138,7 @@ const TagCategory = (props) => {
               cursor="pointer"
               size="32"
               onClick={() => {
-                props.history.push(`/category`);
+                props.history.goBack();
                 dispatch(searchActions.resetdata());
               }}
             />
