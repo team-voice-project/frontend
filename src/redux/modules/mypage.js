@@ -24,17 +24,24 @@ const setLikelist = createAction(SET_LIKELIST, (like_track) => ({
 const setRankdata = createAction(SET_RANKDATA, (rank_data) => ({
   rank_data,
 }));
-const setMypageLoading = createAction(MYPAGE_LOADING, (loading) => ({ loading }));
+const setMypageLoading = createAction(MYPAGE_LOADING, (loading) => ({
+  loading,
+}));
 // middlewares
 const setTrackDB = (userId) => {
   return (dispatch, getState, { history }) => {
-    apis.myPage(userId).then((res) => {
-      dispatch(setRankdata(res.data.tong_gye));
-      dispatch(setTrack(res.data.results));
-      dispatch(setUser(res.data.userDate));
-      dispatch(setLikelist(res.data.likesArray));
-      dispatch(setMypageLoading(true));
-    });
+    apis
+      .myPage(userId)
+      .then((res) => {
+        dispatch(setRankdata(res.data.tong_gye));
+        dispatch(setTrack(res.data.results));
+        dispatch(setUser(res.data.userDate));
+        dispatch(setLikelist(res.data.likesArray));
+        dispatch(setMypageLoading(true));
+      })
+      .catch((err) => {
+        history.push("/login");
+      });
   };
 };
 
