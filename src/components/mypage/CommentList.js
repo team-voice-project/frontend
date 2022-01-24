@@ -48,7 +48,7 @@ const CommentList = (props) => {
                 }}
                 src={props.User?.profileImage}
               />
-              <div style={{ maxWidth: "290px", wordBreak: "break-all" }}>
+              <div style={{ maxWidth: "260px", wordBreak: "break-all" }}>
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <NickName
                     onClick={() => {
