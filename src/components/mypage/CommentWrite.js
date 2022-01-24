@@ -19,7 +19,6 @@ const CommentWrite = (props) => {
       p.value = "";
     });
   };
-  console.log(content);
 
   const setTrack = () => {
     apis.getProfile().then((res) => {
