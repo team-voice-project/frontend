@@ -61,8 +61,6 @@ const loadCategoryDB = (
     apis
       .category(category, tag1, tag2, tag3, page, track)
       .then((res) => {
-        // console.log("로드 카테고리", res);
-        console.log("페이지뭐야?", page);
         let next_page = page;
         let is_next = null;
         if (res.data.tracks.tracks.length < 60) {
@@ -143,14 +141,12 @@ export default handleActions(
     [GET_SEARCH]: (state, action) =>
       produce(state, (draft) => {
         draft.list.push(...action.payload.search_list.searchLists);
-        // draft.search_list = action.payload.search_list.searchLists;
         draft.has_more = action.payload.search_list.next;
         draft.page = action.payload.search_list.page;
       }),
 
     [LOAD_CATEGORY]: (state, action) =>
       produce(state, (draft) => {
-        console.log("액션페이로드", action.payload);
         draft.list.push(...action.payload.category.categoryList.tracks);
         draft.has_more = action.payload.category.next;
         draft.page = action.payload.category.page;

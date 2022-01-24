@@ -5,8 +5,6 @@ import Header from "./Header";
 import Container from "../../elements/Container";
 import SingleAudioPlayer from "../../shared/SingleAudioPlayer";
 
-import { HiHeart } from "react-icons/hi";
-import { RiChat4Fill } from "react-icons/ri";
 import { Button } from "../../elements";
 
 const OnBoarding = ({ onClose }) => {
@@ -30,17 +28,6 @@ const OnBoarding = ({ onClose }) => {
           <BoldFont></BoldFont>
 
           <SingleAudioPlayer></SingleAudioPlayer>
-
-          <FlexCount>
-            <CountBox>
-              <HiHeart size="20"></HiHeart>
-              <CountText></CountText>
-            </CountBox>
-            <CountBox>
-              <RiChat4Fill size="18"></RiChat4Fill>
-              <CountText></CountText>
-            </CountBox>
-          </FlexCount>
         </BoxDiv>
         <Button bg margin="0px 0px 15px 0px"></Button>
         <Button border margin="0px 0px 25px 0px" _onClick={onClose}></Button>
@@ -62,7 +49,7 @@ const Background = styled.div`
 
 const BoxDiv = styled.div`
   width: 100%;
-  height: 490px;
+  height: 68vh;
   background-color: #252525;
   border-radius: 12px;
   margin-bottom: 20px;
@@ -75,31 +62,10 @@ const Flex = styled.div`
   vertical-align: center;
 `;
 
-const CountBox = styled.div`
-  display: flex;
-  align-items: center;
-  vertical-align: center;
-  margin-right: 16px;
-`;
-
 const FlexTag = styled.div`
   width: 100%;
   margin: 4px auto 0px auto;
   text-align: center;
-`;
-
-const FlexCount = styled.div`
-  display: flex;
-  align-items: center;
-  vertical-align: right;
-  margin: 4px 0px 0px 250px;
-
-  @media screen and (max-width: 380px) {
-    margin: 10px 0px 0px 200px;
-  }
-  @media screen and (max-width: 320px) {
-    margin: 10px 0px 0px 150px;
-  }
 `;
 
 const SmallCircle = styled.div`
@@ -187,12 +153,6 @@ const ImgDiv = styled.div`
     background: linear-gradient(to right, #2c2b2b, #ddd, #2c2b2b);
     animation: loading 2s infinite linear;
   }
-`;
-
-const CountText = styled.div`
-  font-size: 12px;
-  color: #c4c4c4;
-  margin-left: 2px;
 `;
 
 const BoldFont = styled.div`

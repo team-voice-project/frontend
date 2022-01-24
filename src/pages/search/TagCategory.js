@@ -23,24 +23,13 @@ const TagCategory = (props) => {
   const tag3 = tags[2];
   const name = location.state.category;
   const [show_modal, setShowModal] = useState(false);
-  // const [tag, setTag] = useState([]);
   const trackWrapRef = useRef(null);
 
   const category = useSelector((state) => state.search.list);
   const category_page = useSelector((state) => state.search.page);
   const has_more = useSelector((state) => state.search.has_more);
-  const reducerTags = useSelector((state) => state.search.tags);
-
-  // console.log("리듀서에서 히스토리로 넘긴 데이터", location);
-  // console.log("useSelector로 가져온 태그정보", reducerTags);
-  // console.log("====category_page====", category_page);
-  // console.log("tag태그들:::::::))", tags);
 
   useEffect(() => {
-    // console.log(
-    //   "===============================페이지가 1로 초기화 됩니다==================================="
-    // );
-
     dispatch(searchActions.resetdata());
   }, [tag1, tag2, tag3]);
 
@@ -48,16 +37,7 @@ const TagCategory = (props) => {
     fetchData();
   }, [tag1, tag2, tag3]);
 
-  // useEffect(() => {
-  //   if (!tag1) {
-  //     props.history.push(`/category/${name}`);
-  //     // window.location.reload();
-  //   }
-  // }, [tags]);
-
-  // console.log("====category_page====", category_page);
   const fetchData = () => {
-    // console.log("인피니티 스크롤 -> fetch data의 페이지 상태", category_page);
     dispatch(
       searchActions.loadCategoryDB(name, tag1, tag2, tag3, category_page)
     );
@@ -73,50 +53,9 @@ const TagCategory = (props) => {
       filteredTags[i] ? filteredTags[i] : ""
     );
 
-    // dispatch(searchActions.resetdata());
     dispatch(searchActions.loadTagDB(name, ...padArray, 0));
-
-    // console.log("필터 후 3개로 채워준 결과값", padArray);
-    // setTag(a);
   };
 
-  // // console.log(":::::::::::::::tag::::::::::::", tag);
-  // const handleTagArray = () => {
-  //   const emptyTag = "";
-
-  //   if (tag.length === 2) {
-  //     return tag.push(emptyTag);
-  //   }
-  //   if (tag.length === 1) {
-  //     return tag.push(emptyTag, emptyTag);
-  //   }
-  //   if (tag.length === 0) {
-  //     return tag.push(emptyTag, emptyTag, emptyTag);
-  //   }
-  // };
-
-  // const mounted = React.useRef(false);
-  // useEffect(() => {
-  //   if (!mounted.current) {
-  //     mounted.current = true;
-  //   } else {
-  //     handleTagArray();
-  //     console.log("삭제 후 태그배열=>", tag);
-  //     dispatch(searchActions.loadTagDB(name, ...tag, category_page));
-  //     // dispatch(searchActions.resetdata());
-  //   }
-  // }, [tag]);
-
-  // useEffect(() => {
-  //   if (!mounted.current) {
-  //     mounted.current = true;
-  //   } else {
-  //     if (!tag1) {
-  //       console.log("태그가 다 사라지면 리셋을 해줘");
-  //       dispatch(searchActions.resetdata());
-  //     }
-  //   }
-  // }, [tag1]);
   return (
     <>
       <HeaderDiv>
