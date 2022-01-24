@@ -274,8 +274,9 @@ const GlobalModal = (props) => {
 };
 const Profile = styled.div`
   display: flex;
-  width: 200px;
+  width: 220px;
   align-items: center;
+  word-break: break-all;
   cursor: pointer;
 `;
 
