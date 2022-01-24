@@ -41,17 +41,6 @@ const RoomBody = ({
     return total;
   };
 
-  useEffect(() => {
-    const activeScroll = contentScrollRef.current.scrollHeight - scroll_point;
-    if (activeScroll !== 0 && hasMore === true) {
-      contentScrollRef.current.scrollTo(0, activeScroll);
-    }
-  }, [data]);
-
-  useEffect(() => {
-    contentScrollRef.current.scrollTop = contentScrollRef.current.scrollHeight;
-  }, [chat_content]);
-
   const _handleReverseScroll = _.throttle((e) => {
     const now_scroll = contentScrollRef.current.scrollTop;
     if (now_scroll === 0 && hasMore === true) {
