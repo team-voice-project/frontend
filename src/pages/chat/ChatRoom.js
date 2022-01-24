@@ -104,7 +104,7 @@ const ChatRoom = () => {
     });
 
     chat?.on("chat", (data) => {
-      console.log("채팅방에서 받은 메세지", data);
+      // console.log("채팅방에서 받은 메세지", data);
       receiveMessage(data);
     });
   };
@@ -133,7 +133,7 @@ const ChatRoom = () => {
     }
 
     if (type === "image") {
-      console.log("이미지 전송");
+      // console.log("이미지 전송");
       chat?.emit("file", {
         receiveUserId: another,
         sendUserId: uid, // 보내는 사람 (나)
@@ -143,7 +143,6 @@ const ChatRoom = () => {
   };
 
   const handleLeaveRoom = () => {
-    console.log("방 나가기");
     const { uid, another } = createRoomId();
     chat?.emit("leaveRoom", { userId: uid, qUserId: another });
     chat?.emit("login", { userId: uid });

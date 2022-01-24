@@ -37,7 +37,7 @@ function App() {
   useEffect(() => {
     const uid = newGetCookie("uid");
     if (!uid) {
-      console.error("[알림] 비로그인 회원은 채팅기능을 사용 할 수 없습니다.");
+      // console.error("[알림] 비로그인 회원은 채팅기능을 사용 할 수 없습니다.");
       return;
     }
 
@@ -51,12 +51,12 @@ function App() {
   useEffect(() => {
     const uid = newGetCookie("uid");
     if (!uid) {
-      console.error("[알림] 비로그인 회원은 채팅기능을 사용 할 수 없습니다.");
+      // console.error("[알림] 비로그인 회원은 채팅기능을 사용 할 수 없습니다.");
       return;
     }
 
     chat?.on("list", (data) => {
-      console.log("글로벌 메세지", data);
+      // console.log("글로벌 메세지", data);
       receiveGlobalMessage(data);
     });
   }, [chat]);

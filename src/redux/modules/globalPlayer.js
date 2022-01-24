@@ -70,7 +70,7 @@ const loadPlayList = () => {
       try {
         const res = await apis.getPlayList();
         dispatch(setPlayList(res.data.playlist));
-        console.log("플레이 리스트 불러오기 성공", res);
+        // console.log("플레이 리스트 불러오기 성공", res);
       } catch (err) {
         console.log("플레이 리스트 불러오기 실패", err.response);
       }
