@@ -29,6 +29,14 @@ const RoomBody = ({
     last_message.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [chat_content]);
 
+  useEffect(() => {
+    setScrollPoint(contentScrollRef.current.scrollHeight);
+    const activeScroll = contentScrollRef.current.scrollHeight - scroll_point;
+    if (activeScroll !== 0 && hasMore === true) {
+      contentScrollRef.current.scrollTo(0, activeScroll);
+    }
+  }, [data]);
+
   const totalData = () => {
     const total = [...data, ...chat_content];
     return total;
@@ -47,9 +55,9 @@ const RoomBody = ({
     contentScrollRef.current.scrollTop = contentScrollRef.current.scrollHeight;
   }, [chat_content]);
 
+
   const _handleReverseScroll = _.throttle((e) => {
     const now_scroll = contentScrollRef.current.scrollTop;
-
     if (now_scroll === 0 && hasMore === true) {
       fetchMoreChatContent();
     }
@@ -107,9 +115,6 @@ const RoomBody = ({
           onScroll={handleReverseScroll}
           id={"chat-list"}
         >
-          {/*<DatetimeLine />*/}
-          {/*<SenderBubble />*/}
-          {/*<RecieverBubble />*/}
 
           {!chat_content?.length ? (
             <NoMessage>대화 기록이 없습니다.</NoMessage>

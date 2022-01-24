@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
+import { newGetCookie } from "../../shared/Cookie";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as chatListActions } from "../../redux/modules/chatList";
 
 import { Font, Container } from "../../elements";
 import ChatBlock from "../../components/chat/ChatBlock";
-import { newGetCookie } from "../../shared/Cookie";
-import { apis } from "../../shared/api";
-import { actionCreators as chatListActions } from "../../redux/modules/chatList";
-import { useDispatch, useSelector } from "react-redux";
 
 const ChatList = () => {
   const dispatch = useDispatch();
@@ -21,7 +20,7 @@ const ChatList = () => {
   useEffect(() => {
     dispatch(chatListActions.setChatBlockData(userId));
   }, [chat_rooms_info]);
-  console.log(chat_rooms_info);
+
   return (
     <>
       {chatList.length === 0 ? (
