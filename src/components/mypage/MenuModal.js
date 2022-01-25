@@ -27,11 +27,12 @@ const MenuModal = (props) => {
   const userId = props.props.userId;
   const trackId = props.props?.trackId;
   const nick = newGetCookie("nick");
+  const my_id = newGetCookie("uid");
   const trackNick = props.props.User.nickname;
   const isMe = props.props.User.nickname === nick;
 
   const createRoomNumber = () => {
-    const total_Id = [nick, userId];
+    const total_Id = [my_id, userId];
     return total_Id
       .map(Number)
       .sort((a, b) => a - b)
