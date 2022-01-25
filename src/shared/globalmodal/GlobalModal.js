@@ -33,6 +33,14 @@ const GlobalModal = (props) => {
   const nick = newGetCookie("nick");
   const trackNick = track_info?.User?.nickname;
   const isMe = trackNick === nick;
+  const createRoomNumber = () => {
+    const total_Id = [nick, userId];
+    return total_Id
+      .map(Number)
+      .sort((a, b) => a - b)
+      .join("_");
+  };
+  const roomId = createRoomNumber();
 
   const setTrack = () => {
     apis.getProfile().then((res) => {
@@ -141,17 +149,39 @@ const GlobalModal = (props) => {
                 <Name>{track_info?.User?.nickname}</Name>
               </Profile>
             ) : (
-              <Profile
-                onClick={() => {
-                  history.push({
-                    pathname: `/portfolio/${userId}/voice_rank`,
-                  });
-                  close();
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginTop: "10px",
                 }}
               >
-                <ProfileCircle src={track_info?.User?.profileImage} />
-                <Name>{track_info?.User?.nickname}</Name>
-              </Profile>
+                <Profile
+                  onClick={() => {
+                    history.push({
+                      pathname: `/portfolio/${userId}/voice_rank`,
+                    });
+                    close();
+                  }}
+                >
+                  <ProfileCircle src={track_info?.User?.profileImage} />
+                  <Name>{track_info?.User?.nickname}</Name>
+                </Profile>
+                <ConfirmBtn
+                  onClick={() => {
+                    if (nick === undefined) {
+                      window.alert("로그인이 필요한 서비스입니다!");
+                      history.push(`/login`);
+                      close();
+                    } else {
+                      history.push(`/chatroom/${roomId}`);
+                      close();
+                    }
+                  }}
+                >
+                  의뢰하기
+                </ConfirmBtn>
+              </div>
             )}
 
             <div style={{ textAlign: "center" }}>
@@ -335,5 +365,15 @@ const Text = styled.p`
   margin-top: 5px;
   font-size: 17px;
   color: white;
+`;
+const ConfirmBtn = styled.button`
+  width: 68px;
+  height: 28px;
+  border-radius: 16px;
+  background: none;
+  color: white;
+  border: 1px solid white;
+  font-family: "Pretendard Variable", serif;
+  font-size: 12px;
 `;
 export default GlobalModal;
