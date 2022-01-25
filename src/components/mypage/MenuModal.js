@@ -29,6 +29,17 @@ const MenuModal = (props) => {
   const nick = newGetCookie("nick");
   const trackNick = props.props.User.nickname;
   const isMe = props.props.User.nickname === nick;
+
+  const createRoomNumber = () => {
+    const total_Id = [nick, userId];
+    return total_Id
+      .map(Number)
+      .sort((a, b) => a - b)
+      .join("_");
+  };
+
+  const roomId = createRoomNumber();
+
   const setTrack = () => {
     apis.getProfile().then((res) => {
       const userId = res.data.user.userId;
@@ -132,17 +143,37 @@ const MenuModal = (props) => {
                     <Name>{props.props.User.nickname}</Name>
                   </Profile>
                 ) : (
-                  <Profile
-                    onClick={() => {
-                      history.push({
-                        pathname: `/portfolio/${userId}/voice_rank`,
-                      });
-                      close();
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginTop: "10px",
                     }}
                   >
-                    <ProfileCircle src={props.props.User.profileImage} />
-                    <Name>{props.props.User.nickname}</Name>
-                  </Profile>
+                    <Profile
+                      onClick={() => {
+                        history.push({
+                          pathname: `/portfolio/${userId}/voice_rank`,
+                        });
+                        close();
+                      }}
+                    >
+                      <ProfileCircle src={props.props.User.profileImage} />
+                      <Name>{props.props.User.nickname}</Name>
+                    </Profile>
+                    <ConfirmBtn
+                      onClick={() => {
+                        if (nick === undefined) {
+                          window.alert("로그인이 필요한 서비스입니다!");
+                          history.push(`/login`);
+                        } else {
+                          history.push(`/chatroom/${roomId}`);
+                        }
+                      }}
+                    >
+                      의뢰하기
+                    </ConfirmBtn>
+                  </div>
                 )}
 
                 <div style={{ textAlign: "center" }}>
@@ -313,6 +344,7 @@ const Name = styled.p`
   font-size: 18px;
   color: white;
 `;
+
 const Title = styled.h1`
   margin: 0 0 10px 0px;
   font-size: 18px;
@@ -324,6 +356,16 @@ const Text = styled.p`
   margin-top: 5px;
   font-size: 17px;
   color: white;
+`;
+const ConfirmBtn = styled.button`
+  width: 68px;
+  height: 28px;
+  border-radius: 16px;
+  background: none;
+  color: white;
+  border: 1px solid white;
+  font-family: "Pretendard Variable", serif;
+  font-size: 12px;
 `;
 
 const Comments = styled.div`
