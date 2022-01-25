@@ -31,10 +31,11 @@ const GlobalModal = (props) => {
   const userId = track_info?.userId;
   const trackId = track_info?.trackId;
   const nick = newGetCookie("nick");
+  const my_id = newGetCookie("uid");
   const trackNick = track_info?.User?.nickname;
   const isMe = trackNick === nick;
   const createRoomNumber = () => {
-    const total_Id = [nick, userId];
+    const total_Id = [my_id, userId];
     return total_Id
       .map(Number)
       .sort((a, b) => a - b)
