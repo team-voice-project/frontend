@@ -35,7 +35,7 @@
 유투브 편집자 구합니다.
 
 ## 🧑🏼‍💻 개발기간 및 팀원소개
-### 기간: 2021.12.13 ~ 2021.12.18 (6일)  
+### 기간: 2021.12.20 ~ 2022.01.27   
 </br>
 
 ### Front-end   
@@ -57,7 +57,7 @@
 
 
 
-<img width="866" alt="스크린샷 2021-12-09 오후 2 32 42" src="https://user-images.githubusercontent.com/93514215/150723598-53dfd5fa-712a-4cce-b6ab-ad7e0675b37c.png">
+<img width="866" alt="스크린샷 2021-12-09 오후 2 32 42" src="https://user-images.githubusercontent.com/93514215/150916439-81840dfe-7729-4070-894a-b5463f96b91b.png">
 
 
 

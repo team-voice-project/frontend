@@ -46,7 +46,7 @@ const Script = (props) => {
 
   const dispatch = useDispatch(trackActions.saveBase());
   const category = useSelector((state) => state.editTrack.category);
-  console.log("category", category);
+
   useEffect(() => {
     dispatch();
   }, []);
