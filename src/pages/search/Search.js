@@ -19,6 +19,7 @@ const KeywordSearch = (props) => {
   const trackWrapRef = useRef(null);
   const location = useLocation();
   const keyword = location.state.value;
+  console.log("keyword", keyword);
   const search_list = useSelector((state) => state.search.list);
   const searchLoading = useSelector((state) => state.search.is_loading);
   const search_page = useSelector((state) => state.search.page);
@@ -27,7 +28,10 @@ const KeywordSearch = (props) => {
   const [page, setPage] = useState(search_page);
   const [searchWord, setSearchWord] = useState("");
 
+  console.log("search_page", search_page);
+
   useEffect(() => {
+    console.log("실행됨");
     dispatch(searchActions.getSearchDB(keyword, page));
   }, [page]);
 

@@ -28,19 +28,18 @@ const setSearchLoading = createAction(SEARCH_LOADING, (loading) => ({
 }));
 
 //middleware
-const getSearchDB = (keyword, page, track = 60) => {
+const getSearchDB = (keyword, page, track = 9) => {
   return function (dispatch, getState, { history }) {
     apis.search(keyword, page, track).then((res) => {
       let is_next = null;
-      if (res.data.tracks.length < 60) {
+      if (res.data.tracks.length < 9) {
         is_next = false;
-        page = 0;
+        page = 1;
       } else {
         is_next = true;
       }
       let search_list = {
         searchLists: res.data.tracks,
-        page: page + 1,
         next: is_next,
       };
       dispatch(getSearch(search_list));
@@ -55,7 +54,7 @@ const loadCategoryDB = (
   tag2 = "",
   tag3 = "",
   page,
-  track = 60
+  track = 9
 ) => {
   return function (dispatch, getState, { history }) {
     apis
@@ -63,7 +62,7 @@ const loadCategoryDB = (
       .then((res) => {
         let next_page = page;
         let is_next = null;
-        if (res.data.tracks.tracks.length < 60) {
+        if (res.data.tracks.tracks.length < 9) {
           is_next = false;
           next_page = 1;
         } else {
@@ -95,7 +94,7 @@ const loadTagDB = (
   tag2 = "",
   tag3 = "",
   page,
-  track = 60
+  track = 9
 ) => {
   return function (dispatch, getState, { history }) {
     apis
@@ -104,7 +103,7 @@ const loadTagDB = (
         const tags = [`${tag1}`, `${tag2}`, `${tag3}`];
         let next_page = page;
         let is_next = null;
-        if (res.data.tracks.tracks.length < 60) {
+        if (res.data.tracks.tracks.length < 9) {
           is_next = false;
           next_page = 1;
         } else {
