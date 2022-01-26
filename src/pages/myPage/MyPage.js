@@ -375,7 +375,7 @@ const Tag = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "endard Variable", serif;
+  font-family: "Pretendard Variable", serif;
   font-weight: 400;
   font-size: 14px;
   border: 0;
