@@ -2,8 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
 
-import { BsBellFill } from "react-icons/bs";
-
 const Header = (props) => {
   const { topMenu, noHeader } = props;
 
@@ -23,17 +21,6 @@ const Header = (props) => {
             history.push("/");
           }}
         ></L>
-        <FlexIcon>
-          <Temdiv>
-            {/* <BsBellFill
-              cursor="pointer"
-              size="22"
-              // onClick={() => {
-              //   history.push("/searchkeyword");
-              // }}
-            /> */}
-          </Temdiv>
-        </FlexIcon>
       </FlexSearchBar>
     );
   }
@@ -94,17 +81,4 @@ const L = styled.div`
   background-size: cover;
 `;
 
-const FlexIcon = styled.div`
-  display: flex;
-  vertical-align: center;
-`;
-
-const Temdiv = styled.div`
-  width: 22px;
-  height: 22px;
-  margin-left: 18px;
-  align-items: center;
-  vertical-align: center;
-`;
-
-export default Header;
+export default React.memo(Header);

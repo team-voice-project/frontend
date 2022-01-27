@@ -34,12 +34,13 @@ const getSearchDB = (keyword, page, track = 9) => {
       let is_next = null;
       if (res.data.tracks.length < 9) {
         is_next = false;
-        page = 1;
+        page = 0;
       } else {
         is_next = true;
       }
       let search_list = {
         searchLists: res.data.tracks,
+        page: page + 1,
         next: is_next,
       };
       dispatch(getSearch(search_list));
