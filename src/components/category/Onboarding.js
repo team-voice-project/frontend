@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -13,19 +13,21 @@ import { useHistory } from "react-router-dom";
 const OnBoarding = ({ onClose }) => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const [random_data, setRandomData] = useState({});
+
+  useEffect(() => {
+    dispatch(postActions.loadPostDB());
+    random();
+  }, []);
 
   const track_list = useSelector((state) => state.post.onboarding);
-  const randomData = () => {
+
+  const random = () => {
     if (track_list) {
       const random = Math.floor(Math.random() * track_list.length);
-      return track_list[random];
+      setRandomData(track_list[random]);
     }
   };
-
-  const random = randomData();
-  React.useEffect(() => {
-    dispatch(postActions.loadPostDB());
-  }, []);
 
   return (
     <Background>
@@ -33,7 +35,7 @@ const OnBoarding = ({ onClose }) => {
       <Container>
         <BoxDiv>
           <Flex>
-            <SmallCircle src={random && random.User.profileImage}></SmallCircle>
+            <SmallCircle src={random_data?.User?.profileImage}></SmallCircle>
             <div
               style={{
                 width: "280px",
@@ -41,32 +43,29 @@ const OnBoarding = ({ onClose }) => {
               }}
             >
               <Font title fontSizd="14px" margin="2px 0px 0px 8px">
-                {random && random.User.nickname}
+                {random_data?.User?.nickname}
               </Font>
             </div>
           </Flex>
           <ImgDiv>
             <OAOImage
-              src={random && random.TrackThumbnail.trackThumbnailUrlFull}
+              src={random_data?.TrackThumbnail?.trackThumbnailUrlFull}
             ></OAOImage>
           </ImgDiv>
 
           <FlexTag>
-            {random &&
-              random.TrackTags.map((l, i) => {
-                return (
-                  <div key={i} style={{ display: "inline-block" }}>
-                    <TagBox>{l.tag}</TagBox>
-                  </div>
-                );
-              })}
+            {random_data?.TrackTags?.map((l, i) => {
+              return (
+                <div key={i} style={{ display: "inline-block" }}>
+                  <TagBox>{l.tag}</TagBox>
+                </div>
+              );
+            })}
           </FlexTag>
 
-          <BoldFont>{random && random.title}</BoldFont>
+          <BoldFont>{random_data?.title}</BoldFont>
 
-          <SingleAudioPlayer
-            audio={random && random.trackUrl}
-          ></SingleAudioPlayer>
+          <SingleAudioPlayer audio={random_data?.trackUrl}></SingleAudioPlayer>
         </BoxDiv>
         <Button
           bg
