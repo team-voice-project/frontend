@@ -92,7 +92,7 @@
 
 
 
-## ✌🏻 개인 역할 및 트러블 슈팅 해결과정
+## ✌🏻 개인 역할 및 OAO개발 스토리
 
 <code>임찬수</code> 목소리 녹음, 목소리 플레이, 채팅, 프로필수정 구현
 </br>
@@ -104,7 +104,7 @@
 
 <code>김자운</code> 메인페이지, 카테고리 분류, 검색, 무한스크롤 구현
 
-<code>Trouble Shooting</code>  [트러블 슈팅 해결과정]("https://exuberant-dart-a7f.notion.site/0e96630aa4604f8ba979067733964100")
+<code>Trouble Shooting</code>  [OAO 개발 스토리]("https://docs.google.com/presentation/d/12tOozWSHAwsrzaOPfqFJLeN5VK48DRnnqZeHW5io0OU/edit?pli=1#slide=id.g110bb8e3f7e_3_180")
 
 </br>
 
@@ -120,7 +120,7 @@
 </br> 
 
 
-<code>김자운</code>  
+<code>김자운</code>  제일 긴 시간을 투자하기도 했고 팀원분들과 우리의 아이디어로 만들어낸 프로젝트라는 것이 정말 뜻깊은 것 같다. 과정은 정말 힘들었지만 결과는 보람있다. 많이 배우고 꾸준히 발전해서 앞으로도 좋은 프로젝트들을 해보고싶다.  무엇보다 어느 하나 쉽지 않았던 실전프로젝트를 끝까지 함께 해주시고 많이 도와주신 팀원분들에게 정말 감사하다. 
 
 </br>
 
