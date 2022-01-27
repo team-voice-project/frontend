@@ -78,4 +78,4 @@ const Name = styled.h1`
   font-size: 16px;
 `;
 
-export default RoomHeader;
+export default React.memo(RoomHeader);

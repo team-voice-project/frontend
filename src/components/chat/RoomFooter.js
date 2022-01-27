@@ -366,4 +366,4 @@ const RequestModal = styled.article`
   }
 `;
 
-export default RoomFooter;
+export default React.memo(RoomFooter);

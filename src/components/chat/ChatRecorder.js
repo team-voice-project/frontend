@@ -302,7 +302,7 @@ const ChatRecorder = ({
 
     try {
       const res = await apis.sendVoiceChat(send_data);
-      console.log("목소리 파일 전송 결과: ", res);
+      // console.log("목소리 파일 전송 결과: ", res);
       setRequestText("");
       return true;
     } catch (err) {
@@ -318,7 +318,7 @@ const ChatRecorder = ({
 
     const result = await sendVoiceData();
     if (result) {
-      console.log("목소리 전송이 성공했습니다.");
+      // console.log("목소리 전송이 성공했습니다.");
       const { uid, another } = createRoomId();
 
       // socket voice file send event

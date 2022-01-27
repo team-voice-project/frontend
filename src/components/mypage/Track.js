@@ -290,4 +290,4 @@ const Text = styled.p`
   overflow: hidden;
   display: block;
 `;
-export default Track;
+export default React.memo(Track);

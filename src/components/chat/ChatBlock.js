@@ -54,7 +54,6 @@ const ChatBlock = (props) => {
   const check = props.checkChat;
 
   const printMessageText = (message) => {
-    console.log("메세지", message);
     if (message.chatType === "image") {
       return "사진을 보냈습니다.";
     } else if (message.chatType === "audio") {

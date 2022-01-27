@@ -97,9 +97,6 @@ const ShareWrap = styled.article`
 
   .share-page-container {
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     padding: 16px;
   }
 
@@ -111,6 +108,7 @@ const ShareWrap = styled.article`
 
   .player-widget {
     flex: 1;
+    margin-bottom: 95px;
   }
 
   .track-info {
