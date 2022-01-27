@@ -17,7 +17,6 @@ const setModalTrack = createAction(SET_MODAL_TRACK, (track_info) => track_info);
 const viewModalDB = (trackId) => {
   return (dispatch, getState, { history }) => {
     apis.getTrackInfoDB(trackId).then((res) => {
-      console.log(res);
       dispatch(viewModal(true));
       dispatch(setModalTrack(res.data.track));
     });
