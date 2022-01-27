@@ -112,7 +112,7 @@ const RoomBody = ({
   );
 };
 
-export default RoomBody;
+export default React.memo(RoomBody);
 const ChatContentWrap = styled.div`
   .chat-body-container {
     padding: 0;

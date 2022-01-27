@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { actionCreators as playerActions } from "../../redux/modules/globalPlayer";
 
@@ -242,9 +242,10 @@ const PlayButton = styled.button`
     margin-right: 0px;
     @media screen and (max-width: 361px) {
       font-size: 28px;
-    margin-top: 0px;
-    margin-left: 0px;
-    margin-right: 1px;
+      margin-top: 0px;
+      margin-left: 0px;
+      margin-right: 1px;
+    }
   }
 `;
 
@@ -265,35 +266,4 @@ const Title = styled.div`
   }
 `;
 
-const Name = styled.div`
-  font-size: 12px;
-  margin-bottom: 5px;
-  @media screen and (max-width: 360px) {
-    font-size: 11px;
-  }
-`;
-
-const Count = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding-right: 60px;
-  @media screen and (max-width: 360px) {
-    padding-right: 30px;
-  }
-`;
-
-const IconDiv = styled.div`
-  width: 15px;
-  height: 15px;
-  margin-right: 5px;
-`;
-
-const LikeComment = styled.div`
-  font-size: 12px;
-  margin-right: 4px;
-  @media screen and (max-width: 360px) {
-    font-size: 11px;
-  }
-`;
-
-export default PlayBox;
+export default React.memo(PlayBox);

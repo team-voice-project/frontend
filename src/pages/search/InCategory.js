@@ -6,7 +6,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { actionCreators as postActions } from "../../redux/modules/post";
 import Skeleton from "../../components/mypage/Skeleton";
 import { actionCreators as searchActions } from "../../redux/modules/search";
-import { apis } from "../../shared/api";
+
 import CategoryModal from "../../components/category/CategoryModal";
 import Header from "../../components/category/Header";
 import Track from "../../components/mypage/Track";
