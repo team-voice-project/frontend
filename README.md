@@ -31,7 +31,7 @@
 </p>
 
 ## 🎥 시연 영상
- [![Hnet-image](https://user-images.githubusercontent.com/90129613/145665770-a2eb072f-3148-4e3b-afd9-0f9a8105c322.gif)](https://www.youtube.com/watch?v=jp-mZiaQwlo)<br>
+ [![Hnet-image](https://user-images.githubusercontent.com/93514215/150720442-e9bf2cf6-a1c2-40b4-882c-659da5679bbd.png)](https://www.youtube.com/watch?v=jp-mZiaQwlo)<br>
 
 
 ## 🧑🏼‍💻 개발기간 및 팀원소개
