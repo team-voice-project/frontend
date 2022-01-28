@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { actionCreators as searchActions } from "../../redux/modules/search";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 import Track from "../../components/mypage/Track";
 import { useLocation } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -24,12 +24,9 @@ const KeywordSearch = (props) => {
   const search_page = useSelector((state) => state.search.page);
   const has_more = useSelector((state) => state.search.has_more);
 
-  const [page, setPage] = useState(search_page);
-  const [searchWord, setSearchWord] = useState("");
-
   useEffect(() => {
-    dispatch(searchActions.getSearchDB(keyword, page));
-  }, [page]);
+    fetchData();
+  }, []);
 
   const inputRef = React.useRef();
 
@@ -39,9 +36,9 @@ const KeywordSearch = (props) => {
       window.alert("검색어를 두 글자 이상 입력해주세요OAO!");
     }
     if (value.length > 1 && keyword !== value) {
-      dispatch(searchActions.resetdata(page));
+      dispatch(searchActions.resetdata());
       dispatch(searchActions.getSearchDB(value, search_page));
-      setSearchWord(value);
+
       props.history.push({
         pathname: `/search`,
         state: { value: value },
@@ -49,25 +46,8 @@ const KeywordSearch = (props) => {
     }
   };
 
-  const mounted = React.useRef(false);
-
-  useEffect(() => {
-    const dispatchValue = () => {
-      const value = inputRef?.current?.value;
-      return value;
-    };
-    const searchValue = dispatchValue();
-    if (!mounted.current) {
-      mounted.current = true;
-    }
-    if (keyword !== searchValue) {
-      dispatch(searchActions.getSearchDB(searchValue, search_page));
-    }
-  }, [page]);
-
   const fetchData = () => {
-    let pages = page + 1;
-    setPage(pages);
+    dispatch(searchActions.getSearchDB(keyword, search_page));
   };
 
   const onClick = () => {
@@ -108,7 +88,7 @@ const KeywordSearch = (props) => {
                 <Flex
                   onClick={() => {
                     props.history.push("/searchKeyword");
-                    dispatch(searchActions.resetdata(page));
+                    dispatch(searchActions.resetdata());
                   }}
                 >
                   <RiArrowLeftSLine
@@ -159,7 +139,7 @@ const KeywordSearch = (props) => {
               <Flex
                 onClick={() => {
                   props.history.push("/searchKeyword");
-                  dispatch(searchActions.resetdata(page));
+                  dispatch(searchActions.resetdata());
                 }}
               >
                 <RiArrowLeftSLine size="30" cursor="pointer"></RiArrowLeftSLine>

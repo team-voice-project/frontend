@@ -77,7 +77,7 @@ const TagCategory = (props) => {
               cursor="pointer"
               size="32"
               onClick={() => {
-                props.history.goBack();
+                props.history.push(`/category/${name}`);
                 dispatch(searchActions.resetdata());
               }}
             />
