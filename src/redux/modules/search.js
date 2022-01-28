@@ -29,18 +29,20 @@ const setSearchLoading = createAction(SEARCH_LOADING, (loading) => ({
 
 //middleware
 const getSearchDB = (keyword, page, track = 20) => {
-  return function (dispatch, getState, { history }) {
+  return function (dispatch) {
     apis.search(keyword, page, track).then((res) => {
+      let next_page = page;
       let is_next = null;
       if (res.data.tracks.length < 20) {
         is_next = false;
-        page = 0;
+        next_page = 1;
       } else {
         is_next = true;
+        next_page = next_page + 1;
       }
       let search_list = {
         searchLists: res.data.tracks,
-        page: page + 1,
+        page: next_page,
         next: is_next,
       };
       dispatch(getSearch(search_list));
@@ -57,7 +59,7 @@ const loadCategoryDB = (
   page,
   track = 20
 ) => {
-  return function (dispatch, getState, { history }) {
+  return function (dispatch, { history }) {
     apis
       .category(category, tag1, tag2, tag3, page, track)
       .then((res) => {
