@@ -149,10 +149,6 @@ export default handleActions(
 
     [LOAD_CATEGORY]: (state, action) =>
       produce(state, (draft) => {
-        console.log(
-          "액션페이로드",
-          action.payload.category.categoryList.categoryTags
-        );
         draft.list.push(...action.payload.category.categoryList.tracks);
         draft.has_more = action.payload.category.next;
         draft.page = action.payload.category.page;
