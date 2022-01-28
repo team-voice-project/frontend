@@ -28,19 +28,21 @@ const setSearchLoading = createAction(SEARCH_LOADING, (loading) => ({
 }));
 
 //middleware
-const getSearchDB = (keyword, page, track = 20) => {
-  return function (dispatch, getState, { history }) {
+const getSearchDB = (keyword, page, track = 9) => {
+  return function (dispatch) {
     apis.search(keyword, page, track).then((res) => {
+      let next_page = page;
       let is_next = null;
-      if (res.data.tracks.length < 20) {
+      if (res.data.tracks.length < 9) {
         is_next = false;
-        page = 0;
+        next_page = 1;
       } else {
         is_next = true;
+        next_page = next_page + 1;
       }
       let search_list = {
         searchLists: res.data.tracks,
-        page: page + 1,
+        page: next_page,
         next: is_next,
       };
       dispatch(getSearch(search_list));
@@ -55,15 +57,15 @@ const loadCategoryDB = (
   tag2 = "",
   tag3 = "",
   page,
-  track = 20
+  track = 9
 ) => {
-  return function (dispatch, getState, { history }) {
+  return function (dispatch, { history }) {
     apis
       .category(category, tag1, tag2, tag3, page, track)
       .then((res) => {
         let next_page = page;
         let is_next = null;
-        if (res.data.tracks.tracks.length < 20) {
+        if (res.data.tracks.tracks.length < 9) {
           is_next = false;
           next_page = 1;
         } else {
@@ -95,7 +97,7 @@ const loadTagDB = (
   tag2 = "",
   tag3 = "",
   page,
-  track = 20
+  track = 9
 ) => {
   return function (dispatch, getState, { history }) {
     apis
@@ -104,7 +106,7 @@ const loadTagDB = (
         const tags = [`${tag1}`, `${tag2}`, `${tag3}`];
         let next_page = page;
         let is_next = null;
-        if (res.data.tracks.tracks.length < 20) {
+        if (res.data.tracks.tracks.length < 9) {
           is_next = false;
           next_page = 1;
         } else {
@@ -147,6 +149,10 @@ export default handleActions(
 
     [LOAD_CATEGORY]: (state, action) =>
       produce(state, (draft) => {
+        console.log(
+          "액션페이로드",
+          action.payload.category.categoryList.categoryTags
+        );
         draft.list.push(...action.payload.category.categoryList.tracks);
         draft.has_more = action.payload.category.next;
         draft.page = action.payload.category.page;

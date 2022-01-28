@@ -27,7 +27,6 @@ const InCategory = (props) => {
   const trackWrapRef = useRef(null);
 
   const [show_modal, setShowModal] = useState(false);
-  const [page, setPage] = useState(category_page);
 
   const openModal = () => {
     setShowModal(true);
@@ -39,16 +38,16 @@ const InCategory = (props) => {
   }, []);
 
   useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = () => {
     const tag1 = "";
     const tag2 = "";
     const tag3 = "";
-    dispatch(searchActions.loadCategoryDB(name, tag1, tag2, tag3, page));
-  }, [name, page]);
-
-  const fetchData = () => {
-    let pages = page + 1;
-
-    setPage(pages);
+    dispatch(
+      searchActions.loadCategoryDB(name, tag1, tag2, tag3, category_page)
+    );
   };
 
   return (
@@ -73,7 +72,7 @@ const InCategory = (props) => {
               size="32"
               onClick={() => {
                 props.history.goBack();
-                dispatch(searchActions.resetdata(page));
+                dispatch(searchActions.resetdata());
               }}
             />
             <Font title fontSize="18px" margin="5px 0px 0px 0px">
