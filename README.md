@@ -104,7 +104,7 @@
 
 <code>김자운</code> 메인페이지, 카테고리 분류, 검색, 무한스크롤 구현
 
-<code>Trouble Shooting</code>  [OAO 개발 스토리]("https://docs.google.com/presentation/d/1rbs5R7WFFPdeGF64voecsNe2SVMDS9BRRDsOKhastfI/edit#slide=id.p")
+<code>OAO개발 스토리</code>  [OAO 개발 스토리]("https://docs.google.com/presentation/d/1rbs5R7WFFPdeGF64voecsNe2SVMDS9BRRDsOKhastfI/edit#slide=id.p")
 </br>
 
 
